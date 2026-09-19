@@ -8,45 +8,45 @@
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/opencc-js@1/dist/umd/full.js"></script>
 <style>
-:root{--bg:#fff7ed;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#fed7aa;--brand:#0e7490;--chip:#ecfeff;--c1:#0ea5e9;--c2:#8b5cf6;--c3:#ec4899;--c4:#f59e0b;--c5:#10b981;--c6:#ef4444}
+:root{--bg:#f5f1e8;--card:#fdfcf9;--ink:#4a4a45;--muted:#8a8a82;--line:#e2ddd0;--brand:#7d9b8a;--chip:#f4f1e9;--c1:#8aa8b5;--c2:#9b8fa6;--c3:#c09a97;--c4:#c9b183;--c5:#8ba48e;--c6:#b57e7e}
 *{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#fff7ed,#fdf2f8 40%,#eff6ff);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.7}
-header{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,#0ea5e9,#8b5cf6 55%,#ec4899);border-bottom:none;color:#fff}
-header .top p{color:#ffe4e6}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.7}
+header{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,#8aa8b5,#9b8fa6);border-bottom:none;color:#fff}
+header .top p{color:#f4f1e9}
 .wrap{max-width:920px;margin:0 auto;padding:0 16px}
-.top{padding:14px 0}.top h1{font-size:1.2rem;margin:0;text-shadow:0 1px 6px #0003}.top p{margin:4px 0 0;font-size:.9rem}
+.top{padding:14px 0}.top h1{font-size:1.2rem;margin:0;text-shadow:0 1px 4px #0002}.top p{margin:4px 0 0;font-size:.9rem}
 .tabs{display:flex;gap:8px;padding:0 0 12px}
-.tabs button{flex:1;padding:12px;border-radius:12px;border:2px solid #ffffff88;background:#ffffffdd;font-size:1rem;font-weight:700;cursor:pointer}
-.tabs button.active{background:#fbbf24;color:#7c2d12;border-color:#fbbf24}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 10px #fb923c22}
+.tabs button{flex:1;padding:12px;border-radius:12px;border:2px solid #ffffff66;background:#ffffffb0;color:#5a5348;font-size:1rem;font-weight:700;cursor:pointer}
+.tabs button.active{background:#e8e0d0;color:#4a4a45;border-color:#e8e0d0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 2px 8px #0000000f}
 #block1{border-top:6px solid var(--c3)}
 #block2{border-top:6px solid var(--c1)}
-.badge{display:inline-block;background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #f59e0b;color:#92400e;border-radius:999px;padding:2px 10px;font-size:.8rem;margin-right:6px;font-weight:700}
-#block2 .badge{background:linear-gradient(135deg,#dbeafe,#e0e7ff);border-color:#6366f1;color:#3730a3}
-input,textarea,select{width:100%;padding:10px 12px;border:2px solid #fed7aa;border-radius:10px;font-size:1rem;margin-top:8px;background:#fffbeb}
+.badge{display:inline-block;background:#efe9db;border:1px solid #d8d2c2;color:#6b6257;border-radius:999px;padding:2px 10px;font-size:.8rem;margin-right:6px;font-weight:700}
+#block2 .badge{background:#e8e6df;border-color:#c9c5b8;color:#5a5750}
+input,textarea,select{width:100%;padding:10px 12px;border:2px solid #d8d2c2;border-radius:10px;font-size:1rem;margin-top:8px;background:#fdfcf9;color:var(--ink)}
 textarea{min-height:80px;resize:vertical}
-button.primary{background:linear-gradient(135deg,#f43f5e,#f59e0b);color:#fff;border:none;border-radius:12px;padding:12px;width:100%;font-size:1.05rem;font-weight:700;margin-top:10px;cursor:pointer;box-shadow:0 3px 10px #f43f5e44}
-button.ghost{background:#fff;border:2px solid #e9d5ff;border-radius:10px;padding:10px;margin-top:8px;cursor:pointer;width:100%}
-#preview{max-width:100%;border-radius:12px;margin-top:10px;display:none;border:3px solid #fbcfe8}
+button.primary{background:#7d9b8a;color:#fff;border:none;border-radius:12px;padding:12px;width:100%;font-size:1.05rem;font-weight:700;margin-top:10px;cursor:pointer;box-shadow:0 2px 8px #7d9b8a44}
+button.ghost{background:#fff;border:2px solid #d8d2c2;color:#5a5348;border-radius:10px;padding:10px;margin-top:8px;cursor:pointer;width:100%}
+#preview{max-width:100%;border-radius:12px;margin-top:10px;display:none;border:3px solid #d8d2c2}
 .ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
 @media(max-width:640px){.ch-grid{grid-template-columns:repeat(2,1fr)}}
-.ch-grid button{padding:10px;border-radius:12px;border:2px solid #e9d5ff;background:linear-gradient(180deg,#fff,#faf5ff);cursor:pointer;font-weight:600}
-.ch-grid button:nth-child(3n+1){border-color:#67e8f9;background:linear-gradient(180deg,#fff,#ecfeff)}
-.ch-grid button:nth-child(3n+2){border-color:#f9a8d4;background:linear-gradient(180deg,#fff,#fdf2f8)}
-.ch-grid button:nth-child(3n){border-color:#fcd34d;background:linear-gradient(180deg,#fff,#fffbeb)}
-.ch-grid button.active{background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;border-color:transparent}
-.key{background:linear-gradient(180deg,#fffbeb,#fefce8);border:2px dashed #f59e0b;border-radius:12px;padding:10px 12px;margin-top:10px}
-code{background:#fce7f3;color:#9d174d;padding:1px 6px;border-radius:6px}
-.ex{border-left:6px solid #8b5cf6;background:linear-gradient(90deg,#faf5ff,#fdf2f8);padding:8px 12px;border-radius:0 10px 10px 0;margin-top:10px}
+.ch-grid button{padding:10px;border-radius:12px;border:2px solid #e2ddd0;background:#f7f4ec;color:#5a5348;cursor:pointer;font-weight:600}
+.ch-grid button:nth-child(3n+1){border-color:#d8d2c2;background:#f7f4ec}
+.ch-grid button:nth-child(3n+2){border-color:#d8d2c2;background:#f7f4ec}
+.ch-grid button:nth-child(3n){border-color:#d8d2c2;background:#f7f4ec}
+.ch-grid button.active{background:#7d9b8a;color:#fff;border-color:#7d9b8a}
+.key{background:#f7f4ec;border:2px dashed #c9bfa9;border-radius:12px;padding:10px 12px;margin-top:10px}
+code{background:#efe9db;color:#6b6257;padding:1px 6px;border-radius:6px}
+.ex{border-left:6px solid #9b8fa6;background:#f4f1e9;padding:8px 12px;border-radius:0 10px 10px 0;margin-top:10px}
 .muted{color:var(--muted);font-size:.9rem}
-.hist{font-size:.9rem;color:#334155}.hist li{margin-bottom:6px}
+.hist{font-size:.9rem;color:#5a5750}.hist li{margin-bottom:6px}
 .hide{display:none!important}
 footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 </style>
 </head>
 <body>
 <header>
-<div class="wrap top"><h1>高職經濟學｜拍照解題＋1–19章 <span style="font-size:.75rem;background:#fbbf24;color:#7c2d12;border-radius:999px;padding:2px 8px">v2026-09-17-08</span></h1>
+<div class="wrap top"><h1>高職經濟學｜拍照解題＋1–19章 <span style="font-size:.75rem;background:#e8e0d0;color:#4a4a45;border-radius:999px;padding:2px 8px">v2026-09-17-08</span></h1>
 <p>第一塊拍照上傳當場解題・第二塊點選看每章詳細內容・手機可看</p></div>
 <div class="wrap tabs">
 <button id="t1" class="active" onclick="showTab(1)">① 拍照解題</button>
