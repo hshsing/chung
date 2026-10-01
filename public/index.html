@@ -164,7 +164,7 @@ async function solve(manual){
   const g=autoCh||guessCh(all)||guessCh(fixed)||'自動判斷（建議到第二塊搜尋公式）';
  const ci=CH.findIndex(c=>(g||"").includes(c[0]));
  const c=ci>=0?CH[ci]:null;
-   box.innerHTML=`<b>詳解（自動版）</b><br>① 題目文字（OCR＋輸入）：${(all||"（圖片為主）").replace(/</g,'&lt;').slice(0,400)}<br>② 考什麼觀念：<b>${g.replace(/</g,'&lt;')}</b>${c?` → 必記 <code>${c[4]}</code> <button class="ghost" style="width:auto;display:inline-block" onclick="gotoCh(${ci})">回看 ${c[0]}</button>`:""}<br>③ 詳細步驟：a)抓關鍵詞→對觀念表 b)列公式代入 c)排除易混選項（例如量變vs變動、名目vs實質、短期vs長期） d)回代檢查單位與方向。<br>④ 易錯：上限下限方向、Ed>1/<1收益方向、MU/P相等、P vs AVC續產、名目實質、升貶出口方向。<br>⑤ 對照：到第二塊點 ${c?c[0]+" "+c[1]:"相關章"} 看公式＋範例。<br><br><span class="muted">完整拍照AI詳解需後端綁 Workers AI（目前帳號 token 401 無權限，已放 functions/api/solve.js，綁定後即全自動）。急用可按下方複製貼給 AI。</span>`;
+   box.innerHTML=`<b>詳解（自動版）</b><br>① 考什麼觀念：<b>${g.replace(/</g,'&lt;')}</b>${c?` → 必記 <code>${c[4]}</code> <button class="ghost" style="width:auto;display:inline-block" onclick="gotoCh(${ci})">回看 ${c[0]}</button>`:""}<br>② 詳細步驟：a)抓關鍵詞→對觀念表 b)列公式代入 c)排除易混選項（例如量變vs變動、名目vs實質、短期vs長期） d)回代檢查單位與方向。<br>③ 易錯：上限下限方向、Ed>1/<1收益方向、MU/P相等、P vs AVC續產、名目實質、升貶出口方向。<br>④ 對照：到第二塊點 ${c?c[0]+" "+c[1]:"相關章"} 看公式＋範例。<br><br><span class="muted">完整拍照AI詳解需後端綁 Workers AI（目前帳號 token 401 無權限，已放 functions/api/solve.js，綁定後即全自動）。急用可按下方複製貼給 AI。</span>`;
  saveHist(extra.slice(0,30)||"圖片題",g);
 }
 async function tryPost(silent){
