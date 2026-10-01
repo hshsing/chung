@@ -45,7 +45,7 @@ export async function onRequestPost(context) {
         '若有字看不清楚，不臆測、不編造數字選項正負號；只在開頭用一句說明缺了什麼資訊。' +
         '若關鍵數字或選項看不清，不可硬給答案，改給：解題方法、公式、代入示範、易錯點，並請學生補拍清楚處。' +
         '再解題：1)詳細步驟 2)考CH幾什麼觀念（對照CH1-19） 3)公式與易錯點。絕對不要出類似題、檢核題、練習題。' +
-        '全篇只准繁體中文，禁簡體。公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值直接用 | |，不要用 left right，絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。' +
+        '全篇只准繁體中文，禁簡體。公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _（例如只能寫 Es 不准寫 E_s 或 $E_s$），不要用 left right，絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。' +
         '補充文字：' +
         text;
       out = await context.env.AI.run(VISION, {
@@ -85,7 +85,9 @@ export async function onRequestPost(context) {
       .replace(/(?:\bspace\b\s*){2,}/gi, '')
       .replace(/\bleft\b\s*\|\s*/gi, '|')
       .replace(/\s*\|\s*\bright\b/gi, '|')
-      .replace(/\$\s*\$/g, '');
+      .replace(/\$\s*\$/g, '')
+      .replace(/\$/g, '')
+      .replace(/_/g, '');
     return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19' });
   } catch (e) {
     return Response.json({ error: String(e).slice(0, 300), fallback: true }, { status: 500 });

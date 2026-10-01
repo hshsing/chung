@@ -180,7 +180,7 @@ async function tryPost(silent){
    const ans=(j.answer||'').toString();
    if(/無法.*看到|看不到|無法直接|can't see|cannot see/i.test(ans))return false;
    const box=document.getElementById('answer');
-   const shown=toTW(clean((j.answer||'').toString()));
+   const shown=toTW(clean((j.answer||'').toString())).replace(/\$/g,'').replace(/_/g,'');
    box.innerHTML=`<b>詳解（後端 AI）</b><br>${shown.replace(/</g,'&lt;').replace(/\n/g,'<br>')}<br><b>觀念回看：</b>${linkCh(shown)||'（到第二塊搜尋公式）'}`;
   saveHist(document.getElementById('qtext').value.slice(0,30)||"圖片題",shown.slice(0,60));
   return true;
