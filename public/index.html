@@ -70,8 +70,8 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 <button class="ghost" onclick="runOcr()">重新辨識</button>
 <label><b>3. 補充（你的想法、卡在哪）</b></label>
 <textarea id="qtext" placeholder="例如：這題我算到 Ed=2 但答案是…"></textarea>
-<label><b>4. 你猜是哪一章？（可選）</b></label>
-<select id="guess"><option value="">不知道／自動判斷</option></select>
+<label><b>4. 哪一章？（上傳後自動辨識）</b></label>
+<div id="autoch" class="key">尚未上傳，拍照後自動判斷章節</div>
 <button class="primary" onclick="solve(true)">確認文字無誤，解題</button>
 <div id="answer" class="key hide"></div>
 <div id="ocrstat" class="muted"></div>
@@ -117,8 +117,8 @@ const CH=[
 ["CH18","經濟波動","循環四階段7-11年三指標；摩擦結構循環；需求拉成本推；菲力普痛苦","循環／三指標／三失業／停滯／菲力普痛苦／菜單皮鞋","失業率=失業/勞動力；痛苦=通膨+失業","蕭條降稅增工程","算痛苦判利誰"],
 ["CH19","經濟成長與經濟發展","成長PPC外移發展加社文；六學者；貧窮循環；台灣七階段知識經濟","成長發展／貧窮循環／H-D／內外生／know／知識經濟","Gt=(Yt-Yt-1)/Yt-1；G=S/V","豆豆國稀釋效果","算成長指認學者"]
 ];
-const guess=document.getElementById('guess');
-CH.forEach((c,i)=>{let o=document.createElement('option');o.value=c[0];o.textContent=c[0]+" "+c[1];guess.appendChild(o);});
+let autoCh="";
+function updateAutoCh(s){const g=guessCh(s||"");autoCh=g||"";const el=document.getElementById('autoch');if(el)el.innerHTML=g?("判斷為：<b>"+g.replace(/</g,'&lt;')+"</b>"):("尚未判斷出來，請確認辨識文字後按解題");}
 function showTab(n){document.getElementById('block1').classList.toggle('hide',n!==1);document.getElementById('block2').classList.toggle('hide',n!==2);document.getElementById('t1').classList.toggle('active',n===1);document.getElementById('t2').classList.toggle('active',n===2);window.scrollTo({top:0,behavior:'smooth'});}
 const file=document.getElementById('file'),preview=document.getElementById('preview'),finfo=document.getElementById('finfo'),ocrstat=document.getElementById('ocrstat');
 let imgs=[];
@@ -136,11 +136,12 @@ async function runOcr(){const box=document.getElementById('ocrtext');if(!imgs.le
   const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),55000);
   const fd=new FormData();fd.append('images',imgs[0]);
   const r=await fetch('/api/ocr',{method:'POST',body:fd,signal:ctl.signal});clearTimeout(to);clearInterval(timer);
-  if(r.ok){const j=await r.json();if(j.text){box.value=toTW(clean(j.text));ocrstat.textContent='辨識完成，請逐字核對修改□處，再按解題。';return;}ocrstat.textContent='後端無文字，改本機辨識…';}
-  else{ocrstat.textContent=`後端忙碌（${r.status}），改本機辨識（約10–20秒）…`;}
- }catch(e){clearInterval(timer);ocrstat.textContent='AI 逾時，改本機辨識（約10–20秒）…';}
- try{if(window.Tesseract){const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');box.value=(t.data.text||'').slice(0,800);ocrstat.textContent='本機辨識完成，請核對修改再按解題。';return;}}catch(e){}
- ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';}
+  if(r.ok){const j=await r.json();if(j.text){box.value=toTW(clean(j.text));ocrstat.textContent='辨識完成，已自動判斷章節，請核對□處再按解題。';updateAutoCh(box.value);return;}ocrstat.textContent='後端無文字，改本機辨識…';}
+   else{ocrstat.textContent=`後端忙碌（${r.status}），改本機辨識（約10–20秒）…`;}
+  }catch(e){clearInterval(timer);ocrstat.textContent='AI 逾時，改本機辨識（約10–20秒）…';}
+  try{if(window.Tesseract){const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');box.value=(t.data.text||'').slice(0,800);ocrstat.textContent='本機辨識完成，已自動判斷章節，請核對再按解題。';updateAutoCh(box.value);return;}}catch(e){}
+  ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';}
+document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.target.value));
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('qtext').value.trim()){if(manual)alert('請先拍照上傳或輸入文字');return;}
@@ -157,9 +158,10 @@ async function solve(manual){
    ocr=(r.data.text||"").slice(0,800);ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字＋補充文字判斷。";
   }
  }catch(e){ocrstat.textContent="辨識失敗，改用補充文字判斷。";}
- const extra=document.getElementById('qtext').value||"";
- const all=(ocr+"\n"+extra).slice(0,1200);
- const g=document.getElementById('guess').value||guessCh(all)||'自動判斷（建議到第二塊搜尋公式）';
+  const extra=document.getElementById('qtext').value||"";
+  const fixed=document.getElementById('ocrtext').value||"";
+  const all=(ocr+"\n"+fixed+"\n"+extra).slice(0,1200);
+  const g=autoCh||guessCh(all)||guessCh(fixed)||'自動判斷（建議到第二塊搜尋公式）';
  const ci=CH.findIndex(c=>(g||"").includes(c[0]));
  const c=ci>=0?CH[ci]:null;
    box.innerHTML=`<b>詳解（自動版）</b><br>① 題目文字（OCR＋輸入）：${(all||"（圖片為主）").replace(/</g,'&lt;').slice(0,400)}<br>② 考什麼觀念：<b>${g.replace(/</g,'&lt;')}</b>${c?` → 必記 <code>${c[4]}</code> <button class="ghost" style="width:auto;display:inline-block" onclick="gotoCh(${ci})">回看 ${c[0]}</button>`:""}<br>③ 詳細步驟：a)抓關鍵詞→對觀念表 b)列公式代入 c)排除易混選項（例如量變vs變動、名目vs實質、短期vs長期） d)回代檢查單位與方向。<br>④ 易錯：上限下限方向、Ed>1/<1收益方向、MU/P相等、P vs AVC續產、名目實質、升貶出口方向。<br>⑤ 對照：到第二塊點 ${c?c[0]+" "+c[1]:"相關章"} 看公式＋範例。<br><br><span class="muted">完整拍照AI詳解需後端綁 Workers AI（目前帳號 token 401 無權限，已放 functions/api/solve.js，綁定後即全自動）。急用可按下方複製貼給 AI。</span>`;
