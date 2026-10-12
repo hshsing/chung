@@ -172,9 +172,37 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 </div>
 <textarea id="qtext" placeholder="點上方標籤自動填入，或輸入你的卡關點（例：我算到 Ed=1.5 但答案給 0.8…）"></textarea>
 
-<!-- 章節判斷 -->
-<label style="margin-top:10px;display:block"><b>4. 判斷章節（自動鎖定考點）</b></label>
-<div id="autoch" class="key">尚未上傳，拍照或載入題目後自動判斷章節</div>
+<!-- 4. 判斷章節與手動鎖定 -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:4px">
+  <label style="margin:0"><b>4. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
+  <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
+</div>
+
+<div id="autoch-box" class="key" style="background:#fff8f5;border:2px solid var(--line);border-radius:12px;padding:12px;margin-top:6px">
+  <!-- 主要診斷結果顯示 -->
+  <div id="autoch-status" style="font-weight:700;color:var(--brand);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+    <span>🔍 尚未輸入題目，拍照或選上方範例後自動判斷</span>
+  </div>
+  
+  <!-- 候選章節切換膠囊 -->
+  <div id="candidate-chips" style="display:none;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)">
+    <span class="muted" style="font-size:.82rem">相關候選考點（點擊切換）：</span>
+    <span id="candidate-list"></span>
+  </div>
+
+  <!-- 手動下拉選單（100%自主權） -->
+  <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+    <span style="font-size:.85rem;font-weight:600;white-space:nowrap;color:#431407">自選章節：</span>
+    <select id="userch-select" onchange="onManualChChange()" style="flex:1;margin:0;padding:6px 10px;font-size:.9rem;background:#fff;border:1.5px solid var(--line);border-radius:8px">
+      <option value="-1">-- 自動診斷（系統推薦）--</option>
+    </select>
+  </div>
+
+  <!-- 即時核心公式預覽 -->
+  <div id="ch-preview-hint" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem">
+    <b>📖 本章必考核心公式：</b><code id="ch-preview-formula"></code>
+  </div>
+</div>
 
 <!-- 解題按鈕 -->
 <button class="primary" onclick="solve(true)">確認文字無誤，開始解題 🚀</button>
@@ -226,7 +254,300 @@ const CH=[
 ["CH19","經濟成長與經濟發展","成長是量變（GDP、PPC外移），發展是質變加量變（還含教育衛生制度文化）。成長率Gt = (今年實質GDP - 去年)/去年。哈羅德多瑪說成長率G = 儲蓄率S / 資本產出比V：想長得快，多存或提高資本效率。貧窮惡性循環：窮所以存得少，存少投得少，生產低又窮。成長理論六學者要認：亞當斯密分工、馬爾薩斯人口、熊彼得創新、哈羅德多瑪資本、索羅科技外生、新成長知識內生。知識經濟靠人力資本與創新，台灣走過農改、進口替代、出口擴張、十大建設、高科技園區到知識經濟七階段。稀釋效果：人口長太快會吃掉成長。","成長與發展／成長率／PPC外移／哈羅德多瑪／貧窮循環／六學者／內生與外生成長／知識經濟／台灣七階段／稀釋效果。","Gt = (Yt - Yt-1) / Yt-1 乘 100%。哈羅德多瑪：G = S / V。","去年實質1000億、今年1050億，成長率5%。儲蓄率20%、V = 4，G = 5%。豆豆國所得增6%但人口增8%，每人反而減，叫稀釋效果。看到創新破壞舊產業想到熊彼得，看到S/V想到哈羅德多瑪。","檢核1：只有GDP增、教育衛生沒進步，是成長還發展？（成長）檢核2：S = 24%、V = 6，G多少？（4%）檢核3：知識當生產要素內生決定成長，是哪派？"]
 ];
 let autoCh="";
-function updateAutoCh(s){const g=guessCh(s||"");autoCh=g||"";const el=document.getElementById('autoch');if(el)el.innerHTML=g?("判斷為：<b>"+g.replace(/</g,'&lt;')+"</b>"):("尚未判斷出來，請確認辨識文字後按解題");}
+let manualChIndex=-1; // -1: 自動診斷推薦; 0~18: 學生手動鎖定指定章節
+let detectedCandidates=[]; // 候選清單 [{ idx, ch, name, score, hits }]
+
+const CHAPTER_DICT=[
+  {
+    idx: 0, ch: "CH1", name: "經濟基本概念",
+    tier1: ["ppc", "mrt", "生產可能曲線", "邊際轉換率", "機會成本", "稀少性", "自由財", "經濟財", "配置效率", "生產效率", "實證經濟", "規範經濟", "演繹法", "歸納法"],
+    tier2: ["經濟問題", "為誰生產", "如何生產", "基本問題", "循環圖", "要素市場", "家計", "凹向原點", "線內閒置", "線外達不到", "經濟原則"],
+    anti: ["會計成本", "邊際成本", "短期成本", "平均成本", "成本函數", "tc", "ac", "mc"]
+  },
+  {
+    idx: 1, ch: "CH2", name: "需求與供給",
+    tier1: ["需求法則", "供給法則", "需求彈性", "供給彈性", "弧彈性", "點彈性", "價格上限", "價格下限", "需求量變動", "需求變動", "替代財", "互補財", "正常財", "劣等財", "季芬財", "炫耀財", "ed", "es", "短缺", "過剩", "薄利多銷"],
+    tier2: ["均衡價格", "均衡數量", "均衡交易量", "總收益", "tr", "買方", "賣方", "供給量", "線上的移動", "線的移動", "降價", "漲價", "黑市"],
+    anti: ["引申需求", "要素需求", "總需求", "總供給", "邊際效用", "消費者剩餘", "cs", "勞動供給"]
+  },
+  {
+    idx: 2, ch: "CH3", name: "消費行為理論",
+    tier1: ["邊際效用", "總效用", "邊際效用遞減", "mu", "tu", "消費者剩餘", "cs", "水與鑽石", "鑽石與水", "恩格爾", "恩格爾法則", "恩格爾曲線", "消費者主權", "mux/px", "等邊際效用"],
+    tier2: ["主觀滿足", "滿足程度", "願意付", "實際付", "消費量", "每元效用", "偏好"],
+    anti: ["邊際產量", "邊際成本", "生產者剩餘", "ps", "邊際產值"]
+  },
+  {
+    idx: 3, ch: "CH4", name: "生產理論",
+    tier1: ["總產量", "平均產量", "邊際產量", "tp", "ap", "mp", "報酬遞減法則", "邊際報酬遞減", "合理生產區", "第二階段", "生產四要素", "馬爾薩斯人口論"],
+    tier2: ["短期與長期", "固定要素", "變動要素", "產量", "勞動投入", "資本投入", "mp穿過ap", "tp最大"],
+    anti: ["邊際成本", "總成本", "平均成本", "mc", "ac", "tc", "會計成本"]
+  },
+  {
+    idx: 4, ch: "CH5", name: "成本理論",
+    tier1: ["總成本", "固定成本", "變動成本", "邊際成本", "平均成本", "平均固定成本", "平均變動成本", "tc", "tfc", "tvc", "ac", "atc", "afc", "avc", "mc", "規模經濟", "規模不經濟", "內部經濟", "外部經濟", "lac", "lmc", "sac", "smc", "最適規模", "經濟利潤", "會計利潤", "內含成本", "隱藏成本", "外顯成本"],
+    tier2: ["正常利潤", "超額利潤", "規模報酬", "u形", "最低點", "短期成本", "長期成本"],
+    anti: ["機會成本", "ppc", "mrt", "生產可能", "完全競爭", "歇業", "第一級差別", "第二級差別", "第三級差別"]
+  },
+  {
+    idx: 5, ch: "CH6", name: "市場結構與廠商收益",
+    tier1: ["價格接受者", "價格決定者", "市場結構", "完全競爭市場", "純粹獨占", "自然獨占", "ar=mr=p", "p=ar=mr", "mr=p", "水平需求線", "進出障礙", "產品異質", "產品同質"],
+    tier2: ["平均收益", "邊際收益", "ar", "mr", "訂價能力", "定價能力"],
+    anti: ["歇業點", "卡特爾", "差別取價", "跟跌不跟漲", "拗折", "停止營業", "歇業"]
+  },
+  {
+    idx: 6, ch: "CH7", name: "完全競爭產量與價格",
+    tier1: ["完全競爭短期均衡", "歇業點", "歇業", "損益平衡點", "停止營業點", "停止營業", "短期供給線", "p=mr=mc", "最低avc", "最低ac", "avc最低點", "p>=avc", "p<avc", "短期虧損續產", "lac最低點"],
+    tier2: ["完全競爭", "廠商均衡", "長期均衡", "正常利潤", "利潤極大產量"],
+    anti: ["獨占", "寡占", "卡特爾", "差別取價", "拗折"]
+  },
+  {
+    idx: 7, ch: "CH8", name: "獨占產量與價格",
+    tier1: ["第一級差別取價", "第二級差別取價", "第三級差別取價", "差別取價", "價格歧視", "差別訂價", "完全差別取價", "邊際成本訂價法", "平均成本訂價法", "管制獨占", "無謂損失", "市場區隔", "禁止轉售"],
+    tier2: ["獨占廠商", "獨占者", "獨占利潤", "mr=mc定量", "對ar定價"],
+    anti: ["獨占性競爭", "寡占", "完全競爭", "拗折需求線"]
+  },
+  {
+    idx: 8, ch: "CH9", name: "不完全競爭產量與價格",
+    tier1: ["拗折需求線", "價格僵固", "價格僵固性", "跟跌不跟漲", "卡特爾", "價格領導制", "價格領導", "割喉戰", "割喉式競爭", "加成訂價", "非價格競爭", "異質產品", "斯威齊模型"],
+    tier2: ["獨占性競爭", "寡占", "互相猜心", "聯合壟斷", "電信三雄", "速食店"],
+    anti: ["完全競爭", "純粹獨占", "自然獨占"]
+  },
+  {
+    idx: 9, ch: "CH10", name: "分配理論",
+    tier1: ["羅倫茲曲線", "吉尼係數", "lorenz", "gini", "五等分位", "最高20%", "最低20%", "引申需求", "聯合需求", "vmp", "mrp", "邊際產值", "邊際產出收益", "vmpl", "mrpl", "要素需求", "功能性分配", "個人所得分配"],
+    tier2: ["貧富差距", "不均等", "要素報酬", "工資地租利息利潤", "最適雇用", "雇用量"],
+    anti: ["國民所得", "gdp", "gni", "實質工資", "名目工資"]
+  },
+  {
+    idx: 10, ch: "CH11", name: "工資與地租",
+    tier1: ["實質工資", "名目工資", "後彎的勞動供給", "勞動供給後彎", "工會", "最低工資率", "差額地租", "李嘉圖地租", "準租", "經濟租", "地價公式", "年地租/利率", "勞動力", "勞動參與率"],
+    tier2: ["薪資", "地租", "休閒與工作", "所得效果大於替代效果", "購買力", "民間人口"],
+    anti: ["失業率", "自然失業率", "景氣循環", "菲力普"]
+  },
+  {
+    idx: 11, ch: "CH12", name: "利息與利潤",
+    tier1: ["實質利率", "名目利率", "費雪效果", "可貸資金學說", "可貸資金說", "流動性偏好學說", "時間偏好", "投資邊際效率", "mei", "預期報酬率", "承擔風險說", "創新理論", "熊彼得利潤", "正常利潤與超額利潤"],
+    tier2: ["利息", "利潤", "利息率", "借貸", "資金供需", "資本財", "淨收入"],
+    anti: ["貨幣乘數", "存款準備率", "m1a", "m1b", "準備率"]
+  },
+  {
+    idx: 12, ch: "CH13", name: "國民所得",
+    tier1: ["國內生產毛額", "國民生產毛額", "國民所得", "gdp", "gni", "gnp", "三面等價", "生產面加值", "支出面", "所得面", "gdp平減指數", "可支配所得", "di", "平均每人gdp", "綠色gdp", "new", "中間產品", "最終財", "國外要素所得淨額"],
+    tier2: ["c+i+g+(x-m)", "名目gdp", "實質gdp", "折舊", "間接稅", "移轉支出", "總產出"],
+    anti: ["簡單凱因斯", "消費函數", "緊縮缺口", "膨脹缺口", "45度線"]
+  },
+  {
+    idx: 13, ch: "CH14", name: "所得水準的決定",
+    tier1: ["簡單凱因斯", "邊際消費傾向", "邊際儲蓄傾向", "mpc", "mps", "消費函數", "儲蓄函數", "45度線", "膨脹缺口", "緊縮缺口", "有效需求", "自發性消費", "自發性投資", "政府支出乘數", "稅收乘數", "平衡預算乘數", "節儉的矛盾", "節儉矛盾", "均衡所得", "ye"],
+    tier2: ["乘數", "充分就業所得", "c=a+by", "自發性", "誘發性", "k="],
+    anti: ["貨幣乘數", "存款乘數", "準備率", "m1a", "m1b", "m2"]
+  },
+  {
+    idx: 14, ch: "CH15", name: "貨幣與金融",
+    tier1: ["交易媒介", "計價標準", "延期支付", "價值儲藏", "m1a", "m1b", "m2", "費雪交易方程式", "mv=pt", "劍橋方程式", "m=kpy", "流動性陷阱", "存款準備率", "存款乘數", "貨幣乘數", "重貼現率", "公開市場操作", "三大政策工具", "活期儲蓄存款", "法定準備金", "超額準備"],
+    tier2: ["貨幣供給", "貨幣需求", "貨幣數量學說", "中央銀行", "買進債券", "賣出債券", "貨幣政策", "準備率"],
+    anti: ["政府支出乘數", "稅收乘數", "平衡預算乘數", "財政政策"]
+  },
+  {
+    idx: 15, ch: "CH16", name: "政府",
+    tier1: ["市場失靈", "外部性", "外部效果", "外部成本", "外部效益", "正外部性", "負外部性", "社會成本", "私人成本", "公共財", "搭便車", "非排他性", "非敵對性", "共有資源", "共有財", "公地的悲劇", "俱樂部財", "資訊不對稱", "逆選擇", "道德危險", "檸檬市場", "尋租", "自動穩定機能", "累進所得稅", "擴張性財政政策", "緊縮性財政政策"],
+    tier2: ["市場無法達到效率", "政府干預", "排他性", "敵對性", "庇古稅", "補貼", "政府收支"],
+    anti: ["公開市場操作", "重貼現率", "貨幣政策"]
+  },
+  {
+    idx: 16, ch: "CH17", name: "國際貿易與國際金融",
+    tier1: ["絕對利益", "比較利益", "要素稟賦", "赫克夏-奧林", "從價稅", "從量稅", "保護關稅", "傾銷", "反傾銷", "匯率升值", "匯率貶值", "名目匯率", "實質匯率", "購買力平價", "外匯需求", "外匯供給", "管理浮動匯率", "國際收支", "經常帳", "金融帳", "貿易順差", "貿易逆差"],
+    tier2: ["進出口", "出口商", "進口商", "關稅", "配額", "外匯", "台幣升值", "台幣貶值", "美金"],
+    anti: ["可貸資金", "流動性偏好"]
+  },
+  {
+    idx: 17, ch: "CH18", name: "經濟波動",
+    tier1: ["景氣循環", "景氣對策信號", "領先指標", "同時指標", "落後指標", "摩擦性失業", "結構性失業", "循環性失業", "自然失業率", "充分就業", "失業率計算", "需求拉動通膨", "成本推動通膨", "停滯性通膨", "菲力普曲線", "痛苦指數", "菜單成本", "皮鞋成本", "溫和通膨", "惡性通膨"],
+    tier2: ["景氣復甦", "景氣繁榮", "景氣衰退", "景氣蕭條", "物價上漲率", "通貨膨脹", "失業者"],
+    anti: ["經濟成長率", "經濟發展", "哈羅德"]
+  },
+  {
+    idx: 18, ch: "CH19", name: "經濟成長與經濟發展",
+    tier1: ["經濟成長率", "經濟發展", "哈羅德-多瑪", "harrod-domar", "資本產出比", "g=s/v", "貧窮惡性循環", "納克斯", "熊彼得創新", "創造性破壞", "索羅模型", "外生成長", "新成長理論", "內生成長", "知識經濟", "台灣經濟發展七階段", "進口替代", "出口擴張", "稀釋效果"],
+    tier2: ["實質gdp成長", "生活品質", "制度變遷", "人力資本", "科技進步"],
+    anti: ["景氣循環", "痛苦指數", "領先指標", "景氣對策信號"]
+  }
+];
+
+function rankChapters(text){
+  if(!text||!text.trim())return [];
+  const raw=text.toLowerCase();
+  const normalized=raw.replace(/\s*([=<>+\-*/])\s*/g,'$1');
+  const results=[];
+
+  CHAPTER_DICT.forEach(item=>{
+    let score=0;
+    const hitList=[];
+
+    item.tier1.forEach(kw=>{
+      const k=kw.toLowerCase();
+      if(raw.includes(k)||normalized.includes(k)){
+        score+=10;
+        hitList.push(kw);
+      }
+    });
+
+    item.tier2.forEach(kw=>{
+      const k=kw.toLowerCase();
+      if(raw.includes(k)||normalized.includes(k)){
+        score+=3;
+        hitList.push(kw);
+      }
+    });
+
+    item.anti.forEach(kw=>{
+      const k=kw.toLowerCase();
+      if(raw.includes(k)||normalized.includes(k)){
+        score-=8;
+      }
+    });
+
+    if(score>0){
+      results.push({
+        idx:item.idx,
+        ch:item.ch,
+        name:item.name,
+        score:score,
+        hits:hitList
+      });
+    }
+  });
+
+  results.sort((a,b)=>b.score-a.score);
+  return results;
+}
+
+function initChapterSelect(){
+  const sel=document.getElementById('userch-select');
+  if(!sel||sel.options.length>1)return;
+  CH.forEach((c,i)=>{
+    const opt=document.createElement('option');
+    opt.value=i;
+    opt.textContent=`${c[0]} ${c[1]}`;
+    sel.appendChild(opt);
+  });
+}
+
+function getEffectiveChapter(){
+  if(manualChIndex>=0&&manualChIndex<CH.length){
+    const c=CH[manualChIndex];
+    return {
+      index:manualChIndex,
+      id:c[0],
+      name:c[1],
+      label:`${c[0]} ${c[1]}（學生自選）`,
+      isManual:true,
+      formula:c[4]
+    };
+  }
+  if(detectedCandidates.length>0){
+    const top=detectedCandidates[0];
+    const c=CH[top.idx];
+    return {
+      index:top.idx,
+      id:c[0],
+      name:c[1],
+      label:`${c[0]} ${c[1]}（AI推薦｜命中${top.score}分）`,
+      isManual:false,
+      formula:c[4]
+    };
+  }
+  return null;
+}
+
+function renderAutoChUI(){
+  const statusEl=document.getElementById('autoch-status');
+  const candChips=document.getElementById('candidate-chips');
+  const candList=document.getElementById('candidate-list');
+  const prevHint=document.getElementById('ch-preview-hint');
+  const prevFormula=document.getElementById('ch-preview-formula');
+  const sel=document.getElementById('userch-select');
+
+  const eff=getEffectiveChapter();
+  autoCh=eff?eff.label:"";
+
+  if(statusEl){
+    if(manualChIndex>=0&&manualChIndex<CH.length){
+      const c=CH[manualChIndex];
+      statusEl.innerHTML=`<span>🔒 已手動指定：<b>${c[0]} ${c[1]}</b> <span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:.78rem">學生自選</span></span> <button type="button" class="chip-btn" style="padding:2px 8px;font-size:.8rem;margin:0" onclick="resetManualOverride()">↺ 恢復自動推薦</button>`;
+    }else if(detectedCandidates.length>0){
+      const top=detectedCandidates[0];
+      statusEl.innerHTML=`<span>🎯 AI 診斷推薦：<b>${top.ch} ${top.name}</b> <span class="badge" style="background:#ffedd5;color:#c2410c;font-size:.78rem">高相關 ｜ 命中${top.score}分</span></span><span class="muted" style="font-size:.8rem">命中特徵：${top.hits.slice(0,3).join('、')}</span>`;
+    }else{
+      statusEl.innerHTML=`<span>🔍 尚未輸入題目，拍照、選上方範例或在下方下拉自選</span>`;
+    }
+  }
+
+  if(candChips&&candList){
+    const chips=[];
+    if(manualChIndex>=0&&detectedCandidates.length>0){
+      const top=detectedCandidates[0];
+      chips.push(`<button type="button" class="chip-btn" style="padding:2px 8px;font-size:.8rem;margin:2px;background:#fff1f2;border-color:#f43f5e;color:#be123c" onclick="resetManualOverride()">💡 切換為系統推薦【${top.ch} ${top.name} (${top.score}分)】</button>`);
+    }
+    const currentIdx=eff?eff.index:-1;
+    const alts=detectedCandidates.filter(c=>c.idx!==currentIdx).slice(0,3);
+    alts.forEach(cand=>{
+      chips.push(`<button type="button" class="chip-btn" style="padding:2px 8px;font-size:.8rem;margin:2px" onclick="selectCandidate(${cand.idx})">切換至 ${cand.ch} ${cand.name} (${cand.score}分)</button>`);
+    });
+
+    if(chips.length>0){
+      candChips.style.display='block';
+      candList.innerHTML=chips.join(' ');
+    }else{
+      candChips.style.display='none';
+      candList.innerHTML='';
+    }
+  }
+
+  if(sel){
+    sel.value=manualChIndex>=0?manualChIndex:"-1";
+  }
+
+  if(prevHint&&prevFormula){
+    if(eff&&eff.formula){
+      prevHint.style.display='block';
+      prevFormula.textContent=eff.formula;
+    }else{
+      prevHint.style.display='none';
+    }
+  }
+}
+
+function updateAutoCh(s){
+  const ocr=s!==undefined?s:(document.getElementById('ocrtext')?.value||'');
+  const qtx=document.getElementById('qtext')?.value||'';
+  const targetText=(ocr+' '+qtx).trim();
+  detectedCandidates=rankChapters(targetText);
+  renderAutoChUI();
+}
+
+function onManualChChange(){
+  const sel=document.getElementById('userch-select');
+  const val=parseInt(sel.value,10);
+  manualChIndex=(isNaN(val)||val<0)?-1:val;
+  renderAutoChUI();
+}
+
+function selectCandidate(chIdx){
+  manualChIndex=chIdx;
+  renderAutoChUI();
+}
+
+function resetManualOverride(){
+  manualChIndex=-1;
+  renderAutoChUI();
+}
+
+function guessCh(s){
+  const r=rankChapters(s||'');
+  if(!r.length)return null;
+  return `${r[0].ch} ${r[0].name}（加權命中${r[0].score}分）`;
+}
 function showTab(n){document.getElementById('block1').classList.toggle('hide',n!==1);document.getElementById('block2').classList.toggle('hide',n!==2);document.getElementById('t1').classList.toggle('active',n===1);document.getElementById('t2').classList.toggle('active',n===2);window.scrollTo({top:0,behavior:'smooth'});}
 const file=document.getElementById('file'),preview=document.getElementById('preview'),finfo=document.getElementById('finfo'),ocrstat=document.getElementById('ocrstat');
 let imgs=[];
@@ -274,7 +595,10 @@ function loadDemo(idx){
   document.getElementById('ocrtext').value=d.text;
   document.getElementById('qtext').value=d.q;
   document.getElementById('finfo').textContent=`已載入【${d.title}】示範題目，已自動鎖定考點！`;
-  updateAutoCh(d.text);
+  manualChIndex=-1;
+  const sel=document.getElementById('userch-select');
+  if(sel)sel.value="-1";
+  updateAutoCh(d.text+" "+d.q);
   document.querySelectorAll('#tag-chips .chip-btn').forEach(btn=>btn.classList.remove('active'));
   if(d.q.includes('[計算題]'))document.querySelectorAll('#tag-chips .chip-btn')[0]?.classList.add('active');
   if(d.q.includes('[彈性與TR]'))document.querySelectorAll('#tag-chips .chip-btn')[2]?.classList.add('active');
@@ -381,6 +705,7 @@ function toggleTag(tagText,el){
     qBox.value=(cur?cur+' ':'')+tagText;
     el.classList.add('active');
   }
+  updateAutoCh();
 }
 
 function insertSymbol(sym){
@@ -420,8 +745,6 @@ function copyFullAnswer(){
 function compressImage(f){return new Promise(res=>{const img=new Image();const to=setTimeout(()=>res(f),8000);img.onload=()=>{clearTimeout(to);let w=img.width,h=img.height;const mx=1600;if(Math.max(w,h)>mx){const r=mx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);cv.toBlob(b=>res(b||f),'image/jpeg',0.85);};img.onerror=()=>{clearTimeout(to);res(f);};img.src=URL.createObjectURL(f);});}
 function clean(s){return s.replace(/\\space/gi,'').replace(/\\left/gi,'').replace(/\\right/gi,'').replace(/\\\(/g,'').replace(/\\\)/g,'').replace(/\\\[/g,'').replace(/\\\]/g,'').replace(/\\times/g,'×').replace(/\\div/g,'÷').replace(/\\cdot/g,'·').replace(/\\/g,'').replace(/\$(?:\s*space\s*)+\$?/gi,'').replace(/(?:\bspace\b\s*){2,}/gi,'').replace(/\bleft\b\s*\|\s*/gi,'|').replace(/\s*\|\s*\bright\b/gi,'|').replace(/\$\s*\$/g,'');}
 let _tw=null;function toTW(s){try{if(!_tw&&window.OpenCC){_tw=OpenCC.Converter({from:'cn',to:'tw'});}return _tw?_tw(s):s;}catch(e){return s;}}
-const KW=[["CH1",["機會成本","PPC","生產可能","稀少","效率","實證","規範","演繹","歸納"]],["CH2",["需求","供給","均衡","彈性","上限","下限","Ed","TR"]],["CH3",["效用","MU","TU","消費者剩餘","恩格爾","CS"]],["CH4",["TP","AP","MP","報酬遞減","生產"]],["CH5",["TC","MC","AC","AVC","成本","規模報酬"]],["CH6",["TR","AR","MR","完全競爭","獨占","寡占"]],["CH7",["P=MC","歇業","AVC"]],["CH8",["差別取價","獨占"]],["CH9",["拗折","卡特爾","寡占"]],["CH10",["吉尼","羅倫茲","VMP","分配"]],["CH11",["工資","地租","後彎"]],["CH12",["利率","MEI","利息","利潤"]],["CH13",["GDP","GNI","國民所得"]],["CH14",["乘數","MPC","缺口","凱因斯"]],["CH15",["M1","M2","貨幣","乘數","準備率"]],["CH16",["失靈","公共財","外部","財政"]],["CH17",["比較利益","匯率","關稅","貿易"]],["CH18",["失業","通膨","菲力普","景氣"]],["CH19",["成長","H-D","知識經濟"]]];
-function guessCh(s){let best={id:"自動判斷",score:0};KW.forEach(([id,ws])=>{let sc=0;ws.forEach(w=>{if(s.includes(w))sc++;});if(sc>best.score)best={id,score:sc};});if(best.score===0)return null;const c=CH.find(x=>x[0]===best.id);return c?c[0]+" "+c[1]+"（關鍵字命中"+best.score+"）":best.id;}
 preview.onload=()=>{
   finfo.textContent+=' ｜ 預覽已載入';
   document.getElementById('preview-container').style.display='block';
@@ -441,6 +764,7 @@ async function runOcr(){const box=document.getElementById('ocrtext');if(!imgs.le
  try{if(window.Tesseract){const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');box.value=(t.data.text||'').slice(0,800);ocrstat.textContent='本機辨識完成，已自動判斷章節，請核對再按解題。';updateAutoCh(box.value);return;}}catch(e){}
  ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';}
 document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.target.value));
+document.getElementById('qtext').addEventListener('input',()=>updateAutoCh());
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('qtext').value.trim()&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
@@ -461,9 +785,11 @@ async function solve(manual){
   const extra=document.getElementById('qtext').value||"";
   const fixed=document.getElementById('ocrtext').value||"";
   const all=(ocr+"\n"+fixed+"\n"+extra).slice(0,1200);
-  const g=autoCh||guessCh(all)||guessCh(fixed)||'自動判斷（建議到第二塊搜尋公式）';
- const ci=CH.findIndex(c=>(g||"").includes(c[0]));
- const c=ci>=0?CH[ci]:null;
+  if(!detectedCandidates.length&&all.trim()){detectedCandidates=rankChapters(all);}
+  const eff=getEffectiveChapter();
+  const g=eff?eff.label:'未匹配特定章節（可點選上方自選章節或至第二塊搜尋）';
+  const ci=eff?eff.index:-1;
+  const c=ci>=0?CH[ci]:null;
    const ansHtml=`
      <b>① 考什麼觀念：</b><span class="badge" style="background:#fff1f2;color:#e11d48;font-size:.9rem">${g.replace(/</g,'&lt;')}</span>${c?`<br><b>② 核心必記公式：</b><code>${c[4]}</code> <button class="ghost" style="width:auto;display:inline-block;padding:2px 8px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點</button>`:""}<br><br>
      <b>③ 解題思維與步驟：</b><br>
@@ -482,14 +808,16 @@ async function solve(manual){
      ${ansHtml}
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
- saveHist(extra.slice(0,30)||"題目解題",g);
+ saveHist(extra.slice(0,30)||fixed.slice(0,30)||"題目解題",eff?`${eff.id} ${eff.name}`:g);
 }
 async function tryPost(silent){
  try{
   const fixed=document.getElementById('ocrtext').value.trim();
   const extra=document.getElementById('qtext').value.trim();
+  const eff=getEffectiveChapter();
+  const chHint=eff?(`\n【考點章節】${eff.id} ${eff.name}`):'';
   const fd=new FormData();imgs.forEach(f=>fd.append('images',f));
-  fd.append('text',(fixed?('【學生已核對題目】'+fixed+'\n'):'')+(extra?('【補充】'+extra):''));
+  fd.append('text',(fixed?('【學生已核對題目】'+fixed+'\n'):'')+(extra?('【補充】'+extra):'')+chHint);
    const r=await fetch('/api/solve',{method:'POST',body:fd});
    if(!r.ok)return false;
   const j=await r.json();
@@ -506,11 +834,11 @@ async function tryPost(silent){
      </div>
      <div style="line-height:1.8">${shown.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
      <div style="margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)">
-       <b>觀念回看：</b>${linkCh(shown)||'（可至第二塊搜尋詳細公式）'}
+       <b>觀念回看：</b>${linkCh(shown)||(eff?`<button class="ghost" onclick="gotoCh(${eff.index})">回看 ${eff.id} ${eff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
      </div>
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  saveHist(document.getElementById('qtext').value.slice(0,30)||"圖片題",shown.slice(0,60));
+  saveHist(document.getElementById('qtext').value.slice(0,30)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,60));
   return true;
  }catch(e){return false;}
 }
@@ -533,6 +861,8 @@ function delHist(i){let h=[];try{h=JSON.parse(localStorage.getItem('econ_hist')|
 function clearHist(){localStorage.removeItem('econ_hist');renderHist();}
 (function(){const f=document.getElementById('histfilter');CH.forEach((c,i)=>{const o=document.createElement('option');o.value=i;o.textContent=c[0]+' '+c[1];f.appendChild(o);});f.addEventListener('change',renderHist);})();
 renderHist();
+initChapterSelect();
+renderAutoChUI();
 // block2
 const grid=document.getElementById('grid'),detail=document.getElementById('detail'),q=document.getElementById('q');
 function renderGrid(f=''){grid.innerHTML='';CH.forEach((c,i)=>{if(f&&!(c.join('').includes(f)))return;let b=document.createElement('button');b.textContent=c[0]+' '+c[1];b.onclick=()=>showCh(i);b.dataset.i=i;grid.appendChild(b);});if(!detail.dataset.i)showCh(0);}
