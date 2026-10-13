@@ -67,6 +67,19 @@ code{background:#ffe4e6;color:#e11d48;padding:2px 7px;border-radius:6px;font-wei
 #crop-canvas{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line);display:block;margin:0 auto}
 .crop-slider-row{display:flex;align-items:center;gap:8px;font-size:.85rem;color:#431407;margin-top:6px}
 .crop-slider-row input[type=range]{flex:1;margin:0;accent-color:var(--brand)}
+.hist-list{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-direction:column;gap:10px}
+.hist-card{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px;transition:all .2s}
+.hist-card.mastered{background:#f8fafc;border-color:#86efac}
+.hist-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.status-pill{border-radius:999px;padding:3px 10px;font-size:.8rem;font-weight:700;cursor:pointer;border:1.5px solid transparent;transition:all .15s}
+.status-pill.todo{background:#fff1f2;color:#e11d48;border-color:#fecdd3}
+.status-pill.todo:hover{background:#ffe4e6}
+.status-pill.done{background:#dcfce7;color:#15803d;border-color:#86efac}
+.status-pill.done:hover{background:#bbf7d0}
+.hist-q{font-weight:600;color:#292524;font-size:.95rem;margin:4px 0;word-break:break-word}
+.hist-detail{background:#fffaf5;border:1px dashed var(--line);border-radius:10px;padding:8px 12px;margin-top:8px;font-size:.9rem}
+.hist-detail summary{color:var(--brand);font-weight:700;cursor:pointer;user-select:none}
+.hist-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 </style>
 </head>
@@ -200,11 +213,27 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 <div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1)"></div>
 <div id="ocrstat" class="muted"></div>
 
-<h3>錯題本（只存這台手機）</h3>
-<div id="weak" class="key">尚無紀錄，解幾題後自動統計弱章。</div>
-<select id="histfilter"><option value="">全部章節</option></select>
-<ul id="hist" class="hist"><li class="muted">尚無紀錄</li></ul>
-<button class="ghost" onclick="clearHist()">清除錯題本</button>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;flex-wrap:wrap;gap:6px">
+  <h3 style="margin:0">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
+  <span class="muted" style="font-size:.8rem">自動保存在這台手機/電腦</span>
+</div>
+<div id="weak" class="key">尚無紀錄，解幾題後自動統計弱章與複習進度。</div>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px">
+  <div id="hist-status-tabs" style="display:flex;gap:6px;flex-wrap:wrap">
+    <button type="button" class="chip-btn active" data-st="all" onclick="setHistStatus('all')">全部</button>
+    <button type="button" class="chip-btn" data-st="todo" onclick="setHistStatus('todo')">📌 待複習</button>
+    <button type="button" class="chip-btn" data-st="done" onclick="setHistStatus('done')">✅ 已搞懂</button>
+  </div>
+  <select id="histfilter" style="flex:1;min-width:150px;margin:0;padding:6px 10px;font-size:.9rem"><option value="">全部章節 (CH1–CH19)</option></select>
+</div>
+
+<ul id="hist" class="hist-list"><li class="muted">尚無紀錄</li></ul>
+
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+  <button type="button" class="ghost" style="flex:1;margin:0;font-size:.88rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」題目</button>
+  <button type="button" class="ghost" style="flex:1;margin:0;font-size:.88rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空全部錯題本</button>
+</div>
 </div>
 
 <!-- Block 2 -->
@@ -772,7 +801,8 @@ async function solve(manual){
      ${ansHtml}
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
- saveHist(fixed.slice(0,30)||ocr.slice(0,30)||"題目解題",eff?`${eff.id} ${eff.name}`:g);
+ const fullQ=(fixed||ocr||"題目解題").trim();
+ saveHist(fullQ.slice(0,36)||"題目解題",eff?`${eff.id} ${eff.name}`:g,fullQ,ansHtml);
 }
 async function tryPost(silent){
  try{
@@ -790,18 +820,20 @@ async function tryPost(silent){
    const box=document.getElementById('answer');
    box.classList.remove('hide');
    const shown=toTW(clean((j.answer||'').toString())).replace(/\$/g,'').replace(/_/g,'');
+   const aiHtml=`<div style="line-height:1.8">${shown.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`;
    box.innerHTML=`
      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
        <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析（AI）</span>
        <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
      </div>
-     <div style="line-height:1.8">${shown.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+     ${aiHtml}
      <div style="margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)">
        <b>觀念回看：</b>${linkCh(shown)||(eff?`<button class="ghost" onclick="gotoCh(${eff.index})">回看 ${eff.id} ${eff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
      </div>
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  saveHist(fixed.slice(0,30)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,60));
+  const fullQ=(fixed||"圖片上傳題目").trim();
+  saveHist(fullQ.slice(0,36)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,50),fullQ,aiHtml);
   return true;
  }catch(e){return false;}
 }
@@ -812,16 +844,154 @@ function copyPrompt(){
   const t=`【經濟題解題】文字：${document.getElementById('ocrtext').value||'見圖'}\n請：1)詳細步驟解題 2)指出考CH幾什麼觀念\n觀念表：\n${conceptTable()}`;
  navigator.clipboard.writeText(t).then(()=>alert('已複製，貼給 AI 並上傳同張照片即可')).catch(()=>alert(t));
 }
-function saveHist(t,g){const ch=g?chIdxOf(g):-1;let h=[];try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}h.unshift({d:new Date().toLocaleString(),t:(t||'').slice(0,30),g:g||'',ch});localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,50)));renderHist();}
-function renderHist(){let h=[];try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}const u=document.getElementById('hist'),w=document.getElementById('weak'),f=document.getElementById('histfilter');const cur=f.value||'';
- if(!h.length){u.innerHTML='<li class="muted">尚無紀錄</li>';w.textContent='尚無紀錄，解幾題後自動統計弱章。';return;}
- const cnt={};h.forEach(x=>{if(x.ch>=0)cnt[x.ch]=(cnt[x.ch]||0)+1;});
- const rank=Object.keys(cnt).map(k=>({i:+k,n:cnt[k]})).sort((a,b)=>b.n-a.n);
- w.innerHTML=rank.length?`<b>弱點排行：</b>${rank.slice(0,3).map(r=>`<button class="ghost" style="width:auto;display:inline-block;margin:4px" onclick="gotoCh(${r.i})">${CH[r.i][0]}×${r.n}</button>`).join('')}<br><span class="muted">共 ${h.length} 題，點章名回看公式</span>`:'尚未標到章節，多解幾題會自動統計。';
- const list=cur===''?h:h.filter(x=>x.ch===+cur);
- u.innerHTML=list.length?list.map((x,idx)=>`<li>${x.d}｜${(x.g||'').replace(/</g,'&lt;')}｜${x.t.replace(/</g,'&lt;')} ${x.ch>=0?`<button class="ghost" style="width:auto;display:inline-block;margin:4px" onclick="gotoCh(${x.ch})">回看</button>`:''} <button class="ghost" style="width:auto;display:inline-block;margin:4px" onclick="delHist(${h.indexOf(x)})">刪</button></li>`).join(''):'<li class="muted">此章無紀錄</li>';}
+
+let histStatusFilter='all'; // 'all' | 'todo' | 'done'
+
+function setHistStatus(st){
+  histStatusFilter=st;
+  document.querySelectorAll('#hist-status-tabs .chip-btn').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.st===st);
+  });
+  renderHist();
+}
+
+function saveHist(t,g,fullQ,fullA){
+  const ch=g?chIdxOf(g):-1;
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  h.unshift({
+    id:Date.now(),
+    d:new Date().toLocaleString(),
+    t:(t||'').slice(0,40),
+    g:g||'',
+    ch:ch,
+    fullQ:fullQ||t||'',
+    fullA:fullA||'',
+    mastered:false
+  });
+  localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,50)));
+  renderHist();
+}
+
+function toggleMastered(idx){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  if(h[idx]){
+    h[idx].mastered=!h[idx].mastered;
+    localStorage.setItem('econ_hist',JSON.stringify(h));
+    renderHist();
+  }
+}
+
+function reloadHistToSolver(idx){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  const item=h[idx];
+  if(!item)return;
+  const qText=item.fullQ||item.t||'';
+  const ocrBox=document.getElementById('ocrtext');
+  if(ocrBox){
+    ocrBox.value=qText;
+    if(item.ch>=0&&item.ch<19){
+      selectCandidate(item.ch);
+    }else{
+      updateAutoCh(qText);
+    }
+    ocrBox.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+
+function renderHist(){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  const u=document.getElementById('hist'),w=document.getElementById('weak'),f=document.getElementById('histfilter');
+  const cur=f?f.value:'';
+
+  const todoList=h.filter(x=>!x.mastered);
+  const doneList=h.filter(x=>x.mastered);
+
+  const tabs=document.querySelectorAll('#hist-status-tabs .chip-btn');
+  if(tabs.length===3){
+    tabs[0].textContent=`全部 (${h.length})`;
+    tabs[1].textContent=`📌 待複習 (${todoList.length})`;
+    tabs[2].textContent=`✅ 已搞懂 (${doneList.length})`;
+  }
+
+  if(!h.length){
+    u.innerHTML='<li class="muted" style="text-align:center;padding:16px">尚無錯題紀錄，在上方拍照或點範例題解題後會自動收入！</li>';
+    w.textContent='尚無紀錄，解幾題後自動統計弱點章節與複習進度。';
+    return;
+  }
+
+  const statSource=todoList.length?todoList:h;
+  const cnt={};
+  statSource.forEach(x=>{if(x.ch>=0)cnt[x.ch]=(cnt[x.ch]||0)+1;});
+  const rank=Object.keys(cnt).map(k=>({i:+k,n:cnt[k]})).sort((a,b)=>b.n-a.n);
+
+  const progressHtml=`<div style="margin-bottom:6px;font-size:.9rem">📊 <b>複習進度：</b>共 ${h.length} 題（<span style="color:#e11d48;font-weight:700">📌 待複習 ${todoList.length} 題</span> ｜ <span style="color:#15803d;font-weight:700">✅ 已搞懂 ${doneList.length} 題</span>）</div>`;
+  const rankHtml=rank.length
+    ? `<b>🔥 ${todoList.length?'待複習弱點排行':'累積常錯排行'}：</b>${rank.slice(0,3).map(r=>`<button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px;font-size:.85rem" onclick="gotoCh(${r.i})">${CH[r.i][0]} ${CH[r.i][1]} ×${r.n}</button>`).join('')}`
+    : '尚未標到特定章節，多解幾題會自動統計弱點。';
+  w.innerHTML=progressHtml+rankHtml;
+
+  const list=h.map((item,realIdx)=>({item,realIdx})).filter(({item})=>{
+    if(cur!==''&&item.ch!==+cur)return false;
+    if(histStatusFilter==='todo'&&item.mastered)return false;
+    if(histStatusFilter==='done'&&!item.mastered)return false;
+    return true;
+  });
+
+  if(!list.length){
+    u.innerHTML=`<li class="muted" style="text-align:center;padding:16px">此篩選條件下無紀錄（可切換上方「全部 / 待複習 / 已搞懂」或章節）</li>`;
+    return;
+  }
+
+  u.innerHTML=list.map(({item,realIdx})=>{
+    const isDone=!!item.mastered;
+    const chTag=item.ch>=0?`${CH[item.ch][0]} ${CH[item.ch][1]}`:(item.g||'未分類');
+    const qFull=(item.fullQ||item.t||'（無題目文字）').replace(/</g,'&lt;').replace(/\n/g,'<br>');
+    const qShort=(item.t||item.fullQ||'題目紀錄').slice(0,42).replace(/</g,'&lt;');
+    const fallbackA=item.ch>=0?`<b>本章核心必記公式：</b><code>${CH[item.ch][4]}</code><br><b>重點溫習：</b>${CH[item.ch][2]}`:'（此為舊版紀錄，點下方「載入上方重練」可重新產生完整詳解）';
+    const aHtml=item.fullA||fallbackA;
+
+    return `<li class="hist-card ${isDone?'mastered':''}">
+      <div class="hist-top">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <button type="button" class="status-pill ${isDone?'done':'todo'}" onclick="toggleMastered(${realIdx})" title="點擊切換複習狀態">
+            ${isDone?'✅ 已搞懂（點此改待複習）':'📌 待複習（學會點我打勾）'}
+          </button>
+          <span class="badge" style="margin:0">${chTag.replace(/</g,'&lt;')}</span>
+        </div>
+        <span class="muted" style="font-size:.78rem">${item.d||''}</span>
+      </div>
+      <div class="hist-q">${qShort}${(item.fullQ&&item.fullQ.length>42)?'…':''}</div>
+      <details class="hist-detail">
+        <summary>📖 點此展開完整題目與詳解</summary>
+        <div style="margin-top:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)">
+          <b>📝 完整題目：</b><br><span style="color:#431407">${qFull}</span>
+        </div>
+        <div style="margin-top:8px;line-height:1.7">
+          ${aHtml}
+        </div>
+      </details>
+      <div class="hist-actions">
+        <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem" onclick="reloadHistToSolver(${realIdx})">🔄 載入上方重練</button>
+        ${item.ch>=0?`<button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem" onclick="gotoCh(${item.ch})">📚 看 ${CH[item.ch][0]} 課本重點</button>`:''}
+        <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem;color:#b91c1c;margin-left:auto" onclick="delHist(${realIdx})">🗑️ 刪除</button>
+      </div>
+    </li>`;
+  }).join('');
+}
 function delHist(i){let h=[];try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}h.splice(i,1);localStorage.setItem('econ_hist',JSON.stringify(h));renderHist();}
-function clearHist(){localStorage.removeItem('econ_hist');renderHist();}
+function clearMasteredHist(){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  const remain=h.filter(x=>!x.mastered);
+  if(remain.length===h.length){alert('目前沒有標記為「✅ 已搞懂」的題目可清除！');return;}
+  localStorage.setItem('econ_hist',JSON.stringify(remain));
+  renderHist();
+}
+function clearHist(){if(!confirm('確定要清空整本錯題本嗎？'))return;localStorage.removeItem('econ_hist');renderHist();}
 (function(){const f=document.getElementById('histfilter');CH.forEach((c,i)=>{const o=document.createElement('option');o.value=i;o.textContent=c[0]+' '+c[1];f.appendChild(o);});f.addEventListener('change',renderHist);})();
 renderHist();
 initChapterSelect();
