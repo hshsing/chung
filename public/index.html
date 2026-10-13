@@ -936,6 +936,35 @@ function setHistStatus(st){
   renderHist();
 }
 
+const HIST_MAX_ITEMS=200;
+const HIST_MAX_THUMBS=15;
+
+function smartTrimHist(h){
+  // 1) 當超過 200 題上限時，優先從最舊的「✅ 已搞懂 (mastered)」開始淘汰，保護「📌 待複習」不被擠掉
+  while(h.length>HIST_MAX_ITEMS){
+    let oldestDoneIdx=-1;
+    for(let i=h.length-1;i>=0;i--){
+      if(h[i]&&h[i].mastered){oldestDoneIdx=i;break;}
+    }
+    if(oldestDoneIdx!==-1){
+      h.splice(oldestDoneIdx,1);
+    }else{
+      h.pop();
+    }
+  }
+  // 2) 只保留最新 15 題的照片縮圖，第 16~200 題自動轉為純文字（保留 100% 完整題目文字與詳解）
+  let thumbCnt=0;
+  h.forEach(item=>{
+    if(item&&item.imgThumb){
+      thumbCnt++;
+      if(thumbCnt>HIST_MAX_THUMBS){
+        delete item.imgThumb;
+      }
+    }
+  });
+  return h;
+}
+
 function saveHist(t,g,fullQ,fullA,imgThumb){
   const ch=g?chIdxOf(g):-1;
   let h=[];
@@ -952,12 +981,13 @@ function saveHist(t,g,fullQ,fullA,imgThumb){
     imgThumb:imgThumb||'',
     mastered:false
   });
+  h=smartTrimHist(h);
   try{
-    localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,40)));
+    localStorage.setItem('econ_hist',JSON.stringify(h));
   }catch(e){
-    // 若圖片縮圖導致容量超過上限，移除較舊紀錄的縮圖後再存
-    h.slice(5).forEach(x=>{delete x.imgThumb;});
-    try{localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,30)));}catch(e2){}
+    // 若瀏覽器空間仍吃緊，僅保留最新 5 題照片縮圖，但仍完整保留 200 題文字與詳解
+    h.slice(5).forEach(x=>{if(x)delete x.imgThumb;});
+    try{localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,HIST_MAX_ITEMS)));}catch(e2){}
   }
   renderHist();
 }
@@ -1074,8 +1104,8 @@ function renderHist(){
   }
 
   if(!h.length){
-    u.innerHTML='<li class="muted" style="text-align:center;padding:16px">尚無錯題紀錄，在上方拍照或點範例題解題後會自動收入！</li>';
-    w.textContent='尚無紀錄，解幾題後自動統計弱點章節與複習進度。';
+    u.innerHTML='<li class="muted" style="text-align:center;padding:16px">尚無錯題紀錄，在上方拍照或點範例題解題後會自動收入！（最多可收錄 200 題）</li>';
+    w.textContent='尚無紀錄，解幾題後自動統計弱點章節與複習進度（上限 200 題）。';
     return;
   }
 
@@ -1084,7 +1114,7 @@ function renderHist(){
   statSource.forEach(x=>{if(x.ch>=0)cnt[x.ch]=(cnt[x.ch]||0)+1;});
   const rank=Object.keys(cnt).map(k=>({i:+k,n:cnt[k]})).sort((a,b)=>b.n-a.n);
 
-  const progressHtml=`<div style="margin-bottom:6px;font-size:.9rem">📊 <b>複習進度：</b>共 ${h.length} 題（<span style="color:#e11d48;font-weight:700">📌 待複習 ${todoList.length} 題</span> ｜ <span style="color:#15803d;font-weight:700">✅ 已搞懂 ${doneList.length} 題</span>）</div>`;
+  const progressHtml=`<div style="margin-bottom:6px;font-size:.9rem">📊 <b>複習進度：</b>已收錄 ${h.length} / ${HIST_MAX_ITEMS} 題（<span style="color:#e11d48;font-weight:700">📌 待複習 ${todoList.length} 題</span> ｜ <span style="color:#15803d;font-weight:700">✅ 已搞懂 ${doneList.length} 題</span>）</div>`;
   const rankHtml=rank.length
     ? `<b>🔥 ${todoList.length?'待複習弱點排行':'累積常錯排行'}：</b>${rank.slice(0,3).map(r=>`<button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px;font-size:.85rem" onclick="gotoCh(${r.i})">${CH[r.i][0]} ${CH[r.i][1]} ×${r.n}</button>`).join('')}`
     : '尚未標到特定章節，多解幾題會自動統計弱點。';
