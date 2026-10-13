@@ -568,6 +568,46 @@ function showTab(n){document.getElementById('block1').classList.toggle('hide',n!
 const file=document.getElementById('file'),preview=document.getElementById('preview'),finfo=document.getElementById('finfo'),ocrstat=document.getElementById('ocrstat');
 let imgs=[];
 let rawImageObj=null;
+let currentImgThumb='';
+let ocrPromise=null;
+
+function makeThumbDataUrl(fileOrBlob){
+  return new Promise(res=>{
+    try{
+      const img=new Image();
+      const to=setTimeout(()=>res(''),4000);
+      img.onload=()=>{
+        clearTimeout(to);
+        let w=img.width,h=img.height;
+        const mx=520;
+        if(Math.max(w,h)>mx){const r=mx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}
+        const cv=document.createElement('canvas');
+        cv.width=w;cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        res(cv.toDataURL('image/jpeg',0.58));
+      };
+      img.onerror=()=>{clearTimeout(to);res('');};
+      img.src=URL.createObjectURL(fileOrBlob);
+    }catch(e){res('');}
+  });
+}
+
+function syncLatestHistOcr(ocrText){
+  const cleanTxt=(ocrText||'').trim();
+  if(!cleanTxt)return;
+  try{
+    const h=JSON.parse(localStorage.getItem('econ_hist')||'[]');
+    if(h.length>0){
+      const top=h[0];
+      if(!top.fullQ || top.fullQ==='圖片上傳題目' || top.fullQ==='圖片題' || top.fullQ.length<20){
+        top.fullQ=cleanTxt;
+        top.t=cleanTxt.slice(0,45);
+        localStorage.setItem('econ_hist',JSON.stringify(h));
+        renderHist();
+      }
+    }
+  }catch(e){}
+}
 
 const DEMOS=[
   {
@@ -590,6 +630,8 @@ const DEMOS=[
 function resetImage(){
   imgs=[];
   rawImageObj=null;
+  currentImgThumb='';
+  ocrPromise=null;
   file.value='';
   preview.src='';
   const pCon=document.getElementById('preview-container');
@@ -627,6 +669,7 @@ function rotateImage(){
     ctx.drawImage(img,-img.width/2,-img.height/2);
     cv.toBlob(async b=>{
       imgs=[new File([b],'q.jpg',{type:'image/jpeg'})];
+      currentImgThumb=await makeThumbDataUrl(b);
       preview.src=URL.createObjectURL(b);
       finfo.textContent='已旋轉 90°，正在重新辨識…';
       await runOcr();
@@ -689,6 +732,7 @@ function applyCrop(){
   outCtx.drawImage(rawImageObj,0,y1,rawImageObj.width,h,0,0,rawImageObj.width,h);
   outCv.toBlob(async b=>{
     imgs=[new File([b],'q.jpg',{type:'image/jpeg'})];
+    currentImgThumb=await makeThumbDataUrl(b);
     preview.src=URL.createObjectURL(b);
     document.getElementById('crop-box').style.display='none';
     document.getElementById('preview-container').style.display='block';
@@ -746,18 +790,46 @@ preview.onload=()=>{
   document.getElementById('drop-zone').style.display='none';
 };
 preview.onerror=()=>{finfo.textContent+=' ｜ 預覽無法顯示（若是 HEIC 格式請重拍為 JPEG）';ocrstat.textContent='預覽失敗時辨識也可能失敗，建議重拍為 JPEG。';};
-file.addEventListener('change',async()=>{try{const raw=[...file.files];if(!raw.length){finfo.textContent='沒有選到檔案（可能按到取消），請再選一次。';return;}const f=raw[0];finfo.textContent=`已選檔案約 ${Math.round(f.size/1024)}KB，載入預覽…`;preview.src=URL.createObjectURL(f);document.getElementById('preview-container').style.display='block';document.getElementById('drop-zone').style.display='none';try{const cb=await compressImage(f);imgs=[new File([cb],'q.jpg',{type:'image/jpeg'})];finfo.textContent+=` → 壓縮約 ${Math.round(cb.size/1024)}KB，AI 辨識中…`;}catch(e){imgs=raw;}await runOcr();}catch(e){ocrstat.textContent='讀取照片失敗，請重拍一張（iPhone 請確認為 JPEG）再試。';}});
-async function runOcr(){const box=document.getElementById('ocrtext');if(!imgs.length){ocrstat.textContent='請先上傳圖片或載入示範題目';return;}box.placeholder='AI 辨識中，請稍候…';
- let sec=0;ocrstat.textContent='AI 辨識中（0秒）…';const timer=setInterval(()=>{sec+=5;ocrstat.textContent=`AI 辨識中（${sec}秒）…`;},5000);
- try{
-  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),55000);
-  const fd=new FormData();fd.append('images',imgs[0]);
-  const r=await fetch('/api/ocr',{method:'POST',body:fd,signal:ctl.signal});clearTimeout(to);clearInterval(timer);
-  if(r.ok){const j=await r.json();if(j.text){box.value=toTW(clean(j.text));ocrstat.textContent='辨識完成，已自動判斷章節，請核對文字再按解題。';updateAutoCh(box.value);return;}ocrstat.textContent='後端無文字，改本機辨識…';}
-   else{ocrstat.textContent=`後端忙碌（${r.status}），改本機辨識（約10–20秒）…`;}
- }catch(e){clearInterval(timer);ocrstat.textContent='AI 逾時，改本機辨識（約10–20秒）…';}
- try{if(window.Tesseract){const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');box.value=(t.data.text||'').slice(0,800);ocrstat.textContent='本機辨識完成，已自動判斷章節，請核對再按解題。';updateAutoCh(box.value);return;}}catch(e){}
- ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';}
+file.addEventListener('change',async()=>{try{const raw=[...file.files];if(!raw.length){finfo.textContent='沒有選到檔案（可能按到取消），請再選一次。';return;}const f=raw[0];finfo.textContent=`已選檔案約 ${Math.round(f.size/1024)}KB，載入預覽…`;preview.src=URL.createObjectURL(f);document.getElementById('preview-container').style.display='block';document.getElementById('drop-zone').style.display='none';try{const cb=await compressImage(f);imgs=[new File([cb],'q.jpg',{type:'image/jpeg'})];currentImgThumb=await makeThumbDataUrl(cb);finfo.textContent+=` → 壓縮約 ${Math.round(cb.size/1024)}KB，AI 辨識中…`;}catch(e){imgs=raw;currentImgThumb=await makeThumbDataUrl(f);}await runOcr();}catch(e){ocrstat.textContent='讀取照片失敗，請重拍一張（iPhone 請確認為 JPEG）再試。';}});
+async function runOcr(){
+  const box=document.getElementById('ocrtext');
+  if(!imgs.length){ocrstat.textContent='請先上傳圖片或載入示範題目';return;}
+  box.placeholder='AI 辨識中，請稍候…';
+  ocrPromise=(async()=>{
+    let sec=0;ocrstat.textContent='AI 辨識中（0秒）…';const timer=setInterval(()=>{sec+=5;ocrstat.textContent=`AI 辨識中（${sec}秒）…`;},5000);
+    try{
+      const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),55000);
+      const fd=new FormData();fd.append('images',imgs[0]);
+      const r=await fetch('/api/ocr',{method:'POST',body:fd,signal:ctl.signal});clearTimeout(to);clearInterval(timer);
+      if(r.ok){
+        const j=await r.json();
+        if(j.text){
+          box.value=toTW(clean(j.text));
+          ocrstat.textContent='辨識完成，已自動判斷章節，請核對文字再按解題。';
+          updateAutoCh(box.value);
+          syncLatestHistOcr(box.value);
+          return box.value;
+        }
+        ocrstat.textContent='後端無文字，改本機辨識…';
+      }else{
+        ocrstat.textContent=`後端忙碌（${r.status}），改本機辨識（約10–20秒）…`;
+      }
+    }catch(e){clearInterval(timer);ocrstat.textContent='AI 逾時，改本機辨識（約10–20秒）…';}
+    try{
+      if(window.Tesseract){
+        const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');
+        box.value=(t.data.text||'').slice(0,1200);
+        ocrstat.textContent='本機辨識完成，已自動判斷章節，請核對再按解題。';
+        updateAutoCh(box.value);
+        syncLatestHistOcr(box.value);
+        return box.value;
+      }
+    }catch(e){}
+    ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';
+    return '';
+  })();
+  return ocrPromise;
+}
 document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.target.value));
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
@@ -765,6 +837,10 @@ async function solve(manual){
  const box=document.getElementById('answer');box.classList.remove('hide');
  box.innerHTML=`<b>自動解題中…</b><br>正在分析題目關鍵詞與公式匹配…`;
  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+ if(imgs.length&&!document.getElementById('ocrtext').value.trim()&&ocrPromise){
+   box.innerHTML=`<b>自動解題中…</b><br>正在等候圖片題目文字辨識完成，確保錯題本完整收錄題目…`;
+   try{await Promise.race([ocrPromise,new Promise(r=>setTimeout(r,12000))]);}catch(e){}
+ }
  // 1) try backend
  const be=await tryPost(true);
  if(be)return;
@@ -773,11 +849,15 @@ async function solve(manual){
  try{
   if(imgs.length&&window.Tesseract){ocrstat.textContent="本機辨識中（第一次需下載語言包，約10–20秒）…";
    const r=await Tesseract.recognize(imgs[0],'chi_tra+eng');
-   ocr=(r.data.text||"").slice(0,800);ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字判斷。";
+   ocr=(r.data.text||"").slice(0,1200);
+   if(ocr&&!document.getElementById('ocrtext').value.trim()){
+     document.getElementById('ocrtext').value=ocr;
+   }
+   ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字判斷。";
   }
  }catch(e){ocrstat.textContent="辨識失敗，改用關鍵字判斷。";}
   const fixed=document.getElementById('ocrtext').value||"";
-  const all=(ocr+"\n"+fixed).slice(0,1200);
+  const all=(ocr+"\n"+fixed).slice(0,1500);
   if(!detectedCandidates.length&&all.trim()){detectedCandidates=rankChapters(all);}
   const eff=getEffectiveChapter();
   const g=eff?eff.label:'未匹配特定章節（可點選上方自選章節或至第二塊搜尋）';
@@ -801,8 +881,8 @@ async function solve(manual){
      ${ansHtml}
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
- const fullQ=(fixed||ocr||"題目解題").trim();
- saveHist(fullQ.slice(0,36)||"題目解題",eff?`${eff.id} ${eff.name}`:g,fullQ,ansHtml);
+ const fullQ=(fixed||ocr||"圖片上傳題目").trim();
+ saveHist(fullQ.slice(0,45)||"題目解題",eff?`${eff.id} ${eff.name}`:g,fullQ,ansHtml,currentImgThumb);
 }
 async function tryPost(silent){
  try{
@@ -832,8 +912,9 @@ async function tryPost(silent){
      </div>
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  const fullQ=(fixed||"圖片上傳題目").trim();
-  saveHist(fullQ.slice(0,36)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,50),fullQ,aiHtml);
+  const latestOcr=document.getElementById('ocrtext').value.trim();
+  const fullQ=(latestOcr||fixed||"圖片上傳題目").trim();
+  saveHist(fullQ.slice(0,45)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,50),fullQ,aiHtml,currentImgThumb);
   return true;
  }catch(e){return false;}
 }
@@ -855,22 +936,89 @@ function setHistStatus(st){
   renderHist();
 }
 
-function saveHist(t,g,fullQ,fullA){
+function saveHist(t,g,fullQ,fullA,imgThumb){
   const ch=g?chIdxOf(g):-1;
   let h=[];
   try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  const cleanFullQ=(fullQ||t||'').trim();
   h.unshift({
     id:Date.now(),
     d:new Date().toLocaleString(),
-    t:(t||'').slice(0,40),
+    t:(cleanFullQ||t||'').slice(0,45),
     g:g||'',
     ch:ch,
-    fullQ:fullQ||t||'',
+    fullQ:cleanFullQ,
     fullA:fullA||'',
+    imgThumb:imgThumb||'',
     mastered:false
   });
-  localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,50)));
+  try{
+    localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,40)));
+  }catch(e){
+    // 若圖片縮圖導致容量超過上限，移除較舊紀錄的縮圖後再存
+    h.slice(5).forEach(x=>{delete x.imgThumb;});
+    try{localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,30)));}catch(e2){}
+  }
   renderHist();
+}
+
+function upgradeOldHistRecords(h){
+  if(!Array.isArray(h)||!h.length)return h;
+  let changed=false;
+  h.forEach((item,idx)=>{
+    if(!item)return;
+    const rawQ=(item.fullQ||item.t||'').trim();
+    const combined=rawQ+' '+(item.g||'');
+    if(rawQ.length<60){
+      if(/弧彈性|需求價格|價格由\s*20\s*元|彈性與TR/i.test(combined)){
+        item.fullQ=DEMOS[0].text;
+        item.t=DEMOS[0].text.slice(0,45);
+        if(!(item.ch>=0))item.ch=1;
+        changed=true;
+      }else if(/邊際轉換率|生產可能曲線|機會成本遞增|某國生產\s*X\s*與\s*Y|MRT|PPC/i.test(combined)){
+        item.fullQ=DEMOS[1].text;
+        item.t=DEMOS[1].text.slice(0,45);
+        if(!(item.ch>=0))item.ch=0;
+        changed=true;
+      }else if(/簡單凱因斯|均衡所得與乘數|消費函數\s*C\s*=\s*100|政府支出乘數/i.test(combined)){
+        item.fullQ=DEMOS[2].text;
+        item.t=DEMOS[2].text.slice(0,45);
+        if(!(item.ch>=0))item.ch=13;
+        changed=true;
+      }else if(idx===0){
+        const curOcr=(document.getElementById('ocrtext')?.value||'').trim();
+        if(curOcr.length>rawQ.length && (rawQ==='圖片上傳題目'||rawQ==='圖片題'||curOcr.startsWith(rawQ.slice(0,15)))){
+          item.fullQ=curOcr;
+          item.t=curOcr.slice(0,45);
+          changed=true;
+        }
+      }
+    }
+    if(!item.fullQ&&item.t){
+      item.fullQ=item.t;
+      changed=true;
+    }
+  });
+  if(changed){
+    try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+  }
+  return h;
+}
+
+function editHistQ(idx){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  const item=h[idx];
+  if(!item)return;
+  const ocrVal=(document.getElementById('ocrtext')?.value||'').trim();
+  const curQ=(item.fullQ&&item.fullQ!=='圖片上傳題目'&&item.fullQ!=='圖片題')?item.fullQ:(ocrVal||item.t||'');
+  const nextQ=prompt('請輸入或貼上此題的「完整題目文字」：',curQ);
+  if(nextQ!==null&&nextQ.trim()){
+    item.fullQ=nextQ.trim();
+    item.t=item.fullQ.slice(0,45);
+    try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+    renderHist();
+  }
 }
 
 function toggleMastered(idx){
@@ -891,11 +1039,18 @@ function reloadHistToSolver(idx){
   const qText=item.fullQ||item.t||'';
   const ocrBox=document.getElementById('ocrtext');
   if(ocrBox){
-    ocrBox.value=qText;
+    if(qText&&qText!=='圖片上傳題目'&&qText!=='圖片題'){
+      ocrBox.value=qText;
+    }
+    if(item.imgThumb){
+      preview.src=item.imgThumb;
+      document.getElementById('preview-container').style.display='block';
+      document.getElementById('drop-zone').style.display='none';
+    }
     if(item.ch>=0&&item.ch<19){
       selectCandidate(item.ch);
     }else{
-      updateAutoCh(qText);
+      updateAutoCh(ocrBox.value);
     }
     ocrBox.scrollIntoView({behavior:'smooth',block:'center'});
   }
@@ -904,6 +1059,7 @@ function reloadHistToSolver(idx){
 function renderHist(){
   let h=[];
   try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  h=upgradeOldHistRecords(h);
   const u=document.getElementById('hist'),w=document.getElementById('weak'),f=document.getElementById('histfilter');
   const cur=f?f.value:'';
 
@@ -949,8 +1105,10 @@ function renderHist(){
   u.innerHTML=list.map(({item,realIdx})=>{
     const isDone=!!item.mastered;
     const chTag=item.ch>=0?`${CH[item.ch][0]} ${CH[item.ch][1]}`:(item.g||'未分類');
-    const qFull=(item.fullQ||item.t||'（無題目文字）').replace(/</g,'&lt;').replace(/\n/g,'<br>');
-    const qShort=(item.t||item.fullQ||'題目紀錄').slice(0,42).replace(/</g,'&lt;');
+    const rawFull=(item.fullQ||item.t||'（無題目文字）').trim();
+    const qFull=rawFull.replace(/</g,'&lt;').replace(/\n/g,'<br>');
+    const qShort=rawFull.slice(0,42).replace(/</g,'&lt;');
+    const isLegacyShort=(!item.imgThumb && (rawFull.length<=32 || rawFull==='圖片上傳題目' || rawFull==='圖片題'));
     const fallbackA=item.ch>=0?`<b>本章核心必記公式：</b><code>${CH[item.ch][4]}</code><br><b>重點溫習：</b>${CH[item.ch][2]}`:'（此為舊版紀錄，點下方「載入上方重練」可重新產生完整詳解）';
     const aHtml=item.fullA||fallbackA;
 
@@ -964,13 +1122,19 @@ function renderHist(){
         </div>
         <span class="muted" style="font-size:.78rem">${item.d||''}</span>
       </div>
-      <div class="hist-q">${qShort}${(item.fullQ&&item.fullQ.length>42)?'…':''}</div>
+      <div class="hist-q">${qShort}${rawFull.length>42?'… <span style="color:#ea580c;font-size:.78rem;font-weight:500">（展開看完整題幹）</span>':''}</div>
       <details class="hist-detail">
         <summary>📖 點此展開完整題目與詳解</summary>
-        <div style="margin-top:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)">
-          <b>📝 完整題目：</b><br><span style="color:#431407">${qFull}</span>
+        <div style="margin-top:8px;padding:10px 12px;background:#fff;border:1.5px solid #fed7aa;border-radius:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px">
+            <b style="color:#9a3412;font-size:.92rem">📝 完整題目原題：</b>
+            <button type="button" class="chip-btn" style="padding:2px 8px;font-size:.76rem" onclick="editHistQ(${realIdx})">✏️ 編輯/補全題目</button>
+          </div>
+          ${item.imgThumb?`<div style="margin-bottom:8px"><img src="${item.imgThumb}" alt="題目原圖" style="max-height:240px;max-width:100%;border-radius:6px;border:1px solid var(--line);display:block"></div>`:''}
+          <div style="color:#1c1917;font-size:.95rem;line-height:1.75;word-break:break-word">${qFull}</div>
+          ${isLegacyShort?`<div style="margin-top:8px;padding:6px 10px;background:#fffbeb;border:1px dashed #f59e0b;border-radius:6px;font-size:.8rem;color:#b45309">💡 <b>為什麼這題只有幾個字？</b>因為此筆是在改版前建立的舊紀錄（舊版只存前 30 字摘要或「圖片題」）。您可點右上「✏️ 編輯/補全題目」貼上完整題目，或重新拍照/點上方範例解題，新解的題目都會 100% 完整保存全題文字與照片！</div>`:''}
         </div>
-        <div style="margin-top:8px;line-height:1.7">
+        <div style="margin-top:10px;line-height:1.7">
           ${aHtml}
         </div>
       </details>
