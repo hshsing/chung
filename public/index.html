@@ -84,7 +84,7 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 <!-- Block 1 -->
 <div id="block1" class="card">
 <h2><span class="badge">第一塊</span>拍照解題・智慧裁切＋先核對再解題</h2>
-<p class="muted">一次一題。流程：拍照/裁切題目 → 自動辨識 → <b>點快捷標籤或核對文字</b> → 按「確認解題」。改過的字才會準。</p>
+<p class="muted">一次一題。流程：<b>1. 拍照/裁切題目 → 2. 核對辨識文字 → 3. 診斷章節並開始解題</b>。改過的字才會準。</p>
 <details><summary>拍得清楚的小技巧（點開看）</summary>
 <ul class="muted"><li>平放考卷、手機垂直拿正，字體越清晰辨識越準</li><li>若考卷字太小或有折痕，可靠近拍攝或開燈避開陰影</li><li>若照片拍到多題，可善用下方「✂️ 裁切選取本題」或「🔄 旋轉」工具</li></ul></details>
 
@@ -138,7 +138,7 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 
 <!-- 辨識文字區 -->
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-  <label><b>2. 辨識文字（可逐字核對修正）</b></label>
+  <label><b>2. 辨識文字（可逐字核對修正或直接輸入題目）</b></label>
   <div style="display:flex;gap:6px">
     <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
     <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
@@ -158,23 +158,12 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
   <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
 </div>
 
-<textarea id="ocrtext" placeholder="上傳或載入示範題後自動填入，請核對數字與關鍵字"></textarea>
+<textarea id="ocrtext" placeholder="上傳照片或點上方範例題後自動填入，也可直接在此輸入題目文字（例：求 Ed、PPC、均衡所得…）"></textarea>
 <button class="ghost" onclick="runOcr()">重新辨識此圖</button>
 
-<!-- 補充說明與免打字標籤 -->
-<label style="margin-top:10px;display:block"><b>3. 補充題型（點選標籤免打字）</b></label>
-<div class="tool-row" id="tag-chips">
-  <button type="button" class="chip-btn" onclick="toggleTag('[計算題]', this)">📊 計算題</button>
-  <button type="button" class="chip-btn" onclick="toggleTag('[曲線位移]', this)">📈 曲線位移</button>
-  <button type="button" class="chip-btn" onclick="toggleTag('[彈性與TR]', this)">⚖️ 彈性與收益</button>
-  <button type="button" class="chip-btn" onclick="toggleTag('[選項卡關]', this)">❓ 選項卡關</button>
-  <button type="button" class="chip-btn" onclick="toggleTag('[觀念辨析]', this)">💡 觀念辨析</button>
-</div>
-<textarea id="qtext" placeholder="點上方標籤自動填入，或輸入你的卡關點（例：我算到 Ed=1.5 但答案給 0.8…）"></textarea>
-
-<!-- 4. 判斷章節與手動鎖定 -->
+<!-- 3. 判斷章節與手動鎖定 -->
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:4px">
-  <label style="margin:0"><b>4. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
+  <label style="margin:0"><b>3. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
   <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
 </div>
 
@@ -520,9 +509,7 @@ function renderAutoChUI(){
 
 function updateAutoCh(s){
   const ocr=s!==undefined?s:(document.getElementById('ocrtext')?.value||'');
-  const qtx=document.getElementById('qtext')?.value||'';
-  const targetText=(ocr+' '+qtx).trim();
-  detectedCandidates=rankChapters(targetText);
+  detectedCandidates=rankChapters(ocr.trim());
   renderAutoChUI();
 }
 
@@ -557,19 +544,16 @@ const DEMOS=[
   {
     title:"需求價格彈性 Ed",
     text:"已知某商品價格由 20 元上漲至 25 元時，市場需求量由 100 單位減少至 80 單位。試求：(1) 此商品之需求價格弧彈性 (Ed) 為何？ (2) 廠商若欲提高總收益 (TR)，應採取漲價或降價策略？",
-    q:"[計算題] [彈性與TR] 需求價格弧彈性計算與廠商定價策略",
     ch:"CH2 需求與供給"
   },
   {
     title:"生產可能曲線與邊際轉換率",
     text:"某國生產 X 與 Y 兩種財貨，其生產可能曲線 (PPC) 凹向原點。當 X 財由 10 單位增產至 15 單位時，Y 財由 50 單位減產至 35 單位。試問：(1) 生產 X 財之邊際轉換率 (MRT) 為何？ (2) 機會成本遞增法則之意涵為何？",
-    q:"[計算題] [觀念辨析] MRT邊際轉換率與PPC凹向原點",
     ch:"CH1 經濟基本概念"
   },
   {
     title:"簡單凱因斯模型與乘數",
     text:"假設一簡單凱因斯經濟體系中，消費函數 C = 100 + 0.8Yd，自發性投資 I = 60，政府支出 G = 40。試問：(1) 邊際消費傾向 (MPC) 為何？ (2) 政府支出乘數為何？ (3) 體系之均衡所得 (Ye) 為何？",
-    q:"[計算題] 邊際消費傾向、政府支出乘數與均衡所得",
     ch:"CH14 所得水準的決定"
   }
 ];
@@ -593,16 +577,11 @@ function loadDemo(idx){
   const d=DEMOS[idx % DEMOS.length];
   resetImage();
   document.getElementById('ocrtext').value=d.text;
-  document.getElementById('qtext').value=d.q;
   document.getElementById('finfo').textContent=`已載入【${d.title}】示範題目，已自動鎖定考點！`;
   manualChIndex=-1;
   const sel=document.getElementById('userch-select');
   if(sel)sel.value="-1";
-  updateAutoCh(d.text+" "+d.q);
-  document.querySelectorAll('#tag-chips .chip-btn').forEach(btn=>btn.classList.remove('active'));
-  if(d.q.includes('[計算題]'))document.querySelectorAll('#tag-chips .chip-btn')[0]?.classList.add('active');
-  if(d.q.includes('[彈性與TR]'))document.querySelectorAll('#tag-chips .chip-btn')[2]?.classList.add('active');
-  if(d.q.includes('[觀念辨析]'))document.querySelectorAll('#tag-chips .chip-btn')[4]?.classList.add('active');
+  updateAutoCh(d.text);
   solve(true);
 }
 
@@ -695,19 +674,6 @@ function cancelCrop(){
   else{document.getElementById('drop-zone').style.display='block';}
 }
 
-function toggleTag(tagText,el){
-  const qBox=document.getElementById('qtext');
-  let cur=(qBox.value||'').trim();
-  if(cur.includes(tagText)){
-    qBox.value=cur.replace(tagText,'').replace(/\s+/g,' ').trim();
-    el.classList.remove('active');
-  }else{
-    qBox.value=(cur?cur+' ':'')+tagText;
-    el.classList.add('active');
-  }
-  updateAutoCh();
-}
-
 function insertSymbol(sym){
   const box=document.getElementById('ocrtext');
   const start=box.selectionStart||box.value.length;
@@ -764,10 +730,9 @@ async function runOcr(){const box=document.getElementById('ocrtext');if(!imgs.le
  try{if(window.Tesseract){const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');box.value=(t.data.text||'').slice(0,800);ocrstat.textContent='本機辨識完成，已自動判斷章節，請核對再按解題。';updateAutoCh(box.value);return;}}catch(e){}
  ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';}
 document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.target.value));
-document.getElementById('qtext').addEventListener('input',()=>updateAutoCh());
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
- if(!imgs.length&&!document.getElementById('qtext').value.trim()&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
+ if(!imgs.length&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
  const box=document.getElementById('answer');box.classList.remove('hide');
  box.innerHTML=`<b>自動解題中…</b><br>正在分析題目關鍵詞與公式匹配…`;
  box.scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -779,12 +744,11 @@ async function solve(manual){
  try{
   if(imgs.length&&window.Tesseract){ocrstat.textContent="本機辨識中（第一次需下載語言包，約10–20秒）…";
    const r=await Tesseract.recognize(imgs[0],'chi_tra+eng');
-   ocr=(r.data.text||"").slice(0,800);ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字＋補充文字判斷。";
+   ocr=(r.data.text||"").slice(0,800);ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字判斷。";
   }
- }catch(e){ocrstat.textContent="辨識失敗，改用補充文字判斷。";}
-  const extra=document.getElementById('qtext').value||"";
+ }catch(e){ocrstat.textContent="辨識失敗，改用關鍵字判斷。";}
   const fixed=document.getElementById('ocrtext').value||"";
-  const all=(ocr+"\n"+fixed+"\n"+extra).slice(0,1200);
+  const all=(ocr+"\n"+fixed).slice(0,1200);
   if(!detectedCandidates.length&&all.trim()){detectedCandidates=rankChapters(all);}
   const eff=getEffectiveChapter();
   const g=eff?eff.label:'未匹配特定章節（可點選上方自選章節或至第二塊搜尋）';
@@ -808,16 +772,15 @@ async function solve(manual){
      ${ansHtml}
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
- saveHist(extra.slice(0,30)||fixed.slice(0,30)||"題目解題",eff?`${eff.id} ${eff.name}`:g);
+ saveHist(fixed.slice(0,30)||ocr.slice(0,30)||"題目解題",eff?`${eff.id} ${eff.name}`:g);
 }
 async function tryPost(silent){
  try{
   const fixed=document.getElementById('ocrtext').value.trim();
-  const extra=document.getElementById('qtext').value.trim();
   const eff=getEffectiveChapter();
   const chHint=eff?(`\n【考點章節】${eff.id} ${eff.name}`):'';
   const fd=new FormData();imgs.forEach(f=>fd.append('images',f));
-  fd.append('text',(fixed?('【學生已核對題目】'+fixed+'\n'):'')+(extra?('【補充】'+extra):'')+chHint);
+  fd.append('text',(fixed?('【學生已核對題目】'+fixed):'')+chHint);
    const r=await fetch('/api/solve',{method:'POST',body:fd});
    if(!r.ok)return false;
   const j=await r.json();
@@ -838,7 +801,7 @@ async function tryPost(silent){
      </div>
    `;
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
-  saveHist(document.getElementById('qtext').value.slice(0,30)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,60));
+  saveHist(fixed.slice(0,30)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,60));
   return true;
  }catch(e){return false;}
 }
@@ -846,7 +809,7 @@ function chIdxOf(s){const m=(s||'').match(/CH\s?(\d{1,2})/i);if(!m)return -1;con
 function linkCh(ans){const set=[];const re=/CH\s?(\d{1,2})/gi;let m;while((m=re.exec(ans||''))){const n=+m[1];if(n>=1&&n<=19&&!set.includes(n))set.push(n);}return set.slice(0,3).map(n=>`<button class="ghost" onclick="gotoCh(${n-1})">回看 ${CH[n-1][0]} ${CH[n-1][1]}</button>`).join(' ');}
 function gotoCh(i){showTab(2);showCh(i);}
 function copyPrompt(){
-  const t=`【經濟題解題】文字：${document.getElementById('qtext').value||'見圖'}\n請：1)詳細步驟解題 2)指出考CH幾什麼觀念\n觀念表：\n${conceptTable()}`;
+  const t=`【經濟題解題】文字：${document.getElementById('ocrtext').value||'見圖'}\n請：1)詳細步驟解題 2)指出考CH幾什麼觀念\n觀念表：\n${conceptTable()}`;
  navigator.clipboard.writeText(t).then(()=>alert('已複製，貼給 AI 並上傳同張照片即可')).catch(()=>alert(t));
 }
 function saveHist(t,g){const ch=g?chIdxOf(g):-1;let h=[];try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}h.unshift({d:new Date().toLocaleString(),t:(t||'').slice(0,30),g:g||'',ch});localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,50)));renderHist();}
