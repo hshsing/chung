@@ -112,6 +112,9 @@ footer{color:var(--muted);font-size:.85rem;padding:24px 0 40px}
 .formula-card .feq{display:block;background:#ffe4e6;color:#be123c;padding:6px 10px;border-radius:8px;font-weight:700;font-size:.96rem;margin:6px 0;word-break:break-word}
 .formula-card .ftip{font-size:.84rem;color:#78716c}
 .worked-box{background:linear-gradient(to right,#fff7ed,#fff1f2);border:2px solid #fdba74;border-radius:12px;padding:12px 14px;margin-top:12px}
+
+.graph-svg-wrap{background:#ffffff;border:1.5px solid #fed7aa;border-radius:12px;padding:14px 10px;margin:12px 0;text-align:center;box-shadow:0 3px 12px rgba(234,88,12,0.05);overflow-x:auto}
+.graph-svg-wrap svg{max-width:100%;height:auto;display:inline-block;vertical-align:middle}
 .graph-card{background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:12px;padding:12px 14px;margin-bottom:8px}
 .trap-card{background:#fff;border:1.5px solid #fecdd3;border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .trap-w{color:#b91c1c;font-weight:700;font-size:.92rem;margin-bottom:4px}
@@ -1513,14 +1516,17 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "生產可能曲線（PPC / PPF）",
-        "axes": "橫軸 (X)：X 財產量 ｜ 縱軸 (Y)：Y 財產量",
-        "slope": "負斜率且凹向原點；切線斜率絕對值 ＝ MRTxy ＝ |ΔY / ΔX|",
+        "name": "生產可能曲線（PPC）與機會成本遞增",
+        "axes": "橫軸 (X)：民生消費財產量 ｜ 縱軸 (Y)：國防資本財產量",
+        "slope": "負斜率（資源稀少有機會成本）且凹向原點（機會成本遞增法則，MRTxy 遞增）",
         "keyPoints": [
-          "【線上點 A → B】資源重新配置（具生產效率），會產生機會成本。",
-          "【線內點 → 線上點】原本失業或閒置的資源被充分利用（失業率下降），PPC 本身沒有移動！",
-          "【整條 PPC 向外右移】代表技術進步或生產要素增加（即「經濟成長」）；若僅 X 軸外移代表僅 X 產業技術進步。"
-        ]
+          "【線上點 A、B】代表生產效率（充分就業），資源完全有效利用。",
+          "【線內點 C】代表資源閒置、技術無效率或失業率居高不下。",
+          "【線外點 D】代表現有資源與技術下「目前達不到」的產量水準。",
+          "【整條 PPC 外移（粉紅箭頭）】代表技術進步、勞動力增加或資本累積，即「經濟成長」！",
+          "【切線斜率絕對值】即為邊際轉換率 MRTxy ＝ |ΔY / ΔX|，亦等於多生產 1 單位 X 的機會成本。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs>\n    <marker id=\"arr1\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker>\n    <marker id=\"arrRed\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#e11d48\"/></marker>\n  </defs>\n  <!-- 座標軸 -->\n  <line x1=\"60\" y1=\"210\" x2=\"430\" y2=\"210\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr1)\"/>\n  <line x1=\"60\" y1=\"210\" x2=\"60\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr1)\"/>\n  <text x=\"430\" y=\"230\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">X 財產量（民生財）</text>\n  <text x=\"50\" y=\"22\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">Y 財產量（資本財）</text>\n  <text x=\"46\" y=\"224\" font-size=\"12\" fill=\"#64748b\">0</text>\n  <!-- PPC0 凹向原點曲線 -->\n  <path d=\"M 60 45 Q 220 65 370 210\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <text x=\"375\" y=\"200\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">PPC₀</text>\n  <!-- PPC1 外移曲線 -->\n  <path d=\"M 60 30 Q 260 45 420 210\" fill=\"none\" stroke=\"#f43f5e\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"425\" y=\"195\" font-size=\"12\" font-weight=\"700\" fill=\"#f43f5e\">PPC₁（經濟成長）</text>\n  <!-- 外移箭頭 -->\n  <line x1=\"230\" y1=\"90\" x2=\"270\" y2=\"70\" stroke=\"#e11d48\" stroke-width=\"2\" marker-end=\"url(#arrRed)\"/>\n  <!-- 關鍵各點 -->\n  <circle cx=\"180\" cy=\"80\" r=\"5\" fill=\"#2563eb\" stroke=\"#fff\" stroke-width=\"1.5\"/>\n  <text x=\"186\" y=\"76\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">A（線上：效率）</text>\n  <circle cx=\"280\" cy=\"135\" r=\"5\" fill=\"#2563eb\" stroke=\"#fff\" stroke-width=\"1.5\"/>\n  <text x=\"288\" y=\"132\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">B（線上：效率）</text>\n  <circle cx=\"150\" cy=\"160\" r=\"5\" fill=\"#ea580c\" stroke=\"#fff\" stroke-width=\"1.5\"/>\n  <text x=\"158\" y=\"164\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">C（線內：閒置/失業）</text>\n  <circle cx=\"340\" cy=\"65\" r=\"5\" fill=\"#9333ea\" stroke=\"#fff\" stroke-width=\"1.5\"/>\n  <text x=\"348\" y=\"65\" font-size=\"11\" font-weight=\"700\" fill=\"#9333ea\">D（線外：目前達不到）</text>\n</svg>"
       }
     ],
     "traps": [
@@ -1714,23 +1720,26 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "市場供需均衡與價格管制圖",
+        "name": "市場供需均衡與價格管制（上限 vs. 下限）",
         "axes": "橫軸 (Q)：數量 ｜ 縱軸 (P)：價格",
-        "slope": "需求線 D 負斜率（右下傾斜）；供給線 S 正斜率（右上傾斜）",
+        "slope": "需求線 D 負斜率（右下傾斜）；供給線 S 正斜率（右上傾斜）；交點為均衡 E(Pe, Qe)",
         "keyPoints": [
-          "【雙移動口訣】D 與 S 同時移動時，必有一項（P 或 Q）方向確定、另一項不確定（須看移動幅度）。例如：D 右移（P↑Q↑）＋ S 右移（P↓Q↑）➔ 均衡數量 Qe 必增加，均衡價格 Pe 不確定！",
-          "【價格上限】畫在交點 E 下方水平線 ➔ Qd ＞ Qs 產生「短缺（超額需求）」。",
-          "【價格下限】畫在交點 E 上方水平線 ➔ Qs ＞ Qd 產生「過剩（超額供給）」。"
-        ]
+          "【價格上限（限高價，紅色水平線）】訂在均衡價下方才有效！造成需求量 ＞ 供給量，產生「超額需求（短缺、排隊、黑市）」。",
+          "【價格下限（限低價，綠色水平線）】訂在均衡價上方才有效！造成供給量 ＞ 需求量，產生「超額供給（過剩、失業壓力）」。",
+          "【口訣】上限壓在下（造成短缺）、下限撐在上（造成過剩）！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr2\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"430\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr2)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr2)\"/>\n  <text x=\"430\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"45\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">價格 (P)</text>\n  <!-- 需求線 D & 供給線 S -->\n  <line x1=\"80\" y1=\"50\" x2=\"380\" y2=\"190\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <text x=\"385\" y=\"195\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">D</text>\n  <line x1=\"80\" y1=\"190\" x2=\"380\" y2=\"50\" stroke=\"#ea580c\" stroke-width=\"3\"/>\n  <text x=\"385\" y=\"55\" font-size=\"12\" font-weight=\"700\" fill=\"#ea580c\">S</text>\n  <!-- 均衡點 -->\n  <circle cx=\"230\" cy=\"120\" r=\"5\" fill=\"#1e293b\"/>\n  <line x1=\"50\" y1=\"120\" x2=\"230\" y2=\"120\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <line x1=\"230\" y1=\"120\" x2=\"230\" y2=\"215\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <text x=\"25\" y=\"124\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">Pe</text>\n  <text x=\"224\" y=\"230\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">Qe</text>\n  <text x=\"238\" y=\"115\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">E (均衡點)</text>\n  <!-- 價格下限（限低價）在上方 -->\n  <line x1=\"50\" y1=\"75\" x2=\"410\" y2=\"75\" stroke=\"#16a34a\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"415\" y=\"78\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">價格下限 Pf (過剩/失業)</text>\n  <!-- 價格上限（限高價）在下方 -->\n  <line x1=\"50\" y1=\"165\" x2=\"410\" y2=\"165\" stroke=\"#dc2626\" stroke-width=\"2\" stroke-dasharray=\"5 3\"/>\n  <text x=\"415\" y=\"168\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">價格上限 Pc (短缺/排隊)</text>\n</svg>"
       },
       {
-        "name": "需求彈性（Ed）與供給彈性（Es）圖形斜率與截距判讀",
+        "name": "直線型供給價格彈性（Es）截距判定圖",
         "axes": "橫軸 (Q)：數量 ｜ 縱軸 (P)：價格",
-        "slope": "兩線相交於同一點時：愈平坦彈性愈大、愈陡峭彈性愈小（垂直線彈性＝0，水平線彈性＝∞）",
+        "slope": "正斜率直線。看供給曲線延伸線撞擊哪個軸的截距！",
         "keyPoints": [
-          "【負斜率直線需求線上的點彈性】斜率雖固定，但每點 Ed 不同：中點 Ed＝1、上半段 Ed＞1、下半段 Ed＜1、縱軸截距 Ed＝∞、橫軸截距 Ed＝0。",
-          "【正斜率直線供給線截距秒殺】延伸通過縱軸（P軸正截距）➔ 整條線 Es＞1；通過原點 ➔ 整條線 Es＝1；通過橫軸（Q軸正截距）➔ 整條線 Es＜1。"
-        ]
+          "【通過縱軸（價格軸 P）正截距 S₁】線上任一點 Es ＞ 1（富於彈性，如工業製造品）。",
+          "【通過原點 (0,0) S₂】線上任一點 Es ＝ 1（單一彈性），不論直線斜率陡峭或平緩！",
+          "【通過橫軸（數量軸 Q）正截距 S₃】線上任一點 Es ＜ 1（缺乏彈性，如生鮮農產品）。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr2b\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"60\" y1=\"215\" x2=\"430\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr2b)\"/>\n  <line x1=\"60\" y1=\"215\" x2=\"60\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr2b)\"/>\n  <text x=\"430\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"55\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">價格 (P)</text>\n  <!-- S1 撞縱軸 Es > 1 -->\n  <line x1=\"60\" y1=\"120\" x2=\"360\" y2=\"40\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n  <text x=\"365\" y=\"45\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">S₁ (撞縱軸：Es ＞ 1)</text>\n  <!-- S2 過原點 Es = 1 -->\n  <line x1=\"60\" y1=\"215\" x2=\"380\" y2=\"80\" stroke=\"#16a34a\" stroke-width=\"2.5\"/>\n  <text x=\"385\" y=\"85\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">S₂ (過原點：Es ＝ 1)</text>\n  <!-- S3 撞橫軸 Es < 1 -->\n  <line x1=\"160\" y1=\"215\" x2=\"390\" y2=\"120\" stroke=\"#dc2626\" stroke-width=\"2.5\"/>\n  <text x=\"395\" y=\"125\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">S₃ (撞橫軸：Es ＜ 1)</text>\n  <circle cx=\"60\" cy=\"215\" r=\"4\" fill=\"#1e293b\"/>\n  <text x=\"46\" y=\"228\" font-size=\"11\" fill=\"#64748b\">原點</text>\n</svg>"
       }
     ],
     "traps": [
@@ -1922,13 +1931,25 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "總效用（TU）與邊際效用（MU）對應圖 & 消費者剩餘圖",
-        "axes": "橫軸 (Q)：消費數量 ｜ 縱軸：TU / MU / 價格 P",
-        "slope": "TU 先遞增後遞減（倒 U 型）；MU 一路向右下遞減（負斜率）",
+        "name": "總效用（TU）與邊際效用（MU）對應關係圖",
+        "axes": "橫軸 (Q)：消費數量 ｜ 縱軸：總效用 TU（上圖） / 邊際效用 MU（下圖）",
+        "slope": "TU 呈倒 U 型；MU 一路向右下傾斜遞減（邊際效用遞減法則）",
         "keyPoints": [
-          "【最高點對齊】當下圖 MU 線穿過橫軸（MU = 0）時，正對上去的上圖 TU 剛好在「最高點」！",
-          "【CS 三角形】需求曲線 D 以下、市價 P 水平線以上的三角形面積即為消費者剩餘（CS）；當市價 P 下跌時，CS 面積會擴大！"
-        ]
+          "【最高點對齊】當 MU ＝ 0（穿過橫軸）時，正對上去的 TU 達到最高點（最大滿足點 / 飽和點）！",
+          "【MU ＞ 0 時】TU 持續上升（斜率遞減式增加）。",
+          "【MU ＜ 0 時】TU 開始下降（多吃引起痛苦反效果）。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr3\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <!-- 上圖座標軸 -->\n  <line x1=\"60\" y1=\"120\" x2=\"420\" y2=\"120\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr3)\"/>\n  <line x1=\"60\" y1=\"120\" x2=\"60\" y2=\"15\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr3)\"/>\n  <text x=\"50\" y=\"15\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">TU</text>\n  <!-- TU 曲線 (倒U) -->\n  <path d=\"M 60 115 Q 240 10 380 90\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <circle cx=\"240\" cy=\"35\" r=\"4.5\" fill=\"#dc2626\"/>\n  <text x=\"245\" y=\"30\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">TU 最大值 (飽和點)</text>\n  <!-- 下圖座標軸 -->\n  <line x1=\"60\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr3)\"/>\n  <line x1=\"60\" y1=\"240\" x2=\"60\" y2=\"140\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr3)\"/>\n  <text x=\"50\" y=\"145\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">MU</text>\n  <text x=\"420\" y=\"235\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">消費量 (Q)</text>\n  <!-- MU 曲線 -->\n  <line x1=\"70\" y1=\"150\" x2=\"380\" y2=\"245\" stroke=\"#ea580c\" stroke-width=\"2.5\"/>\n  <text x=\"385\" y=\"240\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">MU</text>\n  <!-- 垂直虛線對齊 -->\n  <line x1=\"240\" y1=\"35\" x2=\"240\" y2=\"215\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\"/>\n  <circle cx=\"240\" cy=\"202\" r=\"4.5\" fill=\"#dc2626\"/>\n  <text x=\"245\" y=\"210\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">MU ＝ 0</text>\n</svg>"
+      },
+      {
+        "name": "消費者剩餘（CS）面積圖",
+        "axes": "橫軸 (Q)：消費量 ｜ 縱軸 (P)：價格",
+        "slope": "負斜率需求線 D 與市場價格水平線 P* 所夾之三角形面積",
+        "keyPoints": [
+          "【CS 意義】消費者心中「願意支付最高金額（需求線下面積）」－「實際支付總金額（P* × Q* 矩形面積）」。",
+          "【市價下跌時】消費者剩餘面積擴大，買方福利增加！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr3b\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"60\" y1=\"210\" x2=\"420\" y2=\"210\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr3b)\"/>\n  <line x1=\"60\" y1=\"210\" x2=\"60\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr3b)\"/>\n  <text x=\"420\" y=\"230\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"55\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">價格 (P)</text>\n  <!-- CS 三角形陰影 -->\n  <polygon points=\"60,40 260,130 60,130\" fill=\"rgba(244,63,94,0.22)\" stroke=\"#f43f5e\" stroke-dasharray=\"3 3\"/>\n  <text x=\"110\" y=\"105\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">消費者剩餘 (CS)</text>\n  <!-- 需求線 -->\n  <line x1=\"60\" y1=\"40\" x2=\"380\" y2=\"185\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <text x=\"385\" y=\"190\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">需求線 D</text>\n  <text x=\"40\" y=\"45\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">Pmax</text>\n  <!-- 市價水平線 -->\n  <line x1=\"60\" y1=\"130\" x2=\"410\" y2=\"130\" stroke=\"#ea580c\" stroke-width=\"2\"/>\n  <text x=\"30\" y=\"134\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">市價 P*</text>\n  <line x1=\"260\" y1=\"130\" x2=\"260\" y2=\"210\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <text x=\"255\" y=\"226\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">Q*</text>\n  <!-- 實付金額矩形 -->\n  <text x=\"120\" y=\"175\" font-size=\"11\" fill=\"#64748b\">實際支付金額 (P* × Q*)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -2089,13 +2110,16 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "短期生產 TP、AP、MP 三線對照圖",
-        "axes": "橫軸 (L)：勞動投入量 ｜ 縱軸：產量（TP / AP / MP）",
-        "slope": "MP 先升後降並穿過 AP 最高點；MP=0 時對應上方 TP 最高點",
+        "name": "短期生產三階段圖（TP、AP、MP 關係）",
+        "axes": "橫軸 (L)：勞動投入量 ｜ 縱軸：總產量 TP（上圖） / AP 與 MP（下圖）",
+        "slope": "TP 先遞增再遞減；MP 先升後降並穿過 AP 最高點",
         "keyPoints": [
-          "【必記口訣】「邊際拉著平均走」：只要 MP 在 AP 上方（MP > AP），AP 就往上升；MP 在 AP 下方（MP < AP），AP 就往下降；兩線必相交於 AP 的最高點！",
-          "【三階段切線】第一切線畫在「AP 最高點（MP=AP）」，第二切線畫在「TP 最高點（MP=0）」，中間夾的就是第二階段（合理生產區）！"
-        ]
+          "【第一階段（0 ～ L₁）】AP 持續上升中，MP ＞ AP，廠商應繼續增聘勞動！",
+          "【第二階段（L₁ ～ L₂）】★合理生產區★：AP 下降但 MP 仍大於 0；廠商利潤極大雇用量必落在此區！",
+          "【第三階段（＞ L₂）】MP ＜ 0，多雇人總產量 TP 反而下降，是荒謬虧損區！",
+          "【關鍵交點】L₁ 處 MP 穿過 AP 最高點（MP ＝ AP）；L₂ 處 MP ＝ 0 對應 TP 最大值！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr4\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <!-- 上圖 TP -->\n  <line x1=\"50\" y1=\"110\" x2=\"420\" y2=\"110\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr4)\"/>\n  <line x1=\"50\" y1=\"110\" x2=\"50\" y2=\"15\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr4)\"/>\n  <text x=\"40\" y=\"15\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">TP</text>\n  <path d=\"M 50 110 Q 150 100 210 50 Q 280 15 320 20 Q 360 28 400 65\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n  <circle cx=\"320\" cy=\"20\" r=\"4\" fill=\"#dc2626\"/>\n  <text x=\"325\" y=\"18\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">TP 最大</text>\n  <!-- 下圖 AP, MP -->\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr4)\"/>\n  <line x1=\"50\" y1=\"235\" x2=\"50\" y2=\"130\" stroke=\"#475569\" stroke-width=\"1.5\" marker-end=\"url(#arr4)\"/>\n  <text x=\"35\" y=\"135\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\">AP,MP</text>\n  <text x=\"420\" y=\"232\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">勞動 (L)</text>\n  <!-- AP 曲線 -->\n  <path d=\"M 50 215 Q 160 140 210 145 Q 280 160 380 200\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <text x=\"385\" y=\"202\" font-size=\"10\" font-weight=\"700\" fill=\"#16a34a\">AP</text>\n  <!-- MP 曲線 -->\n  <path d=\"M 50 215 Q 120 120 160 125 Q 220 150 320 215 Q 350 235 380 240\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n  <text x=\"385\" y=\"240\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">MP</text>\n  <!-- 階段劃分線 -->\n  <line x1=\"210\" y1=\"20\" x2=\"210\" y2=\"215\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <line x1=\"320\" y1=\"20\" x2=\"320\" y2=\"215\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <text x=\"110\" y=\"125\" font-size=\"10\" font-weight=\"700\" fill=\"#64748b\">第 I 階段</text>\n  <rect x=\"215\" y=\"115\" width=\"100\" height=\"18\" fill=\"rgba(245,158,11,0.18)\" rx=\"4\"/>\n  <text x=\"220\" y=\"128\" font-size=\"10\" font-weight=\"700\" fill=\"#b45309\">第 II 階段 (合理生產區)</text>\n  <text x=\"335\" y=\"125\" font-size=\"10\" font-weight=\"700\" fill=\"#64748b\">第 III 階段</text>\n</svg>"
       }
     ],
     "traps": [
@@ -2256,14 +2280,14 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "短期單位成本四線圖（AFC、AVC、AC、MC）",
-        "axes": "橫軸 (Q)：產量 ｜ 縱軸 ($)：單位成本",
-        "slope": "AFC 一路往右下遞減；AVC、AC、MC 皆呈打勾 U 字型",
+        "name": "短期成本七條曲線核心關係圖（MC, AC, AVC, AFC）",
+        "axes": "橫軸 (Q)：產量 ｜ 縱軸 (C)：成本",
+        "slope": "MC、AC、AVC 皆呈 U 型；MC 貫穿 AVC 與 AC 的最低點！",
         "keyPoints": [
-          "【最低點順序】由左而右依序出現：MC 最低點 ➔ AVC 最低點 ➔ AC 最低點（因為 AC = AVC + AFC，AFC 還在下降會把 AC 最低點往右拉）。",
-          "【穿過最低點】MC 曲線必定由下往上精準穿過 AVC 最低點與 AC 最低點！",
-          "【AC 與 AVC 距離】AC 在 AVC 上方，兩線垂直距離 ＝ AFC；隨產量 Q 愈大，AFC 愈小，故 AC 與 AVC 會愈來愈靠近（但永不相交）。"
-        ]
+          "【MC 穿過最低點】MC 先由下往上穿過 AVC 的最低點（A：歇業點），再穿過 AC 的最低點（B：損益平衡點）！",
+          "【差距為 AFC】AC 與 AVC 之間的垂直距離正好就是 AFC；隨產量增加，AFC 遞減，兩線愈來愈近但絕不相交！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr5\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr5)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr5)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">產量 (Q)</text>\n  <text x=\"45\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">成本 (C)</text>\n  <!-- AFC 遞減 -->\n  <path d=\"M 65 190 Q 150 205 380 212\" fill=\"none\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 2\"/>\n  <text x=\"385\" y=\"210\" font-size=\"10\" fill=\"#94a3b8\">AFC</text>\n  <!-- AVC 曲線 -->\n  <path d=\"M 70 160 Q 180 145 220 145 Q 280 150 370 170\" fill=\"none\" stroke=\"#ea580c\" stroke-width=\"2.2\"/>\n  <text x=\"375\" y=\"172\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">AVC</text>\n  <!-- AC 曲線 -->\n  <path d=\"M 75 100 Q 180 80 280 80 Q 330 90 370 120\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2.5\"/>\n  <text x=\"375\" y=\"118\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">AC</text>\n  <!-- MC 曲線 穿過兩最低點 -->\n  <path d=\"M 80 190 Q 140 170 180 155 Q 220 145 280 80 Q 330 35 365 25\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.8\"/>\n  <text x=\"370\" y=\"30\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\">MC</text>\n  <!-- 最低點標記 -->\n  <circle cx=\"220\" cy=\"145\" r=\"4.5\" fill=\"#ea580c\"/>\n  <text x=\"210\" y=\"165\" font-size=\"10\" font-weight=\"700\" fill=\"#ea580c\">AVC最低點 (歇業點)</text>\n  <circle cx=\"280\" cy=\"80\" r=\"4.5\" fill=\"#16a34a\"/>\n  <text x=\"270\" y=\"70\" font-size=\"10\" font-weight=\"700\" fill=\"#16a34a\">AC最低點 (損益兩平點)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -2431,13 +2455,14 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "完全競爭 vs. 獨占廠商的 AR 與 MR 曲線圖",
-        "axes": "橫軸 (Q)：銷售量 ｜ 縱軸 ($)：價格 P / AR / MR",
-        "slope": "完全競爭：P=AR=MR 為水平線；獨占：AR 與 MR 皆為負斜率，且 MR 在 AR 下方",
+        "name": "完全競爭 vs. 獨占廠商的需求與收益曲線對比圖",
+        "axes": "左圖：完全競爭 ｜ 右圖：純粹獨占市場",
+        "slope": "完全競爭為水平需求線（P=AR=MR）；獨占為負斜率需求線且 MR 斜率為 AR 的兩倍！",
         "keyPoints": [
-          "【完全競爭兩張圖】左圖「市場供需（D 負斜率、S 正斜率）」交出市價 Pe；右圖「個別廠商」直接把 Pe 畫成一條水平線（P = AR = MR = d）！",
-          "【獨占 MR 穿過橫軸】當獨占的 MR = 0（穿過橫軸）時，對應需求線中點（Ed = 1），此時總收益 TR 達到最高點！"
-        ]
+          "【左：完全競爭】廠商為價格接受者，面對水平線 P ＝ AR ＝ MR，TR 為通過原點的固定斜率射線。",
+          "【右：獨占市場】廠商為價格決定者，AR 即為市場需求線 D，MR 線在 AR 下方且橫軸截距恰好平分！當 MR ＝ 0 時 TR 達到最大。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <!-- 左圖：完全競爭 -->\n  <line x1=\"40\" y1=\"210\" x2=\"200\" y2=\"210\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <line x1=\"40\" y1=\"210\" x2=\"40\" y2=\"40\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <text x=\"120\" y=\"25\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">【完全競爭廠商】</text>\n  <line x1=\"40\" y1=\"120\" x2=\"195\" y2=\"120\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <text x=\"198\" y=\"124\" font-size=\"10\" font-weight=\"700\" fill=\"#2563eb\">P＝AR＝MR</text>\n  <line x1=\"40\" y1=\"210\" x2=\"180\" y2=\"60\" stroke=\"#ea580c\" stroke-width=\"2\" stroke-dasharray=\"4 2\"/>\n  <text x=\"182\" y=\"65\" font-size=\"10\" font-weight=\"700\" fill=\"#ea580c\">TR (射線)</text>\n  <!-- 中間分隔線 -->\n  <line x1=\"225\" y1=\"20\" x2=\"225\" y2=\"230\" stroke=\"#cbd5e1\" stroke-dasharray=\"3 3\"/>\n  <!-- 右圖：獨占市場 -->\n  <line x1=\"260\" y1=\"210\" x2=\"420\" y2=\"210\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <line x1=\"260\" y1=\"210\" x2=\"260\" y2=\"40\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <text x=\"340\" y=\"25\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">【獨占廠商】</text>\n  <line x1=\"260\" y1=\"60\" x2=\"415\" y2=\"190\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n  <text x=\"418\" y=\"195\" font-size=\"10\" font-weight=\"700\" fill=\"#2563eb\">D＝AR</text>\n  <line x1=\"260\" y1=\"60\" x2=\"338\" y2=\"210\" stroke=\"#dc2626\" stroke-width=\"2.5\"/>\n  <text x=\"342\" y=\"222\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">MR</text>\n  <path d=\"M 260 210 Q 338 90 415 210\" fill=\"none\" stroke=\"#ea580c\" stroke-width=\"2\" stroke-dasharray=\"4 2\"/>\n  <text x=\"338\" y=\"85\" font-size=\"10\" font-weight=\"700\" fill=\"#ea580c\" text-anchor=\"middle\">TR (倒U型最大值)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -2598,14 +2623,16 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "完全競爭短期均衡與供給曲線圖（AC、AVC、MC）",
-        "axes": "橫軸 (Q)：產量 ｜ 縱軸 ($)：價格與成本",
-        "slope": "MC 穿過 AVC 最低點（歇業點 B）與 AC 最低點（損益平衡點 A）",
+        "name": "完全競爭廠商短期損益與停業點（短期供給曲線）",
+        "axes": "橫軸 (Q)：產量 ｜ 縱軸 (P, C)：價格與成本",
+        "slope": "MC 穿過 AVC 與 AC 最低點；AVC 最低點以上的那段 MC 即為短期供給曲線",
         "keyPoints": [
-          "【A 點：AC 最低點】即損益平衡點（P = ACmin，經濟利潤 = 0）。",
-          "【B 點：AVC 最低點】即停止營業點 / 歇業點（P = AVCmin，虧損 = TFC）。",
-          "【粗紅線：B 點以上的 MC】這一段就是完全競爭廠商的「短期供給曲線」！"
-        ]
+          "【P ＞ AC】有超額利潤（π ＞ 0），繼續生產！",
+          "【P ＝ AC 最低點】損益平衡點（零超額利潤，剛好賺到正常利潤）。",
+          "【P ＝ AVC 最低點】停止營業點（歇業點）；低於此價立刻關門（Q＝0）！",
+          "【紅色粗線】AVC 最低點以上的 MC 線段，就是完全競爭廠商的「短期供給曲線」！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr7\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr7)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr7)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">產量 (Q)</text>\n  <text x=\"40\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">P, MC, AC</text>\n  <!-- AC & AVC -->\n  <path d=\"M 80 120 Q 200 80 270 80 Q 330 90 380 130\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <text x=\"385\" y=\"130\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">AC</text>\n  <path d=\"M 80 170 Q 180 145 220 145 Q 300 155 380 180\" fill=\"none\" stroke=\"#ca8a04\" stroke-width=\"1.8\"/>\n  <text x=\"385\" y=\"180\" font-size=\"11\" font-weight=\"700\" fill=\"#ca8a04\">AVC</text>\n  <!-- MC 下半部細線 -->\n  <path d=\"M 90 200 Q 150 175 220 145\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\"/>\n  <!-- MC 上半部（短期供給曲線）加粗實線 -->\n  <path d=\"M 220 145 Q 270 80 340 30\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"4\"/>\n  <text x=\"345\" y=\"35\" font-size=\"12\" font-weight=\"700\" fill=\"#dc2626\">短期供給線 (MC ≥ AVC)</text>\n  <!-- 歇業點與損益平衡點標示 -->\n  <circle cx=\"220\" cy=\"145\" r=\"5\" fill=\"#ea580c\"/>\n  <text x=\"140\" y=\"150\" font-size=\"10\" font-weight=\"700\" fill=\"#ea580c\">停業點 (P＝最低AVC)</text>\n  <circle cx=\"270\" cy=\"80\" r=\"5\" fill=\"#16a34a\"/>\n  <text x=\"195\" y=\"75\" font-size=\"10\" font-weight=\"700\" fill=\"#16a34a\">損益平衡點 (P＝最低AC)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -2769,14 +2796,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "獨占均衡與無謂損失（DWL）＆ 自然獨占管制圖",
-        "axes": "橫軸 (Q)：產量 ｜ 縱軸 ($)：價格與成本（P, AR, MR, MC, AC）",
-        "slope": "AR 與 MR 負斜率；先找 MR=MC 交點 E，往上對 AR 得價格 Pe",
+        "name": "獨占廠商利潤極大化定價與無謂損失（DWL）",
+        "axes": "橫軸 (Q)：產量 ｜ 縱軸 (P)：價格",
+        "slope": "MR = MC 決定最適產量 Qm，向上對到需求線 AR 決定售價 Pm",
         "keyPoints": [
-          "【利潤面積】在 Qe 處，由 Pe 往下對到 AC 線的長方形面積 ＝ (Pe - AC) × Qe ＝ 超額利潤！",
-          "【無謂損失三角形】在 Qe 與 P=MC 交點 Qc 之間，夾在需求線（AR）與 MC 線之間的三角形面積即為無謂損失（DWL）。",
-          "【自然獨占管制】LAC 一路下降時，LMC 必在 LAC 下方：對齊 P=LMC 會虧損；對齊 P=LAC 剛好損益平衡。"
-        ]
+          "【定價法則】先看 MR ＝ MC 交點 E 決定產量 Qm；再垂直對上需求線 AR 定最高價 Pm！",
+          "【超額利潤矩形】黃色區域 ＝ (Pm － AC) × Qm，獨占廠商享有長期超額利潤。",
+          "【無謂損失 DWL（灰色三角形）】與完全競爭（P=MC）相比，獨占產量減少、價格拉高，造成的社會福利淨損失！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr8\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr8)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr8)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"45\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">價格 (P)</text>\n  <!-- 超額利潤陰影 -->\n  <rect x=\"50\" y=\"55\" width=\"150\" height=\"45\" fill=\"rgba(245,158,11,0.22)\" stroke=\"#f59e0b\" stroke-dasharray=\"3 2\"/>\n  <text x=\"125\" y=\"82\" font-size=\"11\" font-weight=\"700\" fill=\"#b45309\" text-anchor=\"middle\">獨占超額利潤</text>\n  <!-- DWL 三角形陰影 -->\n  <polygon points=\"200,55 200,140 280,105\" fill=\"rgba(239,68,68,0.25)\" stroke=\"#dc2626\"/>\n  <text x=\"235\" y=\"105\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">無謂損失(DWL)</text>\n  <!-- AR 與 MR -->\n  <line x1=\"50\" y1=\"35\" x2=\"380\" y2=\"185\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n  <text x=\"385\" y=\"190\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">需求線 (AR)</text>\n  <line x1=\"50\" y1=\"35\" x2=\"240\" y2=\"215\" stroke=\"#9333ea\" stroke-width=\"2\"/>\n  <text x=\"245\" y=\"215\" font-size=\"11\" font-weight=\"700\" fill=\"#9333ea\">MR</text>\n  <!-- MC 曲線 -->\n  <path d=\"M 80 190 Q 200 140 350 70\" fill=\"none\" stroke=\"#dc2626\" stroke-width=\"2.5\"/>\n  <text x=\"355\" y=\"72\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">MC</text>\n  <!-- 均衡產量與價格投影 -->\n  <line x1=\"200\" y1=\"55\" x2=\"200\" y2=\"215\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <line x1=\"50\" y1=\"55\" x2=\"200\" y2=\"55\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <text x=\"30\" y=\"58\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">Pm</text>\n  <text x=\"195\" y=\"230\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">Qm</text>\n</svg>"
       }
     ],
     "traps": [
@@ -2937,13 +2965,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "寡占拗折需求曲線（Kinked Demand）與獨占性競爭長期相切圖",
-        "axes": "橫軸 (Q)：產量 ｜ 縱軸 ($)：價格與成本",
-        "slope": "拗折需求線：上半段平坦（Ed大）、下半段陡峭（Ed小），對應 MR 有垂直虛線缺口",
+        "name": "寡占市場斯威齊（Sweezy）拗折需求曲線模型",
+        "axes": "橫軸 (Q)：產量 ｜ 縱軸 (P)：價格",
+        "slope": "現行價格 P₀ 以上平坦（跟跌不跟漲，富彈性）；P₀ 以下陡峭（缺乏彈性）",
         "keyPoints": [
-          "【拗折點口訣】「上平下陡、跟跌不跟漲、MR 有垂直缺口、MC 在缺口內移動 P 與 Q 皆不變」！",
-          "【獨占性競爭長期圖】負斜率的 AR 線必相切於 U 型 LAC 左半下降段（不會切在最低點），代表有超額產能。"
-        ]
+          "【跟跌不跟漲】廠商漲價時對手不跟進（客源大量流失，彈性大）；降價時對手立刻跟進（大家一起流血，彈性小）。",
+          "【邊際收益垂直斷層】MR 曲線在拗折點 Q₀ 垂直下方斷裂為兩截（垂直缺口）。",
+          "【價格僵固性】邊際成本線 MC 只要在垂直缺口內變動，最適產量 Q₀ 與價格 P₀ 恆固定不動！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr9\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"45\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">價格 (P)</text>\n  <!-- 拗折需求線：上半段平坦，下半段陡峭 -->\n  <line x1=\"80\" y1=\"65\" x2=\"220\" y2=\"105\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <line x1=\"220\" y1=\"105\" x2=\"350\" y2=\"200\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <circle cx=\"220\" cy=\"105\" r=\"5\" fill=\"#f43f5e\"/>\n  <text x=\"228\" y=\"100\" font-size=\"11\" font-weight=\"700\" fill=\"#f43f5e\">拗折點 (P₀, Q₀)</text>\n  <!-- MR 斷層垂直缺口 -->\n  <line x1=\"80\" y1=\"65\" x2=\"160\" y2=\"140\" stroke=\"#9333ea\" stroke-width=\"2\"/>\n  <line x1=\"220\" y1=\"140\" x2=\"220\" y2=\"185\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"3 3\"/>\n  <text x=\"225\" y=\"165\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">MR 垂直缺口</text>\n  <line x1=\"220\" y1=\"185\" x2=\"280\" y2=\"215\" stroke=\"#9333ea\" stroke-width=\"2\"/>\n  <!-- MC 線穿過缺口 -->\n  <line x1=\"160\" y1=\"175\" x2=\"280\" y2=\"150\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <text x=\"285\" y=\"154\" font-size=\"10\" font-weight=\"700\" fill=\"#16a34a\">MC 於缺口內移動</text>\n  <line x1=\"50\" y1=\"105\" x2=\"220\" y2=\"105\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <line x1=\"220\" y1=\"105\" x2=\"220\" y2=\"215\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <text x=\"30\" y=\"110\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">P₀</text>\n  <text x=\"215\" y=\"230\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">Q₀</text>\n</svg>"
       }
     ],
     "traps": [
@@ -3104,14 +3134,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "羅倫茲曲線（Lorenz Curve）與吉尼係數面積圖",
-        "axes": "橫軸：戶數累積百分比 (0~100%) ｜ 縱軸：所得累積百分比 (0~100%)",
-        "slope": "對角 45 度線為絕對均等線；向下彎曲之弧線為羅倫茲曲線",
+        "name": "羅倫茲曲線（Lorenz Curve）與吉尼係數（Gini）",
+        "axes": "橫軸：家戶人口累積百分比 (0-100%) ｜ 縱軸：所得累積百分比 (0-100%)",
+        "slope": "對角線為完全均等線；實際曲線愈向右下凸出，貧富差距愈懸殊",
         "keyPoints": [
-          "【絕對均等線（45度線）】線上任一點代表「X% 的人口剛好拿走 X% 的所得」，此時 A = 0，吉尼係數 G = 0。",
-          "【絕對不均等線（右下折線）】99% 人口所得為 0，最後 1 人拿走 100% 所得，此時 B = 0，吉尼係數 G = 1。",
-          "【政府重分配政策效果】政府課徵累進所得稅並發放低收入補助後，會使羅倫茲曲線「往左上（往 45 度線）移動」，吉尼係數下降！"
-        ]
+          "【45度對角線】所得分配絕對均等線（每 20% 人口恰分配到 20% 所得）。",
+          "【吉尼係數 G ＝ A / (A ＋ B)】A 為不均等區域面積，B 為曲線下方區域。G 介於 0 與 1 之間；G 愈大貧富不均愈嚴重（台灣約 0.34）。",
+          "【直角折線】極端絕對不平均線（全國所得全被 1 個人拿走）。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <!-- 方框與對角線 -->\n  <rect x=\"80\" y=\"30\" width=\"180\" height=\"180\" fill=\"#f8fafc\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <line x1=\"80\" y1=\"210\" x2=\"260\" y2=\"30\" stroke=\"#475569\" stroke-width=\"1.8\" stroke-dasharray=\"4 2\"/>\n  <text x=\"145\" y=\"115\" font-size=\"10\" fill=\"#64748b\" transform=\"rotate(-45 145 115)\">45° 絕對均等線</text>\n  <!-- 羅倫茲曲線 -->\n  <path d=\"M 80 210 Q 210 205 260 30\" fill=\"rgba(244,63,94,0.18)\" stroke=\"#f43f5e\" stroke-width=\"3\"/>\n  <text x=\"180\" y=\"145\" font-size=\"12\" font-weight=\"700\" fill=\"#e11d48\">A</text>\n  <text x=\"200\" y=\"190\" font-size=\"12\" font-weight=\"700\" fill=\"#2563eb\">B</text>\n  <text x=\"70\" y=\"215\" font-size=\"11\" fill=\"#64748b\">0%</text>\n  <text x=\"260\" y=\"225\" font-size=\"11\" fill=\"#64748b\">100% (人口)</text>\n  <text x=\"45\" y=\"35\" font-size=\"11\" fill=\"#64748b\">100% (所得)</text>\n  <!-- 右側公式說明 -->\n  <rect x=\"280\" y=\"50\" width=\"165\" height=\"135\" fill=\"#fffaf5\" stroke=\"#fed7aa\" rx=\"8\"/>\n  <text x=\"290\" y=\"75\" font-size=\"12\" font-weight=\"700\" fill=\"#c2410c\">吉尼係數公式：</text>\n  <text x=\"290\" y=\"98\" font-size=\"12\" font-weight=\"700\" fill=\"#be123c\">G ＝ A ÷ (A ＋ B)</text>\n  <text x=\"290\" y=\"125\" font-size=\"11\" fill=\"#431407\">• G ＝ 0：完全均等</text>\n  <text x=\"290\" y=\"145\" font-size=\"11\" fill=\"#431407\">• G ＝ 1：極端不均</text>\n  <text x=\"290\" y=\"165\" font-size=\"11\" fill=\"#431407\">• ＞ 0.4 為警戒線</text>\n</svg>"
       }
     ],
     "traps": [
@@ -3277,13 +3308,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "後彎的勞動供給曲線 ＆ 垂直土地供給線",
-        "axes": "勞動圖：橫軸(L)工時、縱軸(W)工資率 ｜ 土地圖：橫軸(N)土地量、縱軸(R)地租",
-        "slope": "勞動供給線先向右上（正斜率）再向左上（負斜率）；土地供給線為垂直線",
+        "name": "個別勞動供給曲線後彎（Backward-Bending）",
+        "axes": "橫軸 (L)：工作時數 ｜ 縱軸 (W)：工資率",
+        "slope": "工資低時正斜率向上；工資超過臨界點 W₀ 後向左上方後彎",
         "keyPoints": [
-          "【勞動供給轉折點】轉折點以下：替代效果 > 所得效果；轉折點以上（後彎段）：所得效果 > 替代效果。",
-          "【土地垂直供給線】因為自然土地面積固定，供給完全無彈性（Es=0），全部的地租收入都是「經濟租」！"
-        ]
+          "【起初正斜率（替代效果 ＞ 所得效果）】加薪使休閒變貴，激勵勞工多工作、少休閒（工時增加）。",
+          "【後彎區段（所得效果 ＞ 替代效果）】薪水極高時，實質所得充裕，勞工寧願多享受休閒生活，反而減少工作時數！",
+          "【統測口訣】後彎段代表「所得效果壓過替代效果」！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr11\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"60\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr11)\"/>\n  <line x1=\"60\" y1=\"215\" x2=\"60\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr11)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">工時 (L)</text>\n  <text x=\"55\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">工資率 (W)</text>\n  <!-- 後彎曲線 -->\n  <path d=\"M 90 200 Q 220 150 280 110 Q 300 90 280 65 Q 240 40 210 30\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <circle cx=\"288\" cy=\"95\" r=\"5\" fill=\"#dc2626\"/>\n  <!-- 臨界工資點投影 -->\n  <line x1=\"60\" y1=\"95\" x2=\"288\" y2=\"95\" stroke=\"#dc2626\" stroke-dasharray=\"3 3\"/>\n  <text x=\"35\" y=\"98\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">W₀</text>\n  <!-- 區段標註 -->\n  <text x=\"300\" y=\"145\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">下半段：替代效果 ＞ 所得效果 (工時↑)</text>\n  <text x=\"300\" y=\"65\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">上半段：所得效果 ＞ 替代效果 (後彎 工時↓)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -3435,13 +3468,14 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "投資邊際效率（MEI）曲線與最適投資量圖",
-        "axes": "橫軸 (I)：投資金額 ｜ 縱軸 (i, MEI)：利率與投資邊際效率 (%)",
-        "slope": "MEI 曲線為負斜率（向右下傾斜，因為好賺的投資機會先做，加上資本財價格上升與報酬遞減）",
+        "name": "可貸資金市場利率決定與流動性偏好",
+        "axes": "橫軸：資金/貨幣數量 ｜ 縱軸：利率 (i, r)",
+        "slope": "可貸資金供需決定利率；凱因斯流動性陷阱於極低利率處呈完全水平線",
         "keyPoints": [
-          "【MEI 即投資需求線】因為廠商永遠做到 MEI = i 為止，故負斜率的 MEI 曲線就是廠商的「投資需求曲線」！",
-          "【央行降息效果】當市場利率 i 下降時，滿足 MEI ≥ i 的投資計畫變多，全國總投資量（I）就會增加！"
-        ]
+          "【可貸資金說】利率由儲蓄供給（S）與投資需求（I）流量相交決定。",
+          "【流動性陷阱】市場利率降至極低水準時，投機性貨幣需求彈性無限大（Md 變水平線），央行再怎麼撒錢降息皆無效！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr12\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"60\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr12)\"/>\n  <line x1=\"60\" y1=\"215\" x2=\"60\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr12)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">貨幣/資金數量</text>\n  <text x=\"55\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">利率 (i)</text>\n  <!-- 貨幣需求 Md 下降並在底部水平 -->\n  <path d=\"M 90 40 Q 180 140 230 185 L 400 185\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <text x=\"405\" y=\"190\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">Md (貨幣需求)</text>\n  <!-- 垂直貨幣供給 Ms -->\n  <line x1=\"160\" y1=\"215\" x2=\"160\" y2=\"50\" stroke=\"#ea580c\" stroke-width=\"2.5\"/>\n  <text x=\"155\" y=\"45\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">Ms₀</text>\n  <line x1=\"310\" y1=\"215\" x2=\"310\" y2=\"100\" stroke=\"#f43f5e\" stroke-width=\"2.5\" stroke-dasharray=\"4 2\"/>\n  <text x=\"305\" y=\"95\" font-size=\"11\" font-weight=\"700\" fill=\"#f43f5e\">Ms₁</text>\n  <!-- 水平陷阱區標註 -->\n  <rect x=\"235\" y=\"175\" width=\"160\" height=\"20\" fill=\"rgba(239,68,68,0.2)\" rx=\"4\"/>\n  <text x=\"315\" y=\"190\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">流動性陷阱 (貨幣政策失靈)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -3613,13 +3647,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "生產面「附加價值法（Value-Added）」階層示意圖",
-        "axes": "小麥農夫 ($100) ➔ 麵粉廠 ($180) ➔ 麵包店零售 ($300)",
-        "slope": "只加總每一階段新創造的「附加價值（售價－中間投入成本）」",
+        "name": "國民所得三面等價循環與支出面結構（C+I+G+X-M）",
+        "axes": "概念流程圖：生產面 ＝ 支出面 ＝ 所得面",
+        "slope": "三面等價原則：由生產面創造的附加價值，最終轉化為家庭所得並被消費支出。",
         "keyPoints": [
-          "【防呆關鍵】千萬不可把 100 + 180 + 300 = 580 加起來（會重複計算小麥與麵粉）！",
-          "【兩種正確算法相等】① 最終產品法：直接算最終麵包售價 ＝ 300 元；② 附加價值法：100 + (180-100) + (300-180) = 100 + 80 + 120 = 300 元！"
-        ]
+          "【生產面】各級產業附加價值總和（避免重複計算中間產品）。",
+          "【支出面】GDP ＝ C ＋ I ＋ G ＋ (X － M)；其中民間消費 C 佔比最大（約 55%）。",
+          "【所得面】工資 ＋ 地租 ＋ 利息 ＋ 利潤 ＋ 折舊 ＋ 間接稅淨額。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <!-- 三大區塊 -->\n  <rect x=\"40\" y=\"30\" width=\"110\" height=\"70\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\" rx=\"8\"/>\n  <text x=\"95\" y=\"55\" font-size=\"12\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">① 生產面</text>\n  <text x=\"95\" y=\"75\" font-size=\"10\" fill=\"#3b82f6\" text-anchor=\"middle\">各產業附加價值</text>\n  <text x=\"95\" y=\"90\" font-size=\"10\" fill=\"#3b82f6\" text-anchor=\"middle\">(中間產品不計)</text>\n  <rect x=\"310\" y=\"30\" width=\"110\" height=\"70\" fill=\"#fff7ed\" stroke=\"#ea580c\" stroke-width=\"2\" rx=\"8\"/>\n  <text x=\"365\" y=\"55\" font-size=\"12\" font-weight=\"700\" fill=\"#9a3412\" text-anchor=\"middle\">② 所得面</text>\n  <text x=\"365\" y=\"75\" font-size=\"10\" fill=\"#ea580c\" text-anchor=\"middle\">要素報酬總合</text>\n  <text x=\"365\" y=\"90\" font-size=\"10\" fill=\"#ea580c\" text-anchor=\"middle\">工資+地租+利息+利潤</text>\n  <rect x=\"150\" y=\"150\" width=\"160\" height=\"75\" fill=\"#f0fdf4\" stroke=\"#16a34a\" stroke-width=\"2\" rx=\"8\"/>\n  <text x=\"230\" y=\"175\" font-size=\"12\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">③ 支出面 (最常考)</text>\n  <text x=\"230\" y=\"195\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\" text-anchor=\"middle\">C ＋ I ＋ G ＋ (X－M)</text>\n  <text x=\"230\" y=\"212\" font-size=\"10\" fill=\"#15803d\" text-anchor=\"middle\">消費+投資+政府+淨出口</text>\n  <!-- 雙向等號循環 -->\n  <text x=\"230\" y=\"70\" font-size=\"18\" font-weight=\"700\" fill=\"#64748b\" text-anchor=\"middle\">恆等於 (≡)</text>\n  <text x=\"120\" y=\"140\" font-size=\"14\" font-weight=\"700\" fill=\"#64748b\">↙ ≡ ↗</text>\n  <text x=\"330\" y=\"140\" font-size=\"14\" font-weight=\"700\" fill=\"#64748b\">↘ ≡ ↖</text>\n</svg>"
       }
     ],
     "traps": [
@@ -3785,13 +3821,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "凱因斯 45 度線（總支出 AE = Y）與緊縮/膨脹缺口圖",
-        "axes": "橫軸 (Y)：國民所得/總產出 ｜ 縱軸 (AE)：總支出（C+I+G）",
-        "slope": "45 度虛線代表 Y = AE；AE 線斜率 ＝ 邊際支出傾向（b）",
+        "name": "簡單凱因斯 45 度線十字圖與缺口判定",
+        "axes": "橫軸 (Y)：所得/產出 ｜ 縱軸 (E, AD)：總支出",
+        "slope": "45度線代表產出等於支出；總支出線 AD = C+I+G，交點為均衡所得 Ye",
         "keyPoints": [
-          "【交點 E】AE 線與 45 度線交點即為均衡所得 Ye。",
-          "【垂直距離是缺口】在充分就業 Yf 那條垂直線上，AE 線與 45 度線之間的「垂直距離」才是緊縮缺口或膨脹缺口；橫軸距離 (Yf - Ye) 則是缺口乘上乘數 K 後的所得差額！"
-        ]
+          "【45° 線】線上每一點產出恰好等於總支出（Y ＝ AD）。",
+          "【緊縮缺口】充分就業所得 Yf 在 Ye 右方，代表總需求不足，失業嚴重，需採擴張政策！",
+          "【膨脹缺口】充分就業所得 Yf 在 Ye 左方，代表總需求過盛，通膨嚴重，需採緊縮政策！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr14\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr14)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr14)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">所得 (Y)</text>\n  <text x=\"40\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">總支出 (AD)</text>\n  <!-- 45度線 -->\n  <line x1=\"50\" y1=\"215\" x2=\"380\" y2=\"40\" stroke=\"#475569\" stroke-width=\"2\" stroke-dasharray=\"4 2\"/>\n  <text x=\"385\" y=\"45\" font-size=\"11\" font-weight=\"700\" fill=\"#475569\">45° 線 (Y＝AD)</text>\n  <!-- 總支出 AD 線 -->\n  <line x1=\"50\" y1=\"140\" x2=\"380\" y2=\"70\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <text x=\"385\" y=\"75\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">AD＝C＋I＋G</text>\n  <!-- 均衡點 -->\n  <circle cx=\"230\" cy=\"100\" r=\"5\" fill=\"#f43f5e\"/>\n  <line x1=\"230\" y1=\"100\" x2=\"230\" y2=\"215\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\"/>\n  <text x=\"220\" y=\"230\" font-size=\"11\" font-weight=\"700\" fill=\"#1e293b\">均衡 Ye</text>\n  <!-- 充分就業 Yf 與緊縮缺口 -->\n  <line x1=\"330\" y1=\"40\" x2=\"330\" y2=\"215\" stroke=\"#16a34a\" stroke-dasharray=\"3 3\"/>\n  <text x=\"320\" y=\"230\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">充分就業 Yf</text>\n  <!-- 垂直缺口箭頭 -->\n  <line x1=\"330\" y1=\"70\" x2=\"330\" y2=\"120\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n  <text x=\"336\" y=\"98\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">緊縮缺口</text>\n</svg>"
       }
     ],
     "traps": [
@@ -3961,13 +3999,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "貨幣供需均衡與凱因斯「流動性陷阱」圖",
-        "axes": "橫軸 (M)：貨幣數量 ｜ 縱軸 (i)：利率",
-        "slope": "貨幣供給線 Ms 為垂直線（央行決定）；貨幣需求線 Md 先負斜率，到低利率時變水平線",
+        "name": "台灣貨幣供給三大層次（M1A ⊂ M1B ⊂ M2）與貨幣供需圖",
+        "axes": "左圖：貨幣供需與均衡利率 ｜ 右圖：台灣三大貨幣定義同心圓",
+        "slope": "貨幣供給 Ms 為垂直線（央行控制）；貨幣需求 Md 負斜率",
         "keyPoints": [
-          "【正常負斜率段】央行買債券使垂直線 Ms 右移 ➔ 均衡利率 i 下降，刺激投資。",
-          "【流動性陷阱水平段】當利率已跌到地板 i_min，Md 變成水平線，此時 Ms 再怎麼往右移，交點的利率 i 依然卡在地板動也不動（貨幣政策失靈）！"
-        ]
+          "【M1A】通貨淨額 ＋ 支票存款 ＋ 活期存款（流動性最強）。",
+          "【M1B】M1A ＋ 活期儲蓄存款（散戶股市資金動能核心指標！）。",
+          "【M2】M1B ＋ 準貨幣（定存、外幣存款，央行貨幣政策目標）。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <!-- 左：貨幣供需 -->\n  <line x1=\"35\" y1=\"210\" x2=\"190\" y2=\"210\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <line x1=\"35\" y1=\"210\" x2=\"35\" y2=\"30\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <text x=\"30\" y=\"25\" font-size=\"10\" font-weight=\"700\" fill=\"#334155\">利率 (i)</text>\n  <text x=\"190\" y=\"225\" font-size=\"10\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">貨幣量 (M)</text>\n  <line x1=\"110\" y1=\"210\" x2=\"110\" y2=\"50\" stroke=\"#ea580c\" stroke-width=\"2.5\"/>\n  <text x=\"105\" y=\"45\" font-size=\"10\" font-weight=\"700\" fill=\"#ea580c\">Ms (垂直)</text>\n  <line x1=\"50\" y1=\"60\" x2=\"175\" y2=\"185\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n  <text x=\"178\" y=\"190\" font-size=\"10\" font-weight=\"700\" fill=\"#2563eb\">Md</text>\n  <circle cx=\"110\" cy=\"120\" r=\"4\" fill=\"#1e293b\"/>\n  <text x=\"115\" y=\"118\" font-size=\"10\" font-weight=\"700\" fill=\"#1e293b\">均衡利率 ie</text>\n  <!-- 右：三層同心圓 -->\n  <circle cx=\"330\" cy=\"125\" r=\"90\" fill=\"#eff6ff\" stroke=\"#2563eb\" stroke-width=\"2\"/>\n  <circle cx=\"330\" cy=\"125\" r=\"62\" fill=\"#fff7ed\" stroke=\"#ea580c\" stroke-width=\"2\"/>\n  <circle cx=\"330\" cy=\"125\" r=\"35\" fill=\"#f0fdf4\" stroke=\"#16a34a\" stroke-width=\"2\"/>\n  <text x=\"330\" y=\"128\" font-size=\"11\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">M1A (最活)</text>\n  <text x=\"330\" y=\"80\" font-size=\"11\" font-weight=\"700\" fill=\"#c2410c\" text-anchor=\"middle\">M1B (股市資金)</text>\n  <text x=\"330\" y=\"48\" font-size=\"11\" font-weight=\"700\" fill=\"#1d4ed8\" text-anchor=\"middle\">M2 (廣義貨幣，範圍最大)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -4132,13 +4172,14 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "負外部性（外部成本）與拉佛曲線（Laffer Curve）",
-        "axes": "外部性圖：橫軸(Q)產量、縱軸($)成本 ｜ 拉佛圖：橫軸(t)稅率、縱軸(T)總稅收",
-        "slope": "社會成本線 MSC 在私人成本線 MPC 上方；拉佛曲線呈倒 U 型",
+        "name": "負外部性（外部成本）與皮古稅矯正圖",
+        "axes": "橫軸 (Q)：產量 ｜ 縱軸 (P, C)：價格與成本",
+        "slope": "SMC 位於 PMC 上方（差額即為外部成本污染）；自由市場會過度生產",
         "keyPoints": [
-          "【負外部性圖】私人均衡點 Qp（MPB=MPC）大於社會最適點 Qs（MPB=MSC），代表「生產過多、價格過低」，課徵庇古稅可把 MPC 往上推到 MSC！",
-          "【拉佛曲線】稅率 0% 與 100% 時稅收皆為 0；當稅率超過最適稅率 t* 後，降稅反而能刺激工作與投資，使總稅收增加！"
-        ]
+          "【市場失靈】放任自由市場時，在 PMC ＝ D 處生產 Qm，產量過多、污染過度，產生無謂損失！",
+          "【皮古稅（Pigovian Tax）】對廠商每單位產出課徵剛好等於外部成本的稅額，將成本線推升至 SMC，產量縮減至社會最適 Q*，消除福利淨損失！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr16\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr16)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr16)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"45\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">P, 成本</text>\n  <!-- 需求線 D -->\n  <line x1=\"80\" y1=\"50\" x2=\"380\" y2=\"180\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n  <text x=\"385\" y=\"185\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\">需求 D (利益)</text>\n  <!-- 私人成本 PMC & 社會成本 SMC -->\n  <line x1=\"120\" y1=\"205\" x2=\"370\" y2=\"90\" stroke=\"#ea580c\" stroke-width=\"2.5\"/>\n  <text x=\"375\" y=\"95\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">PMC (私人邊際成本)</text>\n  <line x1=\"80\" y1=\"160\" x2=\"330\" y2=\"45\" stroke=\"#dc2626\" stroke-width=\"2.5\"/>\n  <text x=\"335\" y=\"48\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">SMC (含污染外部成本)</text>\n  <!-- 外部成本垂直箭頭 (皮古稅) -->\n  <line x1=\"205\" y1=\"102\" x2=\"205\" y2=\"165\" stroke=\"#e11d48\" stroke-width=\"2\" stroke-dasharray=\"3 2\"/>\n  <text x=\"210\" y=\"135\" font-size=\"10\" font-weight=\"700\" fill=\"#e11d48\">皮古稅額 (外部成本)</text>\n  <circle cx=\"205\" cy=\"102\" r=\"4.5\" fill=\"#16a34a\"/>\n  <text x=\"180\" y=\"90\" font-size=\"10\" font-weight=\"700\" fill=\"#16a34a\">最適 Q*</text>\n  <circle cx=\"270\" cy=\"135\" r=\"4.5\" fill=\"#ea580c\"/>\n  <text x=\"275\" y=\"145\" font-size=\"10\" font-weight=\"700\" fill=\"#ea580c\">市場放任 Qm (過度生產)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -4296,13 +4337,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "外匯市場供需圖（以美元為商品、新台幣為價格）",
-        "axes": "橫軸 (Q)：外匯（美元）數量 ｜ 縱軸 (E)：匯率（1美元兌新台幣元數）",
-        "slope": "外匯需求線 Df 負斜率（由進口、出國、資本流出產生）；外匯供給線 Sf 正斜率（由出口、外人來台產生）",
+        "name": "關稅政策效果圖（價格上漲、進口減少、稅收與無謂損失）",
+        "axes": "橫軸 (Q)：數量 ｜ 縱軸 (P)：價格",
+        "slope": "世界價格 Pw 水平線；課徵關稅 t 後價格推升至 Pw+t",
         "keyPoints": [
-          "【把外幣當蘋果看！】縱軸 E 是「1 顆美金賣幾元台幣」。當國人瘋出國去日本美國玩（外匯需求 Df 右移）➔ 美金變貴（E 上升，如 30 ➔ 32），代表「美元升值、新台幣貶值」！",
-          "【台灣出口大暢銷】外匯供給 Sf 右移 ➔ 美金太多變便宜（E 下降，如 32 ➔ 30），代表「美元貶值、新台幣升值」！"
-        ]
+          "【進口萎縮】課稅後國內售價上漲至 Pw+t，國內生產增（Q₁→Q₂）、國內消費縮（Q₄→Q₃），進口量大幅縮小！",
+          "【政府稅收矩形 c】關稅稅率 × 進口量，歸政府國庫所有。",
+          "【兩個無謂損失三角形】b（國內無效率增產的生產扭曲）與 d（消費減少的消費扭曲），合稱無謂損失！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr17\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"215\" x2=\"420\" y2=\"215\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr17)\"/>\n  <line x1=\"50\" y1=\"215\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"2\" marker-end=\"url(#arr17)\"/>\n  <text x=\"420\" y=\"235\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">數量 (Q)</text>\n  <text x=\"45\" y=\"20\" font-size=\"12\" font-weight=\"700\" fill=\"#334155\">價格 (P)</text>\n  <!-- 國內供需 -->\n  <line x1=\"80\" y1=\"40\" x2=\"380\" y2=\"190\" stroke=\"#2563eb\" stroke-width=\"2.5\"/>\n  <line x1=\"80\" y1=\"190\" x2=\"380\" y2=\"40\" stroke=\"#ea580c\" stroke-width=\"2.5\"/>\n  <!-- Pw 線與 Pw+t 線 -->\n  <line x1=\"50\" y1=\"165\" x2=\"410\" y2=\"165\" stroke=\"#475569\" stroke-dasharray=\"3 3\"/>\n  <text x=\"20\" y=\"168\" font-size=\"11\" fill=\"#475569\">Pw</text>\n  <line x1=\"50\" y1=\"125\" x2=\"410\" y2=\"125\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n  <text x=\"10\" y=\"128\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\">Pw＋t</text>\n  <!-- 關稅矩形 c & 損失三角形 b, d -->\n  <polygon points=\"150,165 210,125 210,165\" fill=\"rgba(239,68,68,0.2)\"/>\n  <text x=\"180\" y=\"155\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">b</text>\n  <rect x=\"210\" y=\"125\" width=\"100\" height=\"40\" fill=\"rgba(22,163,74,0.2)\" stroke=\"#16a34a\"/>\n  <text x=\"260\" y=\"148\" font-size=\"11\" font-weight=\"700\" fill=\"#15803d\" text-anchor=\"middle\">c (關稅稅收)</text>\n  <polygon points=\"310,125 310,165 370,165\" fill=\"rgba(239,68,68,0.2)\"/>\n  <text x=\"335\" y=\"155\" font-size=\"10\" font-weight=\"700\" fill=\"#dc2626\">d</text>\n</svg>"
       }
     ],
     "traps": [
@@ -4474,13 +4517,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "短期與長期菲力普曲線（SPC & LPC）",
-        "axes": "橫軸 (U)：失業率 (%) ｜ 縱軸 (π)：物價膨脹率 (%)",
-        "slope": "短期 SPC 為負斜率（向右下傾斜）；長期 LPC 為固定在自然失業率 Un 的垂直線",
+        "name": "景氣循環四階段波動圖與國發會五色對策信號",
+        "axes": "橫軸：時間 ｜ 縱軸：實質 GDP / 景氣綜合指數",
+        "slope": "正弦波浪圍繞長期潛在經濟成長趨勢線上下波動",
         "keyPoints": [
-          "【短期線上移動】需求拉動型政策會沿著同一條 SPC 移動（失業率降、通膨升）。",
-          "【整條 SPC 右上惡化位移】當發生石油危機（停滯性通膨）或預期通膨率上升時，整條短期菲力普曲線會往右上方移動（失業與通膨同時變高）！"
-        ]
+          "【擴張期（復甦 ➔ 繁榮）】景氣燈號由綠燈轉向黃紅燈、紅燈（過熱38-45分，採緊縮政策）。",
+          "【收縮期（衰退 ➔ 蕭條）】景氣燈號由綠燈轉向黃藍燈、藍燈（低迷9-16分，採擴張政策救市）。",
+          "【谷底與高峰】轉折點：波峰為最高點，波谷為最低點；平均一個循環約 7～11 年。"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <defs><marker id=\"arr18\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L6,3 L0,6 Z\" fill=\"#475569\"/></marker></defs>\n  <line x1=\"50\" y1=\"210\" x2=\"430\" y2=\"210\" stroke=\"#475569\" stroke-width=\"1.8\" marker-end=\"url(#arr18)\"/>\n  <line x1=\"50\" y1=\"210\" x2=\"50\" y2=\"25\" stroke=\"#475569\" stroke-width=\"1.8\" marker-end=\"url(#arr18)\"/>\n  <text x=\"430\" y=\"230\" font-size=\"11\" font-weight=\"700\" fill=\"#334155\" text-anchor=\"end\">時間 (t)</text>\n  <!-- 長期潛在成長線 -->\n  <line x1=\"50\" y1=\"170\" x2=\"410\" y2=\"50\" stroke=\"#94a3b8\" stroke-width=\"1.8\" stroke-dasharray=\"4 2\"/>\n  <text x=\"415\" y=\"55\" font-size=\"10\" fill=\"#94a3b8\">長期趨勢線</text>\n  <!-- 景氣循環波浪 -->\n  <path d=\"M 60 180 Q 140 10 200 65 Q 260 115 280 185 Q 320 220 380 90\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>\n  <!-- 階段與頂點 -->\n  <circle cx=\"150\" cy=\"40\" r=\"5\" fill=\"#dc2626\"/>\n  <text x=\"150\" y=\"28\" font-size=\"11\" font-weight=\"700\" fill=\"#dc2626\" text-anchor=\"middle\">高峰 (Peak)</text>\n  <circle cx=\"280\" cy=\"185\" r=\"5\" fill=\"#2563eb\"/>\n  <text x=\"280\" y=\"200\" font-size=\"11\" font-weight=\"700\" fill=\"#2563eb\" text-anchor=\"middle\">谷底 (Trough)</text>\n  <text x=\"95\" y=\"100\" font-size=\"11\" font-weight=\"700\" fill=\"#16a34a\">擴張期 (復甦/繁榮)</text>\n  <text x=\"235\" y=\"125\" font-size=\"11\" font-weight=\"700\" fill=\"#ea580c\">收縮期 (衰退/蕭條)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -4655,13 +4700,15 @@ const CH_GUIDE = [
     },
     "graphs": [
       {
-        "name": "貧窮的惡性循環（供給面與需求面雙迴圈）＆ PPC 外移成長圖",
-        "axes": "PPC 圖：整條生產可能曲線向外右移即代表「經濟成長」",
-        "slope": "納克斯雙循環：低所得 ➔ 低儲蓄 / 低購買力 ➔ 資本形成不足 ➔ 低生產力 ➔ 低所得",
+        "name": "貧窮的惡性循環（納克斯雙迴圈）與 PPC 外移圖",
+        "axes": "左圖：納克斯雙迴圈流程圖 ｜ 右圖：PPC 外移（經濟成長）",
+        "slope": "供給面與需求面相互牽制；打破循環需靠儲蓄投資或引進外資",
         "keyPoints": [
-          "【打破貧窮惡性循環的方法】引進外資與外援、政府強制儲蓄或投資教育基礎建設、擴大市場規模。",
-          "【索羅 vs. 新成長】索羅模型中資本受限於「邊際報酬遞減」；羅默與盧卡斯的新成長理論中，知識與人力資本具有「外部性與邊際報酬遞增」！"
-        ]
+          "【供給面迴圈】低所得 ➔ 儲蓄能力低 ➔ 資本累積不足 ➔ 生產力低落 ➔ 低所得！",
+          "【需求面迴圈】低所得 ➔ 購買力低（市場狹小） ➔ 投資意願低落 ➔ 生產力低落 ➔ 低所得！",
+          "【右圖 PPC 外移】擺脫貧窮循環、投入教育科技研發，整條 PPC 外移達成「經濟成長」！"
+        ],
+        "svg": "<svg viewBox=\"0 0 460 250\" xmlns=\"http://www.w3.org/2000/svg\" style=\"font-family:-apple-system,sans-serif\">\n  <!-- 左側：納克斯雙迴圈方塊 -->\n  <rect x=\"30\" y=\"90\" width=\"80\" height=\"40\" fill=\"#fee2e2\" stroke=\"#dc2626\" stroke-width=\"1.5\" rx=\"6\"/>\n  <text x=\"70\" y=\"115\" font-size=\"11\" font-weight=\"700\" fill=\"#b91c1c\" text-anchor=\"middle\">低實質所得</text>\n  <!-- 供給面 (上弧) -->\n  <rect x=\"130\" y=\"30\" width=\"85\" height=\"35\" fill=\"#fef3c7\" stroke=\"#d97706\" rx=\"6\"/>\n  <text x=\"172\" y=\"52\" font-size=\"10\" font-weight=\"700\" fill=\"#92400e\" text-anchor=\"middle\">低儲蓄(供給面)</text>\n  <!-- 需求面 (下弧) -->\n  <rect x=\"130\" y=\"155\" width=\"85\" height=\"35\" fill=\"#eff6ff\" stroke=\"#2563eb\" rx=\"6\"/>\n  <text x=\"172\" y=\"177\" font-size=\"10\" font-weight=\"700\" fill=\"#1e40af\" text-anchor=\"middle\">低購買力(需求)</text>\n  <!-- 匯聚：低生產力 -->\n  <rect x=\"235\" y=\"90\" width=\"75\" height=\"40\" fill=\"#f3e8ff\" stroke=\"#9333ea\" rx=\"6\"/>\n  <text x=\"272\" y=\"115\" font-size=\"11\" font-weight=\"700\" fill=\"#6b21a8\" text-anchor=\"middle\">低生產力</text>\n  <!-- 箭頭線 -->\n  <path d=\"M 70 90 Q 70 48 130 48\" fill=\"none\" stroke=\"#d97706\" stroke-width=\"1.5\"/>\n  <path d=\"M 215 48 Q 272 48 272 90\" fill=\"none\" stroke=\"#d97706\" stroke-width=\"1.5\"/>\n  <path d=\"M 70 130 Q 70 172 130 172\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n  <path d=\"M 215 172 Q 272 172 272 130\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n  <line x1=\"235\" y1=\"110\" x2=\"110\" y2=\"110\" stroke=\"#dc2626\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n  <!-- 右側 PPC 外移圖 -->\n  <line x1=\"330\" y1=\"210\" x2=\"430\" y2=\"210\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <line x1=\"330\" y1=\"210\" x2=\"330\" y2=\"100\" stroke=\"#475569\" stroke-width=\"1.5\"/>\n  <path d=\"M 330 140 Q 380 150 405 210\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"1.5\"/>\n  <path d=\"M 330 115 Q 405 125 430 210\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2.5\"/>\n  <text x=\"380\" y=\"85\" font-size=\"10\" font-weight=\"700\" fill=\"#16a34a\">PPC外移 (突破)</text>\n</svg>"
       }
     ],
     "traps": [
@@ -4903,7 +4950,8 @@ function showCh(i,skipScroll){
   // Module D: 本章必考圖形看圖關鍵
   const graphsHtml=(g.graphs||[]).map(gr=>`
     <div class="graph-card">
-      <div style="font-weight:700;color:#0f172a;font-size:.98rem;margin-bottom:4px">📊 ${hlText(gr.name,kw)}</div>
+      <div style="font-weight:700;color:#0f172a;font-size:1.02rem;margin-bottom:6px">📊 ${hlText(gr.name,kw)}</div>
+      ${gr.svg ? `<div class="graph-svg-wrap">${gr.svg}</div>` : ''}
       <div style="font-size:.86rem;color:#334155;background:#e2e8f0;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:6px">
         <b>座標軸設定：</b>${hlText(gr.axes,kw)}
       </div>
