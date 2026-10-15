@@ -189,6 +189,15 @@ body.mode-auto .wrap{max-width:1080px}
 </header>
 <main class="wrap">
 
+<!-- LINE / FB / 社群內建瀏覽器防呆提醒橫幅 -->
+<div id="inapp-alert" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:10px;color:#991b1b;padding:10px 14px;margin-bottom:12px;font-size:.85rem;line-height:1.5;box-shadow:0 2px 8px rgba(239,68,68,0.1)">
+  ⚠️ <b>提醒：您目前正在使用社群 App 內建瀏覽器（如 LINE / FB）</b><br>
+  社群 App 關閉視窗時可能自動清空所有紀錄！建議點擊右上方「<code>⋮</code>」或分享圖示，選擇<b>「在預設瀏覽器（Safari / Chrome）中開啟」</b>，錯題本才能永久保留在手機中。
+  <div style="margin-top:6px;text-align:right">
+    <button type="button" class="chip-btn" style="padding:2px 10px;font-size:.76rem" onclick="document.getElementById('inapp-alert').style.display='none'">我知道了</button>
+  </div>
+</div>
+
 <!-- Block 1 -->
 <div id="block1" class="card">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
@@ -312,9 +321,16 @@ body.mode-auto .wrap{max-width:1080px}
 <div id="ocrstat" class="muted" style="margin-bottom:10px"></div>
 
 <!-- 智慧錯題本 -->
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1.5px solid var(--line);flex-wrap:wrap;gap:6px">
-  <h3 style="margin:0">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
-  <span class="muted" style="font-size:.8rem">自動保存在這台設備</span>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1.5px solid var(--line);flex-wrap:wrap;gap:8px">
+  <div>
+    <h3 style="margin:0;display:inline-block">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
+    <span class="badge" style="margin-left:6px;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;font-size:.72rem">🛡️ 雙核心永久保存</span>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+    <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.78rem;background:#fffaf5;border-color:#fdba74;color:#9a3412" onclick="exportHistJSON()" title="備份錯題到手機或電腦檔案">📤 備份匯出</button>
+    <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.78rem;background:#fffaf5;border-color:#fdba74;color:#9a3412" onclick="document.getElementById('hist-import-file').click()" title="從備份檔還原錯題">📥 還原匯入</button>
+    <input type="file" id="hist-import-file" accept=".json,application/json" style="display:none" onchange="importHistJSON(event)">
+  </div>
 </div>
 <div id="weak" class="key" style="margin-top:8px">尚無紀錄，解幾題後自動統計弱章與複習進度。</div>
 
@@ -330,8 +346,9 @@ body.mode-auto .wrap{max-width:1080px}
 <ul id="hist" class="hist-list"><li class="muted">尚無紀錄</li></ul>
 
 <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-  <button type="button" class="ghost" style="flex:1;margin:0;font-size:.85rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」</button>
-  <button type="button" class="ghost" style="flex:1;margin:0;font-size:.85rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空錯題本</button>
+  <button type="button" class="ghost" style="flex:1;min-width:180px;margin:0;font-size:.85rem" onclick="exportHistText()">📋 複製錯題文字總整理</button>
+  <button type="button" class="ghost" style="flex:1;min-width:130px;margin:0;font-size:.85rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」</button>
+  <button type="button" class="ghost" style="flex:1;min-width:130px;margin:0;font-size:.85rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空錯題本</button>
 </div>
 
 </div>
@@ -730,12 +747,12 @@ function makeThumbDataUrl(fileOrBlob){
       img.onload=()=>{
         clearTimeout(to);
         let w=img.width,h=img.height;
-        const mx=520;
+        const mx=360;
         if(Math.max(w,h)>mx){const r=mx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}
         const cv=document.createElement('canvas');
         cv.width=w;cv.height=h;
         cv.getContext('2d').drawImage(img,0,0,w,h);
-        res(cv.toDataURL('image/jpeg',0.58));
+        res(cv.toDataURL('image/jpeg',0.5));
       };
       img.onerror=()=>{clearTimeout(to);res('');};
       img.src=URL.createObjectURL(fileOrBlob);
@@ -752,8 +769,8 @@ function syncLatestHistOcr(ocrText){
       const top=h[0];
       if(!top.fullQ || top.fullQ==='圖片上傳題目' || top.fullQ==='圖片題' || top.fullQ.length<20){
         top.fullQ=cleanTxt;
-        top.t=cleanTxt.slice(0,45);
-        localStorage.setItem('econ_hist',JSON.stringify(h));
+        try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+        idbSaveHist(h);
         renderHist();
       }
     }
@@ -1209,6 +1226,162 @@ function setHistStatus(st){
 const HIST_MAX_ITEMS=200;
 const HIST_MAX_THUMBS=15;
 
+// ==================== 永久儲存引擎 (IndexedDB + LocalStorage 雙核心) ====================
+const IDB_NAME = 'EconTutorDB';
+const IDB_STORE = 'hist_store';
+let idbInstance = null;
+
+function getIDB(){
+  return new Promise((resolve) => {
+    if(idbInstance) return resolve(idbInstance);
+    if(typeof window === 'undefined' || !window.indexedDB) return resolve(null);
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if(!db.objectStoreNames.contains(IDB_STORE)){
+          db.createObjectStore(IDB_STORE, { keyPath: 'key' });
+        }
+      };
+      req.onsuccess = (e) => {
+        idbInstance = e.target.result;
+        resolve(idbInstance);
+      };
+      req.onerror = () => resolve(null);
+    } catch(err) {
+      resolve(null);
+    }
+  });
+}
+
+async function idbSaveHist(histArray){
+  try {
+    const db = await getIDB();
+    if(!db) return;
+    const tx = db.transaction([IDB_STORE], 'readwrite');
+    const store = tx.objectStore(IDB_STORE);
+    store.put({ key: 'econ_hist', data: histArray, updatedAt: Date.now() });
+  } catch(e){}
+}
+
+async function idbLoadHist(){
+  try {
+    const db = await getIDB();
+    if(!db) return null;
+    return new Promise((resolve) => {
+      const tx = db.transaction([IDB_STORE], 'readonly');
+      const store = tx.objectStore(IDB_STORE);
+      const req = store.get('econ_hist');
+      req.onsuccess = (e) => {
+        const res = e.target.result;
+        resolve(res && Array.isArray(res.data) ? res.data : null);
+      };
+      req.onerror = () => resolve(null);
+    });
+  } catch(e){
+    return null;
+  }
+}
+
+// 請求瀏覽器開啟持久化儲存授權，防止系統自動清空快取
+(function requestPersistentStorage(){
+  try {
+    if(typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist){
+      navigator.storage.persist().catch(()=>{});
+    }
+  } catch(e){}
+})();
+
+// 偵測社群 App 內建瀏覽器 (LINE / FB / IG)
+(function checkInAppBrowser(){
+  try {
+    const ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+    if(/Line\/|FBAN|FBAV|Instagram|MicroMessenger/i.test(ua)){
+      const b = document.getElementById('inapp-alert');
+      if(b) b.style.display = 'block';
+    }
+  } catch(e){}
+})();
+
+function exportHistJSON(){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  if(!h.length){alert('目前錯題本尚無紀錄，無法匯出。');return;}
+  const jsonStr = JSON.stringify(h, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const d = new Date();
+  const dateStr = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+  a.href = url;
+  a.download = `高職經濟學錯題本備份_${dateStr}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  alert(`已匯出 ${h.length} 題錯題！備份檔案已下載至您的設備。`);
+}
+
+function importHistJSON(evt){
+  const file = evt.target.files && evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if(!Array.isArray(imported)){
+        alert('檔案格式不正確，匯入失敗。');
+        return;
+      }
+      let cur = [];
+      try{cur=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(err){cur=[];}
+      const map = new Map();
+      cur.forEach(item => { if(item) map.set(item.id || item.fullQ, item); });
+      imported.forEach(item => { if(item) map.set(item.id || item.fullQ, item); });
+      let merged = Array.from(map.values());
+      merged.sort((a,b) => (b.id||0) - (a.id||0));
+      merged = smartTrimHist(merged);
+      try {
+        localStorage.setItem('econ_hist', JSON.stringify(merged));
+      } catch(err){
+        merged.forEach(x => { if(x) delete x.imgThumb; });
+        try { localStorage.setItem('econ_hist', JSON.stringify(merged.slice(0, HIST_MAX_ITEMS))); } catch(e2){}
+      }
+      await idbSaveHist(merged);
+      renderHist();
+      alert(`成功還原！目前錯題本共有 ${merged.length} 題紀錄。`);
+    } catch(err) {
+      alert('讀取備份檔案失敗，請確認是否為本系統匯出的 .json 檔案。');
+    }
+    evt.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+function exportHistText(){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  if(!h.length){alert('目前錯題本尚無紀錄');return;}
+  let text = `【高職經濟學統測 智慧錯題本重點清單】\n匯出日期：${new Date().toLocaleString()}\n共收錄 ${h.length} 題\n` + '='.repeat(40) + '\n\n';
+  h.forEach((item, idx) => {
+    const chTag = item.ch>=0 ? `${CH[item.ch][0]} ${CH[item.ch][1]}` : (item.g||'未分類');
+    const status = item.mastered ? '✅ 已搞懂' : '📌 待複習';
+    const verified = item.verified ? ' [🛡️ 經嚴格覆核]' : '';
+    text += `【第 ${idx+1} 題】狀態：${status}${verified} ｜ 章節：${chTag}\n`;
+    text += `題目：\n${item.fullQ || item.t || ''}\n\n`;
+    if(item.fullA){
+      const plainA = item.fullA.replace(/<br\s*\/?>/gi, '\n').replace(/<\/?[^>]+(>|$)/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+      text += `詳解與考點：\n${plainA}\n`;
+    }
+    text += '-'.repeat(40) + '\n\n';
+  });
+  navigator.clipboard.writeText(text).then(()=>{
+    alert(`已複製全本 ${h.length} 題之題目與詳解文字！\n可直接貼至 Word、筆記本、Notion 或列印複習。`);
+  }).catch(()=>{
+    alert(text);
+  });
+}
+
 function smartTrimHist(h){
   // 1) 當超過 200 題上限時，優先從最舊的「✅ 已搞懂 (mastered)」開始淘汰，保護「📌 待複習」不被擠掉
   while(h.length>HIST_MAX_ITEMS){
@@ -1249,6 +1422,7 @@ function saveHist(t,g,fullQ,fullA,imgThumb,verified){
       if(imgThumb)top.imgThumb=imgThumb;
       h=smartTrimHist(h);
       try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+      idbSaveHist(h);
       renderHist();
       return;
     }
@@ -1269,10 +1443,14 @@ function saveHist(t,g,fullQ,fullA,imgThumb,verified){
   try{
     localStorage.setItem('econ_hist',JSON.stringify(h));
   }catch(e){
-    // 若瀏覽器空間仍吃緊，僅保留最新 5 題照片縮圖，但仍完整保留 200 題文字與詳解
-    h.slice(5).forEach(x=>{if(x)delete x.imgThumb;});
-    try{localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,HIST_MAX_ITEMS)));}catch(e2){}
+    // 若瀏覽器空間仍吃緊，僅保留最新 3 題照片縮圖，但仍完整保留 200 題文字與詳解
+    h.slice(3).forEach(x=>{if(x)delete x.imgThumb;});
+    try{localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,HIST_MAX_ITEMS)));}catch(e2){
+      h.forEach(x=>{if(x)delete x.imgThumb;});
+      try{localStorage.setItem('econ_hist',JSON.stringify(h.slice(0,HIST_MAX_ITEMS)));}catch(e3){}
+    }
   }
+  idbSaveHist(h);
   renderHist();
 }
 
@@ -1315,6 +1493,7 @@ function upgradeOldHistRecords(h){
   });
   if(changed){
     try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+    idbSaveHist(h);
   }
   return h;
 }
@@ -1331,6 +1510,7 @@ function editHistQ(idx){
     item.fullQ=nextQ.trim();
     item.t=item.fullQ.slice(0,45);
     try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+    idbSaveHist(h);
     renderHist();
   }
 }
@@ -1340,7 +1520,8 @@ function toggleMastered(idx){
   try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
   if(h[idx]){
     h[idx].mastered=!h[idx].mastered;
-    localStorage.setItem('econ_hist',JSON.stringify(h));
+    try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+    idbSaveHist(h);
     renderHist();
   }
 }
@@ -1462,20 +1643,48 @@ function renderHist(){
     </li>`;
   }).join('');
 }
-function delHist(i){let h=[];try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}h.splice(i,1);localStorage.setItem('econ_hist',JSON.stringify(h));renderHist();}
+function delHist(i){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  h.splice(i,1);
+  try{localStorage.setItem('econ_hist',JSON.stringify(h));}catch(e){}
+  idbSaveHist(h);
+  renderHist();
+}
 function clearMasteredHist(){
   let h=[];
   try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
   const remain=h.filter(x=>!x.mastered);
   if(remain.length===h.length){alert('目前沒有標記為「✅ 已搞懂」的題目可清除！');return;}
-  localStorage.setItem('econ_hist',JSON.stringify(remain));
+  try{localStorage.setItem('econ_hist',JSON.stringify(remain));}catch(e){}
+  idbSaveHist(remain);
   renderHist();
 }
-function clearHist(){if(!confirm('確定要清空整本錯題本嗎？'))return;localStorage.removeItem('econ_hist');renderHist();}
+function clearHist(){
+  if(!confirm('確定要清空整本錯題本嗎？'))return;
+  localStorage.removeItem('econ_hist');
+  idbSaveHist([]);
+  renderHist();
+}
 (function(){const f=document.getElementById('histfilter');CH.forEach((c,i)=>{const o=document.createElement('option');o.value=i;o.textContent=c[0]+' '+c[1];f.appendChild(o);});f.addEventListener('change',renderHist);})();
 renderHist();
 initChapterSelect();
 renderAutoChUI();
+
+// 雙核心存儲自我修復：若 localStorage 遭系統清空，自動從 IndexedDB 完整救回
+(async function initStorageAutoRecovery(){
+  try {
+    let localH = [];
+    try { localH = JSON.parse(localStorage.getItem('econ_hist') || '[]'); } catch(e){}
+    const idbH = await idbLoadHist();
+    if((!localH || !localH.length) && (idbH && idbH.length)){
+      try { localStorage.setItem('econ_hist', JSON.stringify(idbH)); } catch(e){}
+      renderHist();
+    } else if(localH && localH.length && (!idbH || !idbH.length)){
+      await idbSaveHist(localH);
+    }
+  } catch(e){}
+})();
 // block2
 const CH_GUIDE = [
   {
