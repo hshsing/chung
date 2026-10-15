@@ -133,46 +133,31 @@ sub{font-size:.68em;vertical-align:sub;line-height:0}
 .ui-switcher button:hover{background:rgba(255,255,255,0.22)}
 .ui-switcher button.active{background:#ffffff;color:#e11d48;box-shadow:0 2px 6px rgba(0,0,0,0.18)}
 
-/* 模式控制：寬度與排版 */
-/* === 桌機模式（寬螢幕雙欄） === */
-body.mode-desktop .wrap{max-width:1280px}
-body.mode-desktop .b1-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:20px;align-items:start}
-body.mode-desktop .b1-right-pane{position:sticky;top:118px;max-height:calc(100vh - 140px);overflow-y:auto;padding-right:6px}
+/* 模式控制：寬度與排版（第一區塊拍照解題一行到底全寬排列） */
+/* === 桌機模式 === */
+body.mode-desktop .wrap{max-width:1080px}
 body.mode-desktop .ch-grid{grid-template-columns:repeat(5,1fr)}
 body.mode-desktop .term-grid{grid-template-columns:repeat(3,1fr)}
 
 /* === 手機模式（直立單欄、聚焦體驗） === */
 body.mode-mobile{background:#f1f5f9}
 body.mode-mobile .wrap{max-width:480px;margin:0 auto}
-body.mode-mobile .b1-grid{display:block}
-body.mode-mobile .b1-right-pane{position:static;max-height:none;overflow-y:visible;padding-right:0}
 body.mode-mobile .ch-grid{grid-template-columns:repeat(2,1fr)}
 body.mode-mobile .term-grid{grid-template-columns:1fr}
-body.mode-mobile #answer-empty-hint{display:none!important}
 @media(min-width:768px){
   body.mode-mobile main.wrap{background:var(--bg);box-shadow:0 10px 40px rgba(0,0,0,0.14);border-radius:24px;margin-top:14px;margin-bottom:30px;padding:16px;border:1.5px solid var(--line)}
 }
 
 /* === 自動適應模式（預設響應式） === */
-body.mode-auto .wrap{max-width:1120px}
-@media(min-width:960px){
-  body.mode-auto .b1-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:20px;align-items:start}
-  body.mode-auto .b1-right-pane{position:sticky;top:118px;max-height:calc(100vh - 140px);overflow-y:auto;padding-right:6px}
+body.mode-auto .wrap{max-width:1080px}
+@media(min-width:860px){
   body.mode-auto .ch-grid{grid-template-columns:repeat(4,1fr)}
   body.mode-auto .term-grid{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:959px){
-  body.mode-auto .b1-grid{display:block}
-  body.mode-auto .b1-right-pane{position:static;max-height:none;overflow-y:visible;padding-right:0}
+@media(max-width:859px){
   body.mode-auto .ch-grid{grid-template-columns:repeat(2,1fr)}
   body.mode-auto .term-grid{grid-template-columns:1fr}
-  body.mode-auto #answer-empty-hint{display:none!important}
 }
-
-/* 右欄滾動條美化 */
-.b1-right-pane::-webkit-scrollbar{width:6px}
-.b1-right-pane::-webkit-scrollbar-thumb{background:#fed7aa;border-radius:999px}
-.b1-right-pane::-webkit-scrollbar-thumb:hover{background:#fb923c}
 
 </style>
 </head>
@@ -212,155 +197,141 @@ body.mode-auto .wrap{max-width:1120px}
 <details style="margin-bottom:12px"><summary>拍得清楚的小技巧（點開看）</summary>
 <ul class="muted"><li>平放考卷、手機垂直拿正，字體越清晰辨識越準</li><li>若考卷字太小或有折痕，可靠近拍攝或開燈避開陰影</li><li>若照片拍到多題，可善用下方「✂️ 裁切選取本題」或「🔄 旋轉」工具</li></ul></details>
 
-<div class="b1-grid">
-  <!-- 左欄：步驟 1~3 輸入與解題 -->
-  <div class="b1-left-pane">
-    <!-- 上傳與範例體驗區 -->
-    <label><b>1. 拍照或上傳題目照片</b></label>
-    <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file').click()">
-      <div style="font-size:1.6rem;margin-bottom:4px">📷</div>
-      <div style="font-weight:700;color:var(--brand)">點此拍照 或 從相簿上傳題目</div>
-      <div class="muted" style="font-size:.8rem;margin-top:2px">支援手機直拍、截圖、考卷照片</div>
-    </div>
-    <input id="file" type="file" accept="image/*" capture="environment" style="display:none" />
+<!-- 1. 拍照或上傳題目照片 -->
+<label><b>1. 拍照或上傳題目照片</b></label>
+<div class="upload-zone" id="drop-zone" onclick="document.getElementById('file').click()">
+  <div style="font-size:1.6rem;margin-bottom:4px">📷</div>
+  <div style="font-weight:700;color:var(--brand)">點此拍照 或 從相簿上傳題目</div>
+  <div class="muted" style="font-size:.8rem;margin-top:2px">支援手機直拍、截圖、考卷照片</div>
+</div>
+<input id="file" type="file" accept="image/*" capture="environment" style="display:none" />
 
-    <div class="tool-row" style="margin-top:8px">
-      <span class="muted" style="font-size:.85rem">手邊沒題目？試試看：</span>
-      <button type="button" class="chip-btn" onclick="loadDemo(0)">📝 範例1：需求彈性 Ed</button>
-      <button type="button" class="chip-btn" onclick="loadDemo(1)">📝 範例2：PPC 與 MRT</button>
-      <button type="button" class="chip-btn" onclick="loadDemo(2)">📝 範例3：凱因斯乘數</button>
-    </div>
+<div class="tool-row" style="margin-top:8px">
+  <span class="muted" style="font-size:.85rem">手邊沒題目？試試看：</span>
+  <button type="button" class="chip-btn" onclick="loadDemo(0)">📝 範例1：需求彈性 Ed</button>
+  <button type="button" class="chip-btn" onclick="loadDemo(1)">📝 範例2：PPC 與 MRT</button>
+  <button type="button" class="chip-btn" onclick="loadDemo(2)">📝 範例3：凱因斯乘數</button>
+</div>
 
-    <!-- 圖片預覽與編輯工具列 -->
-    <div id="preview-container" style="display:none;margin-top:10px">
-      <img id="preview" alt="題目預覽" style="display:block;max-width:100%;border-radius:12px;border:3px solid var(--line)" />
-      <div class="tool-row" id="img-toolbar">
-        <button type="button" class="chip-btn" onclick="rotateImage()">🔄 順時針轉90°</button>
-        <button type="button" class="chip-btn" onclick="startCropMode()">✂️ 裁切選取本題</button>
-        <button type="button" class="chip-btn" onclick="resetImage()" style="color:#b91c1c">❌ 清除重拍</button>
-      </div>
-    </div>
-
-    <!-- 簡易裁切畫布區 -->
-    <div id="crop-box">
-      <div style="font-weight:700;font-size:.9rem;margin-bottom:6px">✂️ 拖曳拉桿或於畫面框選此題範圍：</div>
-      <canvas id="crop-canvas"></canvas>
-      <div class="crop-controls">
-        <div class="crop-slider-row">
-          <span>頂部位置：</span>
-          <input type="range" id="crop-top" min="0" max="90" value="0" oninput="updateCropFromSliders()" />
-        </div>
-        <div class="crop-slider-row">
-          <span>底部位置：</span>
-          <input type="range" id="crop-bot" min="10" max="100" value="100" oninput="updateCropFromSliders()" />
-        </div>
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <button type="button" class="primary" style="flex:1;padding:9px;margin:0" onclick="applyCrop()">✅ 確認裁切並重新辨識</button>
-          <button type="button" class="ghost" style="flex:1;padding:9px;margin:0" onclick="cancelCrop()">取消</button>
-        </div>
-      </div>
-    </div>
-
-    <p id="finfo" class="muted" style="margin:6px 0 0"></p>
-
-    <!-- 辨識文字區 -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-      <label><b>2. 辨識文字（可逐字核對修正或直接輸入題目）</b></label>
-      <div style="display:flex;gap:6px">
-        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
-        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
-      </div>
-    </div>
-
-    <div class="sym-group">
-      <span class="muted" style="font-size:.8rem;align-self:center;margin-right:2px">點選插入變數：</span>
-      <button type="button" class="sym-pill" onclick="insertSymbol('Ed')">Ed</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('PPC')">PPC</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MRT')">MRT</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MU')">MU</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MC')">MC</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('TR')">TR</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('GDP')">GDP</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('Ye')">Ye</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
-    </div>
-
-    <textarea id="ocrtext" placeholder="上傳照片或點上方範例題後自動填入，也可直接在此輸入題目文字（例：求 Ed、PPC、均衡所得…）"></textarea>
-    <button class="ghost" onclick="runOcr()">重新辨識此圖</button>
-
-    <!-- 3. 判斷章節與手動鎖定 -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:4px">
-      <label style="margin:0"><b>3. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
-      <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
-    </div>
-
-    <div id="autoch-box" class="key" style="background:#fff8f5;border:2px solid var(--line);border-radius:12px;padding:12px;margin-top:6px">
-      <!-- 主要診斷結果顯示 -->
-      <div id="autoch-status" style="font-weight:700;color:var(--brand);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
-        <span>🔍 尚未輸入題目，拍照或選上方範例後自動判斷</span>
-      </div>
-      
-      <!-- 候選章節切換膠囊 -->
-      <div id="candidate-chips" style="display:none;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)">
-        <span class="muted" style="font-size:.82rem">相關候選考點（點擊切換）：</span>
-        <span id="candidate-list"></span>
-      </div>
-
-      <!-- 手動下拉選單（100%自主權） -->
-      <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
-        <span style="font-size:.85rem;font-weight:600;white-space:nowrap;color:#431407">自選章節：</span>
-        <select id="userch-select" onchange="onManualChChange()" style="flex:1;margin:0;padding:6px 10px;font-size:.9rem;background:#fff;border:1.5px solid var(--line);border-radius:8px">
-          <option value="-1">-- 自動診斷（系統推薦）--</option>
-        </select>
-      </div>
-
-      <!-- 即時核心公式預覽 -->
-      <div id="ch-preview-hint" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem">
-        <b>📖 本章必考核心公式：</b><code id="ch-preview-formula"></code>
-      </div>
-    </div>
-
-    <!-- 解題按鈕 -->
-    <button class="primary" onclick="solve(true)">確認文字無誤，開始解題 🚀</button>
+<!-- 圖片預覽與編輯工具列 -->
+<div id="preview-container" style="display:none;margin-top:10px">
+  <img id="preview" alt="題目預覽" style="display:block;max-width:100%;border-radius:12px;border:3px solid var(--line)" />
+  <div class="tool-row" id="img-toolbar">
+    <button type="button" class="chip-btn" onclick="rotateImage()">🔄 順時針轉90°</button>
+    <button type="button" class="chip-btn" onclick="startCropMode()">✂️ 裁切選取本題</button>
+    <button type="button" class="chip-btn" onclick="resetImage()" style="color:#b91c1c">❌ 清除重拍</button>
   </div>
+</div>
 
-  <!-- 右欄：詳解呈現 ＋ 智慧錯題本 -->
-  <div class="b1-right-pane">
-    <!-- 尚未解題時的提示卡（桌機模式時呈現，避免右欄空白） -->
-    <div id="answer-empty-hint" class="key" style="background:#fffaf5;border:2px dashed #fed7aa;border-radius:12px;padding:14px;margin-bottom:14px;text-align:center">
-      <div style="font-size:1.8rem;margin-bottom:4px">💡</div>
-      <div style="font-weight:700;color:var(--brand);font-size:1.02rem">題目詳解與考點分析區</div>
-      <div class="muted" style="font-size:.85rem;margin-top:4px">在左側拍照、上傳或選擇範例題並按「開始解題」後，詳細計算步驟、分析與考點公式將即時在此呈現！</div>
+<!-- 簡易裁切畫布區 -->
+<div id="crop-box">
+  <div style="font-weight:700;font-size:.9rem;margin-bottom:6px">✂️ 拖曳拉桿或於畫面框選此題範圍：</div>
+  <canvas id="crop-canvas"></canvas>
+  <div class="crop-controls">
+    <div class="crop-slider-row">
+      <span>頂部位置：</span>
+      <input type="range" id="crop-top" min="0" max="90" value="0" oninput="updateCropFromSliders()" />
     </div>
-
-    <!-- 詳解呈現與動作工具列 -->
-    <div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1);margin-top:0;margin-bottom:14px"></div>
-    <div id="ocrstat" class="muted" style="margin-bottom:10px"></div>
-
-    <!-- 智慧錯題本 -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;flex-wrap:wrap;gap:6px">
-      <h3 style="margin:0">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
-      <span class="muted" style="font-size:.8rem">自動保存在這台設備</span>
+    <div class="crop-slider-row">
+      <span>底部位置：</span>
+      <input type="range" id="crop-bot" min="10" max="100" value="100" oninput="updateCropFromSliders()" />
     </div>
-    <div id="weak" class="key" style="margin-top:8px">尚無紀錄，解幾題後自動統計弱章與複習進度。</div>
-
-    <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px">
-      <div id="hist-status-tabs" style="display:flex;gap:6px;flex-wrap:wrap">
-        <button type="button" class="chip-btn active" data-st="all" onclick="setHistStatus('all')">全部</button>
-        <button type="button" class="chip-btn" data-st="todo" onclick="setHistStatus('todo')">📌 待複習</button>
-        <button type="button" class="chip-btn" data-st="done" onclick="setHistStatus('done')">✅ 已搞懂</button>
-      </div>
-      <select id="histfilter" style="flex:1;min-width:140px;margin:0;padding:6px 10px;font-size:.9rem"><option value="">全部章節 (CH1–CH19)</option></select>
-    </div>
-
-    <ul id="hist" class="hist-list"><li class="muted">尚無紀錄</li></ul>
-
-    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-      <button type="button" class="ghost" style="flex:1;margin:0;font-size:.85rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」</button>
-      <button type="button" class="ghost" style="flex:1;margin:0;font-size:.85rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空錯題本</button>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button type="button" class="primary" style="flex:1;padding:9px;margin:0" onclick="applyCrop()">✅ 確認裁切並重新辨識</button>
+      <button type="button" class="ghost" style="flex:1;padding:9px;margin:0" onclick="cancelCrop()">取消</button>
     </div>
   </div>
 </div>
+
+<p id="finfo" class="muted" style="margin:6px 0 0"></p>
+
+<!-- 2. 辨識文字區 -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+  <label><b>2. 辨識文字（可逐字核對修正或直接輸入題目）</b></label>
+  <div style="display:flex;gap:6px">
+    <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
+    <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
+  </div>
+</div>
+
+<div class="sym-group">
+  <span class="muted" style="font-size:.8rem;align-self:center;margin-right:2px">點選插入變數：</span>
+  <button type="button" class="sym-pill" onclick="insertSymbol('Ed')">Ed</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('PPC')">PPC</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('MRT')">MRT</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('MU')">MU</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('MC')">MC</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('TR')">TR</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('GDP')">GDP</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('Ye')">Ye</button>
+  <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
+</div>
+
+<textarea id="ocrtext" placeholder="上傳照片或點上方範例題後自動填入，也可直接在此輸入題目文字（例：求 Ed、PPC、均衡所得…）"></textarea>
+<button class="ghost" onclick="runOcr()">重新辨識此圖</button>
+
+<!-- 3. 判斷章節與手動鎖定 -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:4px">
+  <label style="margin:0"><b>3. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
+  <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
+</div>
+
+<div id="autoch-box" class="key" style="background:#fff8f5;border:2px solid var(--line);border-radius:12px;padding:12px;margin-top:6px">
+  <!-- 主要診斷結果顯示 -->
+  <div id="autoch-status" style="font-weight:700;color:var(--brand);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+    <span>🔍 尚未輸入題目，拍照或選上方範例後自動判斷</span>
+  </div>
+  
+  <!-- 候選章節切換膠囊 -->
+  <div id="candidate-chips" style="display:none;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)">
+    <span class="muted" style="font-size:.82rem">相關候選考點（點擊切換）：</span>
+    <span id="candidate-list"></span>
+  </div>
+
+  <!-- 手動下拉選單（100%自主權） -->
+  <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+    <span style="font-size:.85rem;font-weight:600;white-space:nowrap;color:#431407">自選章節：</span>
+    <select id="userch-select" onchange="onManualChChange()" style="flex:1;margin:0;padding:6px 10px;font-size:.9rem;background:#fff;border:1.5px solid var(--line);border-radius:8px">
+      <option value="-1">-- 自動診斷（系統推薦）--</option>
+    </select>
+  </div>
+
+  <!-- 即時核心公式預覽 -->
+  <div id="ch-preview-hint" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem">
+    <b>📖 本章必考核心公式：</b><code id="ch-preview-formula"></code>
+  </div>
+</div>
+
+<!-- 解題按鈕 -->
+<button class="primary" onclick="solve(true)">確認文字無誤，開始解題 🚀</button>
+
+<!-- 詳解呈現與動作工具列（解題後直接於下方展開） -->
+<div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1);margin-top:14px;margin-bottom:14px"></div>
+<div id="ocrstat" class="muted" style="margin-bottom:10px"></div>
+
+<!-- 智慧錯題本 -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1.5px solid var(--line);flex-wrap:wrap;gap:6px">
+  <h3 style="margin:0">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
+  <span class="muted" style="font-size:.8rem">自動保存在這台設備</span>
+</div>
+<div id="weak" class="key" style="margin-top:8px">尚無紀錄，解幾題後自動統計弱章與複習進度。</div>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px">
+  <div id="hist-status-tabs" style="display:flex;gap:6px;flex-wrap:wrap">
+    <button type="button" class="chip-btn active" data-st="all" onclick="setHistStatus('all')">全部</button>
+    <button type="button" class="chip-btn" data-st="todo" onclick="setHistStatus('todo')">📌 待複習</button>
+    <button type="button" class="chip-btn" data-st="done" onclick="setHistStatus('done')">✅ 已搞懂</button>
+  </div>
+  <select id="histfilter" style="flex:1;min-width:140px;margin:0;padding:6px 10px;font-size:.9rem"><option value="">全部章節 (CH1–CH19)</option></select>
+</div>
+
+<ul id="hist" class="hist-list"><li class="muted">尚無紀錄</li></ul>
+
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+  <button type="button" class="ghost" style="flex:1;margin:0;font-size:.85rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」</button>
+  <button type="button" class="ghost" style="flex:1;margin:0;font-size:.85rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空錯題本</button>
+</div>
+
 </div>
 
 <!-- Block 2 -->
@@ -819,7 +790,7 @@ function resetImage(){
   const dZone=document.getElementById('drop-zone');
   if(dZone)dZone.style.display='block';
   finfo.textContent='';
-  ocrstat.textContent='';const empHint=document.getElementById('answer-empty-hint');if(empHint&&document.getElementById('answer').classList.contains('hide'))empHint.style.display='block';}
+  ocrstat.textContent='';}
 
 function loadDemo(idx){
   const d=DEMOS[idx % DEMOS.length];
@@ -1011,7 +982,7 @@ document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.ta
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
- const box=document.getElementById('answer');box.classList.remove('hide');const empHint=document.getElementById('answer-empty-hint');if(empHint)empHint.style.display='none';
+ const box=document.getElementById('answer');box.classList.remove('hide');
  box.innerHTML=`<b>自動解題中…</b><br>正在分析題目關鍵詞與公式匹配…`;
  box.scrollIntoView({behavior:'smooth',block:'nearest'});
  if(imgs.length&&!document.getElementById('ocrtext').value.trim()&&ocrPromise){
