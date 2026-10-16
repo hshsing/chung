@@ -971,6 +971,130 @@ function copyFullAnswer(){
 function compressImage(f){return new Promise(res=>{const img=new Image();const to=setTimeout(()=>res(f),8000);img.onload=()=>{clearTimeout(to);let w=img.width,h=img.height;const mx=1600;if(Math.max(w,h)>mx){const r=mx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);cv.toBlob(b=>res(b||f),'image/jpeg',0.85);};img.onerror=()=>{clearTimeout(to);res(f);};img.src=URL.createObjectURL(f);});}
 function clean(s){return s.replace(/\\space/gi,'').replace(/\\left/gi,'').replace(/\\right/gi,'').replace(/\\\(/g,'').replace(/\\\)/g,'').replace(/\\\[/g,'').replace(/\\\]/g,'').replace(/\\times/g,'×').replace(/\\div/g,'÷').replace(/\\cdot/g,'·').replace(/\\/g,'').replace(/\$(?:\s*space\s*)+\$?/gi,'').replace(/(?:\bspace\b\s*){2,}/gi,'').replace(/\bleft\b\s*\|\s*/gi,'|').replace(/\s*\|\s*\bright\b/gi,'|').replace(/\$\s*\$/g,'');}
 let _tw=null;function toTW(s){try{if(!_tw&&window.OpenCC){_tw=OpenCC.Converter({from:'cn',to:'tw'});}return _tw?_tw(s):s;}catch(e){return s;}}
+
+function renderMarkdownAnswer(rawText){
+  if(!rawText) return '';
+  let txt = toTW(clean(rawText.toString())).replace(/\$/g,'').replace(/_/g,'');
+  txt = txt.replace(/\*\*【(.+?)】\*\*/g, '【$1】');
+  let escaped = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  const lines = escaped.split('\n');
+  let html = [];
+
+  for(let i = 0; i < lines.length; i++){
+    let line = lines[i].trim();
+    if(!line){
+      html.push('<div style="height:6px"></div>');
+      continue;
+    }
+
+    if(/【🛡️\s*覆核(?:驗算)?結論】/.test(line)){
+      let content = line.replace(/.*?【🛡️\s*覆核(?:驗算)?結論】\s*:?/, '').trim();
+      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【')){
+        i++;
+        content = lines[i].trim();
+      }
+      html.push(`
+        <div style="margin:8px 0 12px 0;padding:10px 14px;background:#fef2f2;border-left:4px solid #ef4444;border-radius:6px">
+          <div style="font-weight:700;color:#991b1b;font-size:1.02rem;display:flex;align-items:center;gap:6px">
+            <span>🛡️ 覆核驗算結論</span>
+          </div>
+          ${content ? `<div style="margin-top:4px;color:#7f1d1d;line-height:1.65;font-weight:600">${content}</div>` : ''}
+        </div>
+      `);
+      continue;
+    }
+
+    if(/【正確答案】/.test(line)){
+      let content = line.replace(/.*?【正確答案】\s*:?/, '').trim();
+      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【')){
+        i++;
+        content = lines[i].trim();
+      }
+      html.push(`
+        <div style="margin:10px 0 12px 0;padding:10px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="display:inline-block;padding:3px 10px;background:#15803d;color:#ffffff;border-radius:6px;font-weight:800;font-size:.9rem;letter-spacing:1px">【正確答案】</span>
+          <span style="font-size:1.15rem;font-weight:800;color:#166534">${content || '(請參見下方推演)'}</span>
+        </div>
+      `);
+      continue;
+    }
+
+    if(/【考點核心】/.test(line)){
+      let content = line.replace(/.*?【考點核心】\s*:?/, '').trim();
+      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:已知條件|核心公式)/.test(lines[i+1].trim())){
+        i++;
+        content = lines[i].trim();
+      }
+      html.push(`
+        <div style="margin:12px 0 8px 0;padding:8px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span style="display:inline-block;padding:2px 8px;background:#2563eb;color:#ffffff;border-radius:5px;font-weight:700;font-size:.82rem">【考點核心】</span>
+          <span style="font-weight:700;color:#1e40af;font-size:.95rem">${content}</span>
+        </div>
+      `);
+      continue;
+    }
+
+    if(/【解題步驟】/.test(line)){
+      html.push(`
+        <div style="margin:14px 0 8px 0;padding-bottom:4px;border-bottom:1.5px solid #fed7aa;display:flex;align-items:center;gap:8px">
+          <span style="display:inline-block;padding:3px 10px;background:#c2410c;color:#ffffff;border-radius:5px;font-weight:700;font-size:.88rem">【解題步驟】</span>
+        </div>
+      `);
+      continue;
+    }
+
+    if(/【(?:選項\/陷阱分析|選項分析|陷阱分析)】/.test(line)){
+      const titleMatch = line.match(/【(.+?)】/);
+      const title = titleMatch ? titleMatch[1] : '選項/陷阱分析';
+      let content = line.replace(/.*?【.+?】\s*:?/, '').trim();
+      html.push(`
+        <div style="margin:14px 0 8px 0;padding-bottom:4px;border-bottom:1.5px solid #fecaca;display:flex;align-items:center;gap:8px">
+          <span style="display:inline-block;padding:3px 10px;background:#b91c1c;color:#ffffff;border-radius:5px;font-weight:700;font-size:.88rem">【${title}】</span>
+        </div>
+      `);
+      if(content){
+        html.push(`<div style="margin:4px 0 4px 8px;line-height:1.75;color:#334155">${content}</div>`);
+      }
+      continue;
+    }
+
+    if(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件梳理|已知條件)(?:<\/strong>)?[：:]/.test(line)){
+      let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件梳理|已知條件)(?:<\/strong>)?[：:]\s*/, '').trim();
+      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式|推演過程)[：:]/.test(lines[i+1].trim())){
+        i++;
+        content = lines[i].trim();
+      }
+      html.push(`<div style="margin:8px 0 4px 6px;line-height:1.75"><span style="color:#0f766e;font-weight:700">📌 已知條件梳理：</span>${content}</div>`);
+      continue;
+    }
+
+    if(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式\/鐵則|核心公式|解題鐵則)(?:<\/strong>)?[：:]/.test(line)){
+      let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式\/鐵則|核心公式|解題鐵則)(?:<\/strong>)?[：:]\s*/, '').trim();
+      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件|推演過程)[：:]/.test(lines[i+1].trim())){
+        i++;
+        content = lines[i].trim();
+      }
+      html.push(`<div style="margin:8px 0 4px 6px;line-height:1.75"><span style="color:#b45309;font-weight:700">📐 核心公式/鐵則：</span><code style="background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:4px;font-weight:600">${content}</code></div>`);
+      continue;
+    }
+
+    if(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(推演過程|計算推演|推導過程)(?:<\/strong>)?[：:]/.test(line)){
+      let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(推演過程|計算推演|推導過程)(?:<\/strong>)?[：:]\s*/, '').trim();
+      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件|核心公式)[：:]/.test(lines[i+1].trim())){
+        i++;
+        content = lines[i].trim();
+      }
+      html.push(`<div style="margin:8px 0 4px 6px;line-height:1.75"><span style="color:#1d4ed8;font-weight:700">🔢 推演過程：</span>${content}</div>`);
+      continue;
+    }
+
+    html.push(`<div style="margin:2px 0 2px 8px;line-height:1.75;color:#334155">${line}</div>`);
+  }
+
+  return `<div class="formatted-answer" style="font-size:.95rem">${html.join('')}</div>`;
+}
 preview.onload=()=>{
   finfo.textContent+=' ｜ 預覽已載入';
   document.getElementById('preview-container').style.display='block';
@@ -1050,16 +1174,26 @@ async function solve(manual){
   const g=eff?eff.label:'未匹配特定章節（可點選上方自選章節或至第二塊搜尋）';
   const ci=eff?eff.index:-1;
   const c=ci>=0?CH[ci]:null;
-   const ansHtml=`
-     <b>① 考什麼觀念：</b><span class="badge" style="background:#fff1f2;color:#e11d48;font-size:.9rem">${g.replace(/</g,'&lt;')}</span>${c?`<br><b>② 核心必記公式：</b><code>${c[4]}</code> <button class="ghost" style="width:auto;display:inline-block;padding:2px 8px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點</button>`:""}<br><br>
-     <b>③ 解題思維與步驟：</b><br>
-     &nbsp;&nbsp;a) 抓關鍵題幹變數與情境條件<br>
-     &nbsp;&nbsp;b) 代入對應章節公式進行解析計算<br>
-     &nbsp;&nbsp;c) 排除常見易混淆陷阱（如：線上量變 vs. 整條曲線位移、名目 vs. 實質、短期 vs. 長期）<br>
-     &nbsp;&nbsp;d) 單位與正負號回代檢查。<br><br>
-     <b>④ 統測易錯防呆提醒：</b>上限下限方向（上限壓在下方造成短缺）、Ed與收益變動方向（Ed>1降價利薄多銷）、要素雇用 MRP=PL、實質所得購買力。<br><br>
-     <div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點上方按鈕複製詳解或前往第二塊對照範例。</div>
-   `;
+   const localFallbackRaw =
+`【正確答案】 請參閱下方推演與對應選項分析
+
+【考點核心】 ${g}
+
+【解題步驟】
+
+已知條件梳理：由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 範疇，請提取題幹給定之數值、變數與限制條件。
+
+核心公式/鐵則：${c ? c[4] : '依章節定義之核心公式推導'}
+
+推演過程：
+1. 辨別變數：確認題目所求為線上點移動（數量變動）或整條線移動、名目值或實質值。
+2. 代入公式：依據上述核心公式依序代入題幹數據計算。
+3. 單位與正負號驗證：如價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。
+
+【選項/陷阱分析】 統測常見陷阱：價格上限（有效設於均衡價格下方造成短缺）vs 價格下限、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs 損益兩平點 P = AC。`;
+
+   const ansHtml = renderMarkdownAnswer(localFallbackRaw) + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
+     `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點上方按鈕複製詳解或啟動深度驗算。</div>`;
    box.innerHTML=`
      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
        <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析</span>
@@ -1103,7 +1237,7 @@ async function tryPost(silent,isVerify=false){
    const box=document.getElementById('answer');
    box.classList.remove('hide');
    const shown=toTW(clean((j.answer||'').toString())).replace(/\$/g,'').replace(/_/g,'');
-   const aiHtml=`<div style="line-height:1.8">${shown.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`;
+   const aiHtml=renderMarkdownAnswer(shown);
    if(isVerify){
      box.innerHTML=`
        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #fecaca;padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
@@ -1218,7 +1352,26 @@ ${eff?`${eff.id} ${eff.name}`:'高職經濟學'}
 【嚴格覆核要求】
 1. 請重新逐一計算每個數值，注意正負號、單位與公式方向（如 Ed 取絕對值、弧彈性分母用平均數）。
 2. 指出原題目題意陷阱（如線上點變動 vs 整條線位移、短期停業點 vs 損益兩平點）。
-3. 逐步詳列代入計算過程，並在第一行直接給出【覆核確認正確答案】。`;
+3. 逐步詳列代入計算過程。
+
+【詳解輸出格式規範】
+請依照以下 Markdown 格式輸出給學生的最終解答：
+
+【🛡️ 覆核驗算結論】 (說明原本是否有誤、最終確定答案與關鍵核算依據)
+
+【正確答案】 (填入選項或最終數值)
+
+【考點核心】 (一句話點出這題在考什麼)
+
+【解題步驟】
+
+已知條件梳理：(列出題目給的重要數據或前提)
+
+核心公式/鐵則：(列出解題依據)
+
+推演過程：(詳細、不跳步的計算或推論步驟)
+
+【選項/陷阱分析】 (若為選擇題，必須簡要說明其他選項為何錯誤；若為計算題，點出學生最容易算錯的地方)`;
   navigator.clipboard.writeText(t).then(()=>alert('已複製「嚴格覆核提示詞」！可直接貼至 ChatGPT 或 Claude 要求重新驗算。')).catch(()=>alert(t));
 }
 function reVerifyHist(idx){
@@ -1229,8 +1382,29 @@ function chIdxOf(s){const m=(s||'').match(/CH\s?(\d{1,2})/i);if(!m)return -1;con
 function linkCh(ans){const set=[];const re=/CH\s?(\d{1,2})/gi;let m;while((m=re.exec(ans||''))){const n=+m[1];if(n>=1&&n<=19&&!set.includes(n))set.push(n);}return set.slice(0,3).map(n=>`<button class="ghost" onclick="gotoCh(${n-1})">回看 ${CH[n-1][0]} ${CH[n-1][1]}</button>`).join(' ');}
 function gotoCh(i){showTab(2);showCh(i);}
 function copyPrompt(){
-  const t=`【經濟題解題】文字：${document.getElementById('ocrtext').value||'見圖'}\n請：1)詳細步驟解題 2)指出考CH幾什麼觀念\n觀念表：\n${conceptTable()}`;
- navigator.clipboard.writeText(t).then(()=>alert('已複製，貼給 AI 並上傳同張照片即可')).catch(()=>alert(t));
+  const t=`【高職經濟學解題任務】
+題目文字：${document.getElementById('ocrtext').value||'（請參見上傳圖片）'}
+
+【詳解輸出格式規範】
+請依照以下 Markdown 格式輸出給學生的最終解答：
+
+【正確答案】 (填入選項或最終數值)
+
+【考點核心】 (一句話點出這題在考什麼)
+
+【解題步驟】
+
+已知條件梳理：(列出題目給的重要數據或前提)
+
+核心公式/鐵則：(列出解題依據)
+
+推演過程：(詳細、不跳步的計算或推論步驟)
+
+【選項/陷阱分析】 (若為選擇題，必須簡要說明其他選項為何錯誤；若為計算題，點出學生最容易算錯的地方)
+
+觀念章節對照表：
+${conceptTable()}`;
+ navigator.clipboard.writeText(t).then(()=>alert('已複製解題提示詞，貼給外部 AI 並上傳照片即可')).catch(()=>alert(t));
 }
 
 let histStatusFilter='all'; // 'all' | 'todo' | 'done'
