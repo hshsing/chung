@@ -301,7 +301,8 @@ body.mode-auto .wrap{max-width:1080px}
   <div style="margin-top:10px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px">
       <span class="muted" style="font-size:.82rem">💡 拍照可直出詳解！若遇照片反光遮蔽數字，可在此修訂（以修改後文字為準）：</span>
-      <div style="display:flex;gap:6px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button type="button" class="chip-btn" style="width:auto;padding:2px 8px;font-size:.78rem;margin:0;color:#9a3412;border-color:#fdba74;background:#fffaf5" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
         <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
         <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
         <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="clearOcrText()">🗑️ 清空</button>
@@ -1233,29 +1234,38 @@ async function solve(manual){
    const ansHtml = renderMarkdownAnswer(localFallbackRaw) + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
      `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點上方按鈕複製詳解或啟動深度驗算。</div>`;
    box.innerHTML=`
-     <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-       <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析</span>
-       <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
-     </div>
-     ${ansHtml}
-     <div class="verify-action-box" style="margin-top:14px;padding:12px 14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-       <div style="flex:1;min-width:220px">
-         <div style="font-weight:700;color:#9a3412;font-size:.92rem;display:flex;align-items:center;gap:6px">
-           <span>🤔 覺得答案怪怪的或想深度驗算？</span>
-           <span class="badge" style="background:#ffedd5;color:#c2410c;font-size:.74rem">即時挽救機制</span>
-         </div>
-         <div style="font-size:.82rem;color:#7c2d12;margin-top:3px;line-height:1.4">
-           高職經濟常有正負號、弧彈性分母平均、停業點等細節陷阱。點擊右方可啟動「嚴格審題覆核模式」，讓 AI 重新深層驗算！
-         </div>
-       </div>
-       <button type="button" class="primary" style="margin:0;width:auto;padding:8px 16px;font-size:.88rem;background:linear-gradient(135deg,#ea580c,#c2410c);box-shadow:0 2px 6px rgba(234,88,12,0.25);white-space:nowrap" onclick="reSolveWithVerification()">
-         🔄 請 AI 深度驗算重解
-       </button>
-     </div>
-   `;
-   box.scrollIntoView({behavior:'smooth',block:'nearest'});
- const fullQ=(fixed||ocr||"圖片上傳題目").trim();
- saveHist(fullQ.slice(0,45)||"題目解題",eff?`${eff.id} ${eff.name}`:g,fullQ,ansHtml,currentImgThumb,false);
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+        <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析</span>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
+          <button type="button" class="chip-btn" style="color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
+        </div>
+      </div>
+      ${ansHtml}
+      <div class="verify-action-box" style="margin-top:14px;padding:12px 14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <div style="flex:1;min-width:220px">
+          <div style="font-weight:700;color:#9a3412;font-size:.92rem;display:flex;align-items:center;gap:6px">
+            <span>🤔 覺得答案怪怪的或想深度驗算？</span>
+            <span class="badge" style="background:#ffedd5;color:#c2410c;font-size:.74rem">即時挽救機制</span>
+          </div>
+          <div style="font-size:.82rem;color:#7c2d12;margin-top:3px;line-height:1.4">
+            高職經濟常有正負號、弧彈性分母平均、停業點等細節陷阱。點擊右方啟動「嚴格審題覆核」，或一鍵複製完整 Prompt 貼至外部 AI 驗算！
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="primary" style="margin:0;width:auto;padding:8px 14px;font-size:.88rem;background:linear-gradient(135deg,#ea580c,#c2410c);box-shadow:0 2px 6px rgba(234,88,12,0.25);white-space:nowrap" onclick="reSolveWithVerification()">
+            🔄 請 AI 深度驗算重解
+          </button>
+          <button type="button" class="chip-btn" style="margin:0;padding:8px 12px;font-size:.85rem;background:#fff;border-color:#fdba74;color:#9a3412;font-weight:700;white-space:nowrap" onclick="copyVerifyPrompt()">
+            📋 一鍵複製覆核 Prompt
+          </button>
+        </div>
+      </div>
+    `;
+    box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  const fullQ=(fixed||ocr||"圖片上傳題目").trim();
+  window.currentSolvedQuestion = fullQ;
+  saveHist(fullQ.slice(0,45)||"題目解題",eff?`${eff.id} ${eff.name}`:g,fullQ,ansHtml,currentImgThumb,false);
 }
 async function tryPost(silent,isVerify=false){
  try{
@@ -1283,7 +1293,10 @@ async function tryPost(silent,isVerify=false){
            <span style="font-weight:700;color:#c2410c;font-size:1.05rem">🛡️ 題目詳解與考點分析（AI 嚴格覆核驗算版）</span>
            <span class="badge" style="background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;font-size:.78rem">🛡️ 二次覆核驗算完成</span>
          </div>
-         <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
+         <div style="display:flex;gap:6px;flex-wrap:wrap">
+           <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
+           <button type="button" class="chip-btn" style="color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
+         </div>
        </div>
        <div style="margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-left:4px solid #ef4444;border-radius:6px;font-size:.85rem;color:#991b1b">
          <b>🛡️ 嚴格覆核模式報告：</b>已由 AI 重新從題目原數值獨立反推覆核，逐一排查高職統測易混淆公式、正負號與題意陷阱。
@@ -1293,15 +1306,21 @@ async function tryPost(silent,isVerify=false){
          <b>觀念回看：</b>${linkCh(shown)||(eff?`<button class="ghost" onclick="gotoCh(${eff.index})">回看 ${eff.id} ${eff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
        </div>
        <div style="margin-top:12px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-         <span style="font-size:.82rem;color:#475569">💡 若題目中有特定數字被拍照雜訊遮蔽，可至上方「2. 辨識文字」直接修訂數字，再按解題即可！</span>
-         <button type="button" class="chip-btn" style="padding:4px 12px;font-size:.82rem;color:#c2410c;border-color:#fdba74" onclick="reSolveWithVerification()">🔄 再次覆核驗算</button>
+         <span style="font-size:.82rem;color:#475569">💡 若題目中有特定數字被拍照雜訊遮蔽，可展開上方微調文字修訂，或複製提示詞貼至外部 AI 驗算：</span>
+         <div style="display:flex;gap:6px;flex-wrap:wrap">
+           <button type="button" class="chip-btn" style="padding:4px 12px;font-size:.82rem;color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
+           <button type="button" class="chip-btn" style="padding:4px 12px;font-size:.82rem;color:#c2410c;border-color:#fdba74;background:#fff" onclick="reSolveWithVerification()">🔄 再次覆核驗算</button>
+         </div>
        </div>
      `;
    }else{
      box.innerHTML=`
        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
          <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析（AI）</span>
-         <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
+         <div style="display:flex;gap:6px;flex-wrap:wrap">
+           <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
+           <button type="button" class="chip-btn" style="color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
+         </div>
        </div>
        ${aiHtml}
        <div style="margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)">
@@ -1314,18 +1333,24 @@ async function tryPost(silent,isVerify=false){
              <span class="badge" style="background:#ffedd5;color:#c2410c;font-size:.74rem">即時挽救機制</span>
            </div>
            <div style="font-size:.82rem;color:#7c2d12;margin-top:3px;line-height:1.4">
-             高職經濟常有正負號、弧彈性分母平均、停業點等細節陷阱。點擊右方可啟動「嚴格審題覆核模式」，讓 AI 重新深層驗算！
+             高職經濟常有正負號、弧彈性分母平均、停業點等細節陷阱。點擊右方啟動「嚴格審題覆核」，或一鍵複製完整 Prompt 貼至外部 AI 驗算！
            </div>
          </div>
-         <button type="button" class="primary" style="margin:0;width:auto;padding:8px 16px;font-size:.88rem;background:linear-gradient(135deg,#ea580c,#c2410c);box-shadow:0 2px 6px rgba(234,88,12,0.25);white-space:nowrap" onclick="reSolveWithVerification()">
-           🔄 請 AI 深度驗算重解
-         </button>
+         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+           <button type="button" class="primary" style="margin:0;width:auto;padding:8px 14px;font-size:.88rem;background:linear-gradient(135deg,#ea580c,#c2410c);box-shadow:0 2px 6px rgba(234,88,12,0.25);white-space:nowrap" onclick="reSolveWithVerification()">
+             🔄 請 AI 深度驗算重解
+           </button>
+           <button type="button" class="chip-btn" style="margin:0;padding:8px 12px;font-size:.85rem;background:#fff;border-color:#fdba74;color:#9a3412;font-weight:700;white-space:nowrap" onclick="copyVerifyPrompt()">
+             📋 一鍵複製覆核 Prompt
+           </button>
+         </div>
        </div>
      `;
    }
    box.scrollIntoView({behavior:'smooth',block:'nearest'});
   const latestOcr=document.getElementById('ocrtext').value.trim();
   const fullQ=(latestOcr||fixed||"圖片上傳題目").trim();
+  window.currentSolvedQuestion = fullQ;
   saveHist(fullQ.slice(0,45)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,50),fullQ,aiHtml,currentImgThumb,isVerify);
   return true;
  }catch(e){return false;}
@@ -1380,14 +1405,24 @@ async function reSolveWithVerification(){
   `;
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
-function copyVerifyPrompt(){
-  const qText=(document.getElementById('ocrtext')?.value||'').trim();
-  const eff=getEffectiveChapter();
+function copyVerifyPrompt(customQ, customCh){
+  const ocrVal=(document.getElementById('ocrtext')?.value||'').trim();
+  const qText=(customQ || ocrVal || window.currentSolvedQuestion || '').trim();
+  let eff=null;
+  if(customCh!==undefined && customCh!==null){
+    if(typeof customCh==='number' && customCh>=0 && customCh<CH.length){
+      eff={id:CH[customCh][0], name:CH[customCh][1]};
+    } else if(typeof customCh==='string' && customCh){
+      eff={id:'', name:customCh};
+    }
+  } else {
+    eff=getEffectiveChapter();
+  }
   const t=`請扮演台灣高職商管群經濟學資深統測閱卷召集人，針對以下題目進行「嚴格二次覆核驗算」：
 【題目】
 ${qText||'（請參見上傳照片題目）'}
 【所屬考點章節】
-${eff?`${eff.id} ${eff.name}`:'高職經濟學'}
+${eff?`${eff.id} ${eff.name}`.trim():'高職經濟學'}
 
 【通則：絕對基準獨立判定原則 (Absolute Benchmark Principle)】
 只要題目中出現兩個或多個決策變數（如：多種財貨 X 與 Y、多種生產要素 L 與 K、多個工廠、多個國家），嚴禁直接將這兩個變數互相比大小來決定「一增一減」。
@@ -1422,7 +1457,22 @@ ${eff?`${eff.id} ${eff.name}`:'高職經濟學'}
 推演過程：(詳細、不跳步的計算或推論步驟)
 
 【選項/陷阱分析】 (若為選擇題，必須簡要說明其他選項為何錯誤；若為計算題，點出學生最容易算錯的地方)`;
-  navigator.clipboard.writeText(t).then(()=>alert('已複製「嚴格覆核提示詞」！可直接貼至 ChatGPT 或 Claude 要求重新驗算。')).catch(()=>alert(t));
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(()=>{
+      alert('✅ 已複製「嚴格覆核 Prompt」！\n\n您可以直接貼至 ChatGPT 或 Claude 要求重新驗算，取得第二意見。');
+    }).catch(()=>{
+      prompt('請反白複製以下覆核提示詞：', t);
+    });
+  } else {
+    prompt('請反白複製以下覆核提示詞：', t);
+  }
+}
+function copyHistVerifyPrompt(idx){
+  let h=[];
+  try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
+  const item=h[idx];
+  if(!item)return;
+  copyVerifyPrompt(item.fullQ||item.t||'', item.ch);
 }
 function reVerifyHist(idx){
   reloadHistToSolver(idx);
@@ -1893,6 +1943,7 @@ function renderHist(){
       <div class="hist-actions">
         <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem" onclick="reloadHistToSolver(${realIdx})">🔄 載入上方重練</button>
         ${!item.verified?`<button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem;color:#c2410c;border-color:#fdba74;background:#fff7ed" onclick="reVerifyHist(${realIdx})">🛡️ 深度覆核此題</button>`:''}
+        <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem;color:#9a3412;border-color:#fdba74;background:#fffaf5" onclick="copyHistVerifyPrompt(${realIdx})">📋 複製覆核 Prompt</button>
         ${item.ch>=0?`<button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem" onclick="gotoCh(${item.ch})">📚 看 ${CH[item.ch][0]} 課本重點</button>`:''}
         <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.8rem;color:#b91c1c;margin-left:auto" onclick="delHist(${realIdx})">🗑️ 刪除</button>
       </div>
