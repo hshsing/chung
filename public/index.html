@@ -217,6 +217,24 @@ body.mode-auto .wrap{max-width:1080px}
   </ul>
 </details>
 
+<details style="margin-bottom:12px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:6px 12px">
+  <summary style="font-weight:700;color:#166534;cursor:pointer;user-select:none">🎯 統測解題核心通則：絕對基準獨立判定原則 (點開看)</summary>
+  <div style="margin:8px 0 4px;font-size:.85rem;color:#14532d;line-height:1.7">
+    <b>只要題目中出現兩個或多個決策變數（如：多種財貨 X 與 Y、多種生產要素 L 與 K、多個工廠、多個國家），嚴禁直接將這兩個變數互相比大小來決定「一增一減」！</b>
+    <ol style="margin:6px 0 6px 18px;padding-left:0">
+      <li><b>找出絕對基準線：</b>確定該題型決策的「絕對及格線」或「均衡標準」是什麼？（例如：消費題是 MUm；生產題是 MR 或 P；建廠題是 MC）。</li>
+      <li><b>各自獨立判定：</b>必須將每一個變數「分別且獨立地」去跟這條基準線做比較。
+        <ul style="margin:2px 0;padding-left:16px">
+          <li>只要 A 大於擴張標準，就是「增加 A」。</li>
+          <li>只要 B 大於擴張標準，就是「增加 B」。</li>
+          <li>絕對不能因為「A 的效益小於 B」，就推論為「減少 A」。</li>
+        </ul>
+      </li>
+      <li><b>拒絕零和腦補：</b>除非題目明確註明「預算已完全耗盡」或「總資源固定不變」，否則只要所有變數都符合擴張標準，唯一正確的推論就是「同時增加所有變數」。</li>
+    </ol>
+  </div>
+</details>
+
 <!-- 1. 拍照或上傳題目照片 -->
 <label><b>1. 拍照或上傳題目照片</b></label>
 <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file').click()">
@@ -1006,6 +1024,17 @@ function renderMarkdownAnswer(rawText){
       continue;
     }
 
+    if(/【(?:通則[：:]\s*)?絕對基準獨立判定原則(?:.*?)】/.test(line)){
+      let content = line.replace(/.*?【(?:通則[：:]\s*)?絕對基準獨立判定原則(?:.*?)】\s*:?/, '').trim();
+      html.push(`
+        <div style="margin:10px 0 8px 0;padding:8px 12px;background:#f0fdf4;border-left:4px solid #16a34a;border-radius:6px">
+          <div style="font-weight:700;color:#166534;font-size:.95rem">🎯 絕對基準獨立判定原則 (Absolute Benchmark Principle)</div>
+          ${content ? `<div style="margin-top:4px;color:#14532d;line-height:1.65">${content}</div>` : ''}
+        </div>
+      `);
+      continue;
+    }
+
     if(/【正確答案】/.test(line)){
       let content = line.replace(/.*?【正確答案】\s*:?/, '').trim();
       if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【')){
@@ -1183,14 +1212,15 @@ async function solve(manual){
 
 已知條件梳理：由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 範疇，請提取題幹給定之數值、變數與限制條件。
 
-核心公式/鐵則：${c ? c[4] : '依章節定義之核心公式推導'}
+核心公式/鐵則：${c ? c[4] : '依章節定義之核心公式推導'}。遇多變數決策遵守【絕對基準獨立判定原則】：各別與絕對及格線（如消費 MUm、生產 MR 或 P、要素價格 PL 與 PK、建廠 MC）獨立比較。
 
 推演過程：
 1. 辨別變數：確認題目所求為線上點移動（數量變動）或整條線移動、名目值或實質值。
 2. 代入公式：依據上述核心公式依序代入題幹數據計算。
-3. 單位與正負號驗證：如價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。
+3. 多變數獨立判定：若題目出現多種財貨或要素，先找絕對及格線獨立判定增減；除非題目明確註明預算已耗盡，否則符合標準即同時增加，絕不直接互比大小腦補一增一減。
+4. 單位與正負號驗證：如價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。
 
-【選項/陷阱分析】 統測常見陷阱：價格上限（有效設於均衡價格下方造成短缺）vs 價格下限、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs 損益兩平點 P = AC。`;
+【選項/陷阱分析】 統測常見陷阱：價格上限（有效設於均衡價格下方造成短缺）vs 價格下限、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs 損益兩平點 P = AC；多變數決策切勿直接互比大小推論一增一減。`;
 
    const ansHtml = renderMarkdownAnswer(localFallbackRaw) + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
      `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點上方按鈕複製詳解或啟動深度驗算。</div>`;
@@ -1324,13 +1354,14 @@ async function reSolveWithVerification(){
     </div>
     
     <div style="font-size:.9rem;line-height:1.75;color:#1c1917">
-      <b>🔍 統測經濟學 5 大高頻驗算盲點核對清單：</b>
+      <b>🔍 統測經濟學 6 大高頻驗算盲點與核心通則核對清單：</b>
       <div style="margin:8px 0;padding:10px 14px;background:#fff;border:1.5px solid #fed7aa;border-radius:8px">
         <p style="margin:4px 0"><b>1. 需求價格彈性 (Ed)：</b>高職統測慣例取絕對值為正數。若算弧彈性，分母為兩點平均 <code>(Q1+Q2)/2</code> 與 <code>(P1+P2)/2</code>，切勿用單一點！</p>
         <p style="margin:4px 0"><b>2. 需求量變動 vs. 需求變動：</b>價格變動引發線上點移動（需求量變動）；所得、偏好、他財價格變動引發整條曲線平移（需求變動）。</p>
         <p style="margin:4px 0"><b>3. 完全競爭廠商去留準則：</b><code>P ≥ AVC</code> 短期忍痛續產；<code>P &lt; AVC</code> 立即停業；<code>P = AC</code> 損益兩平。</p>
         <p style="margin:4px 0"><b>4. 簡單凱因斯所得決定與乘數：</b>支出乘數 <code>K = 1 / (1 - MPC) = 1 / MPS</code>；稅收乘數 <code>KT = -MPC / (1 - MPC)</code>；平衡預算乘數恆等於 1。</p>
         <p style="margin:4px 0"><b>5. 要素雇用利潤極大：</b>雇用要素至 <code>MRPL = PL</code>（完全競爭產品市場下 <code>VMPL = PL</code>），邊際產值等於要素工資。</p>
+        <p style="margin:4px 0"><b>6. 多變數決策【絕對基準獨立判定原則】：</b>多種財貨(X,Y)、要素(L,K)、多工廠決策時，<b>嚴禁直接將變數互比大小決定「一增一減」</b>！必須先找出絕對及格線（如消費 MUm、要素價格 PL 與 PK、邊際收益 MR），各變數分別獨立跟基準線判定。除非題目明確註明「預算已完全耗盡」或「總資源固定」，否則只要均符合標準，唯一正確推論是「同時增加所有變數」，拒絕零和腦補！</p>
       </div>
     </div>
     
@@ -1349,9 +1380,20 @@ function copyVerifyPrompt(){
 ${qText||'（請參見上傳照片題目）'}
 【所屬考點章節】
 ${eff?`${eff.id} ${eff.name}`:'高職經濟學'}
+
+【通則：絕對基準獨立判定原則 (Absolute Benchmark Principle)】
+只要題目中出現兩個或多個決策變數（如：多種財貨 X 與 Y、多種生產要素 L 與 K、多個工廠、多個國家），嚴禁直接將這兩個變數互相比大小來決定「一增一減」。
+你必須嚴格執行以下三個步驟：
+1. 找出絕對基準線：確定該題型決策的「絕對及格線」或「均衡標準」是什麼？（例如：消費題是 MUm；生產題是 MR 或 P；建廠題是 MC）。
+2. 各自獨立判定：必須將每一個變數「分別且獨立地」去跟這條基準線做比較。
+   - 只要 A 大於擴張標準，就是「增加 A」。
+   - 只要 B 大於擴張標準，就是「增加 B」。
+   - 絕對不能因為「A 的效益小於 B」，就推論為「減少 A」。
+3. 拒絕零和腦補：除非題目明確註明「預算已完全耗盡」或「總資源固定不變」，否則只要所有變數都符合擴張標準，唯一正確的推論就是「同時增加所有變數」。
+
 【嚴格覆核要求】
 1. 請重新逐一計算每個數值，注意正負號、單位與公式方向（如 Ed 取絕對值、弧彈性分母用平均數）。
-2. 指出原題目題意陷阱（如線上點變動 vs 整條線位移、短期停業點 vs 損益兩平點）。
+2. 指出原題目題意陷阱（如線上點變動 vs 整條線位移、短期停業點 vs 損益兩平點、多變數決策零和謬誤）。
 3. 逐步詳列代入計算過程。
 
 【詳解輸出格式規範】
@@ -1367,7 +1409,7 @@ ${eff?`${eff.id} ${eff.name}`:'高職經濟學'}
 
 已知條件梳理：(列出題目給的重要數據或前提)
 
-核心公式/鐵則：(列出解題依據)
+核心公式/鐵則：(列出解題依據，若遇多變數決策題型務必引用【絕對基準獨立判定原則】)
 
 推演過程：(詳細、不跳步的計算或推論步驟)
 
@@ -1385,6 +1427,16 @@ function copyPrompt(){
   const t=`【高職經濟學解題任務】
 題目文字：${document.getElementById('ocrtext').value||'（請參見上傳圖片）'}
 
+【通則：絕對基準獨立判定原則 (Absolute Benchmark Principle)】
+只要題目中出現兩個或多個決策變數（如：多種財貨 X 與 Y、多種生產要素 L 與 K、多個工廠、多個國家），嚴禁直接將這兩個變數互相比大小來決定「一增一減」。
+你必須嚴格執行以下三個步驟：
+1. 找出絕對基準線：確定該題型決策的「絕對及格線」或「均衡標準」是什麼？（例如：消費題是 MUm；生產題是 MR 或 P；建廠題是 MC）。
+2. 各自獨立判定：必須將每一個變數「分別且獨立地」去跟這條基準線做比較。
+   - 只要 A 大於擴張標準，就是「增加 A」。
+   - 只要 B 大於擴張標準，就是「增加 B」。
+   - 絕對不能因為「A 的效益小於 B」，就推論為「減少 A」。
+3. 拒絕零和腦補：除非題目明確註明「預算已完全耗盡」或「總資源固定不變」，否則只要所有變數都符合擴張標準，唯一正確的推論就是「同時增加所有變數」。
+
 【詳解輸出格式規範】
 請依照以下 Markdown 格式輸出給學生的最終解答：
 
@@ -1396,7 +1448,7 @@ function copyPrompt(){
 
 已知條件梳理：(列出題目給的重要數據或前提)
 
-核心公式/鐵則：(列出解題依據)
+核心公式/鐵則：(列出解題依據，若遇多變數決策題型務必引用【絕對基準獨立判定原則】)
 
 推演過程：(詳細、不跳步的計算或推論步驟)
 
@@ -1404,7 +1456,7 @@ function copyPrompt(){
 
 觀念章節對照表：
 ${conceptTable()}`;
- navigator.clipboard.writeText(t).then(()=>alert('已複製解題提示詞，貼給外部 AI 並上傳照片即可')).catch(()=>alert(t));
+  navigator.clipboard.writeText(t).then(()=>alert('已複製解題提示詞，貼給外部 AI 並上傳照片即可')).catch(()=>alert(t));
 }
 
 let histStatusFilter='all'; // 'all' | 'todo' | 'done'
