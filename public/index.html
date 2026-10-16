@@ -413,9 +413,9 @@ body.mode-auto .wrap{max-width:1080px}
     <span style="display:inline-flex;align-items:center;gap:6px;background:#e6f4ea;color:#137333;font-weight:700;font-size:.82rem;padding:3px 12px;border-radius:9999px">
       <span style="width:7px;height:7px;background:#10b981;border-radius:50%;display:inline-block"></span>全站統計
     </span>
-    <span style="font-size:.9rem;color:#334155">今日造訪：<b id="stat-today" style="color:#0f172a;font-weight:800;font-size:1.02rem">2</b> 人次</span>
+    <span style="font-size:.9rem;color:#334155">今日造訪：<b id="stat-today" style="color:#0f172a;font-weight:800;font-size:1.02rem">0</b> 人次</span>
     <span style="color:#cbd5e1;margin:0 4px">｜</span>
-    <span style="font-size:.9rem;color:#334155">累積造訪：<b id="stat-total" style="color:#0f172a;font-weight:800;font-size:1.02rem">164</b> 人次</span>
+    <span style="font-size:.9rem;color:#334155">累積造訪：<b id="stat-total" style="color:#0f172a;font-weight:800;font-size:1.02rem">0</b> 人次</span>
   </div>
 
   <!-- 2. Email 作者卡片 -->
@@ -427,10 +427,9 @@ body.mode-auto .wrap{max-width:1080px}
     </div>
   </div>
 
-  <!-- 3. 教學研發資產與隱私保護聲明 -->
+  <!-- 3. 教學研發資產聲明 -->
   <div style="text-align:center;line-height:1.75">
     <div style="font-weight:700;color:#64748b;font-size:.84rem">HSChung 經濟學教學網・個人教學研發資產</div>
-    <div style="color:#94a3b8;font-size:.76rem;margin-top:2px">本站所有互動教材、語音引擎與適性測驗均為自給自足原生架構・零外部金鑰・零校名隱私保護</div>
   </div>
 </footer>
 </main>
@@ -5814,42 +5813,54 @@ function showCh(i,skipScroll){
 q.addEventListener('input',()=>renderGrid(q.value.trim()));
 renderGrid();
 
-function initSiteStats(){
+async function initSiteStats(){
+  const elToday = document.getElementById('stat-today');
+  const elTotal = document.getElementById('stat-total');
   try {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const BASE_TOTAL = 164;
-    const BASE_TODAY = 2;
+    localStorage.removeItem('eco_stat_total');
+    localStorage.removeItem('eco_stat_today');
+    localStorage.removeItem('eco_stat_date');
+  } catch(e){}
 
-    let total = parseInt(localStorage.getItem('eco_stat_total'), 10);
-    let today = parseInt(localStorage.getItem('eco_stat_today'), 10);
-    let lastDate = localStorage.getItem('eco_stat_date');
+  try {
+    const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const isNewSession = !sessionStorage.getItem('clvsc_eco_visited');
+    if (isNewSession) {
+      sessionStorage.setItem('clvsc_eco_visited', '1');
+    }
+    const isHit = isNewSession ? '1' : '0';
 
-    if (isNaN(total) || total < BASE_TOTAL) total = BASE_TOTAL;
-    if (lastDate !== todayStr) {
-      today = BASE_TODAY;
-      lastDate = todayStr;
-    } else if (isNaN(today) || today < BASE_TODAY) {
-      today = BASE_TODAY;
+    let data = null;
+    try {
+      const r = await fetch('/api/stats?hit=' + isHit);
+      if (r.ok) {
+        data = await r.json();
+      }
+    } catch(e) {}
+
+    if (!data || !data.success) {
+      const op = isNewSession ? 'hit' : 'get';
+      const totalKey = 'clvsc_hschung_eco_total';
+      const todayKey = 'clvsc_hschung_eco_today_' + todayStr;
+      const [rTot, rTod] = await Promise.all([
+        fetch('https://countapi.mileshilliard.com/api/v1/' + op + '/' + totalKey).then(r=>r.json()).catch(()=>null),
+        fetch('https://countapi.mileshilliard.com/api/v1/' + op + '/' + todayKey).then(r=>r.json()).catch(()=>null)
+      ]);
+      data = {
+        today: (rTod && typeof rTod.value === 'number') ? rTod.value : (isNewSession ? 1 : 0),
+        total: (rTot && typeof rTot.value === 'number') ? rTot.value : (isNewSession ? 1 : 0)
+      };
     }
 
-    if (!sessionStorage.getItem('eco_stat_session')) {
-      sessionStorage.setItem('eco_stat_session', '1');
-      total++;
-      today++;
-      localStorage.setItem('eco_stat_total', total);
-      localStorage.setItem('eco_stat_today', today);
-      localStorage.setItem('eco_stat_date', todayStr);
+    if (elToday && typeof data.today === 'number') {
+      elToday.textContent = data.today.toLocaleString();
     }
-
-    const elToday = document.getElementById('stat-today');
-    const elTotal = document.getElementById('stat-total');
-    if (elToday) elToday.textContent = today.toLocaleString();
-    if (elTotal) elTotal.textContent = total.toLocaleString();
+    if (elTotal && typeof data.total === 'number') {
+      elTotal.textContent = data.total.toLocaleString();
+    }
   } catch(e) {
-    const elToday = document.getElementById('stat-today');
-    const elTotal = document.getElementById('stat-total');
-    if (elToday) elToday.textContent = '2';
-    if (elTotal) elTotal.textContent = '164';
+    if (elToday && !elToday.textContent) elToday.textContent = '0';
+    if (elTotal && !elTotal.textContent) elTotal.textContent = '0';
   }
 }
 initSiteStats();
