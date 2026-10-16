@@ -201,10 +201,10 @@ body.mode-auto .wrap{max-width:1080px}
 <!-- Block 1 -->
 <div id="block1" class="card">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-  <h2 style="margin:0"><span class="badge">第一塊</span>拍照解題・智慧裁切＋先核對再解題</h2>
-  <span class="muted" style="font-size:.82rem">一次一題・先核對再解題</span>
+  <h2 style="margin:0"><span class="badge">第一塊</span>拍照解題・AI 視圖直解＋智慧錯題本</h2>
+  <span class="muted" style="font-size:.82rem">拍照一鍵直解・可選微調</span>
 </div>
-<p class="muted" style="margin-top:0">流程：<b>1. 拍照/裁切題目 → 2. 核對辨識文字 → 3. 診斷章節並開始解題</b>。改過的字才會準。</p>
+<p class="muted" style="margin-top:0">流程：<b>1. 拍照/上傳題目 → 2. 點擊立即解題 🚀</b>（若遇考卷反光或折痕，可點開下方「微調文字」修訂）。</p>
 <details style="margin-bottom:8px"><summary>拍得清楚的小技巧（點開看）</summary>
 <ul class="muted"><li>平放考卷、手機垂直拿正，字體越清晰辨識越準</li><li>若考卷字太小或有折痕，可靠近拍攝或開燈避開陰影</li><li>若照片拍到多題，可善用下方「✂️ 裁切選取本題」或「🔄 旋轉」工具</li></ul></details>
 
@@ -245,10 +245,11 @@ body.mode-auto .wrap{max-width:1080px}
 <input id="file" type="file" accept="image/*" capture="environment" style="display:none" />
 
 <div class="tool-row" style="margin-top:8px">
-  <span class="muted" style="font-size:.85rem">手邊沒題目？試試看：</span>
+  <span class="muted" style="font-size:.85rem">手邊沒考卷？試試看：</span>
   <button type="button" class="chip-btn" onclick="loadDemo(0)">📝 範例1：需求彈性 Ed</button>
   <button type="button" class="chip-btn" onclick="loadDemo(1)">📝 範例2：PPC 與 MRT</button>
   <button type="button" class="chip-btn" onclick="loadDemo(2)">📝 範例3：凱因斯乘數</button>
+  <button type="button" class="chip-btn" style="border-color:#fdba74;color:#c2410c" onclick="openTextMode()">✏️ 手動純文字解題</button>
 </div>
 
 <!-- 圖片預覽與編輯工具列 -->
@@ -283,34 +284,9 @@ body.mode-auto .wrap{max-width:1080px}
 
 <p id="finfo" class="muted" style="margin:6px 0 0"></p>
 
-<!-- 2. 辨識文字區 -->
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
-  <label><b>2. 辨識文字（可逐字核對修正或直接輸入題目）</b></label>
-  <div style="display:flex;gap:6px">
-    <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
-    <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
-  </div>
-</div>
-
-<div class="sym-group">
-  <span class="muted" style="font-size:.8rem;align-self:center;margin-right:2px">點選插入變數：</span>
-  <button type="button" class="sym-pill" onclick="insertSymbol('Ed')">Ed</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('PPC')">PPC</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('MRT')">MRT</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('MU')">MU</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('MC')">MC</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('TR')">TR</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('GDP')">GDP</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('Ye')">Ye</button>
-  <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
-</div>
-
-<textarea id="ocrtext" placeholder="上傳照片或點上方範例題後自動填入，也可直接在此輸入題目文字（例：求 Ed、PPC、均衡所得…）"></textarea>
-<button class="ghost" onclick="runOcr()">重新辨識此圖</button>
-
-<!-- 3. 判斷章節與手動鎖定 -->
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:4px">
-  <label style="margin:0"><b>3. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
+<!-- 2. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選） -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:gap:4px">
+  <label style="margin:0"><b>2. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
   <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
 </div>
 
@@ -340,8 +316,45 @@ body.mode-auto .wrap{max-width:1080px}
   </div>
 </div>
 
-<!-- 解題按鈕 -->
-<button class="primary" onclick="solve(true)">確認文字無誤，開始解題 🚀</button>
+<!-- 題目文字微調 / 手動打字輸入（選填・預設折疊） -->
+<details id="ocr-details" style="margin-top:12px;margin-bottom:12px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:8px 12px">
+  <summary style="font-weight:700;color:#475569;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+    <span>✏️ 題目文字微調 / 手動純文字輸入（選填，點開展開）</span>
+    <span class="badge" style="font-size:.74rem;background:#f1f5f9;color:#475569;border:1px solid #cbd5e1">救題與手打備援</span>
+  </summary>
+  <div style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px">
+      <span class="muted" style="font-size:.82rem">💡 拍照可直出詳解！若遇照片反光遮蔽數字，可在此修訂（以修改後文字為準）：</span>
+      <div style="display:flex;gap:6px">
+        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
+        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
+        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="clearOcrText()">🗑️ 清空</button>
+      </div>
+    </div>
+
+    <div class="sym-group" style="margin-bottom:6px">
+      <span class="muted" style="font-size:.8rem;align-self:center;margin-right:2px">插入變數：</span>
+      <button type="button" class="sym-pill" onclick="insertSymbol('Ed')">Ed</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('PPC')">PPC</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MRT')">MRT</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MU')">MU</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MC')">MC</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('TR')">TR</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('GDP')">GDP</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('Ye')">Ye</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
+    </div>
+
+    <textarea id="ocrtext" style="min-height:80px" placeholder="拍照後系統將自動填入題幹；手邊沒考卷亦可直接在此手打或貼上題目解題…"></textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px">
+      <button type="button" class="ghost" style="width:auto;padding:3px 10px;font-size:.82rem;margin:0" onclick="runOcr()">🔄 重新辨識照片文字</button>
+      <span class="muted" style="font-size:.78rem">（修改後的文字將優先作為解題依據）</span>
+    </div>
+  </div>
+</details>
+
+<!-- 解題按鈕（一鍵直出詳解） -->
+<button class="primary" style="font-size:1.06rem;padding:12px;box-shadow:0 3px 12px rgba(249,115,22,0.3)" onclick="solve(true)">🚀 拍照立即解題（AI 視圖直解）</button>
 
 <!-- 詳解呈現與動作工具列（解題後直接於下方展開） -->
 <div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1);margin-top:14px;margin-bottom:14px"></div>
@@ -852,6 +865,8 @@ function resetImage(){
 function loadDemo(idx){
   const d=DEMOS[idx % DEMOS.length];
   resetImage();
+  const det = document.getElementById('ocr-details');
+  if(det) det.open = true;
   document.getElementById('ocrtext').value=d.text;
   document.getElementById('finfo').textContent=`已載入【${d.title}】示範題目，已自動鎖定考點！`;
   manualChIndex=-1;
@@ -977,6 +992,24 @@ function copyOcrText(){
   const box=document.getElementById('ocrtext');
   if(!box.value.trim()){alert('目前無辨識文字');return;}
   navigator.clipboard.writeText(box.value).then(()=>alert('已複製題目文字至剪貼簿！')).catch(()=>alert('複製失敗'));
+}
+
+function clearOcrText(){
+  const box=document.getElementById('ocrtext');
+  if(box){
+    box.value='';
+    updateAutoCh('');
+  }
+}
+
+function openTextMode(){
+  const det=document.getElementById('ocr-details');
+  if(det)det.open=true;
+  const box=document.getElementById('ocrtext');
+  if(box){
+    box.focus();
+    box.scrollIntoView({behavior:'smooth',block:'center'});
+  }
 }
 
 function copyFullAnswer(){
@@ -1145,7 +1178,7 @@ async function runOcr(){
         const j=await r.json();
         if(j.text){
           box.value=toTW(clean(j.text));
-          ocrstat.textContent='辨識完成，已自動判斷章節，請核對文字再按解題。';
+          ocrstat.textContent='圖片載入完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
           updateAutoCh(box.value);
           syncLatestHistOcr(box.value);
           return box.value;
@@ -1159,13 +1192,13 @@ async function runOcr(){
       if(window.Tesseract){
         const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');
         box.value=(t.data.text||'').slice(0,1200);
-        ocrstat.textContent='本機辨識完成，已自動判斷章節，請核對再按解題。';
+        ocrstat.textContent='本機辨識完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
         updateAutoCh(box.value);
         syncLatestHistOcr(box.value);
         return box.value;
       }
     }catch(e){}
-    ocrstat.textContent='辨識失敗，請手動輸入題目文字再按解題。';
+    ocrstat.textContent='若照片模糊，可展開下方「微調文字」手動補充題目。';
     return '';
   })();
   return ocrPromise;
@@ -1175,11 +1208,10 @@ function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n')
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
  const box=document.getElementById('answer');box.classList.remove('hide');
- box.innerHTML=`<b>自動解題中…</b><br>正在分析題目關鍵詞與公式匹配…`;
+ box.innerHTML=`<b>AI 視圖解題中…</b><br>正在透過多模態視覺模型深度解析題目…`;
  box.scrollIntoView({behavior:'smooth',block:'nearest'});
  if(imgs.length&&!document.getElementById('ocrtext').value.trim()&&ocrPromise){
-   box.innerHTML=`<b>自動解題中…</b><br>正在等候圖片題目文字辨識完成，確保錯題本完整收錄題目…`;
-   try{await Promise.race([ocrPromise,new Promise(r=>setTimeout(r,12000))]);}catch(e){}
+   try{await Promise.race([ocrPromise,new Promise(r=>setTimeout(r,1500))]);}catch(e){}
  }
  // 1) try backend
  const be=await tryPost(true);
@@ -1782,6 +1814,8 @@ function reloadHistToSolver(idx){
   if(ocrBox){
     if(qText&&qText!=='圖片上傳題目'&&qText!=='圖片題'){
       ocrBox.value=qText;
+      const ocrDet=document.getElementById('ocr-details');
+      if(ocrDet)ocrDet.open=true;
     }
     if(item.imgThumb){
       preview.src=item.imgThumb;
