@@ -77,7 +77,7 @@ export async function onRequestPost(context) {
         '5. 若有字看不清楚，不臆測、不編造數字選項正負號；只在開頭用一句說明缺了什麼資訊。\n' +
         '6. 絕對不要出類似題、檢核題、練習題。\n' +
         '7. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '8. 公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _（例如只能寫 Es 不准寫 E_s 或 $E_s$），不要用 left right，絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。\n\n' +
+        '8. 公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _（例如只能寫 Es 不准寫 E_s 或 $E_s$）。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，例如 [(Q2 - Q1)/Q1] / [(P2 - P1)/P1]。絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。\n\n' +
         '補充文字：' +
         text;
       out = await context.env.AI.run(VISION, {
@@ -101,7 +101,7 @@ export async function onRequestPost(context) {
         '解題要求：\n' +
         '1. 直接解題，絕對不要抄題、不要重貼題目文字、不要出類似題或練習題。\n' +
         '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '3. 公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值用 | |，不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n\n' +
+        '3. 公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值用 | |。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n\n' +
         (text ? ('題目文字與補充：\n' + text) : '');
       out = await context.env.AI.run(TEXT, {
         messages: [
@@ -125,7 +125,9 @@ export async function onRequestPost(context) {
       .replace(/\\space/gi, '')
       .replace(/\\left/gi, '')
       .replace(/\\right/gi, '')
-      .replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g, '($1)/($2)')
+      .replace(/\\?(?:d|t)?frac\s*\{([^}]*)\}\s*\{([^}]*)\}/gi, '($1)/($2)')
+      .replace(/\\?(?:d|t)?frac\s*\{?/gi, '(')
+      .replace(/\b(?:d|t)?frac\b/gi, '')
       .replace(/\\([a-zA-Z]+)/g, '$1')
       .replace(/\\/g, '')
       .replace(/\$(?:\s*space\s*)+\$?/gi, '')
@@ -133,8 +135,7 @@ export async function onRequestPost(context) {
       .replace(/\bleft\b\s*\|\s*/gi, '|')
       .replace(/\s*\|\s*\bright\b/gi, '|')
       .replace(/\$\s*\$/g, '')
-      .replace(/\$/g, '')
-      .replace(/_/g, '');
+      .replace(/\$/g, '');
     return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19', verified: verify });
   } catch (e) {
     return Response.json({ error: String(e).slice(0, 300), fallback: true }, { status: 500 });

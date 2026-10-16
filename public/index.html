@@ -997,15 +997,71 @@ function copyFullAnswer(){
 }
 
 function compressImage(f){return new Promise(res=>{const img=new Image();const to=setTimeout(()=>res(f),8000);img.onload=()=>{clearTimeout(to);let w=img.width,h=img.height;const mx=1600;if(Math.max(w,h)>mx){const r=mx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);cv.toBlob(b=>res(b||f),'image/jpeg',0.85);};img.onerror=()=>{clearTimeout(to);res(f);};img.src=URL.createObjectURL(f);});}
-function clean(s){return s.replace(/\\space/gi,'').replace(/\\left/gi,'').replace(/\\right/gi,'').replace(/\\\(/g,'').replace(/\\\)/g,'').replace(/\\\[/g,'').replace(/\\\]/g,'').replace(/\\times/g,'×').replace(/\\div/g,'÷').replace(/\\cdot/g,'·').replace(/\\/g,'').replace(/\$(?:\s*space\s*)+\$?/gi,'').replace(/(?:\bspace\b\s*){2,}/gi,'').replace(/\bleft\b\s*\|\s*/gi,'|').replace(/\s*\|\s*\bright\b/gi,'|').replace(/\$\s*\$/g,'');}
+function clean(s){
+  if(!s) return '';
+  return s
+    .replace(/\\space/gi,'')
+    .replace(/\\left/gi,'')
+    .replace(/\\right/gi,'')
+    .replace(/\\\(/g,'')
+    .replace(/\\\)/g,'')
+    .replace(/\\\[/g,'')
+    .replace(/\\\]/g,'')
+    .replace(/\\times/g,'×')
+    .replace(/\\div/g,'÷')
+    .replace(/\\cdot/g,'·')
+    .replace(/\\to/g,'→')
+    .replace(/\\?(?:d|t)?frac\s*\{([^}]*)\}\s*\{([^}]*)\}/gi,'($1)/($2)')
+    .replace(/\\?(?:d|t)?frac\s*\{?/gi,'(')
+    .replace(/\b(?:d|t)?frac\b/gi,'')
+    .replace(/\\/g,'')
+    .replace(/\$(?:\s*space\s*)+\$?/gi,'')
+    .replace(/(?:\bspace\b\s*){2,}/gi,'')
+    .replace(/\bleft\b\s*\|\s*/gi,'|')
+    .replace(/\s*\|\s*\bright\b/gi,'|')
+    .replace(/\$\s*\$/g,'');
+}
+
+function formatFormulaSubscripts(s){
+  if(!s) return '';
+  s = s.replace(/\\?(?:d|t)?frac\s*\{([^}]*)\}\s*\{([^}]*)\}/gi, '($1)/($2)');
+  s = s.replace(/\\?(?:d|t)?frac\s*\{?/gi, '');
+  s = s.replace(/\b(?:d|t)?frac\b/gi, '');
+  s = s.replace(/\{([^}]+)\}/g, '($1)').replace(/[{}]/g, '');
+
+  s = s.replace(/\bEd\b/g, 'E<sub>d</sub>');
+  s = s.replace(/\bEs\b/g, 'E<sub>s</sub>');
+  s = s.replace(/\bE_d\b/g, 'E<sub>d</sub>');
+  s = s.replace(/\bE_s\b/g, 'E<sub>s</sub>');
+  s = s.replace(/\(Ed\)/g, '(E<sub>d</sub>)');
+  s = s.replace(/\(Es\)/g, '(E<sub>s</sub>)');
+
+  s = s.replace(/\bQ([0-9])\b/g, 'Q<sub>$1</sub>');
+  s = s.replace(/\bP([0-9])\b/g, 'P<sub>$1</sub>');
+  s = s.replace(/Q_([0-9])/g, 'Q<sub>$1</sub>');
+  s = s.replace(/P_([0-9])/g, 'P<sub>$1</sub>');
+
+  s = s.replace(/\bQd\b/g, 'Q<sub>d</sub>');
+  s = s.replace(/\bQs\b/g, 'Q<sub>s</sub>');
+  s = s.replace(/Q_d/g, 'Q<sub>d</sub>');
+  s = s.replace(/Q_s/g, 'Q<sub>s</sub>');
+
+  s = s.replace(/\bP([LK])\b/g, 'P<sub>$1</sub>');
+  s = s.replace(/\b(MRP|VMP|MP|MFC)([LK])\b/g, '$1<sub>$2</sub>');
+
+  return s;
+}
+
 let _tw=null;function toTW(s){try{if(!_tw&&window.OpenCC){_tw=OpenCC.Converter({from:'cn',to:'tw'});}return _tw?_tw(s):s;}catch(e){return s;}}
 
 function renderMarkdownAnswer(rawText){
   if(!rawText) return '';
-  let txt = toTW(clean(rawText.toString())).replace(/\$/g,'').replace(/_/g,'');
+  let txt = toTW(clean(rawText.toString())).replace(/\$/g,'');
   txt = txt.replace(/\*\*【(.+?)】\*\*/g, '【$1】');
   let escaped = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  escaped = escaped.replace(/&lt;(\/?)sub&gt;/gi, '<$1sub>');
   escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  escaped = formatFormulaSubscripts(escaped);
 
   const lines = escaped.split('\n');
   let html = [];
@@ -1284,7 +1340,7 @@ async function tryPost(silent,isVerify=false){
    if(/無法.*看到|看不到|無法直接|can't see|cannot see/i.test(ans))return false;
    const box=document.getElementById('answer');
    box.classList.remove('hide');
-   const shown=toTW(clean((j.answer||'').toString())).replace(/\$/g,'').replace(/_/g,'');
+   const shown=toTW(clean((j.answer||'').toString())).replace(/\$/g,'');
    const aiHtml=renderMarkdownAnswer(shown);
    if(isVerify){
      box.innerHTML=`
