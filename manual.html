@@ -28,18 +28,18 @@
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 2.5px solid #ea580c;
-    padding-bottom: 8px;
-    margin-bottom: 12px;
+    padding-bottom: 7px;
+    margin-bottom: 11px;
   }
   .title-area h1 {
     margin: 0;
-    font-size: 18pt;
+    font-size: 17.5pt;
     color: #9a3412;
     letter-spacing: 0.5px;
   }
   .title-area .subtitle {
     margin: 3px 0 0;
-    font-size: 10pt;
+    font-size: 9.8pt;
     color: #64748b;
     font-weight: 600;
   }
@@ -64,13 +64,13 @@
   }
 
   .section {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .section-title {
-    font-size: 12pt;
+    font-size: 11.5pt;
     font-weight: 800;
     color: #9a3412;
-    margin: 0 0 8px 0;
+    margin: 0 0 7px 0;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -82,7 +82,7 @@
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 9px;
   }
   .grid-3 {
     display: grid;
@@ -114,15 +114,19 @@
   }
 
   .card h3 {
-    margin: 0 0 4px 0;
-    font-size: 10.5pt;
+    margin: 0 0 3px 0;
+    font-size: 10.2pt;
     display: flex;
     align-items: center;
     gap: 5px;
   }
+  .card h4 {
+    margin: 0 0 3px 0;
+    font-size: 9.8pt;
+  }
   .card p {
     margin: 0;
-    font-size: 9pt;
+    font-size: 8.9pt;
     color: #475569;
     line-height: 1.45;
   }
@@ -142,7 +146,7 @@
     background: #ea580c;
     color: #fff;
     font-weight: 800;
-    font-size: 10pt;
+    font-size: 9.8pt;
     width: 22px;
     height: 22px;
     border-radius: 50%;
@@ -154,31 +158,13 @@
   }
   .step-content h4 {
     margin: 0 0 3px;
-    font-size: 10pt;
+    font-size: 9.8pt;
     color: #0f172a;
   }
   .step-content p {
     margin: 0;
-    font-size: 9pt;
+    font-size: 8.9pt;
     color: #475569;
-  }
-
-  /* 表格 */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 9pt;
-    margin: 6px 0;
-  }
-  th, td {
-    border: 1px solid #cbd5e1;
-    padding: 6px 8px;
-    text-align: left;
-  }
-  th {
-    background: #f1f5f9;
-    font-weight: 700;
-    color: #334155;
   }
 
   code {
@@ -186,19 +172,9 @@
     padding: 1px 4px;
     border-radius: 3px;
     font-family: "Consolas", monospace;
-    font-size: 9pt;
+    font-size: 8.8pt;
     color: #c2410c;
     font-weight: 600;
-  }
-
-  .formula-badge {
-    display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 8.5pt;
   }
 
   .footer {
@@ -218,7 +194,7 @@
   <div class="header">
     <div class="title-area">
       <h1>高職經濟學解題網 ｜ 學生使用說明手冊</h1>
-      <div class="subtitle">技術型高中（高職）商管群統測經濟學・AI 智能視圖解題與複習平台</div>
+      <div class="subtitle">技術型高中（高職）商管群統測經濟學・AI 智能視圖直解與複習平台</div>
     </div>
     <div>
       <span class="badge-tag">2026 統測必備工具</span>
@@ -231,7 +207,7 @@
     <div class="grid-3">
       <div class="card card-highlight">
         <h3 style="color:#9a3412">📷 AI 視圖一鍵直解</h3>
-        <p>搭載先進原生視覺模型，拍照後直接讀取圖片題幹、選項與表格，1 秒出詳解，不需等待打字。</p>
+        <p>搭載原生多模態視覺模型，拍照後直接讀取考卷題幹、選項與圖表，1 秒出詳解，不需等待打字。</p>
       </div>
       <div class="card card-green">
         <h3 style="color:#166534">📐 四大規範詳解</h3>
@@ -239,39 +215,39 @@
       </div>
       <div class="card card-red">
         <h3 style="color:#991b1b">🛡️ 深度二次覆核驗算</h3>
-        <p>覺得答案怪怪的？點擊驗算立即啟動「資深閱卷召集人」模式，重新獨立驗算、排查陷阱。</p>
+        <p>覺得答案怪怪的？點擊驗算立即啟動「資深審題召集人」模式，重新獨立驗算、嚴格排查盲點陷阱。</p>
       </div>
       <div class="card card-blue">
-        <h3 style="color:#1e40af">🎯 絕對基準獨立判定原則</h3>
-        <p>獨家內建經濟學決策通則，多變數（X與Y財、L與K要素）嚴禁互比大小腦補一增一減，解題超精準。</p>
+        <h3 style="color:#1e40af">🔍 考點診斷與公式預覽</h3>
+        <p>拍照後自動診斷統測 CH1～CH19 章節，即時調出核心必背公式；亦可隨時手動自選更換章節。</p>
       </div>
       <div class="card">
-        <h3 style="color:#334155">📖 CH1~19 觀念與標準圖形</h3>
-        <p>全章節觀念庫、必背核心公式、完全競爭停業點與供給線、凱因斯乘數等互動幾何圖形一應俱全。</p>
+        <h3 style="color:#334155">📖 CH1~19 重點標準圖形</h3>
+        <p>全章節觀念庫、完全競爭廠商停業點與供給線、生產可能曲線 PPC、乘數效果等標準圖形一應俱全。</p>
       </div>
       <div class="card">
         <h3 style="color:#334155">📓 雙核心永久智慧錯題本</h3>
-        <p>自動收錄每一次解題，支援 IndexedDB 永久保存，提供狀態標記、關鍵字搜尋與一鍵備份匯出。</p>
+        <p>自動收錄每一次解題，支援 IndexedDB 永久保存防遺失，提供狀態標記、關鍵字搜尋與備份匯出。</p>
       </div>
     </div>
   </div>
 
   <!-- 2. 拍照解題 3 步驟快速上手 -->
   <div class="section">
-    <div class="section-title">📸 3 秒快速上手：拍照解題操作步驟</div>
+    <div class="section-title">📸 3 秒極速上手：拍照解題操作步驟</div>
     
     <div class="step-box">
       <div class="step-num">1</div>
       <div class="step-content">
         <h4>拍照或從相簿上傳題目照片</h4>
-        <p>點擊相機圖示拍照或從相簿上傳考卷照片。<b>技巧：手機拿正、避開陰影</b>；若一次拍到多題，可善用<b>「✂️ 裁切選取本題」</b>拉動上下拉桿框出該題範圍。</p>
+        <p>點擊相機圖示拍照或從相簿上傳考卷照片。<b>技巧：手機垂直拿正、光線充足避開陰影</b>；若一張照片拍到多題，可點選<b>「✂️ 裁切選取本題」</b>拉動上下拉桿框出該題範圍。</p>
       </div>
     </div>
 
     <div class="step-box">
       <div class="step-num">2</div>
       <div class="step-content">
-        <h4>確認考題章節診斷（AI 自動判斷 ＋ 可手動自選）</h4>
+        <h4>確認考題章節診斷（AI 精準判斷 ＋ 可手動自選）</h4>
         <p>系統會即時診斷該題屬於統測哪一章（如：<code>CH2 需求與供給</code>、<code>CH7 完全競爭市場</code>），並即刻預覽該章核心必背公式。若有需要，隨時可點候選標籤或下拉選單自由更換章節。</p>
       </div>
     </div>
@@ -280,44 +256,17 @@
       <div class="step-num">3</div>
       <div class="step-content">
         <h4>點擊【🚀 拍照立即解題（AI 視圖直解）】</h4>
-        <p>AI 直接讀取考卷圖片進行高精度運算，幾秒內即可在下方展開完整的結構化解題報告！</p>
+        <p>AI 直接讀取考卷圖片進行高精度視覺運算，幾秒內即可在下方展開完整的結構化解題報告！</p>
       </div>
     </div>
 
     <!-- 救題機制與純打字說明 -->
     <div class="card card-highlight avoid-break" style="margin-top:8px">
       <h3 style="color:#9a3412">💡 考卷反光或折痕怎麼辦？「題目文字微調」救題機制</h3>
-      <p style="font-size:9.2pt">
+      <p style="font-size:9.1pt;line-height:1.55">
         若考卷折痕剛好擋住關鍵數字（例如把 $Ed=1.5$ 遮到像 $1.8$），不用重拍！點開折疊的<b>「✏️ 題目文字微調 / 手動純文字輸入」</b>，直接在文字框裡修正該數字，AI 將<b>以修改後的文字為準</b>進行精準解題。<br>
-        手邊沒有考卷時，也可點選<b>「✏️ 手動純文字解題」</b>直接打字或貼上題目發問。
+        手邊沒有考卷時，也可點選<b>「✏️ 手動純文字解題」</b>直接打字或貼上題目發問；或點選上方<b>「📝 範例題」</b>一鍵快速體驗。
       </p>
-    </div>
-  </div>
-
-  <!-- 3. 詳解結構導讀 -->
-  <div class="section avoid-break">
-    <div class="section-title">💡 高分必讀：四大結構化詳解模組</div>
-    <div class="grid-2">
-      <div class="card card-green">
-        <h3 style="color:#166534">【正確答案】（置頂綠色卡片）</h3>
-        <p>一目了然標示出該題最終正確選項（如 <code>(C) 150 萬元</code>）或計算數值，第一時間掌握結論。</p>
-      </div>
-      <div class="card card-blue">
-        <h3 style="color:#1e40af">【考點核心】（藍色標籤區）</h3>
-        <p>用一句話精確指出這題在考什麼、對應統測 CH1～CH19 哪一個核心定義，方便翻閱課本。</p>
-      </div>
-      <div class="card card-highlight">
-        <h3 style="color:#9a3412">【解題步驟】（層次分明）</h3>
-        <p>
-          • <b>📌 已知條件梳理</b>：提煉題幹關鍵變數與數據。<br>
-          • <b>📐 核心公式/鐵則</b>：列出解題依據與定理。<br>
-          • <b>🔢 推演過程</b>：不跳步的代入計算與推導。
-        </p>
-      </div>
-      <div class="card card-red">
-        <h3 style="color:#991b1b">【選項/陷阱分析】（紅色防呆區）</h3>
-        <p>選擇題必列其餘選項錯誤原因；計算題精準點出統測考生最常踩的正負號、單位與觀念陷阱。</p>
-      </div>
     </div>
   </div>
 
@@ -332,102 +281,80 @@
   <!-- ==================== PAGE 2 ==================== -->
   <div class="header">
     <div class="title-area">
-      <h1>高職經濟學解題網 ｜ 核心解題通則與複習技巧</h1>
-      <div class="subtitle">滿分思維・避坑指南・智慧錯題本與防丟習慣</div>
+      <h1>高職經濟學解題網 ｜ 詳解導讀・覆核驗算與錯題管理</h1>
+      <div class="subtitle">結構化詳解・資深審題覆核・智慧錯題本與 3 大防丟習慣</div>
     </div>
     <div>
-      <span class="badge-tag">統測搶分秘笈</span>
+      <span class="badge-tag">複習提分指南</span>
     </div>
   </div>
 
-  <!-- 4. 絕對基準獨立判定原則 -->
+  <!-- 3. 詳解結構導讀 -->
   <div class="section avoid-break">
-    <div class="section-title">🎯 統測滿分鐵則：絕對基準獨立判定原則 (Absolute Benchmark Principle)</div>
-    <div class="card card-green" style="padding:10px 14px">
-      <div style="font-weight:800;color:#14532d;font-size:10.5pt;margin-bottom:4px">
-        ⚠️ 遇多決策變數題型（多種財貨 X 與 Y、要素 L 與 K、多工廠、多國家），嚴禁直接將兩變數互比大小決定「一增一減」！
+    <div class="section-title">💡 高分必讀：四大結構化詳解模組</div>
+    <div class="grid-2">
+      <div class="card card-green">
+        <h3 style="color:#166534">【正確答案】（置頂綠色卡片）</h3>
+        <p>一目了然標示出該題最終正確選項（如 <code>(C) 150 萬元</code>）或計算數值，第一時間掌握結論。</p>
       </div>
-      <p style="color:#166534;font-size:9.3pt;line-height:1.6">
-        許多同學（甚至一般 AI）看到 $MU_X / P_X > MU_Y / P_Y$ 或 $VMP_L / P_L > VMP_K / P_K$，常會直覺反射「增加 X、減少 Y」或「多雇 L、少雇 K」，<b>這是嚴重的零和謬誤！</b>解題必須遵循以下 3 步驟：
-      </p>
-      <ol style="margin:6px 0 6px 18px;padding-left:0;font-size:9pt;color:#14532d;line-height:1.6">
-        <li><b>找出絕對基準線：</b>確定該題決策的「絕對及格線」是什麼？（消費題是貨幣邊際效用 $MU_m$；生產要素題是工資或要素價格 $P_L, P_K$；多工廠題是邊際收益 $MR$）。</li>
-        <li><b>各自獨立判定：</b>將每個變數<b>分別且獨立</b>地與基準線比較：
-          <br>• 只要 A 超過及格線 ➔ <b>「增加 A」</b>；只要 B 超過及格線 ➔ <b>「增加 B」</b>。
-          <br>• <b>絕不能因為「A 的效益小於 B」，就未經檢驗推論為「減少 A」！</b></li>
-        <li><b>拒絕零和腦補：</b>除非題目明確註明「總預算已完全耗盡」或「總資源固定」，否則只要所有變數都高於擴張標準，唯一正確答案就是<b>「同時增加所有變數」</b>！</li>
-      </ol>
+      <div class="card card-blue">
+        <h3 style="color:#1e40af">【考點核心】（藍色標籤區）</h3>
+        <p>用一句話精確指出這題在考什麼、對應統測 CH1～CH19 哪一個核心定義，方便翻閱課本複習。</p>
+      </div>
+      <div class="card card-highlight">
+        <h3 style="color:#9a3412">【解題步驟】（層次分明）</h3>
+        <p>
+          • <b>📌 已知條件梳理</b>：提煉題幹關鍵變數與數據。<br>
+          • <b>📐 核心公式/鐵則</b>：列出解題依據與理論定理。<br>
+          • <b>🔢 推演過程</b>：不跳步的代入計算與正負號驗證。
+        </p>
+      </div>
+      <div class="card card-red">
+        <h3 style="color:#991b1b">【選項/陷阱分析】（紅色防呆區）</h3>
+        <p>選擇題必列其餘選項錯誤原因；計算題精準點出統測考生最常踩的正負號、單位與題意陷阱。</p>
+      </div>
     </div>
   </div>
 
-  <!-- 5. 統測 6 大高頻驗算盲點 -->
+  <!-- 4. 深度覆核驗算機制 -->
   <div class="section avoid-break">
-    <div class="section-title">🔍 統測經濟學 6 大高頻驗算盲點速查</div>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:28%">考點類型</th>
-          <th style="width:36%">常見致命錯誤</th>
-          <th style="width:36%">正解鐵則與防呆公式</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><b>1. 需求價格彈性 (Ed)</b></td>
-          <td>弧彈性分母誤用單一點數值；公式正負號忘記取絕對值。</td>
-          <td>統測慣例取絕對值為正數；弧彈性分母必用兩點平均 <code>(Q1+Q2)/2</code>。</td>
-        </tr>
-        <tr>
-          <td><b>2. 量變 vs. 線位移</b></td>
-          <td>混淆「需求量變動」與「需求變動」。</td>
-          <td>自身價格變動是<b>「線上點移動」</b>；所得、偏好、他財價格變動是<b>「整條線平移」</b>。</td>
-        </tr>
-        <tr>
-          <td><b>3. 廠商停業點判斷</b></td>
-          <td>分不清損益兩平點與短期停業關門點。</td>
-          <td><code>P ≥ AVC</code> 忍痛續產；<code>P < AVC</code> 立即停業；<code>P = AC</code> 損益兩平。</td>
-        </tr>
-        <tr>
-          <td><b>4. 簡單凱因斯乘數</b></td>
-          <td>乘數分母正負號搞反、漏看是否為平衡預算。</td>
-          <td>支出乘數 <code>K = 1 / MPS</code>；稅收乘數 <code>-MPC / MPS</code>；平衡預算乘數恆為 <code>1</code>。</td>
-        </tr>
-        <tr>
-          <td><b>5. 要素雇用利潤極大</b></td>
-          <td>誤以為要素雇用條件是 $MP_L = P_L$。</td>
-          <td>完全競爭下必為 <code>VMPL = PL</code>（即 <code>P × MPL = PL</code>），邊際產值等於工資。</td>
-        </tr>
-        <tr>
-          <td><b>6. 覺得答案怪怪的？</b></td>
-          <td>盲目猜題或懷疑題目出錯。</td>
-          <td>點擊<b>【🔄 請 AI 深度驗算重解】</b>，啟動資深召集人模式排查盲點！</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="section-title">🛡️ 覺得答案怪怪的？AI 深度二次覆核驗算機制</div>
+    <div class="card card-highlight" style="padding:10px 14px">
+      <div style="font-weight:700;color:#9a3412;font-size:10.2pt;margin-bottom:4px">
+        🤔 遇到刁鑽題目或正負號容易混淆？一鍵啟動深度驗算
+      </div>
+      <p style="font-size:9.1pt;line-height:1.6;color:#431407">
+        高職經濟學統測常有價格彈性取絕對值、弧彈性分母平均、短期停業點 $P=AVC$ vs. 損益兩平點 $P=AC$ 等細節陷阱。
+      </p>
+      <div style="margin-top:6px;font-size:9pt;line-height:1.6;color:#431407">
+        • <b>啟動驗算：</b>點擊詳解下方的<b>【🔄 請 AI 深度驗算重解】</b>按鈕，系統立即切換為「資深統測審題召集人模式」，從題目數據重新獨立反推覆核，並在最上方出具<b>【🛡️ 覆核驗算結論】</b>。<br>
+        • <b>貼給外部 AI 驗證：</b>點擊<b>「📋 一鍵複製覆核 Prompt」</b>，即可直接將格式完備的提問詞複製貼至 ChatGPT 或 Claude 要求重新驗算，取得第二意見。
+      </div>
+    </div>
   </div>
 
-  <!-- 6. 錯題本與防丟秘訣 -->
+  <!-- 5. 錯題本與防丟秘訣 -->
   <div class="section avoid-break">
-    <div class="section-title">📓 錯題不丟失！3 大防丟使用習慣與複習工具</div>
+    <div class="section-title">📓 錯題不丟失！3 大防丟使用習慣與智慧錯題本</div>
     
-    <div class="grid-3" style="margin-bottom:8px">
+    <div class="grid-3" style="margin-bottom:10px">
       <div class="card card-highlight">
-        <h4 style="margin:0 0 3px;color:#9a3412">💡 習慣 1：常規瀏覽器分頁</h4>
+        <h4 style="color:#9a3412">💡 習慣 1：常規瀏覽器分頁</h4>
         <p>建議使用 Safari 或 Chrome 的「一般分頁」，切勿使用「無痕/私密瀏覽」，否則關閉視窗紀錄會被清空。</p>
       </div>
       <div class="card card-highlight">
-        <h4 style="margin:0 0 3px;color:#9a3412">💡 習慣 2：LINE / 臉書開啟</h4>
+        <h4 style="color:#9a3412">💡 習慣 2：LINE / 臉書開啟</h4>
         <p>從社群點開網址時，請點右上角「<code>⋮</code>」選<b>「在預設瀏覽器中開啟」</b>，紀錄才會安全存入手機。</p>
       </div>
       <div class="card card-highlight">
-        <h4 style="margin:0 0 3px;color:#9a3412">💡 習慣 3：定期備份匯出</h4>
+        <h4 style="color:#9a3412">💡 習慣 3：定期備份匯出</h4>
         <p>考前可點錯題本右上角<b>「📤 備份匯出」</b>下載 JSON 檔，換手機時點<b>「📥 還原匯入」</b>立即完整復原！</p>
       </div>
     </div>
 
-    <div class="card card-blue" style="font-size:9pt;line-height:1.55">
-      <b>錯題本複習技巧：</b>
-      解完的每一題都會自動收錄在下方「智慧錯題本」。每題皆可點擊<b>「展開詳解」</b>重溫推演、標記<b>「待複習 ⏳ / 已掌握 ✅」</b>掌握進度；遇到不熟的經典題，點擊<b>「🔄 載入上方重練」</b>可立即調回上方重新解題！
+    <div class="card card-blue" style="font-size:9.1pt;line-height:1.6">
+      <h4 style="color:#1e40af;margin:0 0 3px">📓 智慧錯題本複習技巧：</h4>
+      解完的每一題都會自動收錄在首頁下方「智慧錯題本」。每題皆可點擊<b>「展開詳解」</b>重溫推演過程、依掌握程度切換<b>「待複習 ⏳ / 已掌握 ✅」</b>掌握個人弱點進度；遇到不熟的經典題，點擊<b>「🔄 載入上方重練」</b>可立即調回上方重新解題！
     </div>
   </div>
 
