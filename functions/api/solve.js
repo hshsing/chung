@@ -97,6 +97,8 @@ export async function onRequestPost(context) {
       : '';
 
     let out;
+    const hasMissingFigure = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?|見(?:附)?表|如附表)/i.test(text);
+
     // vision 用 Llama 4 Scout（原生多模態）：圖片放進 messages content blocks
     const VISION = '@cf/meta/llama-4-scout-17b-16e-instruct';
     const TEXT = '@cf/meta/llama-4-scout-17b-16e-instruct';
@@ -117,18 +119,19 @@ export async function onRequestPost(context) {
         formatSpec +
         '解題要求：\n' +
         '1. 一次只解一題。若照片中有多題，只解第一題（或最清楚的一題），並在開頭列出看到的其他題號，請學生分次上傳。\n' +
-        '2. 若補充文字中有【學生已核對題目】，以該文字為準解題，圖片僅供對照，不可推翻核對文字。\n' +
-        '3. 若有補充文字，在【解題步驟】之推演過程或開頭專門回應學生補充（例如你算到哪、錯在哪、為什麼這樣想不對），不可忽略。\n' +
-        '4. 直接解題，絕對不要抄題、不要重貼題目文字、不要逐字抄出題幹選項（辨識文字已在前端顯示）。\n' +
-        '5. 若有字看不清楚，不臆測、不編造數字選項正負號；只在開頭用一句說明缺了什麼資訊。\n' +
-        '6. 務必在【步驟二】中提供 1 題與本題觀念相關的簡短【觀念確認題】（含選項 A/B/C 與解答），以確認學生是否理解公式核心。\n' +
-        '7. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '8. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
+        '2. 題目中若載明「如圖所示」或「如右圖」，請務必直接細緻觀察圖片中之圖形走勢、各供給/需求線截距（通過縱軸P軸、原點或橫軸Q軸）及點位座標進行精確判定！\n' +
+        '3. 若補充文字中有【學生已核對題目】，以該文字為準解題，圖片僅供對照，不可推翻核對文字。\n' +
+        '4. 若有補充文字，在【解題步驟】之推演過程或開頭專門回應學生補充（例如你算到哪、錯在哪、為什麼這樣想不對），不可忽略。\n' +
+        '5. 直接解題，絕對不要抄題、不要重貼題目文字、不要逐字抄出題幹選項（辨識文字已在前端顯示）。\n' +
+        '6. 若有字看不清楚，不臆測、不編造數字選項正負號；只在開頭用一句說明缺了什麼資訊。\n' +
+        '7. 務必在【步驟二】中提供 1 題與本題觀念相關的簡短【觀念確認題】（含選項 A/B/C 與解答），以確認學生是否理解公式核心。\n' +
+        '8. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
+        '9. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
         '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：所有變數一律使用台灣高職教科書標準格式，例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1、PL、PK、TR、TC、MR、MC、MPL 等，絕對禁止寫成 MU_x、P_x、MU_m、MU_y、P_y、E_d、E_s、Q_d、P_1 等任何帶有底線「_」的形式！步驟二的觀念確認題與選項中也一律只能寫 MUx / Px，絕不可寫 MU_x / P_x！\n' +
         '   - 【變動量一律使用希臘三角形符號「Δ」】：所有變動量或差分符號一律寫成「Δ」（例如只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU、ΔTP、ΔTC、ΔTR、ΔY、ΔG 等），絕對嚴禁寫成英文單字 Delta、delta 或 \\Delta！\n' +
         '   - 公式一律用純文字單行，例如 MUx / Px = MUy / Py = MUm，GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _。\n' +
         '   - 公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，例如 [(Q2 - Q1)/Q1] / [(P2 - P1)/P1]。絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。\n' +
-        '9. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
+        '10. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
         '補充文字：' +
         text;
       out = await context.env.AI.run(VISION, {
@@ -145,7 +148,19 @@ export async function onRequestPost(context) {
         max_tokens: 1024,
       });
     } else {
+      const missingFigureInstruction = hasMissingFigure
+        ? '【⚠️ 重大審題規範：題目文字載明「如圖所示/如表所示」，但使用者並未提供圖片！】\n' +
+          '1. 【嚴禁盲目瞎猜圖形】：若題目必須依據圖形中之特定曲線走向、截距位置（例如供給曲線穿過縱軸 P 軸、穿過原點、或穿過橫軸 Q 軸）或特定點位座標（如 F、G、H 點位置）才能判斷大小，在沒有圖片的情況下，【絕對嚴禁憑空猜測圖形或盲目挑選選項】！\n' +
+          '2. 【輸出嚴格規範】：\n' +
+          '   - 【正確答案】：必須明確填寫：【需補充題目圖形以進行判定】（絕對禁止在無圖情況下猜測 A、B、C 或 D）！\n' +
+          '   - 【步驟一：審題與已知梳理】：指出題幹載明「如圖所示」，但目前僅有純文字輸入，缺少題目關鍵圖形；\n' +
+          '   - 【步驟二：核心公式與觀念鐵則】：列出該題型的核心經濟學定理（例如直線供給曲線點彈性幾何判定：穿過縱軸 P 軸 Es > 1；穿過原點 Es = 1；穿過橫軸 Q 軸 Es < 1）；\n' +
+          '   - 【步驟三：推演過程】：詳細說明若圖中曲線 S1、S2、S3 分別通過 P 軸、原點、Q 軸時各點之彈性大小關係，並明確向學生說明：「因目前未提供右圖，無法確認 S1、S2、S3 與 F、G、H 點在圖中的真實位置，請拍照或上傳題目圖片，AI 即可立即為您精確解題！」\n' +
+          '   - 【步驟四：最終答案與選項陷阱分析】：提醒學生圖形題常見陷阱（如看錯軸向、忽視穿過原點等），並再次提醒上傳照片。\n\n'
+        : '';
+
       const promptText =
+        missingFigureInstruction +
         verifyInstruction +
         benchmarkPrinciple +
         noCalculusPrinciple +
@@ -170,7 +185,7 @@ export async function onRequestPost(context) {
     }
     let raw = out?.response || out?.result?.response || JSON.stringify(out).slice(0, 4000);
     // 去 LaTeX 殘留斜線：\( \) \[ \] \times \div \cdot \frac 等轉純文字
-    const answer = raw
+    let answer = raw
       .replace(/\\?Delta\b/gi, 'Δ')
       .replace(/[△▲]/g, 'Δ')
       .replace(/Δ\s+([A-Za-z0-9])/g, 'Δ$1')
@@ -200,6 +215,17 @@ export async function onRequestPost(context) {
       .replace(/\$/g, '')
       .replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2')
       .replace(/(?<!_)_(?!_)/g, '');
+
+    // 無圖且依賴圖形時的硬性防護：若 AI 仍頑固猜測了單一選項 A/B/C/D，強制修正為需圖形判定
+    if (!imgs.length && hasMissingFigure) {
+      if (/【正確答案】\s*(?:(?:選項\s*)?[（(]?[A-Da-d][）)]?|[A-Da-d]\b)/.test(answer) && !/需(?:補充|提供|上傳)圖形/.test(answer)) {
+        answer = answer.replace(
+          /【正確答案】\s*(?:(?:選項\s*)?[（(]?[A-Da-d][）)]?|[A-Da-d]\b)?/g,
+          '【正確答案】 【需補充題目圖形以進行判定】（題幹載明如圖所示，但未附圖形）'
+        );
+      }
+    }
+
     return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19', verified: verify });
   } catch (e) {
     return Response.json({ error: String(e).slice(0, 300), fallback: true }, { status: 500 });

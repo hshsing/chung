@@ -1919,6 +1919,21 @@ document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.ta
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
+ const fixedText = document.getElementById('ocrtext').value.trim();
+ const hasFigRef = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示)/i.test(fixedText);
+ if(!imgs.length && hasFigRef){
+   const goAhead = confirm(
+     '⚠️ 偵測到題目包含「如圖所示」，但您尚未上傳任何圖片！\n\n' +
+     '這類題目需要依據圖形中的曲線走向、截距或點位才能推導出正確選項（缺乏圖形將無法直接判定答案）。\n\n' +
+     '建議您點擊「取消」並先【拍照或上傳圖片】；\n' +
+     '若您想先了解本題的核心觀念與判定原理，請按「確定」。'
+   );
+   if(!goAhead){
+     const fi = document.getElementById('f');
+     if(fi) fi.click();
+     return;
+   }
+ }
  const box=document.getElementById('answer');box.classList.remove('hide');
  box.innerHTML=`<b>AI 視圖解題中…</b><br>正在透過多模態視覺模型深度解析題目…`;
  box.scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -1949,7 +1964,7 @@ async function solve(manual){
   const c=ci>=0?CH[ci]:null;
    const localFallbackRaw =
 `【考點核心】 ${g}
-
+${!imgs.length && hasFigRef ? '\n【🛡️ 審題提醒】題幹載明「如圖所示」，但目前未上傳題目圖片。此類題目必須看圖確認截距與點位分佈，在缺乏圖形的情況下無法斷定最終選項，請務必拍照上傳圖形！\n' : ''}
 【步驟一：審題與已知梳理】
 已知條件梳理：由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 範疇，請提取題幹給定之數值、已知變數（如價格 P、數量 Q、所得 I、產量）與限制前提。
 思考引導：先確認題目所求為「線上點移動（數量變動）」或「整條曲線移動（需求/供給變動）」，或是彈性與損益平衡等數值極值計算。
@@ -1969,7 +1984,7 @@ async function solve(manual){
 4. 單位與正負號驗證：如價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。
 
 【步驟四：最終答案與選項陷阱分析】
-【正確答案】 請參閱題目選項與上方推演數值
+【正確答案】 ${!imgs.length && hasFigRef ? '【需補充題目圖形以進行判定】（題幹載明如圖所示，但未附圖形）' : '請參閱題目選項與上方推演數值'}
 選項/陷阱分析：統測常見陷阱包括：弧彈性分母誤用單點（應為兩點平均）、價格上限誤設於均衡價格上方（無效）、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs. 損益兩平點 P = AC；多變數決策切勿直接互比大小推論一增一減。`;
 
    const ansHtml = renderMarkdownAnswer(localFallbackRaw, 'local-sol') + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
