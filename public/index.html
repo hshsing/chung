@@ -1409,6 +1409,15 @@ function formatLineContent(line) {
   }
   if (/【正確答案】/.test(line)) {
     let content = line.replace(/.*?【正確答案】\s*:?/, '').trim();
+    const isNeedFigure = /需(?:補充|提供|上傳|補拍).*圖|缺少.*圖|未附圖/i.test(content);
+    if (isNeedFigure) {
+      return `
+        <div style="margin:10px 0;padding:12px 14px;background:#fff7ed;border:2px solid #fdba74;border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="display:inline-block;padding:4px 10px;background:#c2410c;color:#ffffff;border-radius:6px;font-weight:800;font-size:.9rem;letter-spacing:1px">⚠️ 審題提示</span>
+          <span style="font-size:1.05rem;font-weight:800;color:#9a3412">${content}</span>
+        </div>
+      `;
+    }
     return `
       <div style="margin:10px 0;padding:10px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span style="display:inline-block;padding:3px 10px;background:#15803d;color:#ffffff;border-radius:6px;font-weight:800;font-size:.9rem;letter-spacing:1px">【正確答案】</span>
@@ -2122,7 +2131,7 @@ async function reSolveWithVerification(){
       <b>🔍 統測經濟學 7 大高頻驗算盲點與核心通則核對清單：</b>
       <div style="margin:8px 0;padding:10px 14px;background:#fff;border:1.5px solid #fed7aa;border-radius:8px">
         <p style="margin:4px 0"><b>1. 需求價格彈性 (Ed)：</b>高職統測慣例取絕對值為正數。若算弧彈性，分母為兩點平均 <code>(Q1+Q2)/2</code> 與 <code>(P1+P2)/2</code>，切勿用單一點！</p>
-        <p style="margin:4px 0"><b>2. 供給價格點彈性 (Es) 截距秒殺法則：</b>直線供給曲線穿過縱軸 P 軸 <code>Es &gt; 1</code>；穿過原點 <code>Es = 1</code>；穿過橫軸 Q 軸 <code>Es &lt; 1</code>。三條平行供給線 S1(過P軸)、S2(過原點)、S3(過Q軸) 上的點位 F、G、H，彈性必為 <code>F &gt; G &gt; H</code>（選項 A）！</p>
+        <p style="margin:4px 0"><b>2. 供給價格點彈性 (Es) 截距秒殺法則：</b>直線供給曲線任一點彈性完全由截距決定：穿過縱軸 P 軸 <code>Es &gt; 1</code>；穿過原點 <code>Es = 1</code>；穿過橫軸 Q 軸 <code>Es &lt; 1</code>。若題幹載明如圖但缺少圖形，無法確認各線截距，嚴禁盲猜答案！</p>
         <p style="margin:4px 0"><b>3. 需求量變動 vs. 需求變動：</b>價格變動引發線上點移動（需求量變動）；所得、偏好、他財價格變動引發整條曲線平移（需求變動）。</p>
         <p style="margin:4px 0"><b>4. 完全競爭廠商去留準則：</b><code>P ≥ AVC</code> 短期忍痛續產；<code>P &lt; AVC</code> 立即停業；<code>P = AC</code> 損益兩平。</p>
         <p style="margin:4px 0"><b>5. 簡單凱因斯所得決定與乘數：</b>支出乘數 <code>K = 1 / (1 - MPC) = 1 / MPS</code>；稅收乘數 <code>KT = -MPC / (1 - MPC)</code>；平衡預算乘數恆等於 1。</p>
@@ -2194,20 +2203,15 @@ ${eff?`${eff.id} ${eff.name}`.trim():'高職經濟學'}
    - 【穿過原點 (0,0)】：直線通過原點，線上每一點之供給彈性【恆等於 1（Es = 1）】！
    - 【穿過橫軸（Q 軸，正 Q 截距）】：交點在原點右方，線上每一點之供給彈性【均小於 1（Es < 1）】！
    - 垂直線 Es = 0；水平線 Es = ∞。
-3. 【三條平行供給曲線點彈性比較（統測必考題型）】：
-   - 當 S1、S2、S3 為三條平行的直線供給曲線，且 S1 穿過縱軸 P 軸、S2 穿過原點、S3 穿過橫軸 Q 軸：
-     * S1 線上任一點（如 F 點）：Es(F) > 1。
-     * S2 線上任一點（如 G 點）：Es(G) = 1。
-     * S3 線上任一點（如 H 點）：Es(H) < 1。
-     * 因此點彈性大小比較結果【必然為 Es(F) > Es(G) > Es(H)，即 F > G > H】！
-   - 亦可由公式驗證：三線平行則斜率相同；若 F、G、H 落在同一垂直線上（數量 Q 相同），則 Es 與價格 P 成正比。因價格 PF > PG > PH，故彈性 Es(F) > Es(G) > Es(H) 即 F > G > H。
-   - ★ 嚴禁判定為 G = H 或 F > G = H！標準正確答案必然為 (A) F > G > H！
+3. 【平行供給曲線點彈性比較原理】：
+   - 直線供給曲線之點彈性大小，完全由其延長線在坐標軸上的截距決定：穿過縱軸 P 軸之曲線點彈性大於 1（Es > 1）；穿過原點之曲線點彈性等於 1（Es = 1）；穿過橫軸 Q 軸之曲線點彈性小於 1（Es < 1）。
+   - ★ 審題鐵則：若題幹載明「如圖所示」但未附圖形（或未拍到圖形），因無法確定各曲線截距位置與點位坐標，【絕對禁止憑空猜測圖形或盲猜答案】，必須要求補充圖形才能判定！
 
 【嚴格覆核要求】
 1. 請重新逐一計算每個數值，注意正負號、單位與公式方向（如 Ed 取絕對值、弧彈性分母用平均數）。
 2. 嚴格排查彈性計算與判定錯誤：
    - 需求曲線點彈性為 Ed = 下段長 / 上段長；中點彈性必為 1，上半段 Ed>1，下半段 Ed<1。
-   - 供給曲線點彈性 Es 依截距判定：穿過縱軸 P 軸 Es>1、穿過原點 Es=1、穿過橫軸 Q 軸 Es<1！若為 S1(過P軸)、S2(過原點)、S3(過Q軸) 上的 F、G、H 點，彈性必然為 F > G > H，正確答案為 (A)！絕對嚴禁誤判為 G=H 或 C 選項！
+   - 供給曲線點彈性 Es 依截距判定：穿過縱軸 P 軸 Es>1、穿過原點 Es=1、穿過橫軸 Q 軸 Es<1！若題幹載明如圖但缺少圖形，絕對禁止給出選項答案，必須要求補充圖形！
 3. 指出原題目題意陷阱（如線上點變動 vs 整條線位移、短期停業點 vs 損益兩平點、多變數決策零和謬誤）。
 4. 嚴格排查超綱微積分：高職生不會微積分，嚴禁使用積分 ∫ 或微分導函數，若發現先前解答使用微積分，必須改用觀念法或初等幾何面積重新計算。
 5. 逐步詳列代入計算過程。
@@ -2295,14 +2299,9 @@ function copyPrompt(){
    - 【穿過原點 (0,0)】：直線通過原點，線上每一點之供給彈性【恆等於 1（Es = 1）】！
    - 【穿過橫軸（Q 軸，正 Q 截距）】：交點在原點右方，線上每一點之供給彈性【均小於 1（Es < 1）】！
    - 垂直線 Es = 0；水平線 Es = ∞。
-3. 【三條平行供給曲線點彈性比較（統測必考題型）】：
-   - 當 S1、S2、S3 為三條平行的直線供給曲線，且 S1 穿過縱軸 P 軸、S2 穿過原點、S3 穿過橫軸 Q 軸：
-     * S1 線上任一點（如 F 點）：Es(F) > 1。
-     * S2 線上任一點（如 G 點）：Es(G) = 1。
-     * S3 線上任一點（如 H 點）：Es(H) < 1。
-     * 因此點彈性大小比較結果【必然為 Es(F) > Es(G) > Es(H)，即 F > G > H】！
-   - 亦可由公式驗證：三線平行則斜率相同；若 F、G、H 落在同一垂直線上（數量 Q 相同），則 Es 與價格 P 成正比。因價格 PF > PG > PH，故彈性 Es(F) > Es(G) > Es(H) 即 F > G > H。
-   - ★ 嚴禁判定為 G = H 或 F > G = H！標準正確答案必然為 (A) F > G > H！
+3. 【平行供給曲線點彈性比較原理】：
+   - 直線供給曲線之點彈性大小，完全由其延長線在坐標軸上的截距決定：穿過縱軸 P 軸之曲線點彈性大於 1（Es > 1）；穿過原點之曲線點彈性等於 1（Es = 1）；穿過橫軸 Q 軸之曲線點彈性小於 1（Es < 1）。
+   - ★ 審題鐵則：若題幹載明「如圖所示」但未附圖形（或未拍到圖形），因無法確定各曲線截距位置與點位坐標，【絕對禁止憑空猜測圖形或盲猜答案】，必須要求補充圖形才能判定！
 
 【詳解輸出格式規範】
 請依照以下 Markdown 格式輸出給學生的最終解答：
