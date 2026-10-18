@@ -112,49 +112,29 @@ export async function onRequestPost(context) {
     // vision 用 Llama 4 Scout（原生多模態）：圖片放進 messages content blocks
     const VISION = '@cf/meta/llama-4-scout-17b-16e-instruct';
     const TEXT = '@cf/meta/llama-4-scout-17b-16e-instruct';
-    let imgW = 0, imgH = 0;
-    let isNarrowTextStrip = false;
     if (imgs.length) {
       const ab = await imgs[0].arrayBuffer();
       const bytes = new Uint8Array(ab);
       if (bytes.length > 4 * 1024 * 1024) {
         return Response.json({ error: 'image too large, please retry after frontend compress', fallback: true }, { status: 413 });
       }
-      if (bytes.length > 24) {
-        if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47) {
-          imgW = (bytes[16] << 24) | (bytes[17] << 16) | (bytes[18] << 8) | bytes[19];
-          imgH = (bytes[20] << 24) | (bytes[21] << 16) | (bytes[22] << 8) | bytes[23];
-        } else if (bytes[0] === 0xFF && bytes[1] === 0xD8) {
-          for (let i = 2; i < bytes.length - 8; i++) {
-            if (bytes[i] === 0xFF && (bytes[i + 1] === 0xC0 || bytes[i + 1] === 0xC2)) {
-              imgH = (bytes[i + 5] << 8) | bytes[i + 6];
-              imgW = (bytes[i + 7] << 8) | bytes[i + 8];
-              break;
-            }
-          }
-        }
-      }
-      if (imgW > 0 && imgH > 0 && (imgW / imgH >= 4.5 || imgH <= 140)) {
-        isNarrowTextStrip = true;
-      }
 
       let bin = '';
       for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
       const dataUrl = 'data:image/jpeg;base64,' + btoa(bin);
 
-      const diagramNotice = isNarrowTextStrip
-        ? '【🛑 審題最優先檢驗：系統檢測照片為極端橫條文字裁切，無右側圖形！】\n' +
-          '★ 本張照片為極窄橫條（高度僅 ' + imgH + 'px），只有文字，右側坐標圖形已被裁切未拍入！\n' +
-          '★ 審題鐵則：若題幹提及「如圖所示」、「如右圖」、「見附圖」等，但照片中缺少圖形，【絕對嚴禁憑空猜測圖形！絕對嚴禁選出 A、B、C 或 D 等任何選項作為正確答案】！\n' +
-          '★ 【正確答案】必須一律填寫：【需補充題目圖形以進行判定】（照片僅有題幹文字，缺少題目右圖）\n' +
-          '★ 在步驟一中指出題目缺少圖形，步驟三說明因缺少圖形無法得知各線截距走向與點位，故無法判定答案，請學生補拍右圖。\n\n'
-        : (hasMissingFigure
-            ? '【🛑 審題最優先檢驗：圖形是否存在？】\n' +
-              '題幹文字載明「如圖所示」、「如右圖」、「見附圖」或「由圖中」：\n' +
-              '★ 請仔細檢視照片右側：是否確實看得見坐標圖形（包含 P-Q 坐標軸與曲線）？\n' +
-              '若照片中只有文字而右側沒有坐標圖（圖形被裁切未拍入），【絕對禁止給出選項答案】，【正確答案】必須填寫：【需補充題目圖形以進行判定】（缺少題目圖形）！\n' +
-              '在步驟一中指出題目缺少圖形，步驟三說明因無圖形無法得知各線截距與點位，故無法判定答案，請學生補拍右圖。\n\n'
-            : '');
+      const diagramNotice =
+        '【🛑 審題最優先檢驗：圖形是否存在？】\n' +
+        '題幹文字若載明「如圖所示」、「如右圖」、「見附圖」或「由圖中」：\n' +
+        '★ 請仔細檢視照片（特別是右側或下方）：是否【確實看得見坐標圖形（包含 P-Q 坐標軸與各曲線）】？\n' +
+        '1. 【若照片中只有文字，完全沒有坐標圖（圖形被裁切未拍入）】：\n' +
+        '   - 絕對嚴禁憑空猜測圖形！絕對禁止給出 A、B、C 或 D 等任何選項作為正確答案！\n' +
+        '   - 【正確答案】必須一律填寫：【需補充題目圖形以進行判定】（照片僅有題幹文字，缺少題目右圖）\n' +
+        '   - 步驟一指出題目缺少圖形，步驟三說明因缺少圖形無法得知各線截距走向與點位，故無法判定答案，請學生補拍右圖。\n' +
+        '2. 【若照片中確實看得見清晰的坐標圖形（有 P-Q 軸與各曲線走向）】：\n' +
+        '   - 請依據圖形中各曲線之截距走向與點位進行嚴謹推導解題。\n' +
+        '   - 直線供給曲線穿過縱軸 P 軸 Es > 1；穿過原點 Es = 1；穿過橫軸 Q 軸 Es < 1。\n' +
+        '   - 步驟三列出各曲線截距與點彈性比較，【正確答案】明確給出正確選項（如：(A) F > G > H）！\n\n';
 
       const task =
         diagramNotice +
@@ -263,27 +243,23 @@ export async function onRequestPost(context) {
       .replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2')
       .replace(/(?<!_)_(?!_)/g, '');
 
-    // 圖形缺漏或未附圖形的硬性防護：
-    // 若題幹載明如圖所示（無論來自文字輸入或 AI 從照片讀到的題幹），但缺少圖形（純文字、極窄文字條照片、或 AI 回答提及缺圖），
-    // 【絕對禁止給出單一選項 A/B/C/D】！
+    // 圖形缺漏或未附圖形的防護：
     const refersToFigure = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?|見(?:附)?表|如附表)/i.test(text + ' ' + raw);
     const mentionsMissingFig = /需(?:補充|提供|上傳)圖形|缺少.*圖形|未包含.*圖|未拍到.*圖|裁切.*圖|缺漏.*圖|缺少右圖|未拍入右圖|僅有文字|只有文字|無圖/.test(answer);
+    const hasAnalyzedGraph = /S1.*交點|穿過縱軸|原點上方|EsF|EsG|EsH|交點在原點|正截距|負截距/.test(answer);
 
-    if ((refersToFigure && (!imgs.length || isNarrowTextStrip)) || mentionsMissingFig) {
-      const reason = isNarrowTextStrip
-        ? '照片僅有題幹文字，缺少題目右圖'
-        : (!imgs.length ? '題幹載明如圖所示，但未附圖形' : '照片缺少題目右圖，無法判定');
+    // 1. 純文字輸入且題幹載明如圖：因完全沒有上傳圖片，確定無圖，強制需補充圖形
+    if (!imgs.length && refersToFigure) {
       answer = answer.replace(
         /【正確答案】\s*[:：]?\s*(?:(?:選項\s*)?[（(]?[A-Da-d][）)]?|[A-Da-d]\b[^\n]*)?/g,
-        `【正確答案】 【需補充題目圖形以進行判定】（${reason}）`
+        '【正確答案】 【需補充題目圖形以進行判定】（題幹載明如圖所示，但未附圖形）'
       );
-      // 若因模型記憶常模腦補了 S1/S2/S3 穿過坐標軸之推導，將其修正為缺圖說明，避免誤導學生
-      if (isNarrowTextStrip || !imgs.length) {
-        answer = answer.replace(
-          /(?:根據供給彈性截距鐵則[：:]?[\s\S]*?)?(?:-\s*S1\s*穿過[\s\S]*?即\s*F\s*>\s*G\s*>\s*H[。.]?)/g,
-          '本題題幹載明「如右圖所示」，但上傳內容未包含題目坐標圖形（S1、S2、S3 曲線與 F、G、H 點位）。在缺少圖形的情況下，無法確認各線在坐標軸上的截距走向與點位關係，因此無法進行判定。請上傳完整題目照片（含右側圖形），AI 即可為您精確推導判定！'
-        );
-      }
+    } else if (mentionsMissingFig && !hasAnalyzedGraph) {
+      // 2. 圖片模式且 AI 回報缺少圖形（且未分析圖形坐標截距）：確保正確答案標註需補充圖形
+      answer = answer.replace(
+        /【正確答案】\s*[:：]?\s*(?:(?:選項\s*)?[（(]?[A-Da-d][）)]?|[A-Da-d]\b[^\n]*)?/g,
+        '【正確答案】 【需補充題目圖形以進行判定】（照片缺少題目圖形，無法判定）'
+      );
     }
 
     return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19', verified: verify });
