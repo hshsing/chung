@@ -1494,7 +1494,7 @@ function parseSolutionSteps(rawText) {
         quizOpts = rawOpts.split(/\s*\|\s*/).map(o => o.trim()).filter(Boolean);
       } else if (/^(?:解答|解析|正確答案)[：:]/.test(line)) {
         quizAns = line.replace(/^(?:解答|解析|正確答案)[：:]\s*/, '');
-        const matchKey = quizAns.match(/^([A-Da-d])/);
+        const matchKey = quizAns.match(/(?:選項\s*)?[（(\[【]?([A-Da-d])[）)\]】.:、\s]?/);
         quizData = {
           q: quizQ,
           options: quizOpts,
@@ -1587,9 +1587,10 @@ function renderMarkdownAnswer(rawText, customId) {
   const step4Body = parsed.step4.map(formatLineContent).filter(Boolean).join('');
 
   const quizOptionsHtml = quiz.options.map(opt => {
-    const optLetter = (opt.match(/^([A-Da-d])/) || ['', ''])[1].toUpperCase();
+    const optMatch = opt.match(/^[（(\[【]?([A-Da-d])[）)\]】.:、\s]?/);
+    const optLetter = optMatch ? optMatch[1].toUpperCase() : (opt.match(/^([A-Da-d])/i) || ['', ''])[1].toUpperCase();
     const isCorrect = optLetter === quiz.ansKey;
-    const cleanOpt = formatFormulaSubscripts(clean(opt.replace(/^[A-Da-d][.、\s]*/, '')));
+    const cleanOpt = formatFormulaSubscripts(clean(opt.replace(/^[（(\[【]?[A-Da-d][）)\]】.:、\s]*/, '')));
     const cleanExpl = formatFormulaSubscripts(clean(quiz.explanation || '')).replace(/'/g, "\\'");
     return `
       <button type="button" class="step-opt-btn" data-is-correct="${isCorrect}" onclick="handleStepQuizClick(this, ${isCorrect}, '${cleanExpl}', '${solId}-quiz-feedback')">
