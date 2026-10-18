@@ -19,11 +19,11 @@ export async function onRequestPost(context) {
     const dataUrl = 'data:image/jpeg;base64,' + btoa(bin);
     const out = await context.env.AI.run('@cf/meta/llama-4-scout-17b-16e-instruct', {
       messages: [
-        { role: 'system', content: '你是繁體中文逐字抄寫員。只准繁體中文，禁簡體。' },
+        { role: 'system', content: '你是繁體中文逐字抄寫員。只准繁體中文，禁簡體。若照片中有多道題目，一次只抄由上往下看到的第一題（最上面第 1 題）。' },
         {
           role: 'user',
           content: [
-            { type: 'text', text: '把這張題目照片的文字逐字抄出來（含題幹、選項、數字、表格數字）。看不清的字用□，嚴禁猜。不要解題，不要加任何解說，只要抄出的文字。' },
+            { type: 'text', text: '把這張題目照片中「由上往下看到的第一道題目（最上面第 1 題）」逐字抄出來（含題號、題幹、選項 A/B/C/D、數字、表格數字）。若照片下方還有第 2 題或其他題目，請全部忽略不要抄出！看不清的字用□，嚴禁猜。不要解題，不要加任何解說，只要抄出第一題的文字。' },
             { type: 'image_url', image_url: { url: dataUrl } },
           ],
         },
@@ -31,7 +31,7 @@ export async function onRequestPost(context) {
       max_tokens: 1024,
     });
     let raw = out?.response || out?.result?.response || '';
-    const text = raw
+    let text = raw
       .replace(/\\space/gi, '')
       .replace(/\\left/gi, '')
       .replace(/\\right/gi, '')
@@ -43,6 +43,21 @@ export async function onRequestPost(context) {
       .replace(/\$(?:\s*space\s*)+\$?/gi, '')
       .replace(/(?:\bspace\b\s*){2,}/gi, '')
       .replace(/\$\s*\$/g, '');
+
+    // 若仍包含第 2 題以後的文字（在第一題選項 (D) 之後出現新題號），自動截斷只保留由上往下第 1 題
+    const optDMatch = text.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+    if (optDMatch) {
+      const afterDIdx = optDMatch.index + optDMatch[0].length;
+      const beforeAndD = text.slice(0, afterDIdx);
+      const tail = text.slice(afterDIdx);
+      const nextQRegex = /(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
+      const m = tail.match(nextQRegex);
+      if (m) {
+        const leadingPunct = m[0].match(/^[。！？!?]/);
+        const cutOffset = m.index + (leadingPunct ? 1 : 0);
+        text = (beforeAndD + tail.slice(0, cutOffset)).trim();
+      }
+    }
     return Response.json({ text });
   } catch (e) {
     return Response.json({ error: String(e).slice(0, 300), fallback: true }, { status: 500 });

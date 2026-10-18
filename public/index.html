@@ -1034,9 +1034,25 @@ function renderAutoChUI(){
   }
 }
 
+function extractFirstQuestion(rawText){
+  if(!rawText)return '';
+  const txt=rawText.toString().trim();
+  const optDMatch=txt.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+  if(!optDMatch)return txt;
+  const afterDIdx=optDMatch.index+optDMatch[0].length;
+  const beforeAndD=txt.slice(0,afterDIdx);
+  const tail=txt.slice(afterDIdx);
+  const nextQRegex=/(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
+  const m=tail.match(nextQRegex);
+  if(!m)return txt;
+  const leadingPunct=m[0].match(/^[。！？!?]/);
+  const cutOffset=m.index+(leadingPunct?1:0);
+  return (beforeAndD+tail.slice(0,cutOffset)).trim();
+}
+
 function updateAutoCh(s){
   const ocr=s!==undefined?s:(document.getElementById('ocrtext')?.value||'');
-  detectedCandidates=rankChapters(ocr.trim());
+  detectedCandidates=rankChapters(extractFirstQuestion(ocr.trim()));
   renderAutoChUI();
 }
 
@@ -1899,7 +1915,7 @@ async function runOcr(){
       if(r.ok){
         const j=await r.json();
         if(j.text){
-          box.value=toTW(clean(j.text));
+          box.value=extractFirstQuestion(toTW(clean(j.text)));
           ocrstat.textContent='圖片載入完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
           updateAutoCh(box.value);
           syncLatestHistOcr(box.value);
@@ -1913,7 +1929,7 @@ async function runOcr(){
     try{
       if(window.Tesseract){
         const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');
-        box.value=(t.data.text||'').slice(0,1200);
+        box.value=extractFirstQuestion((t.data.text||'').slice(0,1200));
         ocrstat.textContent='本機辨識完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
         updateAutoCh(box.value);
         syncLatestHistOcr(box.value);
@@ -1929,7 +1945,7 @@ document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.ta
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
- const fixedText = document.getElementById('ocrtext').value.trim();
+ const fixedText = extractFirstQuestion(document.getElementById('ocrtext').value.trim());
  const hasFigRef = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示)/i.test(fixedText);
  if(!imgs.length && hasFigRef){
    const goAhead = confirm(
@@ -1958,15 +1974,15 @@ async function solve(manual){
  try{
   if(imgs.length&&window.Tesseract){ocrstat.textContent="本機辨識中（第一次需下載語言包，約10–20秒）…";
    const r=await Tesseract.recognize(imgs[0],'chi_tra+eng');
-   ocr=(r.data.text||"").slice(0,1200);
+   ocr=extractFirstQuestion((r.data.text||"").slice(0,1200));
    if(ocr&&!document.getElementById('ocrtext').value.trim()){
      document.getElementById('ocrtext').value=ocr;
    }
    ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字判斷。";
   }
  }catch(e){ocrstat.textContent="辨識失敗，改用關鍵字判斷。";}
-  const fixed=document.getElementById('ocrtext').value||"";
-  const all=(ocr+"\n"+fixed).slice(0,1500);
+  const fixed=extractFirstQuestion(document.getElementById('ocrtext').value||"");
+  const all=extractFirstQuestion((ocr+"\n"+fixed).slice(0,1500));
   if(!detectedCandidates.length&&all.trim()){detectedCandidates=rankChapters(all);}
   const eff=getEffectiveChapter();
   const g=eff?eff.label:'未匹配特定章節（可點選上方自選章節或至第二塊搜尋）';
@@ -2120,7 +2136,7 @@ function detectImageCoordinateGraph(file) {
 }
 async function tryPost(silent,isVerify=false){
  try{
-  const fixed=document.getElementById('ocrtext').value.trim();
+  const fixed=extractFirstQuestion(document.getElementById('ocrtext').value.trim());
   const eff=getEffectiveChapter();
   const chHint=eff?(`\n【考點章節】${eff.id} ${eff.name}`):'';
   const verifyTag=isVerify?'\n【學生反映：請以資深高職經濟學閱卷召集人身分進行「嚴格二次覆核驗算」，重新計算每個數字、正負號與觀念盲點，並於開頭說明覆核結論。注意：嚴禁使用微積分（高職生未學微積分），求總效用或極值限用觀念法（如MU=0時TU最大）或幾何圖形面積法】':'';

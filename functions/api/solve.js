@@ -7,7 +7,25 @@ export async function onRequestPost(context) {
       return Response.json({ error: 'need multipart' }, { status: 400 });
     }
     const fd = await context.request.formData();
-    const text = (fd.get('text') || '').toString().slice(0, 2000);
+    const rawInputText = (fd.get('text') || '').toString().slice(0, 2000);
+    // 若題目文字中包含多道題目（在第一題選項 (D) 之後出現新題號），自動截斷只保留由上往下第 1 題
+    const metaSplitIdx = rawInputText.search(/\n【(?:考點章節|學生反映)/);
+    let qPart = metaSplitIdx >= 0 ? rawInputText.slice(0, metaSplitIdx) : rawInputText;
+    const metaPart = metaSplitIdx >= 0 ? rawInputText.slice(metaSplitIdx) : '';
+    const optDMatch = qPart.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+    if (optDMatch) {
+      const afterDIdx = optDMatch.index + optDMatch[0].length;
+      const beforeAndD = qPart.slice(0, afterDIdx);
+      const tail = qPart.slice(afterDIdx);
+      const nextQRegex = /(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
+      const m = tail.match(nextQRegex);
+      if (m) {
+        const leadingPunct = m[0].match(/^[。！？!?]/);
+        const cutOffset = m.index + (leadingPunct ? 1 : 0);
+        qPart = (beforeAndD + tail.slice(0, cutOffset)).trim();
+      }
+    }
+    const text = qPart + metaPart;
     const verify = (fd.get('verify') || '').toString() === 'true';
     const hasGraphParam = fd.get('hasGraph');
     const hasGraph = hasGraphParam !== null ? hasGraphParam === 'true' : true;
@@ -126,20 +144,25 @@ export async function onRequestPost(context) {
       const dataUrl = 'data:image/jpeg;base64,' + btoa(bin);
 
       const diagramNotice =
-        '【🛑 審題首要原則：檢視題目是否需要看圖】\n' +
-        '請先仔細閱讀照片中的題目文字：\n' +
-        '1. 【情況一：純文字題（題目文字完全未提及「如圖」、「如右圖」、「見附圖」等）】：\n' +
+        '【🛑 多題照片最高鐵則：一次只解「由上往下看到的第 1 題」！】\n' +
+        '★ 請由上往下檢視照片：若照片中包含兩道或以上的題目（例如上方有第 06 題、下方有第 07 題）：\n' +
+        '1. 你必須【嚴格只針對照片中「由上往下看到的第 1 題（最上面那一題）」】進行審題、觀念確認、推導與解答！\n' +
+        '2. 絕對禁止解答下方的第 2 題或其他題目！也絕對禁止把下方題目的條件或公式（如第 07 題的 MUm、MUx/Px）混入第 1 題！\n' +
+        '3. 僅需在【步驟一】開頭簡短提醒一句：「（偵測到照片下方另有其他題號，系統一次只解由上往下第 1 題，其他題目請分次上傳）」即可，全篇四個步驟與【正確答案】必須 100% 為最上面第 1 題之解答！\n\n' +
+        '【🛑 審題首要原則：檢視「由上往下第 1 題」是否需要看圖】\n' +
+        '請先仔細閱讀照片中「由上往下第 1 題」的題目文字：\n' +
+        '1. 【情況一：純文字題（第 1 題文字完全未提及「如圖」、「如右圖」、「見附圖」等）】：\n' +
         '   - 本題屬於純文字觀念/計算題，與圖形完全無關！\n' +
         '   - 絕對禁止提到缺少圖形！絕對嚴禁輸出「需補充題目圖形以進行判定」！\n' +
         '   - 請直接進行觀念解析與計算，逐一分析 A、B、C、D 各選項，並在【正確答案】中明確給出正解選項（例如：【正確答案】：(B)）！\n' +
-        '2. 【情況二：圖形題（題目文字明確載明「如圖所示」、「如右圖」、「見附圖」、「由圖中」等）】：\n' +
+        '2. 【情況二：圖形題（第 1 題文字明確載明「如圖所示」、「如右圖」、「見附圖」、「由圖中」等）】：\n' +
         (!hasGraph
           ? '   - 圖像分析確認：本張照片「完全未包含坐標圖形」（右側圖形已被裁切、完全未拍入）！\n' +
             '   - 絕對嚴禁憑空捏造圖形！絕對禁止猜測或選出 A/B/C/D 等任何選項！\n' +
             '   - 【正確答案】必須一律填寫：【需補充題目圖形以進行判定】（照片僅有題幹文字，缺少題目右圖）\n' +
             '   - 步驟三清楚說明因缺少圖形無法得知各線走向與截距，無法判定選項，請學生補拍右圖。\n\n'
-          : '   - 照片中包含清晰的坐標圖形：請依據圖形中各曲線截距走向與點位進行嚴謹推導解題（穿過縱軸 P 軸者 Es > 1；穿過原點者 Es = 1；穿過橫軸 Q 軸者 Es < 1）。\n' +
-            '   - 【正確答案】明確給出正確選項（如：(A) F > G > H）！\n\n');
+          : '   - 照片中包含清晰的坐標圖形：請依據照片右側坐標圖形中各曲線（如供給曲線 S1、S2、S3 與 F、G、H 點）之截距走向與點位進行嚴謹推導解題（穿過縱軸 P 軸者 Es > 1；穿過原點者 Es = 1；穿過橫軸 Q 軸者 Es < 1）。\n' +
+            '   - 【正確答案】明確給出第 1 題的正確選項（如：(A) F > G > H）！\n\n');
 
       const task =
         diagramNotice +
@@ -149,11 +172,11 @@ export async function onRequestPost(context) {
         elasticityPrinciple +
         formatSpec +
         '解題要求：\n' +
-        '1. 一次只解一題。若照片中有多題，只解第一題（或最清楚的一題），並在開頭列出看到的其他題號，請學生分次上傳。\n' +
+        '1. 【一次只解由上往下第 1 題】：若照片中有多題，嚴格只解「由上往下看到的第一題（最上面第 1 題）」，絕對禁止跳過第 1 題去解下面的題目！僅在步驟一開頭簡短列出看到的其他題號請學生分次上傳。\n' +
         '2. 【⚠️ 圖形依賴度與完整度檢核】：\n' +
-        '   - 若題幹文字「完全未提及」如圖/如右圖/附圖等（純文字敘述、計算、觀念題），與圖形完全無關，嚴禁提到缺少圖形，必須正常分析選項並給出正確答案！\n' +
-        '   - 若題幹載明「如圖所示」或「如右圖」，照片中若無坐標圖形，【正確答案】才一律強制填寫：【需補充題目圖形以進行判定】（缺少題目右圖），絕對禁止選出 A/B/C/D！\n' +
-        '   - 若題幹載明「如圖所示」且照片中確實包含清晰完整的坐標圖形，依據圖形中曲線截距與點位進行推導解題。\n' +
+        '   - 若第 1 題文字「完全未提及」如圖/如右圖/附圖等（純文字敘述、計算、觀念題），與圖形完全無關，嚴禁提到缺少圖形，必須正常分析選項並給出正確答案！\n' +
+        '   - 若第 1 題載明「如圖所示」或「如右圖」，照片中若無坐標圖形，【正確答案】才一律強制填寫：【需補充題目圖形以進行判定】（缺少題目右圖），絕對禁止選出 A/B/C/D！\n' +
+        '   - 若第 1 題載明「如圖所示」且照片中確實包含清晰完整的坐標圖形，依據圖形中曲線截距與點位進行推導解題。\n' +
         '3. 若補充文字中有【學生已核對題目】，以該文字為準解題，圖片僅供對照，不可推翻核對文字。\n' +
         '4. 若有補充文字，在【解題步驟】之推演過程或開頭專門回應學生補充，不可忽略。\n' +
         '5. 直接解題，絕對不要抄題、不要重貼題目文字、不要逐字抄出題幹選項（辨識文字已在前端顯示）。\n' +
