@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>中壢家商 115-1 小白板未寫紀錄統計看板 | 生輔組・教官室</title>
+  <title>中壢高商 115-1 小白板未寫紀錄統計看板 | 生輔組・教官室</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
@@ -529,12 +529,11 @@
       <div class="brand">
         <div class="brand-icon">📋</div>
         <div>
-          <div class="brand-title">中壢家商 115-1 小白板未寫紀錄統計看板</div>
+          <div class="brand-title">中壢高商 115-1 小白板未寫紀錄統計看板</div>
           <div class="brand-sub">學務處 生輔組 / 教官室 / 特勤隊・即時數據分析</div>
         </div>
       </div>
       <div class="nav-actions">
-        <a href="/" class="nav-btn">🏠 返回經濟學解題網</a>
         <button type="button" class="nav-btn primary" onclick="openReportModal()">📢 一鍵生輔通報</button>
         <button type="button" class="nav-btn" onclick="triggerExcelUpload()">📂 更新 Excel</button>
         <button type="button" class="nav-btn" onclick="window.print()">🖨️ 列印</button>
@@ -612,7 +611,7 @@
     <!-- Filters & Search Toolbar -->
     <div class="controls-panel">
       <div class="search-row">
-        <input type="text" id="search-input" class="search-input" placeholder="🔍 搜尋班級（例如：134、高三、幼保、資處...）" oninput="renderTable()">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 搜尋班級（例如：134、高三、商經、資處、多媒...）" oninput="renderTable()">
         <button type="button" class="chip-btn active" id="btn-export-csv" onclick="exportCSV()" style="white-space:nowrap;padding:10px 18px">📥 匯出 Excel / CSV</button>
       </div>
 
@@ -629,12 +628,12 @@
       <div class="filter-group-row">
         <span class="filter-label">科別篩選：</span>
         <button type="button" class="chip-btn active" data-dept="all" onclick="setDeptFilter('all', this)">全部科別</button>
-        <button type="button" class="chip-btn" data-dept="家政群/服飾" onclick="setDeptFilter('家政群/服飾', this)">家政/服飾 (1xx)</button>
-        <button type="button" class="chip-btn" data-dept="幼兒保育科" onclick="setDeptFilter('幼兒保育科', this)">幼保科 (2xx)</button>
-        <button type="button" class="chip-btn" data-dept="資料處理科" onclick="setDeptFilter('資料處理科', this)">資處科 (4xx)</button>
-        <button type="button" class="chip-btn" data-dept="國際貿易科" onclick="setDeptFilter('國際貿易科', this)">國貿科 (5xx)</button>
-        <button type="button" class="chip-btn" data-dept="商業經營科" onclick="setDeptFilter('商業經營科', this)">商經科 (6xx)</button>
-        <button type="button" class="chip-btn" data-dept="綜合職能科" onclick="setDeptFilter('綜合職能科', this)">綜職科 (7xx)</button>
+        <button type="button" class="chip-btn" data-dept="商經科" onclick="setDeptFilter('商經科', this)">商經科 (1xx)</button>
+        <button type="button" class="chip-btn" data-dept="國貿科" onclick="setDeptFilter('國貿科', this)">國貿科 (2xx)</button>
+        <button type="button" class="chip-btn" data-dept="資處科" onclick="setDeptFilter('資處科', this)">資處科 (4xx)</button>
+        <button type="button" class="chip-btn" data-dept="綜職科" onclick="setDeptFilter('綜職科', this)">綜職科 (5xx)</button>
+        <button type="button" class="chip-btn" data-dept="綜高" onclick="setDeptFilter('綜高', this)">綜高 (6xx)</button>
+        <button type="button" class="chip-btn" data-dept="多媒科" onclick="setDeptFilter('多媒科', this)">多媒科 (7xx)</button>
       </div>
 
       <!-- Severity Filter -->
@@ -741,11 +740,11 @@
   <!-- Embedded Initial Data -->
   <script>
     window.INITIAL_DATA = {
-  "title": "115學年度第一學期 各班小白板未寫次數統計",
-  "school": "中壢家商",
+  "title": "115-1 各班小白板未寫次數統計看板",
+  "school": "中壢高商",
   "unit": "學務處 生輔組 / 教官室 / 特勤隊",
   "updateDate": "2026-10-18",
-  "latestWeek": "第7週 (10/12 - 10/16)",
+  "latestWeek": "第7週 (10/12 ~ 10/16)",
   "weekDefs": [
     {
       "key": "w2",
@@ -801,7 +800,7 @@
       "classId": "111",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 6,
       "weeks": {
@@ -818,19 +817,19 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0907",
+          "date": "09/07",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0911",
+          "date": "09/11",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0914",
+          "date": "09/14",
           "count": 1
         },
         {
@@ -857,7 +856,7 @@
       "classId": "112",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 8,
       "weeks": {
@@ -874,25 +873,25 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0909",
+          "date": "09/09",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0911",
+          "date": "09/11",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0914",
+          "date": "09/14",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
@@ -925,7 +924,7 @@
       "classId": "113",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 12,
       "weeks": {
@@ -942,55 +941,55 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0907",
+          "date": "09/07",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0909",
+          "date": "09/09",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0916",
+          "date": "09/16",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/23",
+          "date": "09/23",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/2",
+          "date": "10/02",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/5",
+          "date": "10/05",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/6",
+          "date": "10/06",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/8",
+          "date": "10/08",
           "count": 1
         },
         {
@@ -1017,7 +1016,7 @@
       "classId": "114",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 5,
       "weeks": {
@@ -1034,13 +1033,13 @@
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0915",
+          "date": "09/15",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/22",
+          "date": "09/22",
           "count": 1
         },
         {
@@ -1067,7 +1066,7 @@
       "classId": "121",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 3,
       "weeks": {
@@ -1105,7 +1104,7 @@
       "classId": "122",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 2,
       "weeks": {
@@ -1122,13 +1121,13 @@
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/30",
+          "date": "09/30",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/7",
+          "date": "10/07",
           "count": 1
         }
       ]
@@ -1137,7 +1136,7 @@
       "classId": "123",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 1,
       "weeks": {
@@ -1163,7 +1162,7 @@
       "classId": "124",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 0,
       "weeks": {
@@ -1182,7 +1181,7 @@
       "classId": "131",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 11,
       "weeks": {
@@ -1199,49 +1198,49 @@
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0915",
+          "date": "09/15",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0917",
+          "date": "09/17",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/21",
+          "date": "09/21",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/23",
+          "date": "09/23",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/24",
+          "date": "09/24",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/7",
+          "date": "10/07",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/8",
+          "date": "10/08",
           "count": 1
         },
         {
@@ -1268,7 +1267,7 @@
       "classId": "132",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 14,
       "weeks": {
@@ -1285,61 +1284,61 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0908",
+          "date": "09/08",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0911",
+          "date": "09/11",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0917",
+          "date": "09/17",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/21",
+          "date": "09/21",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/22",
+          "date": "09/22",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/23",
+          "date": "09/23",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/24",
+          "date": "09/24",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/5",
+          "date": "10/05",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/8",
+          "date": "10/08",
           "count": 1
         },
         {
@@ -1372,7 +1371,7 @@
       "classId": "133",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 1,
       "weeks": {
@@ -1389,7 +1388,7 @@
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/29",
+          "date": "09/29",
           "count": 1
         }
       ]
@@ -1398,7 +1397,7 @@
       "classId": "134",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "家政群/服飾",
+      "dept": "商經科",
       "deptCode": "1",
       "total": 16,
       "weeks": {
@@ -1415,67 +1414,67 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0907",
+          "date": "09/07",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0909",
+          "date": "09/09",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0910",
+          "date": "09/10",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0917",
+          "date": "09/17",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/23",
+          "date": "09/23",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/24",
+          "date": "09/24",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/30",
+          "date": "09/30",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/7",
+          "date": "10/07",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/8",
+          "date": "10/08",
           "count": 1
         },
         {
@@ -1514,7 +1513,7 @@
       "classId": "211",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 3,
       "weeks": {
@@ -1552,7 +1551,7 @@
       "classId": "212",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 0,
       "weeks": {
@@ -1571,7 +1570,7 @@
       "classId": "213",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 3,
       "weeks": {
@@ -1609,7 +1608,7 @@
       "classId": "214",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 0,
       "weeks": {
@@ -1628,7 +1627,7 @@
       "classId": "221",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 1,
       "weeks": {
@@ -1654,7 +1653,7 @@
       "classId": "222",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 2,
       "weeks": {
@@ -1686,7 +1685,7 @@
       "classId": "223",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 0,
       "weeks": {
@@ -1705,7 +1704,7 @@
       "classId": "224",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 3,
       "weeks": {
@@ -1743,7 +1742,7 @@
       "classId": "225",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 3,
       "weeks": {
@@ -1781,7 +1780,7 @@
       "classId": "231",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 0,
       "weeks": {
@@ -1800,7 +1799,7 @@
       "classId": "232",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 7,
       "weeks": {
@@ -1817,25 +1816,25 @@
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/6",
+          "date": "10/06",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/7",
+          "date": "10/07",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/8",
+          "date": "10/08",
           "count": 1
         },
         {
@@ -1862,7 +1861,7 @@
       "classId": "233",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 1,
       "weeks": {
@@ -1879,7 +1878,7 @@
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/24",
+          "date": "09/24",
           "count": 1
         }
       ]
@@ -1888,7 +1887,7 @@
       "classId": "234",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 0,
       "weeks": {
@@ -1907,7 +1906,7 @@
       "classId": "235",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "幼兒保育科",
+      "dept": "國貿科",
       "deptCode": "2",
       "total": 1,
       "weeks": {
@@ -1933,7 +1932,7 @@
       "classId": "411",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 8,
       "weeks": {
@@ -1950,31 +1949,31 @@
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/21",
+          "date": "09/21",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/22",
+          "date": "09/22",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/23",
+          "date": "09/23",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/29",
+          "date": "09/29",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/30",
+          "date": "09/30",
           "count": 1
         },
         {
@@ -2001,7 +2000,7 @@
       "classId": "412",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 2,
       "weeks": {
@@ -2033,7 +2032,7 @@
       "classId": "413",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 11,
       "weeks": {
@@ -2050,55 +2049,55 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0907",
+          "date": "09/07",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0908",
+          "date": "09/08",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0909",
+          "date": "09/09",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0911",
+          "date": "09/11",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0914",
+          "date": "09/14",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0916",
+          "date": "09/16",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/21",
+          "date": "09/21",
           "count": 1
         },
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/22",
+          "date": "09/22",
           "count": 1
         },
         {
@@ -2119,7 +2118,7 @@
       "classId": "421",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 2,
       "weeks": {
@@ -2136,13 +2135,13 @@
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/7",
+          "date": "10/07",
           "count": 1
         }
       ]
@@ -2151,7 +2150,7 @@
       "classId": "422",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 3,
       "weeks": {
@@ -2189,7 +2188,7 @@
       "classId": "423",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 3,
       "weeks": {
@@ -2227,7 +2226,7 @@
       "classId": "431",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 0,
       "weeks": {
@@ -2246,7 +2245,7 @@
       "classId": "432",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 14,
       "weeks": {
@@ -2263,67 +2262,67 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0907",
+          "date": "09/07",
           "count": 1
         },
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0910",
+          "date": "09/10",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0914",
+          "date": "09/14",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0915",
+          "date": "09/15",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0917",
+          "date": "09/17",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/29",
+          "date": "09/29",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/30",
+          "date": "09/30",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/5",
+          "date": "10/05",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/8",
+          "date": "10/08",
           "count": 1
         },
         {
@@ -2350,7 +2349,7 @@
       "classId": "433",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "資料處理科",
+      "dept": "資處科",
       "deptCode": "4",
       "total": 2,
       "weeks": {
@@ -2367,13 +2366,13 @@
         {
           "weekKey": "w4",
           "weekName": "第4週",
-          "date": "9/22",
+          "date": "09/22",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/29",
+          "date": "09/29",
           "count": 1
         }
       ]
@@ -2382,7 +2381,7 @@
       "classId": "511",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "國際貿易科",
+      "dept": "綜職科",
       "deptCode": "5",
       "total": 0,
       "weeks": {
@@ -2401,7 +2400,7 @@
       "classId": "512",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "國際貿易科",
+      "dept": "綜職科",
       "deptCode": "5",
       "total": 5,
       "weeks": {
@@ -2418,19 +2417,19 @@
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0917",
+          "date": "09/17",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/30",
+          "date": "09/30",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
@@ -2451,7 +2450,7 @@
       "classId": "521",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "國際貿易科",
+      "dept": "綜職科",
       "deptCode": "5",
       "total": 0,
       "weeks": {
@@ -2470,7 +2469,7 @@
       "classId": "522",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "國際貿易科",
+      "dept": "綜職科",
       "deptCode": "5",
       "total": 1,
       "weeks": {
@@ -2487,7 +2486,7 @@
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         }
       ]
@@ -2496,7 +2495,7 @@
       "classId": "531",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "國際貿易科",
+      "dept": "綜職科",
       "deptCode": "5",
       "total": 0,
       "weeks": {
@@ -2515,7 +2514,7 @@
       "classId": "532",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "國際貿易科",
+      "dept": "綜職科",
       "deptCode": "5",
       "total": 0,
       "weeks": {
@@ -2534,7 +2533,7 @@
       "classId": "611",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 8,
       "weeks": {
@@ -2551,31 +2550,31 @@
         {
           "weekKey": "w2",
           "weekName": "第2週",
-          "date": "0909",
+          "date": "09/09",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0915",
+          "date": "09/15",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0916",
+          "date": "09/16",
           "count": 1
         },
         {
           "weekKey": "w3",
           "weekName": "第3週",
-          "date": "0918",
+          "date": "09/18",
           "count": 1
         },
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/29",
+          "date": "09/29",
           "count": 1
         },
         {
@@ -2602,7 +2601,7 @@
       "classId": "612",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 3,
       "weeks": {
@@ -2640,7 +2639,7 @@
       "classId": "613",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 5,
       "weeks": {
@@ -2657,13 +2656,13 @@
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/2",
+          "date": "10/02",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/5",
+          "date": "10/05",
           "count": 1
         },
         {
@@ -2690,7 +2689,7 @@
       "classId": "614",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 3,
       "weeks": {
@@ -2728,7 +2727,7 @@
       "classId": "621",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 2,
       "weeks": {
@@ -2745,7 +2744,7 @@
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "9/30",
+          "date": "09/30",
           "count": 1
         },
         {
@@ -2760,7 +2759,7 @@
       "classId": "622",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 0,
       "weeks": {
@@ -2779,7 +2778,7 @@
       "classId": "623",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 3,
       "weeks": {
@@ -2817,7 +2816,7 @@
       "classId": "624",
       "grade": "高二",
       "gradeNum": 2,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 1,
       "weeks": {
@@ -2843,7 +2842,7 @@
       "classId": "631",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 0,
       "weeks": {
@@ -2862,7 +2861,7 @@
       "classId": "632",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 1,
       "weeks": {
@@ -2888,7 +2887,7 @@
       "classId": "633",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 0,
       "weeks": {
@@ -2907,7 +2906,7 @@
       "classId": "634",
       "grade": "高三",
       "gradeNum": 3,
-      "dept": "商業經營科",
+      "dept": "綜高",
       "deptCode": "6",
       "total": 4,
       "weeks": {
@@ -2924,13 +2923,13 @@
         {
           "weekKey": "w5",
           "weekName": "第5週",
-          "date": "10/1",
+          "date": "10/01",
           "count": 1
         },
         {
           "weekKey": "w6",
           "weekName": "第6週",
-          "date": "10/5",
+          "date": "10/05",
           "count": 1
         },
         {
@@ -2951,7 +2950,7 @@
       "classId": "711",
       "grade": "高一",
       "gradeNum": 1,
-      "dept": "綜合職能科",
+      "dept": "多媒科",
       "deptCode": "7",
       "total": 1,
       "weeks": {
@@ -2997,6 +2996,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   renderDashboard();
 });
+
+function getDeptName(dCode) {
+  switch (dCode) {
+    case '1': return '商經科';
+    case '2': return '國貿科';
+    case '4': return '資處科';
+    case '5': return '綜職科';
+    case '6': return '綜高';
+    case '7': return '多媒科';
+    default: return '其他科別';
+  }
+}
 
 function renderDashboard() {
   updateKPICards();
@@ -3304,7 +3315,7 @@ function openClassDetail(cid) {
 
 function getSingleClassLineNotice(c) {
   const datesStr = c.records.map(r => r.date).join(', ') || '全勤無違規';
-  return `【中壢家商生輔組通報】\n班級：${c.classId} (${c.grade}${c.dept})\n至第7週小白板累計未寫次數：${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)。\n違規日期詳情：${datesStr}。\n請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
+  return `【中壢高商生輔組通報】\n班級：${c.classId} (${c.grade}${c.dept})\n至第7週小白板累計未寫次數：${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)。\n違規日期詳情：${datesStr}。\n請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
 }
 
 function copyCurrentClassNotice() {
@@ -3345,23 +3356,23 @@ function generateReportType(type, btn) {
   if (type === 'w7') {
     const w7Classes = (currentData.classes || []).filter(c => (c.weeks.w7 || 0) > 0);
     w7Classes.sort((a, b) => b.weeks.w7 - a.weeks.w7 || a.classId.localeCompare(b.classId));
-    text = `📢【中壢家商生輔組・第 7 週小白板未寫班級通報】\n統計期間：10/12 (一) ～ 10/16 (五)\n通報日期：${now}\n------------------------------\n本週未寫總計：${w7Classes.reduce((s, c) => s + c.weeks.w7, 0)} 人次 (共 ${w7Classes.length} 個班級)\n\n未寫班級名單與次數：\n` +
+    text = `📢【中壢高商生輔組・第 7 週小白板未寫班級通報】\n統計期間：10/12 (一) ～ 10/16 (五)\n通報日期：${now}\n------------------------------\n本週未寫總計：${w7Classes.reduce((s, c) => s + c.weeks.w7, 0)} 人次 (共 ${w7Classes.length} 個班級)\n\n未寫班級名單與次數：\n` +
       w7Classes.map((c, i) => `${i + 1}. ${c.classId} 班 (${c.grade}${c.dept})：${c.weeks.w7}次 [日期: ${c.records.filter(r => r.weekKey === 'w7').map(r => r.date).join(', ')}]`).join('\n') +
       `\n------------------------------\n請各班導師與副班長加強注意，下週起加強抽查，感謝各位老師配合！`;
   } else if (type === 'high') {
     const highClasses = (currentData.classes || []).filter(c => c.total >= 10);
     highClasses.sort((a, b) => b.total - a.total || a.classId.localeCompare(b.classId));
-    text = `🚨【中壢家商教官室・小白板未寫高關懷班級名冊 (≥10次)】\n統計範圍：第2週 ～ 第7週累計\n製表日期：${now}\n------------------------------\n高關懷班級共計 ${highClasses.length} 班：\n\n` +
+    text = `🚨【中壢高商教官室・小白板未寫高關懷班級名冊 (≥10次)】\n統計範圍：第2週 ～ 第7週累計\n製表日期：${now}\n------------------------------\n高關懷班級共計 ${highClasses.length} 班：\n\n` +
       highClasses.map((c, i) => `${i + 1}. ${c.classId} 班：累計未寫 ${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次) - ${c.grade}${c.dept}`).join('\n') +
       `\n------------------------------\n處分建議：累計超過10次之班級幹部，請於下週一中午至教官室報到宣導或愛校服務。`;
   } else if (type === 'zero') {
     const zeroClasses = (currentData.classes || []).filter(c => c.total === 0);
-    text = `🌟【中壢家商全勤表揚・115-1 小白板模範班級名冊】\n統計範圍：開學第2週至第7週 全程零違規！\n公佈日期：${now}\n------------------------------\n全勤優良班級共 ${zeroClasses.length} 班：\n\n` +
+    text = `🌟【中壢高商全勤表揚・115-1 小白板模範班級名冊】\n統計範圍：開學第2週至第7週 全程零違規！\n公佈日期：${now}\n------------------------------\n全勤優良班級共 ${zeroClasses.length} 班：\n\n` +
       zeroClasses.map((c, i) => `${i + 1}. ${c.classId} 班 (${c.grade} ${c.dept})`).join('\n') +
       `\n------------------------------\n感謝各班導師的用心指導與班級幹部的認真盡責，值得全體師生嘉許！`;
   } else {
     const allSorted = [...(currentData.classes || [])].sort((a, b) => b.total - a.total || a.classId.localeCompare(b.classId));
-    text = `📊【中壢家商 115-1 全校各班小白板未寫次數總排行】\n累計期間：第2週 ～ 第7週\n更新時間：${now}\n------------------------------\n` +
+    text = `📊【中壢高商 115-1 全校各班小白板未寫次數總排行】\n累計期間：第2週 ～ 第7週\n更新時間：${now}\n------------------------------\n` +
       allSorted.map((c, i) => `${String(i + 1).padStart(2, ' ')}. ${c.classId} 班 (${c.grade}${c.dept})：${c.total} 次 [扣初犯: ${Math.max(0, c.total - 1)} 次]`).join('\n');
   }
 
@@ -3473,7 +3484,7 @@ function exportCSV() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `中壢家商115-1小白板未寫統計_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `中壢高商115-1小白板未寫統計_${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
