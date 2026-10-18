@@ -99,6 +99,7 @@ export async function onRequestPost(context) {
         '7. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
         '8. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
         '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：所有變數一律使用台灣高職教科書標準格式，例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1、PL、PK、TR、TC、MR、MC、MPL 等，絕對禁止寫成 MU_x、P_x、MU_m、MU_y、P_y、E_d、E_s、Q_d、P_1 等任何帶有底線「_」的形式！步驟二的觀念確認題與選項中也一律只能寫 MUx / Px，絕不可寫 MU_x / P_x！\n' +
+        '   - 【變動量一律使用希臘三角形符號「Δ」】：所有變動量或差分符號一律寫成「Δ」（例如只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU、ΔTP、ΔTC、ΔTR、ΔY、ΔG 等），絕對嚴禁寫成英文單字 Delta、delta 或 \\Delta！\n' +
         '   - 公式一律用純文字單行，例如 MUx / Px = MUy / Py = MUm，GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _。\n' +
         '   - 公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，例如 [(Q2 - Q1)/Q1] / [(P2 - P1)/P1]。絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。\n' +
         '9. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
@@ -128,6 +129,7 @@ export async function onRequestPost(context) {
         '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
         '3. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
         '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：所有變數一律使用台灣高職教科書標準格式，例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1、PL、PK、TR、TC、MR、MC、MPL 等，絕對禁止寫成 MU_x、P_x、MU_m、MU_y、P_y、E_d、E_s、Q_d、P_1 等任何帶有底線「_」的形式！步驟二的觀念確認題與選項中也一律只能寫 MUx / Px，絕不可寫 MU_x / P_x！\n' +
+        '   - 【變動量一律使用希臘三角形符號「Δ」】：所有變動量或差分符號一律寫成「Δ」（例如只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU、ΔTP、ΔTC、ΔTR、ΔY、ΔG 等），絕對嚴禁寫成英文單字 Delta、delta 或 \\Delta！\n' +
         '   - 公式一律用純文字單行，例如 MUx / Px = MUy / Py = MUm，GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值用 | |。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n' +
         '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
         (text ? ('題目文字與補充：\n' + text) : '');
@@ -142,6 +144,9 @@ export async function onRequestPost(context) {
     let raw = out?.response || out?.result?.response || JSON.stringify(out).slice(0, 4000);
     // 去 LaTeX 殘留斜線：\( \) \[ \] \times \div \cdot \frac 等轉純文字
     const answer = raw
+      .replace(/\\?Delta\b/gi, 'Δ')
+      .replace(/[△▲]/g, 'Δ')
+      .replace(/Δ\s+([A-Za-z0-9])/g, 'Δ$1')
       .replace(/\\\(/g, '')
       .replace(/\\\)/g, '')
       .replace(/\\\[/g, '')

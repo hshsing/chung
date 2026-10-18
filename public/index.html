@@ -1309,6 +1309,9 @@ function compressImage(f){return new Promise(res=>{const img=new Image();const t
 function clean(s){
   if(!s) return '';
   return s
+    .replace(/\\?Delta\b/gi,'Δ')
+    .replace(/[△▲]/g,'Δ')
+    .replace(/Δ\s+([A-Za-z0-9])/g,'Δ$1')
     .replace(/\\space/gi,'')
     .replace(/\\left/gi,'')
     .replace(/\\right/gi,'')
@@ -1337,6 +1340,9 @@ function clean(s){
 
 function formatFormulaSubscripts(s){
   if(!s) return '';
+  s = s.replace(/\\?Delta\b/gi, 'Δ');
+  s = s.replace(/[△▲]/g, 'Δ');
+  s = s.replace(/Δ\s+([A-Za-z0-9])/g, 'Δ$1');
   s = s.replace(/\\?(?:d|t)?frac\s*\{([^}]*)\}\s*\{([^}]*)\}/gi, '($1)/($2)');
   s = s.replace(/\\?(?:d|t)?frac\s*\{?/gi, '');
   s = s.replace(/\b(?:d|t)?frac\b/gi, '');
