@@ -137,11 +137,14 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      transition: transform .15s ease, box-shadow .15s ease;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     }
     .kpi-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow-lg);
+      border-color: #94a3b8;
     }
     .kpi-card::before {
       content: '';
@@ -202,13 +205,15 @@
     .week-bar-container {
       display: flex;
       align-items: flex-end;
-      gap: 12px;
+      gap: 10px;
       height: 180px;
       padding-top: 25px;
       border-bottom: 2px solid var(--slate-200);
+      overflow-x: auto;
     }
     .week-bar-col {
       flex: 1;
+      min-width: 50px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -228,7 +233,7 @@
     }
     .week-bar {
       width: 100%;
-      max-width: 42px;
+      max-width: 38px;
       background: #3b82f6;
       border-radius: 6px 6px 0 0;
       transition: all .3s;
@@ -254,16 +259,18 @@
       margin-top: 8px;
       text-align: center;
       font-weight: 600;
+      white-space: nowrap;
     }
     .week-bar-date {
       font-size: .7rem;
       color: var(--slate-400);
+      white-space: nowrap;
     }
 
     /* Grade distribution progress bars */
     .dist-row {
       margin-bottom: 14px;
-      padding: 4px 6px;
+      padding: 6px 8px;
       border-radius: 6px;
       transition: background .2s;
     }
@@ -351,6 +358,26 @@
       background: #2563eb;
       border-color: #2563eb;
       color: #fff;
+    }
+
+    /* Quick Upload Drop Area in Controls */
+    .drop-banner {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .drop-banner:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
     }
 
     /* Data Table */
@@ -535,7 +562,7 @@
       </div>
       <div class="nav-actions">
         <button type="button" class="nav-btn primary" onclick="openReportModal()">📢 一鍵生輔通報</button>
-        <button type="button" class="nav-btn" onclick="triggerExcelUpload()">📂 更新 Excel</button>
+        <button type="button" class="nav-btn" onclick="triggerExcelUpload()">📂 上傳更新 Excel</button>
         <button type="button" class="nav-btn" onclick="window.print()">🖨️ 列印</button>
         <input type="file" id="excel-file-input" accept=".xlsx, .xls" style="display:none" onchange="handleExcelUpload(event)">
       </div>
@@ -544,42 +571,46 @@
 
   <div class="container">
 
-    <!-- KPI Summary Grid -->
+    <!-- KPI Summary Grid (All Clickable) -->
     <div class="kpi-grid">
-      <div class="kpi-card danger">
+      <!-- KPI 1: All classes -->
+      <div class="kpi-card danger" onclick="resetAllFilters()" title="點擊顯示全校 54 班級總表">
         <div class="kpi-title">
           <span>全校累計未寫總人次</span>
           <span>📉</span>
         </div>
         <div class="kpi-value" id="stat-total-count">185 次</div>
-        <div class="kpi-desc">涵蓋第 2 週 ～ 第 7 週 (54個班級)</div>
+        <div class="kpi-desc">開學至今全校累計（👆 點擊查看全部班級）</div>
       </div>
 
-      <div class="kpi-card success" style="cursor:pointer" onclick="filterByTier('zero')" title="點擊直接查看全勤班級">
+      <!-- KPI 2: Zero classes -->
+      <div class="kpi-card success" onclick="filterByZeroClasses()" title="點擊直接查看全勤模範班級">
         <div class="kpi-title">
           <span>🌟 全勤模範班級 (0次)</span>
           <span style="color:#10b981">✨ 表揚</span>
         </div>
-        <div class="kpi-value" id="stat-zero-classes" style="color:#059669">14 班</div>
-        <div class="kpi-desc">表現優異，點擊直接篩選檢視</div>
+        <div class="kpi-value" id="stat-zero-classes" style="color:#059669">計算中...</div>
+        <div class="kpi-desc">表現優異・全程零違規（👆 點擊篩選檢視）</div>
       </div>
 
-      <div class="kpi-card warning">
+      <!-- KPI 3: High Care (>=10) -->
+      <div class="kpi-card warning" onclick="filterByHighCare()" title="點擊篩選高關懷班級 (≥10次)">
         <div class="kpi-title">
           <span>⚠️ 需加強關懷班級 (≥10次)</span>
           <span>🚨</span>
         </div>
-        <div class="kpi-value" id="stat-high-classes" style="color:#d97706">6 班</div>
-        <div class="kpi-desc">最高：134班 (16次)、132班 (14次)</div>
+        <div class="kpi-value" id="stat-high-classes" style="color:#d97706">計算中...</div>
+        <div class="kpi-desc">最高：134班、132班（👆 點擊查看名單）</div>
       </div>
 
-      <div class="kpi-card">
+      <!-- KPI 4: Latest Active Week -->
+      <div class="kpi-card" onclick="filterByLatestWeek()" title="點擊切換篩選最新週未寫名單">
         <div class="kpi-title">
-          <span>第 7 週最新單週未寫次數</span>
-          <span style="color:#ef4444">🔥 本週暴增</span>
+          <span id="stat-latest-week-title">第 7 週最新單週未寫次數</span>
+          <span style="color:#ef4444">🔥 最新統計</span>
         </div>
-        <div class="kpi-value" id="stat-w7-count" style="color:#dc2626">87 次</div>
-        <div class="kpi-desc">前五週平均約 20 次，本週需全面宣導</div>
+        <div class="kpi-value" id="stat-latest-week-count" style="color:#dc2626">計算中...</div>
+        <div class="kpi-desc" id="stat-latest-week-desc">（👆 點擊篩選本週名單）</div>
       </div>
     </div>
 
@@ -589,7 +620,7 @@
       <div class="card">
         <div class="card-title">
           <span>📅 各週未寫次數趨勢（點擊長條可切換週次檢視）</span>
-          <span style="font-size:.8rem;color:var(--slate-400)">共 6 週實施紀錄</span>
+          <span style="font-size:.8rem;color:var(--slate-400)">動態支援第8週、第9週...</span>
         </div>
         <div class="week-bar-container" id="week-bar-chart">
           <!-- Populated by JS -->
@@ -600,7 +631,7 @@
       <div class="card">
         <div class="card-title">
           <span>🎓 各年級違規比例分佈</span>
-          <span style="font-size:.8rem;color:var(--slate-400)">總累計 185 次</span>
+          <span style="font-size:.8rem;color:var(--slate-400)">點擊年級可快速篩選</span>
         </div>
         <div style="padding-top: 10px;" id="grade-breakdown-container">
           <!-- Populated by JS -->
@@ -610,6 +641,18 @@
 
     <!-- Filters & Search Toolbar -->
     <div class="controls-panel">
+      <!-- Drag & Drop Quick Notice -->
+      <div class="drop-banner" onclick="triggerExcelUpload()">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:1.4rem">📂</span>
+          <div>
+            <strong style="color:#1e3a8a">隨時更新後續週次資料（第8週、第9週、第10週...）</strong>
+            <div style="font-size:.8rem;color:var(--slate-600)">直接將更新後的 <code>統計表模板.xlsx</code> 拖曳到此處或點擊選擇，系統將自動解析新週次！</div>
+          </div>
+        </div>
+        <button type="button" class="chip-btn active" style="padding:4px 12px;font-size:.78rem">選擇檔案更新</button>
+      </div>
+
       <div class="search-row">
         <input type="text" id="search-input" class="search-input" placeholder="🔍 搜尋班級（例如：134、高三、商經、資處、多媒...）" oninput="renderTable()">
         <button type="button" class="chip-btn active" id="btn-export-csv" onclick="exportCSV()" style="white-space:nowrap;padding:10px 18px">📥 匯出 Excel / CSV</button>
@@ -642,25 +685,18 @@
         <button type="button" class="chip-btn active" data-tier="all" onclick="setTierFilter('all', this)">全部狀態</button>
         <button type="button" class="chip-btn" data-tier="zero" onclick="setTierFilter('zero', this)" style="color:#059669;border-color:#a7f3d0">🌟 全勤模範 (0次)</button>
         <button type="button" class="chip-btn" data-tier="low" onclick="setTierFilter('low', this)">⚠️ 輕度 (1~5次)</button>
-        <button type="button" class="chip-btn" data-tier="mid" onclick="setTierFilter('mid', this)">🚨 中度 (6~10次)</button>
-        <button type="button" class="chip-btn" data-tier="high" onclick="setTierFilter('high', this)" style="color:#dc2626;border-color:#fecaca">💥 嚴重 (≥11次)</button>
+        <button type="button" class="chip-btn" data-tier="mid" onclick="setTierFilter('mid', this)">🚨 中度 (6~9次)</button>
+        <button type="button" class="chip-btn" data-tier="high" onclick="setTierFilter('high', this)" style="color:#dc2626;border-color:#fecaca">💥 高關懷 (≥10次)</button>
       </div>
 
-      <!-- Week View Selector -->
-      <div class="filter-group-row" style="margin-bottom:0">
-        <span class="filter-label">檢視維度：</span>
-        <button type="button" class="chip-btn active" data-week="all" onclick="setWeekFilter('all', this)">總累計次數</button>
-        <button type="button" class="chip-btn" data-week="w7" onclick="setWeekFilter('w7', this)" style="color:#b91c1c;font-weight:700">🔥 第7週 (最新 10/12-10/16)</button>
-        <button type="button" class="chip-btn" data-week="w6" onclick="setWeekFilter('w6', this)">第6週</button>
-        <button type="button" class="chip-btn" data-week="w5" onclick="setWeekFilter('w5', this)">第5週</button>
-        <button type="button" class="chip-btn" data-week="w4" onclick="setWeekFilter('w4', this)">第4週</button>
-        <button type="button" class="chip-btn" data-week="w3" onclick="setWeekFilter('w3', this)">第3週</button>
-        <button type="button" class="chip-btn" data-week="w2" onclick="setWeekFilter('w2', this)">第2週</button>
+      <!-- Week View Selector (Dynamically populated) -->
+      <div class="filter-group-row" style="margin-bottom:0" id="week-filter-buttons-row">
+        <!-- Rendered by JS -->
       </div>
     </div>
 
-    <!-- Data Table -->
-    <div class="card" style="padding:0;overflow:hidden">
+    <!-- Data Table Card -->
+    <div class="card" id="table-card" style="padding:0;overflow:hidden">
       <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--slate-200);flex-wrap:wrap;gap:8px">
         <div style="font-weight:700;color:var(--slate-800)" id="table-summary-text">
           顯示 54 個班級
@@ -722,7 +758,7 @@
       </div>
 
       <div style="margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" class="chip-btn active" onclick="generateReportType('w7', this)">🔥 第 7 週最新未寫通報</button>
+        <button type="button" class="chip-btn active" onclick="generateReportType('latest', this)">🔥 最新週未寫通報</button>
         <button type="button" class="chip-btn" onclick="generateReportType('high', this)">🚨 累計 ≥ 10次高關懷名單</button>
         <button type="button" class="chip-btn" onclick="generateReportType('zero', this)">🌟 全勤模範班表揚</button>
         <button type="button" class="chip-btn" onclick="generateReportType('all', this)">📊 全校累計排行完整版</button>
@@ -744,55 +780,65 @@
   "school": "中壢高商",
   "unit": "學務處 生輔組 / 教官室 / 特勤隊",
   "updateDate": "2026-10-18",
-  "latestWeek": "第7週 (10/12 ~ 10/16)",
+  "latestActiveWeek": "w7",
+  "latestWeekNumber": 7,
+  "latestWeek": "第7週 (10/12~10/16)",
   "weekDefs": [
     {
+      "weekNum": 2,
       "key": "w2",
       "name": "第2週",
-      "dateRange": "09/07-09/11",
-      "sheet": "白板115-1-2"
+      "sheet": "白板115-1-2",
+      "dateRange": "09/07~09/11"
     },
     {
+      "weekNum": 3,
       "key": "w3",
       "name": "第3週",
-      "dateRange": "09/14-09/18",
-      "sheet": "白板115-1-3"
+      "sheet": "白板115-1-3",
+      "dateRange": "09/14~09/18"
     },
     {
+      "weekNum": 4,
       "key": "w4",
       "name": "第4週",
-      "dateRange": "09/21-09/24",
-      "sheet": "白板115-1-4 "
+      "sheet": "白板115-1-4 ",
+      "dateRange": "09/21~09/24"
     },
     {
+      "weekNum": 5,
       "key": "w5",
       "name": "第5週",
-      "dateRange": "09/29-10/02",
-      "sheet": "白板115-1-5"
+      "sheet": "白板115-1-5",
+      "dateRange": "09/29~10/02"
     },
     {
+      "weekNum": 6,
       "key": "w6",
       "name": "第6週",
-      "dateRange": "10/05-10/08",
-      "sheet": "白板115-1-6"
+      "sheet": "白板115-1-6",
+      "dateRange": "10/05~10/08"
     },
     {
+      "weekNum": 7,
       "key": "w7",
       "name": "第7週",
-      "dateRange": "10/12-10/16",
-      "sheet": "白板115-1-7"
+      "sheet": "白板115-1-7",
+      "dateRange": "10/12~10/16"
     },
     {
+      "weekNum": 8,
       "key": "w8",
       "name": "第8週",
-      "dateRange": "10/19-10/23",
-      "sheet": "白板115-1-8"
+      "sheet": "白板115-1-8",
+      "dateRange": "10/19~10/23"
     },
     {
+      "weekNum": 9,
       "key": "w9",
       "name": "第9週",
-      "dateRange": "10/26-10/30",
-      "sheet": "白板115-1-9"
+      "sheet": "白板115-1-9",
+      "dateRange": "10/26~10/30"
     }
   ],
   "classes": [
@@ -2991,9 +3037,22 @@ let currentModalClass = null;
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.INITIAL_DATA) {
-    currentData = JSON.parse(JSON.stringify(window.INITIAL_DATA));
+  // Check if there is saved user data in localStorage
+  try {
+    const saved = localStorage.getItem('clvsc_military_custom_data');
+    if (saved) {
+      currentData = JSON.parse(saved);
+      const fn = localStorage.getItem('clvsc_military_custom_filename') || '自訂 Excel';
+      showUploadBanner(`💡 目前顯示的是您上傳的最新檔案【${fn}】之數據。`);
+    } else if (window.INITIAL_DATA) {
+      currentData = JSON.parse(JSON.stringify(window.INITIAL_DATA));
+    }
+  } catch (e) {
+    if (window.INITIAL_DATA) {
+      currentData = JSON.parse(JSON.stringify(window.INITIAL_DATA));
+    }
   }
+
   renderDashboard();
 });
 
@@ -3009,10 +3068,27 @@ function getDeptName(dCode) {
   }
 }
 
+function normalizeDate(raw) {
+  if (!raw) return '';
+  let str = String(raw).trim();
+  str = str.replace(/^2026\//, '');
+  if (/^\d{4}$/.test(str)) {
+    return str.slice(0, 2) + '/' + str.slice(2);
+  }
+  const parts = str.split('/');
+  if (parts.length === 2) {
+    const m = parts[0].padStart(2, '0');
+    const d = parts[1].padStart(2, '0');
+    return `${m}/${d}`;
+  }
+  return str;
+}
+
 function renderDashboard() {
   updateKPICards();
   renderWeekBarChart();
   renderGradeBreakdown();
+  renderWeekButtons();
   renderTable();
 }
 
@@ -3021,30 +3097,61 @@ function updateKPICards() {
   let total = 0;
   let zeroCount = 0;
   let highCount = 0;
-  let w7Total = 0;
+
+  // Determine latest active week if not present
+  if (!currentData.latestActiveWeek) {
+    let maxWeekNum = 0;
+    (currentData.weekDefs || []).forEach(w => {
+      const wSum = classes.reduce((acc, c) => acc + (c.weeks[w.key] || 0), 0);
+      if (wSum > 0 && w.weekNum > maxWeekNum) {
+        maxWeekNum = w.weekNum;
+        currentData.latestActiveWeek = w.key;
+        currentData.latestWeekNumber = w.weekNum;
+      }
+    });
+    if (!currentData.latestActiveWeek) {
+      currentData.latestActiveWeek = currentData.weekDefs?.[0]?.key || 'w2';
+    }
+  }
+
+  const latestKey = currentData.latestActiveWeek || 'w7';
+  const latestDef = (currentData.weekDefs || []).find(w => w.key === latestKey);
+  const latestWeekNum = currentData.latestWeekNumber || 7;
+  let latestWeekTotal = 0;
 
   classes.forEach(c => {
     total += c.total;
     if (c.total === 0) zeroCount++;
     if (c.total >= 10) highCount++;
-    w7Total += (c.weeks.w7 || 0);
+    latestWeekTotal += (c.weeks[latestKey] || 0);
   });
 
   const elTotal = document.getElementById('stat-total-count');
   const elZero = document.getElementById('stat-zero-classes');
   const elHigh = document.getElementById('stat-high-classes');
-  const elW7 = document.getElementById('stat-w7-count');
+  const elLatestTitle = document.getElementById('stat-latest-week-title');
+  const elLatestVal = document.getElementById('stat-latest-week-count');
+  const elLatestDesc = document.getElementById('stat-latest-week-desc');
 
   if (elTotal) elTotal.innerText = total + ' 次';
   if (elZero) elZero.innerText = zeroCount + ' 班';
   if (elHigh) elHigh.innerText = highCount + ' 班';
-  if (elW7) elW7.innerText = w7Total + ' 次';
+
+  if (elLatestTitle) {
+    elLatestTitle.innerText = `第 ${latestWeekNum} 週最新未寫次數`;
+  }
+  if (elLatestVal) {
+    elLatestVal.innerText = latestWeekTotal + ' 次';
+  }
+  if (elLatestDesc && latestDef) {
+    elLatestDesc.innerText = `統計區間：${latestDef.dateRange || '本週'}（點擊篩選本週名單）`;
+  }
 }
 
 function renderWeekBarChart() {
   const container = document.getElementById('week-bar-chart');
   if (!container) return;
-  const weeks = (currentData.weekDefs || []).slice(0, 6); // W2 ~ W7
+  const weeks = currentData.weekDefs || [];
   const weekTotals = weeks.map(w => {
     const sum = (currentData.classes || []).reduce((acc, c) => acc + (c.weeks[w.key] || 0), 0);
     return { key: w.key, name: w.name, dateRange: w.dateRange, sum };
@@ -3083,7 +3190,7 @@ function renderGradeBreakdown() {
     const gSum = (currentData.classes || []).filter(c => c.gradeNum === g.code).reduce((acc, c) => acc + c.total, 0);
     const pct = Math.round((gSum / totalAll) * 100);
     return `
-      <div class="dist-row" onclick="setGradeFilter('${g.label.slice(0,2)}')" style="cursor:pointer" title="點擊篩選${g.label}">
+      <div class="dist-row" onclick="setGradeFilter('${g.label.slice(0, 2)}')" style="cursor:pointer" title="點擊篩選${g.label}">
         <div class="dist-header">
           <span>${g.label}</span>
           <span style="color:${g.color};font-weight:700">${gSum} 次 (${pct}%)</span>
@@ -3094,6 +3201,27 @@ function renderGradeBreakdown() {
       </div>
     `;
   }).join('');
+}
+
+function renderWeekButtons() {
+  const container = document.getElementById('week-filter-buttons-row');
+  if (!container) return;
+  const weeks = currentData.weekDefs || [];
+  const latestKey = currentData.latestActiveWeek || 'w7';
+
+  let html = `<span class="filter-label">檢視維度：</span>`;
+  html += `<button type="button" class="chip-btn ${filterWeek === 'all' ? 'active' : ''}" data-week="all" onclick="setWeekFilter('all', this)">總累計次數</button>`;
+
+  // Render buttons in chronological order (or reverse if desired)
+  weeks.forEach(w => {
+    const isLatest = w.key === latestKey;
+    const isAct = filterWeek === w.key;
+    const style = isLatest ? 'color:#b91c1c;font-weight:700' : '';
+    const label = isLatest ? `🔥 ${w.name} (最新)` : w.name;
+    html += `<button type="button" class="chip-btn ${isAct ? 'active' : ''}" data-week="${w.key}" onclick="setWeekFilter('${w.key}', this)" style="${style}">${label}</button>`;
+  });
+
+  container.innerHTML = html;
 }
 
 function getFilteredClasses() {
@@ -3119,9 +3247,10 @@ function getFilteredClasses() {
   } else if (filterTier === 'low') {
     list = list.filter(c => c.displayCount >= 1 && c.displayCount <= 5);
   } else if (filterTier === 'mid') {
-    list = list.filter(c => c.displayCount >= 6 && c.displayCount <= 10);
+    list = list.filter(c => c.displayCount >= 6 && c.displayCount <= 9);
   } else if (filterTier === 'high') {
-    list = list.filter(c => c.displayCount >= 11);
+    // Matches card: ≥ 10 次
+    list = list.filter(c => c.displayCount >= 10);
   }
 
   // Search Query
@@ -3163,6 +3292,8 @@ function renderTable() {
     return;
   }
 
+  const latestKey = currentData.latestActiveWeek || 'w7';
+
   tbody.innerHTML = list.map((c, idx) => {
     const rank = idx + 1;
     let rankCls = '';
@@ -3172,14 +3303,14 @@ function renderTable() {
 
     let badgeCls = 'badge-zero';
     let badgeIcon = '🟢';
-    if (c.displayCount >= 11) { badgeCls = 'badge-high'; badgeIcon = '💥'; }
+    if (c.displayCount >= 10) { badgeCls = 'badge-high'; badgeIcon = '💥'; }
     else if (c.displayCount >= 6) { badgeCls = 'badge-mid'; badgeIcon = '🚨'; }
     else if (c.displayCount >= 1) { badgeCls = 'badge-low'; badgeIcon = '⚠️'; }
     else { badgeIcon = '🌟'; }
 
     const penaltyCount = Math.max(0, c.displayCount - 1);
 
-    const weekBubbles = (currentData.weekDefs || []).slice(0, 6).map(w => {
+    const weekBubbles = (currentData.weekDefs || []).map(w => {
       const wVal = c.weeks[w.key] || 0;
       if (wVal === 0) return `<span style="opacity:.25;margin-right:4px;font-size:.7rem">${w.name}:0</span>`;
       return `<span style="background:${wVal >= 3 ? '#fee2e2' : '#eff6ff'};color:${wVal >= 3 ? '#b91c1c' : '#1d4ed8'};padding:1px 5px;border-radius:4px;margin-right:4px;font-size:.72rem;font-weight:700">${w.name}:${wVal}</span>`;
@@ -3190,7 +3321,7 @@ function renderTable() {
       : c.records.filter(r => r.weekKey === filterWeek);
 
     const datePills = filterWRecords.map(r => {
-      const isRecent = r.weekKey === 'w7';
+      const isRecent = r.weekKey === latestKey;
       return `<span class="date-pill ${isRecent ? 'recent' : ''}">${r.date}</span>`;
     }).join('') || '<span style="color:var(--slate-400);font-size:.75rem">全勤無未寫</span>';
 
@@ -3213,6 +3344,49 @@ function renderTable() {
       </tr>
     `;
   }).join('');
+}
+
+// Interactive KPI Card Filter Actions
+function filterByHighCare() {
+  filterWeek = 'all';
+  document.querySelectorAll('[data-week]').forEach(b => b.classList.toggle('active', b.dataset.week === 'all'));
+  setTierFilter('high');
+  scrollToTable();
+}
+
+function filterByLatestWeek() {
+  filterTier = 'all';
+  document.querySelectorAll('[data-tier]').forEach(b => b.classList.toggle('active', b.dataset.tier === 'all'));
+  const latest = currentData.latestActiveWeek || 'w7';
+  setWeekFilter(latest);
+  scrollToTable();
+}
+
+function filterByZeroClasses() {
+  filterWeek = 'all';
+  document.querySelectorAll('[data-week]').forEach(b => b.classList.toggle('active', b.dataset.week === 'all'));
+  setTierFilter('zero');
+  scrollToTable();
+}
+
+function resetAllFilters() {
+  filterGrade = 'all';
+  filterDept = 'all';
+  filterTier = 'all';
+  filterWeek = 'all';
+  const sInput = document.getElementById('search-input');
+  if (sInput) sInput.value = '';
+  document.querySelectorAll('[data-grade]').forEach(b => b.classList.toggle('active', b.dataset.grade === 'all'));
+  document.querySelectorAll('[data-dept]').forEach(b => b.classList.toggle('active', b.dataset.dept === 'all'));
+  document.querySelectorAll('[data-tier]').forEach(b => b.classList.toggle('active', b.dataset.tier === 'all'));
+  document.querySelectorAll('[data-week]').forEach(b => b.classList.toggle('active', b.dataset.week === 'all'));
+  renderWeekBarChart();
+  renderTable();
+  scrollToTable();
+}
+
+function scrollToTable() {
+  document.getElementById('table-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Filter Event Handlers
@@ -3238,11 +3412,6 @@ function setTierFilter(t, btn) {
     b.classList.toggle('active', b.dataset.tier === t);
   });
   renderTable();
-}
-
-function filterByTier(t) {
-  setTierFilter(t);
-  document.querySelector('.controls-panel')?.scrollIntoView({ behavior: 'smooth' });
 }
 
 function setWeekFilter(w, btn) {
@@ -3275,13 +3444,13 @@ function openClassDetail(cid) {
   if (titleEl) titleEl.innerText = `班級 ${c.classId} 小白板違規履歷紀錄`;
   if (subEl) subEl.innerText = `${c.grade}・${c.dept} | 累計未寫 ${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)`;
 
-  const weekRows = (currentData.weekDefs || []).slice(0, 6).map(w => {
+  const weekRows = (currentData.weekDefs || []).map(w => {
     const wCount = c.weeks[w.key] || 0;
     const wDates = c.records.filter(r => r.weekKey === w.key).map(r => r.date).join('、 ') || '無未寫';
     return `
       <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--slate-200);align-items:center;font-size:.9rem">
         <div>
-          <strong>${w.name} (${w.dateRange})</strong>
+          <strong>${w.name} (${w.dateRange || '實施週'})</strong>
           <div style="font-size:.8rem;color:var(--slate-400)">違規日期：${wDates}</div>
         </div>
         <div>
@@ -3315,7 +3484,11 @@ function openClassDetail(cid) {
 
 function getSingleClassLineNotice(c) {
   const datesStr = c.records.map(r => r.date).join(', ') || '全勤無違規';
-  return `【中壢高商生輔組通報】\n班級：${c.classId} (${c.grade}${c.dept})\n至第7週小白板累計未寫次數：${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)。\n違規日期詳情：${datesStr}。\n請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
+  const latestKey = currentData.latestActiveWeek || 'w7';
+  const latestDef = (currentData.weekDefs || []).find(w => w.key === latestKey);
+  const weekLabel = latestDef ? latestDef.name : '最新週';
+
+  return `【中壢高商生輔組通報】\n班級：${c.classId} (${c.grade}${c.dept})\n至${weekLabel}小白板累計未寫次數：${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)。\n違規日期詳情：${datesStr}。\n請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
 }
 
 function copyCurrentClassNotice() {
@@ -3340,7 +3513,7 @@ function closeModalOnBackdrop(e) {
 
 // Report Generator Modal
 function openReportModal() {
-  generateReportType('w7');
+  generateReportType('latest');
   document.getElementById('report-modal')?.classList.add('active');
 }
 
@@ -3352,27 +3525,31 @@ function generateReportType(type, btn) {
 
   let text = '';
   const now = new Date().toLocaleDateString('zh-TW');
+  const latestKey = currentData.latestActiveWeek || 'w7';
+  const latestDef = (currentData.weekDefs || []).find(w => w.key === latestKey);
+  const weekTitle = latestDef ? latestDef.name : '最新週';
+  const weekRange = latestDef ? latestDef.dateRange : '';
 
-  if (type === 'w7') {
-    const w7Classes = (currentData.classes || []).filter(c => (c.weeks.w7 || 0) > 0);
-    w7Classes.sort((a, b) => b.weeks.w7 - a.weeks.w7 || a.classId.localeCompare(b.classId));
-    text = `📢【中壢高商生輔組・第 7 週小白板未寫班級通報】\n統計期間：10/12 (一) ～ 10/16 (五)\n通報日期：${now}\n------------------------------\n本週未寫總計：${w7Classes.reduce((s, c) => s + c.weeks.w7, 0)} 人次 (共 ${w7Classes.length} 個班級)\n\n未寫班級名單與次數：\n` +
-      w7Classes.map((c, i) => `${i + 1}. ${c.classId} 班 (${c.grade}${c.dept})：${c.weeks.w7}次 [日期: ${c.records.filter(r => r.weekKey === 'w7').map(r => r.date).join(', ')}]`).join('\n') +
+  if (type === 'latest') {
+    const wClasses = (currentData.classes || []).filter(c => (c.weeks[latestKey] || 0) > 0);
+    wClasses.sort((a, b) => (b.weeks[latestKey] || 0) - (a.weeks[latestKey] || 0) || a.classId.localeCompare(b.classId));
+    text = `📢【中壢高商生輔組・${weekTitle} 小白板未寫班級通報】\n統計期間：${weekRange}\n通報日期：${now}\n------------------------------\n本週未寫總計：${wClasses.reduce((s, c) => s + (c.weeks[latestKey] || 0), 0)} 人次 (共 ${wClasses.length} 個班級)\n\n未寫班級名單與次數：\n` +
+      wClasses.map((c, i) => `${i + 1}. ${c.classId} 班 (${c.grade}${c.dept})：${c.weeks[latestKey]}次 [日期: ${c.records.filter(r => r.weekKey === latestKey).map(r => r.date).join(', ')}]`).join('\n') +
       `\n------------------------------\n請各班導師與副班長加強注意，下週起加強抽查，感謝各位老師配合！`;
   } else if (type === 'high') {
     const highClasses = (currentData.classes || []).filter(c => c.total >= 10);
     highClasses.sort((a, b) => b.total - a.total || a.classId.localeCompare(b.classId));
-    text = `🚨【中壢高商教官室・小白板未寫高關懷班級名冊 (≥10次)】\n統計範圍：第2週 ～ 第7週累計\n製表日期：${now}\n------------------------------\n高關懷班級共計 ${highClasses.length} 班：\n\n` +
+    text = `🚨【中壢高商教官室・小白板未寫高關懷班級名冊 (≥10次)】\n統計範圍：開學至${weekTitle}累計\n製表日期：${now}\n------------------------------\n高關懷班級共計 ${highClasses.length} 班：\n\n` +
       highClasses.map((c, i) => `${i + 1}. ${c.classId} 班：累計未寫 ${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次) - ${c.grade}${c.dept}`).join('\n') +
       `\n------------------------------\n處分建議：累計超過10次之班級幹部，請於下週一中午至教官室報到宣導或愛校服務。`;
   } else if (type === 'zero') {
     const zeroClasses = (currentData.classes || []).filter(c => c.total === 0);
-    text = `🌟【中壢高商全勤表揚・115-1 小白板模範班級名冊】\n統計範圍：開學第2週至第7週 全程零違規！\n公佈日期：${now}\n------------------------------\n全勤優良班級共 ${zeroClasses.length} 班：\n\n` +
+    text = `🌟【中壢高商全勤表揚・115-1 小白板模範班級名冊】\n統計範圍：開學至${weekTitle} 全程零違規！\n公佈日期：${now}\n------------------------------\n全勤優良班級共 ${zeroClasses.length} 班：\n\n` +
       zeroClasses.map((c, i) => `${i + 1}. ${c.classId} 班 (${c.grade} ${c.dept})`).join('\n') +
       `\n------------------------------\n感謝各班導師的用心指導與班級幹部的認真盡責，值得全體師生嘉許！`;
   } else {
     const allSorted = [...(currentData.classes || [])].sort((a, b) => b.total - a.total || a.classId.localeCompare(b.classId));
-    text = `📊【中壢高商 115-1 全校各班小白板未寫次數總排行】\n累計期間：第2週 ～ 第7週\n更新時間：${now}\n------------------------------\n` +
+    text = `📊【中壢高商 115-1 全校各班小白板未寫次數總排行】\n累計期間：開學至${weekTitle}\n更新時間：${now}\n------------------------------\n` +
       allSorted.map((c, i) => `${String(i + 1).padStart(2, ' ')}. ${c.classId} 班 (${c.grade}${c.dept})：${c.total} 次 [扣初犯: ${Math.max(0, c.total - 1)} 次]`).join('\n');
   }
 
@@ -3417,31 +3594,79 @@ function handleExcelUpload(e) {
 }
 
 function parseUploadedWorkbook(wb, fileName) {
-  const weekDefs = currentData.weekDefs || [];
-  const classMap = {};
-
-  (currentData.classes || []).forEach(c => {
-    classMap[c.classId] = {
-      ...c,
-      total: 0,
-      weeks: { w2: 0, w3: 0, w4: 0, w5: 0, w6: 0, w7: 0, w8: 0, w9: 0 },
-      records: []
-    };
+  // 1. Dynamic week detection
+  const weekList = [];
+  wb.SheetNames.forEach(sheetName => {
+    const match = sheetName.match(/(?:白板|第)?[^\d]*\d+-\d+-(\d+)/i) || sheetName.match(/第\s*(\d+)\s*週/);
+    if (match && !sheetName.includes('副本') && !sheetName.includes('累計')) {
+      const weekNum = parseInt(match[1], 10);
+      const ws = wb.Sheets[sheetName];
+      const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false });
+      const headers = rows[1] || [];
+      const dateCols = [];
+      for (let c = 6; c < headers.length; c++) {
+        const rawD = headers[c];
+        if (rawD && String(rawD).trim()) {
+          const dStr = normalizeDate(String(rawD).trim());
+          dateCols.push({ colIdx: c, date: dStr });
+        }
+      }
+      let dateRangeStr = '';
+      if (dateCols.length > 0) {
+        dateRangeStr = dateCols[0].date + '~' + dateCols[dateCols.length - 1].date;
+      }
+      weekList.push({
+        weekNum,
+        key: 'w' + weekNum,
+        name: '第' + weekNum + '週',
+        sheet: sheetName,
+        dateRange: dateRangeStr,
+        dateCols
+      });
+    }
   });
 
-  weekDefs.forEach(w => {
+  if (!weekList.length) {
+    alert('未能在此 Excel 檔案中找到任何包含「白板」的週次工作表！');
+    return;
+  }
+
+  weekList.sort((a, b) => a.weekNum - b.weekNum);
+
+  // 2. Class Map
+  const classMap = {};
+  const ws1 = wb.Sheets['工作表1'] || wb.Sheets[weekList[0].sheet];
+  const r1 = ws1 ? XLSX.utils.sheet_to_json(ws1, { header: 1, raw: false }) : [];
+  for (let i = 2; i < r1.length; i++) {
+    const cid = String(r1[i]?.[1] || r1[i]?.[5] || '').trim();
+    if (cid && /^\d{3}$/.test(cid)) {
+      const gNum = parseInt(cid[1], 10);
+      const grade = gNum === 1 ? '高一' : gNum === 2 ? '高二' : '高三';
+      const dept = getDeptName(cid[0]);
+      classMap[cid] = {
+        classId: cid,
+        grade,
+        gradeNum: gNum,
+        dept,
+        deptCode: cid[0],
+        total: 0,
+        weeks: {},
+        records: []
+      };
+      weekList.forEach(w => { classMap[cid].weeks[w.key] = 0; });
+    }
+  }
+
+  // 3. Compute values
+  let latestActiveWeekKey = weekList[0]?.key || 'w2';
+  let maxActiveWeekNum = 0;
+
+  weekList.forEach(w => {
     const ws = wb.Sheets[w.sheet];
     if (!ws) return;
     const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false });
-    const headers = rows[1] || [];
-    const dateCols = [];
-    for (let c = 6; c < headers.length; c++) {
-      const rawD = headers[c];
-      if (rawD && String(rawD).trim()) {
-        const dStr = String(rawD).trim().replace(/^2026\//, '');
-        dateCols.push({ colIdx: c, date: dStr });
-      }
-    }
+    let weekTotalCount = 0;
+
     for (let r = 2; r < rows.length; r++) {
       const row = rows[r];
       if (!row || !row[5]) continue;
@@ -3449,7 +3674,7 @@ function parseUploadedWorkbook(wb, fileName) {
       if (!classMap[cid]) continue;
 
       let wSum = 0;
-      dateCols.forEach(dc => {
+      w.dateCols.forEach(dc => {
         const v = parseInt(row[dc.colIdx], 10) || 0;
         if (v > 0) {
           wSum += v;
@@ -3463,21 +3688,91 @@ function parseUploadedWorkbook(wb, fileName) {
       });
       classMap[cid].weeks[w.key] = wSum;
       classMap[cid].total += wSum;
+      weekTotalCount += wSum;
+    }
+
+    if (weekTotalCount > 0 && w.weekNum > maxActiveWeekNum) {
+      maxActiveWeekNum = w.weekNum;
+      latestActiveWeekKey = w.key;
     }
   });
 
-  currentData.classes = Object.values(classMap);
+  const latestWeekDef = weekList.find(w => w.key === latestActiveWeekKey);
+
+  currentData = {
+    title: '115-1 各班小白板未寫次數統計看板',
+    school: '中壢高商',
+    unit: '學務處 生輔組 / 教官室 / 特勤隊',
+    updateDate: new Date().toISOString().slice(0, 10),
+    latestActiveWeek: latestActiveWeekKey,
+    latestWeekName: latestWeekDef ? `${latestWeekDef.name} (${latestWeekDef.dateRange})` : '最新週',
+    latestWeekNumber: maxActiveWeekNum || 7,
+    weekDefs: weekList.map(w => ({
+      key: w.key,
+      weekNum: w.weekNum,
+      name: w.name,
+      sheet: w.sheet,
+      dateRange: w.dateRange
+    })),
+    classes: Object.values(classMap)
+  };
+
+  // Save to localStorage for browser persistence
+  try {
+    localStorage.setItem('clvsc_military_custom_data', JSON.stringify(currentData));
+    localStorage.setItem('clvsc_military_custom_filename', fileName);
+  } catch (e) {}
+
+  filterWeek = 'all';
   renderDashboard();
-  alert(`🎉 成功解析並更新檔案：${fileName}！看板數據已即時同步。`);
+  showUploadBanner(`🎉 成功更新【${fileName}】！共解析 ${weekList.length} 個週次（最新有資料週次：第 ${maxActiveWeekNum} 週），已自動儲存至本機快取。`);
+}
+
+function showUploadBanner(msg) {
+  let banner = document.getElementById('upload-notice-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'upload-notice-banner';
+    banner.style.cssText = 'background:#eff6ff;border:1.5px solid #bfdbfe;color:#1e40af;padding:10px 16px;border-radius:8px;margin-bottom:16px;font-size:.88rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px';
+    const container = document.querySelector('.container');
+    if (container) container.insertBefore(banner, container.firstChild);
+  }
+  banner.innerHTML = `
+    <div>${escapeHtml(msg)}</div>
+    <div style="display:flex;gap:8px">
+      <button type="button" class="chip-btn" style="background:#fff;padding:2px 8px;font-size:.78rem" onclick="clearCustomExcelData()">🔄 恢復原始資料</button>
+    </div>
+  `;
+}
+
+function clearCustomExcelData() {
+  if (confirm('確定要清除先前上傳的自訂資料，恢復為伺服器原始預設資料嗎？')) {
+    try {
+      localStorage.removeItem('clvsc_military_custom_data');
+      localStorage.removeItem('clvsc_military_custom_filename');
+    } catch (e) {}
+    if (window.INITIAL_DATA) {
+      currentData = JSON.parse(JSON.stringify(window.INITIAL_DATA));
+    }
+    const banner = document.getElementById('upload-notice-banner');
+    if (banner) banner.remove();
+    filterWeek = 'all';
+    renderDashboard();
+    alert('已恢復為預設資料！');
+  }
 }
 
 // Export CSV
 function exportCSV() {
   const list = getFilteredClasses();
-  let csv = '\uFEFF排名,班級,年級,科別,未寫總次數,扣初犯後次數,第2週,第3週,第4週,第5週,第6週,第7週,違規具體日期\n';
+  const weeks = currentData.weekDefs || [];
+  const weekHeaders = weeks.map(w => w.name).join(',');
+  
+  let csv = '\uFEFF排名,班級,年級,科別,未寫總次數,扣初犯後次數,' + weekHeaders + ',違規具體日期\n';
   list.forEach((c, idx) => {
     const dates = c.records.map(r => r.date).join('; ');
-    csv += `${idx + 1},${c.classId},${c.grade},${c.dept},${c.displayCount},${Math.max(0, c.displayCount - 1)},${c.weeks.w2 || 0},${c.weeks.w3 || 0},${c.weeks.w4 || 0},${c.weeks.w5 || 0},${c.weeks.w6 || 0},${c.weeks.w7 || 0},"${dates}"\n`;
+    const weekVals = weeks.map(w => c.weeks[w.key] || 0).join(',');
+    csv += `${idx + 1},${c.classId},${c.grade},${c.dept},${c.displayCount},${Math.max(0, c.displayCount - 1)},${weekVals},"${dates}"\n`;
   });
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -3498,6 +3793,15 @@ function escapeHtml(str) {
             .replace(/'/g, '&#039;');
 }
 
+
+// Global Drag & Drop Handler for Excel Files
+window.addEventListener('dragover', (e) => { e.preventDefault(); });
+window.addEventListener('drop', (e) => {
+  e.preventDefault();
+  if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
+    handleExcelUpload({ target: { files: e.dataTransfer.files } });
+  }
+});
   </script>
 </body>
 </html>
