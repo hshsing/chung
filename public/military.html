@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中壢家商 115-1 小白板未寫紀錄統計看板 | 生輔組・教官室</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #1e40af;
+      --primary-light: #eff6ff;
+      --accent: #0284c7;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Top Nav */
+    .navbar {
+      background: #0f172a;
+      color: #fff;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-icon {
+      font-size: 1.8rem;
+      background: #1e293b;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+    .brand-sub {
+      font-size: .8rem;
+      color: #94a3b8;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      padding: 6px 14px;
+      font-size: .85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #e2e8f0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all .2s;
+    }
+    .nav-btn:hover {
+      background: #334155;
+      color: #fff;
+    }
+    .nav-btn.primary {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+    .nav-btn.primary:hover {
+      background: #1d4ed8;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1240px;
+      margin: 20px auto;
+      padding: 0 16px;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--slate-200);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: var(--primary);
+    }
+    .kpi-card.success::before { background: var(--success); }
+    .kpi-card.warning::before { background: var(--warning); }
+    .kpi-card.danger::before { background: var(--danger); }
+    .kpi-title {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kpi-value {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--slate-800);
+      margin: 8px 0 4px;
+    }
+    .kpi-desc {
+      font-size: .78rem;
+      color: var(--slate-400);
+    }
+
+    /* Section Cards */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--slate-200);
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Charts Row */
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .week-bar-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 180px;
+      padding-top: 25px;
+      border-bottom: 2px solid var(--slate-200);
+    }
+    .week-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      cursor: pointer;
+      position: relative;
+    }
+    .week-bar-col:hover .week-bar {
+      filter: brightness(1.15);
+    }
+    .week-bar {
+      width: 100%;
+      max-width: 42px;
+      background: #3b82f6;
+      border-radius: 6px 6px 0 0;
+      transition: all .3s;
+      position: relative;
+      min-height: 4px;
+    }
+    .week-bar.spike {
+      background: #ef4444;
+    }
+    .week-bar-val {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      white-space: nowrap;
+    }
+    .week-bar-label {
+      font-size: .78rem;
+      color: var(--slate-600);
+      margin-top: 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .week-bar-date {
+      font-size: .7rem;
+      color: var(--slate-400);
+    }
+
+    /* Grade distribution progress bars */
+    .dist-row {
+      margin-bottom: 14px;
+    }
+    .dist-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: .88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .dist-bar-bg {
+      height: 12px;
+      background: var(--slate-100);
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+    }
+    .dist-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width .5s ease-out;
+    }
+
+    /* Filter & Controls */
+    .controls-panel {
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 240px;
+      padding: 10px 16px;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 8px;
+      font-size: .95rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .search-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+    .filter-group-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      min-width: 65px;
+    }
+    .chip-btn {
+      padding: 5px 12px;
+      font-size: .82rem;
+      font-weight: 600;
+      border-radius: 20px;
+      border: 1px solid var(--slate-200);
+      background: var(--slate-100);
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .chip-btn:hover {
+      background: #e2e8f0;
+      color: var(--slate-800);
+    }
+    .chip-btn.active {
+      background: #2563eb;
+      border-color: #2563eb;
+      color: #fff;
+    }
+
+    /* Data Table */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-200);
+      background: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: .9rem;
+    }
+    th {
+      background: #f8fafc;
+      color: var(--slate-600);
+      font-weight: 700;
+      padding: 12px 14px;
+      border-bottom: 1.5px solid var(--slate-200);
+      white-space: nowrap;
+      user-select: none;
+      cursor: pointer;
+    }
+    th:hover {
+      background: #f1f5f9;
+      color: var(--slate-800);
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--slate-100);
+      vertical-align: middle;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover td {
+      background: #f8fafc;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .badge-zero {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .badge-low {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    .badge-mid {
+      background: #fffbeb;
+      color: #d97706;
+      border: 1px solid #fde68a;
+    }
+    .badge-high {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    .rank-num {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: .82rem;
+      background: var(--slate-100);
+      color: var(--slate-600);
+    }
+    .rank-top1 { background: #fee2e2; color: #b91c1c; border: 1.5px solid #f87171; }
+    .rank-top2 { background: #ffedd5; color: #c2410c; border: 1.5px solid #fb923c; }
+    .rank-top3 { background: #fef3c7; color: #b45309; border: 1.5px solid #fcd34d; }
+
+    .date-pill {
+      display: inline-block;
+      padding: 2px 7px;
+      margin: 2px;
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 4px;
+      font-size: .74rem;
+      font-weight: 600;
+    }
+    .date-pill.recent {
+      background: #fee2e2;
+      color: #991b1b;
+      font-weight: 700;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-box {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+      padding: 24px;
+      transform: scale(0.95);
+      transition: transform .2s;
+    }
+    .modal-backdrop.active .modal-box {
+      transform: scale(1);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--slate-800);
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--slate-400);
+    }
+    .close-btn:hover { color: var(--slate-800); }
+
+    /* Print styles */
+    @media print {
+      .navbar, .controls-panel, .nav-actions, .kpi-card:not(.print-include) {
+        display: none !important;
+      }
+      body { background: #fff; padding: 0; }
+      .container { max-width: 100%; margin: 0; padding: 0; }
+      .card { box-shadow: none; border: none; padding: 0; }
+      .table-container { border: none; }
+      th, td { padding: 8px 10px; font-size: .8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-icon">📋</div>
+        <div>
+          <div class="brand-title">中壢家商 115-1 小白板未寫紀錄統計看板</div>
+          <div class="brand-sub">學務處 生輔組 / 教官室 / 特勤隊・即時數據分析</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="/" class="nav-btn">🏠 返回經濟學解題網</a>
+        <button type="button" class="nav-btn primary" onclick="openReportModal()">📢 一鍵生輔通報</button>
+        <button type="button" class="nav-btn" onclick="triggerExcelUpload()">📂 更新 Excel</button>
+        <button type="button" class="nav-btn" onclick="window.print()">🖨️ 列印</button>
+        <input type="file" id="excel-file-input" accept=".xlsx, .xls" style="display:none" onchange="handleExcelUpload(event)">
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- KPI Summary Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card danger">
+        <div class="kpi-title">
+          <span>全校累計未寫總人次</span>
+          <span>📉</span>
+        </div>
+        <div class="kpi-value" id="stat-total-count">185 次</div>
+        <div class="kpi-desc">涵蓋第 2 週 ～ 第 7 週 (54個班級)</div>
+      </div>
+
+      <div class="kpi-card success" style="cursor:pointer" onclick="filterByTier('zero')" title="點擊直接查看全勤班級">
+        <div class="kpi-title">
+          <span>🌟 全勤模範班級 (0次)</span>
+          <span style="color:#10b981">✨ 表揚</span>
+        </div>
+        <div class="kpi-value" id="stat-zero-classes" style="color:#059669">14 班</div>
+        <div class="kpi-desc">表現優異，點擊直接篩選檢視</div>
+      </div>
+
+      <div class="kpi-card warning">
+        <div class="kpi-title">
+          <span>⚠️ 需加強關懷班級 (≥10次)</span>
+          <span>🚨</span>
+        </div>
+        <div class="kpi-value" id="stat-high-classes" style="color:#d97706">6 班</div>
+        <div class="kpi-desc">最高：134班 (16次)、132班 (14次)</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-title">
+          <span>第 7 週最新單週未寫次數</span>
+          <span style="color:#ef4444">🔥 本週暴增</span>
+        </div>
+        <div class="kpi-value" id="stat-w7-count" style="color:#dc2626">87 次</div>
+        <div class="kpi-desc">前五週平均約 20 次，本週需全面宣導</div>
+      </div>
+    </div>
+
+    <!-- Analytics Charts Row -->
+    <div class="analytics-grid">
+      <!-- Weekly Trend Bar Chart -->
+      <div class="card">
+        <div class="card-title">
+          <span>📅 各週未寫次數趨勢（點擊長條可切換週次檢視）</span>
+          <span style="font-size:.8rem;color:var(--slate-400)">共 6 週實施紀錄</span>
+        </div>
+        <div class="week-bar-container" id="week-bar-chart">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Grade Breakdown Progress -->
+      <div class="card">
+        <div class="card-title">
+          <span>🎓 各年級違規比例分佈</span>
+          <span style="font-size:.8rem;color:var(--slate-400)">總累計 185 次</span>
+        </div>
+        <div style="padding-top: 10px;" id="grade-breakdown-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters & Search Toolbar -->
+    <div class="controls-panel">
+      <div class="search-row">
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 搜尋班級（例如：134、高三、幼保、資處...）" oninput="renderTable()">
+        <button type="button" class="chip-btn active" id="btn-export-csv" onclick="exportCSV()" style="white-space:nowrap;padding:10px 18px">📥 匯出 Excel / CSV</button>
+      </div>
+
+      <!-- Grade Filter -->
+      <div class="filter-group-row">
+        <span class="filter-label">年級篩選：</span>
+        <button type="button" class="chip-btn active" data-grade="all" onclick="setGradeFilter('all', this)">全部年級 (54)</button>
+        <button type="button" class="chip-btn" data-grade="高一" onclick="setGradeFilter('高一', this)">高一年級 (18)</button>
+        <button type="button" class="chip-btn" data-grade="高二" onclick="setGradeFilter('高二', this)">高二年級 (18)</button>
+        <button type="button" class="chip-btn" data-grade="高三" onclick="setGradeFilter('高三', this)">高三年級 (18)</button>
+      </div>
+
+      <!-- Department Filter -->
+      <div class="filter-group-row">
+        <span class="filter-label">科別篩選：</span>
+        <button type="button" class="chip-btn active" data-dept="all" onclick="setDeptFilter('all', this)">全部科別</button>
+        <button type="button" class="chip-btn" data-dept="家政群/服飾" onclick="setDeptFilter('家政群/服飾', this)">家政/服飾 (1xx)</button>
+        <button type="button" class="chip-btn" data-dept="幼兒保育科" onclick="setDeptFilter('幼兒保育科', this)">幼保科 (2xx)</button>
+        <button type="button" class="chip-btn" data-dept="資料處理科" onclick="setDeptFilter('資料處理科', this)">資處科 (4xx)</button>
+        <button type="button" class="chip-btn" data-dept="國際貿易科" onclick="setDeptFilter('國際貿易科', this)">國貿科 (5xx)</button>
+        <button type="button" class="chip-btn" data-dept="商業經營科" onclick="setDeptFilter('商業經營科', this)">商經科 (6xx)</button>
+        <button type="button" class="chip-btn" data-dept="綜合職能科" onclick="setDeptFilter('綜合職能科', this)">綜職科 (7xx)</button>
+      </div>
+
+      <!-- Severity Filter -->
+      <div class="filter-group-row">
+        <span class="filter-label">違規區間：</span>
+        <button type="button" class="chip-btn active" data-tier="all" onclick="setTierFilter('all', this)">全部狀態</button>
+        <button type="button" class="chip-btn" data-tier="zero" onclick="setTierFilter('zero', this)" style="color:#059669;border-color:#a7f3d0">🌟 全勤模範 (0次)</button>
+        <button type="button" class="chip-btn" data-tier="low" onclick="setTierFilter('low', this)">⚠️ 輕度 (1~5次)</button>
+        <button type="button" class="chip-btn" data-tier="mid" onclick="setTierFilter('mid', this)">🚨 中度 (6~10次)</button>
+        <button type="button" class="chip-btn" data-tier="high" onclick="setTierFilter('high', this)" style="color:#dc2626;border-color:#fecaca">💥 嚴重 (≥11次)</button>
+      </div>
+
+      <!-- Week View Selector -->
+      <div class="filter-group-row" style="margin-bottom:0">
+        <span class="filter-label">檢視維度：</span>
+        <button type="button" class="chip-btn active" data-week="all" onclick="setWeekFilter('all', this)">總累計次數</button>
+        <button type="button" class="chip-btn" data-week="w7" onclick="setWeekFilter('w7', this)" style="color:#b91c1c;font-weight:700">🔥 第7週 (最新 10/12-10/16)</button>
+        <button type="button" class="chip-btn" data-week="w6" onclick="setWeekFilter('w6', this)">第6週</button>
+        <button type="button" class="chip-btn" data-week="w5" onclick="setWeekFilter('w5', this)">第5週</button>
+        <button type="button" class="chip-btn" data-week="w4" onclick="setWeekFilter('w4', this)">第4週</button>
+        <button type="button" class="chip-btn" data-week="w3" onclick="setWeekFilter('w3', this)">第3週</button>
+        <button type="button" class="chip-btn" data-week="w2" onclick="setWeekFilter('w2', this)">第2週</button>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--slate-200);flex-wrap:wrap;gap:8px">
+        <div style="font-weight:700;color:var(--slate-800)" id="table-summary-text">
+          顯示 54 個班級
+        </div>
+        <div style="font-size:.82rem;color:var(--slate-400)">
+          💡 點擊任一班級列可查看該班完整違規日期明細與導師通報文字
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="toggleSort('rank')" style="width:70px">排名 ⬍</th>
+              <th onclick="toggleSort('classId')" style="width:90px">班級 ⬍</th>
+              <th onclick="toggleSort('dept')" style="width:130px">年級與科別 ⬍</th>
+              <th onclick="toggleSort('count')" style="width:140px">未寫次數 ⬍</th>
+              <th style="width:110px">扣初犯處分</th>
+              <th style="width:230px">各週未寫次數分佈</th>
+              <th>違規日期記錄</th>
+              <th style="width:90px;text-align:center">操作</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-backdrop" id="detail-modal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modal-class-title">班級 134 小白板違規履歷</div>
+          <div style="font-size:.85rem;color:var(--slate-400)" id="modal-class-sub">高三年級・家政群/服飾</div>
+        </div>
+        <button type="button" class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+
+      <div id="modal-body-content">
+        <!-- Content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Generator Modal -->
+  <div class="modal-backdrop" id="report-modal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-box" style="max-width:700px">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">📢 生輔組 / 教官室 快捷通報文字生成器</div>
+          <div style="font-size:.85rem;color:var(--slate-400)">自動排版可直接貼到導師 LINE 群組或公佈欄</div>
+        </div>
+        <button type="button" class="close-btn" onclick="closeModal()">✕</button>
+      </div>
+
+      <div style="margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="chip-btn active" onclick="generateReportType('w7', this)">🔥 第 7 週最新未寫通報</button>
+        <button type="button" class="chip-btn" onclick="generateReportType('high', this)">🚨 累計 ≥ 10次高關懷名單</button>
+        <button type="button" class="chip-btn" onclick="generateReportType('zero', this)">🌟 全勤模範班表揚</button>
+        <button type="button" class="chip-btn" onclick="generateReportType('all', this)">📊 全校累計排行完整版</button>
+      </div>
+
+      <textarea id="report-text-output" rows="12" style="width:100%;padding:12px;border:1.5px solid var(--slate-200);border-radius:8px;font-family:monospace;font-size:.9rem;line-height:1.6;outline:none"></textarea>
+
+      <div style="margin-top:14px;display:flex;justify-content:flex-end;gap:10px">
+        <button type="button" class="chip-btn" onclick="closeModal()">關閉</button>
+        <button type="button" class="chip-btn active" style="padding:8px 20px" onclick="copyReportText()">📋 一鍵複製文字</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Embedded Master Data from 統計表模板.xlsx
+    const INITIAL_DATA = {"title":"115-1 各班小白板未寫次數統計看板","school":"中壢家商","unit":"學務處 生輔組 / 教官室 / 特勤隊","updateDate":"2026-10-18","latestWeek":"第7週 (10/12 ~ 10/16)","weekDefs":[{"key":"w2","name":"第2週","dateRange":"09/07~09/11","sheet":"白板115-1-2"},{"key":"w3","name":"第3週","dateRange":"09/14~09/18","sheet":"白板115-1-3"},{"key":"w4","name":"第4週","dateRange":"09/21~09/24","sheet":"白板115-1-4 "},{"key":"w5","name":"第5週","dateRange":"09/29~10/02","sheet":"白板115-1-5"},{"key":"w6","name":"第6週","dateRange":"10/05~10/08","sheet":"白板115-1-6"},{"key":"w7","name":"第7週","dateRange":"10/12~10/16","sheet":"白板115-1-7"},{"key":"w8","name":"第8週","dateRange":"10/19~10/23","sheet":"白板115-1-8"},{"key":"w9","name":"第9週","dateRange":"10/26~10/30","sheet":"白板115-1-9"}],"classes":[{"classId":"111","grade":"高一","gradeNum":1,"dept":"家政群/服飾","deptCode":"1","total":6,"weeks":{"w2":2,"w3":1,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/07","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/11","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"112","grade":"高一","gradeNum":1,"dept":"家政群/服飾","deptCode":"1","total":8,"weeks":{"w2":2,"w3":2,"w4":0,"w5":0,"w6":0,"w7":4,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/09","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/11","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/14","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/16","count":1}]},{"classId":"113","grade":"高一","gradeNum":1,"dept":"家政群/服飾","deptCode":"1","total":12,"weeks":{"w2":2,"w3":2,"w4":1,"w5":1,"w6":3,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/07","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/09","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/16","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/23","count":1},{"weekKey":"w5","weekName":"第5週","date":"10/02","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/05","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/06","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/08","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"114","grade":"高一","gradeNum":1,"dept":"家政群/服飾","deptCode":"1","total":5,"weeks":{"w2":0,"w3":1,"w4":1,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w3","weekName":"第3週","date":"09/15","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/22","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"121","grade":"高二","gradeNum":2,"dept":"家政群/服飾","deptCode":"1","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/12","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1}]},{"classId":"122","grade":"高二","gradeNum":2,"dept":"家政群/服飾","deptCode":"1","total":2,"weeks":{"w2":0,"w3":0,"w4":0,"w5":1,"w6":1,"w7":0,"w8":0,"w9":0},"records":[{"weekKey":"w5","weekName":"第5週","date":"09/30","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/07","count":1}]},{"classId":"123","grade":"高二","gradeNum":2,"dept":"家政群/服飾","deptCode":"1","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"124","grade":"高二","gradeNum":2,"dept":"家政群/服飾","deptCode":"1","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"131","grade":"高三","gradeNum":3,"dept":"家政群/服飾","deptCode":"1","total":11,"weeks":{"w2":0,"w3":2,"w4":3,"w5":1,"w6":2,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w3","weekName":"第3週","date":"09/15","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/17","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/21","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/23","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/24","count":1},{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/07","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/08","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"132","grade":"高三","gradeNum":3,"dept":"家政群/服飾","deptCode":"1","total":14,"weeks":{"w2":2,"w3":1,"w4":4,"w5":1,"w6":2,"w7":4,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/08","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/11","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/17","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/21","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/22","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/23","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/24","count":1},{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/05","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/08","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/12","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"133","grade":"高三","gradeNum":3,"dept":"家政群/服飾","deptCode":"1","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":1,"w6":0,"w7":0,"w8":0,"w9":0},"records":[{"weekKey":"w5","weekName":"第5週","date":"09/29","count":1}]},{"classId":"134","grade":"高三","gradeNum":3,"dept":"家政群/服飾","deptCode":"1","total":16,"weeks":{"w2":3,"w3":2,"w4":2,"w5":2,"w6":2,"w7":5,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/07","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/09","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/10","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/17","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/23","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/24","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/30","count":1},{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/07","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/08","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/12","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/16","count":1}]},{"classId":"211","grade":"高一","gradeNum":1,"dept":"幼兒保育科","deptCode":"2","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"212","grade":"高一","gradeNum":1,"dept":"幼兒保育科","deptCode":"2","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"213","grade":"高一","gradeNum":1,"dept":"幼兒保育科","deptCode":"2","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"214","grade":"高一","gradeNum":1,"dept":"幼兒保育科","deptCode":"2","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"221","grade":"高二","gradeNum":2,"dept":"幼兒保育科","deptCode":"2","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1}]},{"classId":"222","grade":"高二","gradeNum":2,"dept":"幼兒保育科","deptCode":"2","total":2,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":2,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"223","grade":"高二","gradeNum":2,"dept":"幼兒保育科","deptCode":"2","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"224","grade":"高二","gradeNum":2,"dept":"幼兒保育科","deptCode":"2","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"225","grade":"高二","gradeNum":2,"dept":"幼兒保育科","deptCode":"2","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"231","grade":"高三","gradeNum":3,"dept":"幼兒保育科","deptCode":"2","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"232","grade":"高三","gradeNum":3,"dept":"幼兒保育科","deptCode":"2","total":7,"weeks":{"w2":0,"w3":0,"w4":0,"w5":1,"w6":3,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/06","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/07","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/08","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"233","grade":"高三","gradeNum":3,"dept":"幼兒保育科","deptCode":"2","total":1,"weeks":{"w2":0,"w3":0,"w4":1,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[{"weekKey":"w4","weekName":"第4週","date":"09/24","count":1}]},{"classId":"234","grade":"高三","gradeNum":3,"dept":"幼兒保育科","deptCode":"2","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"235","grade":"高三","gradeNum":3,"dept":"幼兒保育科","deptCode":"2","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"411","grade":"高一","gradeNum":1,"dept":"資料處理科","deptCode":"4","total":8,"weeks":{"w2":0,"w3":0,"w4":3,"w5":2,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w4","weekName":"第4週","date":"09/21","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/22","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/23","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/29","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/30","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"412","grade":"高一","gradeNum":1,"dept":"資料處理科","deptCode":"4","total":2,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":2,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1}]},{"classId":"413","grade":"高一","gradeNum":1,"dept":"資料處理科","deptCode":"4","total":11,"weeks":{"w2":4,"w3":3,"w4":2,"w5":0,"w6":0,"w7":2,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/07","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/08","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/09","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/11","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/14","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/16","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/21","count":1},{"weekKey":"w4","weekName":"第4週","date":"09/22","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1}]},{"classId":"421","grade":"高二","gradeNum":2,"dept":"資料處理科","deptCode":"4","total":2,"weeks":{"w2":0,"w3":1,"w4":0,"w5":0,"w6":1,"w7":0,"w8":0,"w9":0},"records":[{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/07","count":1}]},{"classId":"422","grade":"高二","gradeNum":2,"dept":"資料處理科","deptCode":"4","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"423","grade":"高二","gradeNum":2,"dept":"資料處理科","deptCode":"4","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"431","grade":"高三","gradeNum":3,"dept":"資料處理科","deptCode":"4","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"432","grade":"高三","gradeNum":3,"dept":"資料處理科","deptCode":"4","total":14,"weeks":{"w2":2,"w3":4,"w4":0,"w5":3,"w6":2,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/07","count":1},{"weekKey":"w2","weekName":"第2週","date":"09/10","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/14","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/15","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/17","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/29","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/30","count":1},{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/05","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/08","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/12","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1}]},{"classId":"433","grade":"高三","gradeNum":3,"dept":"資料處理科","deptCode":"4","total":2,"weeks":{"w2":0,"w3":0,"w4":1,"w5":1,"w6":0,"w7":0,"w8":0,"w9":0},"records":[{"weekKey":"w4","weekName":"第4週","date":"09/22","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/29","count":1}]},{"classId":"511","grade":"高一","gradeNum":1,"dept":"國際貿易科","deptCode":"5","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"512","grade":"高一","gradeNum":1,"dept":"國際貿易科","deptCode":"5","total":5,"weeks":{"w2":0,"w3":1,"w4":0,"w5":2,"w6":0,"w7":2,"w8":0,"w9":0},"records":[{"weekKey":"w3","weekName":"第3週","date":"09/17","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/30","count":1},{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"521","grade":"高二","gradeNum":2,"dept":"國際貿易科","deptCode":"5","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"522","grade":"高二","gradeNum":2,"dept":"國際貿易科","deptCode":"5","total":1,"weeks":{"w2":0,"w3":1,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1}]},{"classId":"531","grade":"高三","gradeNum":3,"dept":"國際貿易科","deptCode":"5","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"532","grade":"高三","gradeNum":3,"dept":"國際貿易科","deptCode":"5","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"611","grade":"高一","gradeNum":1,"dept":"商業經營科","deptCode":"6","total":8,"weeks":{"w2":1,"w3":3,"w4":0,"w5":1,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w2","weekName":"第2週","date":"09/09","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/15","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/16","count":1},{"weekKey":"w3","weekName":"第3週","date":"09/18","count":1},{"weekKey":"w5","weekName":"第5週","date":"09/29","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"612","grade":"高一","gradeNum":1,"dept":"商業經營科","deptCode":"6","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"613","grade":"高一","gradeNum":1,"dept":"商業經營科","deptCode":"6","total":5,"weeks":{"w2":0,"w3":0,"w4":0,"w5":1,"w6":1,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w5","weekName":"第5週","date":"10/02","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/05","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"614","grade":"高一","gradeNum":1,"dept":"商業經營科","deptCode":"6","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"621","grade":"高二","gradeNum":2,"dept":"商業經營科","deptCode":"6","total":2,"weeks":{"w2":0,"w3":0,"w4":0,"w5":1,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w5","weekName":"第5週","date":"09/30","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"622","grade":"高二","gradeNum":2,"dept":"商業經營科","deptCode":"6","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"623","grade":"高二","gradeNum":2,"dept":"商業經營科","deptCode":"6","total":3,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":3,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"624","grade":"高二","gradeNum":2,"dept":"商業經營科","deptCode":"6","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"631","grade":"高三","gradeNum":3,"dept":"商業經營科","deptCode":"6","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"632","grade":"高三","gradeNum":3,"dept":"商業經營科","deptCode":"6","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/12","count":1}]},{"classId":"633","grade":"高三","gradeNum":3,"dept":"商業經營科","deptCode":"6","total":0,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":0,"w8":0,"w9":0},"records":[]},{"classId":"634","grade":"高三","gradeNum":3,"dept":"商業經營科","deptCode":"6","total":4,"weeks":{"w2":0,"w3":0,"w4":0,"w5":1,"w6":1,"w7":2,"w8":0,"w9":0},"records":[{"weekKey":"w5","weekName":"第5週","date":"10/01","count":1},{"weekKey":"w6","weekName":"第6週","date":"10/05","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/14","count":1},{"weekKey":"w7","weekName":"第7週","date":"10/15","count":1}]},{"classId":"711","grade":"高一","gradeNum":1,"dept":"綜合職能科","deptCode":"7","total":1,"weeks":{"w2":0,"w3":0,"w4":0,"w5":0,"w6":0,"w7":1,"w8":0,"w9":0},"records":[{"weekKey":"w7","weekName":"第7週","date":"10/13","count":1}]}]};
+    let currentData = JSON.parse(JSON.stringify(INITIAL_DATA));
+
+    // Active Filters
+    let filterGrade = 'all';
+    let filterDept = 'all';
+    let filterTier = 'all';
+    let filterWeek = 'all';
+    let sortField = 'count';
+    let sortAsc = false;
+
+    // Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      renderDashboard();
+    });
+
+    function renderDashboard() {
+      updateKPICards();
+      renderWeekBarChart();
+      renderGradeBreakdown();
+      renderTable();
+    }
+
+    function updateKPICards() {
+      const classes = currentData.classes;
+      let total = 0;
+      let zeroCount = 0;
+      let highCount = 0;
+      let w7Total = 0;
+
+      classes.forEach(c => {
+        total += c.total;
+        if (c.total === 0) zeroCount++;
+        if (c.total >= 10) highCount++;
+        w7Total += (c.weeks.w7 || 0);
+      });
+
+      document.getElementById('stat-total-count').innerText = total + ' 次';
+      document.getElementById('stat-zero-classes').innerText = zeroCount + ' 班';
+      document.getElementById('stat-high-classes').innerText = highCount + ' 班';
+      document.getElementById('stat-w7-count').innerText = w7Total + ' 次';
+    }
+
+    function renderWeekBarChart() {
+      const container = document.getElementById('week-bar-chart');
+      const weeks = currentData.weekDefs.slice(0, 6); // W2 ~ W7
+      const weekTotals = weeks.map(w => {
+        const sum = currentData.classes.reduce((acc, c) => acc + (c.weeks[w.key] || 0), 0);
+        return { key: w.key, name: w.name, dateRange: w.dateRange, sum };
+      });
+
+      const maxVal = Math.max(...weekTotals.map(w => w.sum), 1);
+
+      container.innerHTML = weekTotals.map(w => {
+        const pct = Math.round((w.sum / maxVal) * 100);
+        const isSpike = w.sum >= 50;
+        return `
+          <div class="week-bar-col" onclick="setWeekFilter('${w.key}')" title="點擊檢視 ${w.name} (${w.sum}次)">
+            <div class="week-bar ${isSpike ? 'spike' : ''}" style="height:${Math.max(pct, 6)}%">
+              <div class="week-bar-val">${w.sum}次</div>
+            </div>
+            <div class="week-bar-label">${w.name}</div>
+            <div class="week-bar-date">${w.dateRange}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderGradeBreakdown() {
+      const container = document.getElementById('grade-breakdown-container');
+      const grades = [
+        { label: '高一年級', code: 1, color: '#3b82f6' },
+        { label: '高二年級', code: 2, color: '#10b981' },
+        { label: '高三年級', code: 3, color: '#f59e0b' }
+      ];
+
+      const totalAll = currentData.classes.reduce((acc, c) => acc + c.total, 0) || 1;
+
+      container.innerHTML = grades.map(g => {
+        const gSum = currentData.classes.filter(c => c.gradeNum === g.code).reduce((acc, c) => acc + c.total, 0);
+        const pct = Math.round((gSum / totalAll) * 100);
+        return `
+          <div class="dist-row">
+            <div class="dist-header">
+              <span>${g.label}</span>
+              <span style="color:${g.color};font-weight:700">${gSum} 次 (${pct}%)</span>
+            </div>
+            <div class="dist-bar-bg">
+              <div class="dist-bar-fill" style="width:${pct}%;background:${g.color}"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getFilteredClasses() {
+      const query = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
+      let list = currentData.classes.map(c => {
+        // Calculate count according to active week filter
+        const count = filterWeek === 'all' ? c.total : (c.weeks[filterWeek] || 0);
+        return { ...c, displayCount: count };
+      });
+
+      // Filter: Grade
+      if (filterGrade !== 'all') {
+        list = list.filter(c => c.grade === filterGrade);
+      }
+
+      // Filter: Dept
+      if (filterDept !== 'all') {
+        list = list.filter(c => c.dept === filterDept);
+      }
+
+      // Filter: Tier
+      if (filterTier === 'zero') {
+        list = list.filter(c => c.displayCount === 0);
+      } else if (filterTier === 'low') {
+        list = list.filter(c => c.displayCount >= 1 && c.displayCount <= 5);
+      } else if (filterTier === 'mid') {
+        list = list.filter(c => c.displayCount >= 6 && c.displayCount <= 10);
+      } else if (filterTier === 'high') {
+        list = list.filter(c => c.displayCount >= 11);
+      }
+
+      // Search Query
+      if (query) {
+        list = list.filter(c => 
+          c.classId.toLowerCase().includes(query) ||
+          c.grade.toLowerCase().includes(query) ||
+          c.dept.toLowerCase().includes(query)
+        );
+      }
+
+      // Sorting
+      list.sort((a, b) => {
+        if (sortField === 'count') {
+          return sortAsc ? a.displayCount - b.displayCount : b.displayCount - a.displayCount;
+        } else if (sortField === 'classId') {
+          return sortAsc ? a.classId.localeCompare(b.classId) : b.classId.localeCompare(a.classId);
+        } else if (sortField === 'dept') {
+          return sortAsc ? a.dept.localeCompare(b.dept) : b.dept.localeCompare(a.dept);
+        }
+        return 0;
+      });
+
+      return list;
+    }
+
+    function renderTable() {
+      const list = getFilteredClasses();
+      const tbody = document.getElementById('table-body');
+      document.getElementById('table-summary-text').innerText = `顯示 ${list.length} 個班級（共 54 班）`;
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--slate-400)">查無符合條件的班級</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map((c, idx) => {
+        const rank = idx + 1;
+        let rankCls = '';
+        if (rank === 1 && c.displayCount > 0) rankCls = 'rank-top1';
+        else if (rank === 2 && c.displayCount > 0) rankCls = 'rank-top2';
+        else if (rank === 3 && c.displayCount > 0) rankCls = 'rank-top3';
+
+        // Badge
+        let badgeCls = 'badge-zero';
+        let badgeIcon = '🟢';
+        if (c.displayCount >= 11) { badgeCls = 'badge-high'; badgeIcon = '💥'; }
+        else if (c.displayCount >= 6) { badgeCls = 'badge-mid'; badgeIcon = '🚨'; }
+        else if (c.displayCount >= 1) { badgeCls = 'badge-low'; badgeIcon = '⚠️'; }
+        else { badgeIcon = '🌟'; }
+
+        // Deduct 1 for first offense
+        const penaltyCount = Math.max(0, c.displayCount - 1);
+
+        // Week bubbles
+        const weekBubbles = currentData.weekDefs.slice(0, 6).map(w => {
+          const wVal = c.weeks[w.key] || 0;
+          if (wVal === 0) return `<span style="opacity:.3;margin-right:4px;font-size:.7rem">${w.name}:0</span>`;
+          return `<span style="background:${wVal>=3?'#fee2e2':'#eff6ff'};color:${wVal>=3?'#b91c1c':'#1d4ed8'};padding:1px 5px;border-radius:4px;margin-right:4px;font-size:.72rem;font-weight:700">${w.name}:${wVal}</span>`;
+        }).join('');
+
+        // Date pills
+        const filterWRecords = filterWeek === 'all' 
+          ? c.records 
+          : c.records.filter(r => r.weekKey === filterWeek);
+
+        const datePills = filterWRecords.map(r => {
+          const isRecent = r.weekKey === 'w7';
+          return `<span class="date-pill ${isRecent ? 'recent' : ''}">${r.date}</span>`;
+        }).join('') || '<span style="color:var(--slate-400);font-size:.75rem">全勤無違規</span>';
+
+        return `
+          <tr onclick="openClassDetail('${c.classId}')" style="cursor:pointer">
+            <td><span class="rank-num ${rankCls}">${rank}</span></td>
+            <td><strong style="font-size:1.05rem;color:#1e3a8a">${c.classId}</strong></td>
+            <td>${c.grade}・${c.dept}</td>
+            <td>
+              <span class="badge ${badgeCls}">${badgeIcon} ${c.displayCount} 次</span>
+            </td>
+            <td>
+              <span style="font-weight:700;color:${penaltyCount > 0 ? '#b91c1c' : '#059669'}">${penaltyCount} 次</span>
+            </td>
+            <td>${weekBubbles}</td>
+            <td>${datePills}</td>
+            <td style="text-align:center" onclick="event.stopPropagation()">
+              <button type="button" class="chip-btn" style="padding:3px 8px;font-size:.75rem" onclick="openClassDetail('${c.classId}')">明細 ➔</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Filter Handlers
+    function setGradeFilter(g, btn) {
+      filterGrade = g;
+      document.querySelectorAll('[data-grade]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderTable();
+    }
+    function setDeptFilter(d, btn) {
+      filterDept = d;
+      document.querySelectorAll('[data-dept]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderTable();
+    }
+    function setTierFilter(t, btn) {
+      filterTier = t;
+      document.querySelectorAll('[data-tier]').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderTable();
+    }
+    function filterByTier(t) {
+      const btn = document.querySelector(`[data-tier="${t}"]`);
+      setTierFilter(t, btn);
+      document.querySelector('.controls-panel')?.scrollIntoView({ behavior: 'smooth' });
+    }
+    function setWeekFilter(w, btn) {
+      filterWeek = w;
+      document.querySelectorAll('[data-week]').forEach(b => b.classList.remove('active'));
+      if (!btn) btn = document.querySelector(`[data-week="${w}"]`);
+      if (btn) btn.classList.add('active');
+      renderTable();
+    }
+
+    function toggleSort(field) {
+      if (sortField === field) {
+        sortAsc = !sortAsc;
+      } else {
+        sortField = field;
+        sortAsc = false;
+      }
+      renderTable();
+    }
+
+    // Detail Modal
+    function openClassDetail(cid) {
+      const c = currentData.classes.find(x => x.classId === cid);
+      if (!c) return;
+
+      document.getElementById('modal-class-title').innerText = `班級 ${c.classId} 小白板違規履歷紀錄`;
+      document.getElementById('modal-class-sub').innerText = `${c.grade}・${c.dept} | 累計未寫 ${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)`;
+
+      const weekRows = currentData.weekDefs.slice(0, 6).map(w => {
+        const wCount = c.weeks[w.key] || 0;
+        const wDates = c.records.filter(r => r.weekKey === w.key).map(r => r.date).join('、 ') || '無未寫';
+        return `
+          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--slate-200);align-items:center;font-size:.9rem">
+            <div>
+              <strong>${w.name} (${w.dateRange})</strong>
+              <div style="font-size:.8rem;color:var(--slate-400)">違規日期：${wDates}</div>
+            </div>
+            <div>
+              <span class="badge ${wCount>=3?'badge-high':wCount>0?'badge-low':'badge-zero'}">${wCount} 次</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const lineMessage = `【中壢家商生輔組通報】
+班級：${c.classId} (${c.grade}${c.dept})
+至第7週小白板累計未寫次數：${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)。
+違規日期詳情：${c.records.map(r=>r.date).join(', ')||'全勤'}。
+請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
+
+      document.getElementById('modal-body-content').innerHTML = `
+        <div style="margin-bottom:16px">
+          <div style="font-weight:700;margin-bottom:8px">📅 各週違規明細歷程：</div>
+          ${weekRows}
+        </div>
+        <div style="background:#f8fafc;padding:14px;border-radius:8px;border:1px solid var(--slate-200);margin-top:16px">
+          <div style="font-size:.85rem;font-weight:700;color:#1e3a8a;margin-bottom:6px">📋 導師 LINE 通報文字範本：</div>
+          <div style="font-size:.82rem;font-family:monospace;white-space:pre-wrap;background:#fff;padding:8px 12px;border-radius:6px;border:1px solid #e2e8f0;color:#334155">${lineMessage}</div>
+          <div style="margin-top:10px;text-align:right">
+            <button type="button" class="chip-btn active" onclick="navigator.clipboard.writeText(\`${lineMessage}\`).then(()=>alert('已複製該班導師通報文字！'))">複製此班通報文字</button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('detail-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.querySelectorAll('.modal-backdrop').forEach(m => m.classList.remove('active'));
+    }
+    function closeModalOnBackdrop(e) {
+      if (e.target.classList.contains('modal-backdrop')) {
+        closeModal();
+      }
+    }
+
+    // Report Generator Modal
+    function openReportModal() {
+      generateReportType('w7');
+      document.getElementById('report-modal').classList.add('active');
+    }
+
+    function generateReportType(type, btn) {
+      if (btn) {
+        btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      let text = '';
+      const now = new Date().toLocaleDateString('zh-TW');
+
+      if (type === 'w7') {
+        const w7Classes = currentData.classes.filter(c => (c.weeks.w7 || 0) > 0);
+        w7Classes.sort((a, b) => b.weeks.w7 - a.weeks.w7);
+        text = `📢【中壢家商生輔組・第 7 週小白板未寫班級通報】
+統計期間：10/12 (一) ～ 10/16 (五)
+通報日期：${now}
+------------------------------
+本週未寫總計：${w7Classes.reduce((s,c)=>s+c.weeks.w7,0)} 人次 (共 ${w7Classes.length} 個班級)
+
+未寫班級名單與次數：
+` +
+          w7Classes.map((c, i) => `${i+1}. ${c.classId} 班 (${c.grade}${c.dept})：${c.weeks.w7}次 [日期: ${c.records.filter(r=>r.weekKey==='w7').map(r=>r.date).join(', ')}]`).join('\n') +
+          `\n------------------------------\n請各班導師與副班長加強注意，下週起加強抽查，感謝各位老師配合！`;
+      } else if (type === 'high') {
+        const highClasses = currentData.classes.filter(c => c.total >= 10);
+        highClasses.sort((a, b) => b.total - a.total);
+        text = `🚨【中壢家商教官室・小白板未寫高關懷班級名冊 (≥10次)】
+統計範圍：第2週 ～ 第7週累計
+製表日期：${now}
+------------------------------
+高關懷班級共計 ${highClasses.length} 班：
+
+` +
+          highClasses.map((c, i) => `${i+1}. ${c.classId} 班：累計未寫 ${c.total} 次 (初犯扣除後 ${c.total-1} 次) - ${c.grade}${c.dept}`).join('\n') +
+          `\n------------------------------\n處分建議：累計超過10次之班級幹部，請於下週一中午至教官室報到宣導或愛校服務。`;
+      } else if (type === 'zero') {
+        const zeroClasses = currentData.classes.filter(c => c.total === 0);
+        text = `🌟【中壢家商全勤表揚・115-1 小白板模範班級名冊】
+統計範圍：開學第2週至第7週 全程零違規！
+公佈日期：${now}
+------------------------------
+全勤優良班級共 ${zeroClasses.length} 班：
+
+` +
+          zeroClasses.map((c, i) => `${i+1}. ${c.classId} 班 (${c.grade} ${c.dept})`).join('\n') +
+          `\n------------------------------\n感謝各班導師的用心指導與班級幹部的認真盡責，值得全體師生嘉許！`;
+      } else {
+        const allSorted = [...currentData.classes].sort((a, b) => b.total - a.total);
+        text = `📊【中壢家商 115-1 全校各班小白板未寫次數總排行】
+累計期間：第2週 ～ 第7週
+更新時間：${now}
+------------------------------
+` +
+          allSorted.map((c, i) => `${String(i+1).padStart(2, ' ')}. ${c.classId} 班 (${c.grade}${c.dept})：${c.total} 次 [扣初犯: ${Math.max(0,c.total-1)} 次]`).join('\n');
+      }
+
+      document.getElementById('report-text-output').value = text;
+    }
+
+    function copyReportText() {
+      const txt = document.getElementById('report-text-output').value;
+      navigator.clipboard.writeText(txt).then(() => {
+        alert('✅ 已複製通報文字！可直接貼至 LINE 群組。');
+      }).catch(() => {
+        prompt('請反白複製以下文字：', txt);
+      });
+    }
+
+    // Excel Upload & Live Parser
+    function triggerExcelUpload() {
+      document.getElementById('excel-file-input').click();
+    }
+
+    function handleExcelUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const data = new Uint8Array(evt.target.result);
+          const uploadWb = XLSX.read(data, { type: 'array' });
+          parseUploadedWorkbook(uploadWb, file.name);
+        } catch (err) {
+          alert('解析 Excel 檔案失敗：' + err.message);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function parseUploadedWorkbook(wb, fileName) {
+      // Re-parse classes and weekly sheets dynamically
+      const weekDefs = currentData.weekDefs;
+      const classMap = {};
+
+      currentData.classes.forEach(c => {
+        classMap[c.classId] = {
+          ...c,
+          total: 0,
+          weeks: { w2: 0, w3: 0, w4: 0, w5: 0, w6: 0, w7: 0, w8: 0, w9: 0 },
+          records: []
+        };
+      });
+
+      weekDefs.forEach(w => {
+        const ws = wb.Sheets[w.sheet];
+        if (!ws) return;
+        const rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false });
+        const headers = rows[1] || [];
+        const dateCols = [];
+        for (let c = 6; c < headers.length; c++) {
+          const rawD = headers[c];
+          if (rawD && String(rawD).trim()) {
+            dateCols.push({ colIdx: c, date: String(rawD).trim().replace(/^2026//, '') });
+          }
+        }
+        for (let r = 2; r < rows.length; r++) {
+          const row = rows[r];
+          if (!row || !row[5]) continue;
+          const cid = String(row[5]).trim();
+          if (!classMap[cid]) continue;
+
+          let wSum = 0;
+          dateCols.forEach(dc => {
+            const v = parseInt(row[dc.colIdx], 10) || 0;
+            if (v > 0) {
+              wSum += v;
+              classMap[cid].records.push({
+                weekKey: w.key,
+                weekName: w.name,
+                date: dc.date,
+                count: v
+              });
+            }
+          });
+          classMap[cid].weeks[w.key] = wSum;
+          classMap[cid].total += wSum;
+        }
+      });
+
+      currentData.classes = Object.values(classMap);
+      renderDashboard();
+      alert(`🎉 成功解析並更新檔案：${fileName}！畫面已即時同步新數據。`);
+    }
+
+    // CSV Export
+    function exportCSV() {
+      const list = getFilteredClasses();
+      let csv = '\uFEFF排名,班級,年級,科別,未寫總次數,扣初犯後次數,第2週,第3週,第4週,第5週,第6週,第7週,違規具體日期\n';
+      list.forEach((c, idx) => {
+        const dates = c.records.map(r => r.date).join('; ');
+        csv += `${idx+1},${c.classId},${c.grade},${c.dept},${c.displayCount},${Math.max(0, c.displayCount-1)},${c.weeks.w2||0},${c.weeks.w3||0},${c.weeks.w4||0},${c.weeks.w5||0},${c.weeks.w6||0},${c.weeks.w7||0},"${dates}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `中壢家商115-1小白板未寫統計_${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
