@@ -2041,6 +2041,83 @@ ${fallbackSteps}
   window.currentSolvedQuestion = fullQ;
   saveHist(fullQ.slice(0,45)||"題目解題",eff?`${eff.id} ${eff.name}`:g,fullQ,ansHtml,currentImgThumb,false);
 }
+function detectImageCoordinateGraph(file) {
+  return new Promise((resolve) => {
+    try {
+      if (!file || !file.type || !file.type.startsWith('image/')) return resolve(true);
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        try {
+          URL.revokeObjectURL(url);
+          const w = img.naturalWidth || img.width;
+          const h = img.naturalHeight || img.height;
+          if (!w || !h) return resolve(true);
+          const maxDim = 1000;
+          let cw = w, ch = h;
+          if (cw > maxDim || ch > maxDim) {
+            if (cw >= ch) {
+              ch = Math.round((ch * maxDim) / cw);
+              cw = maxDim;
+            } else {
+              cw = Math.round((cw * maxDim) / ch);
+              ch = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = cw;
+          canvas.height = ch;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, cw, ch);
+          const data = ctx.getImageData(0, 0, cw, ch).data;
+
+          let maxV = 0;
+          for (let x = 0; x < cw; x++) {
+            let run = 0;
+            for (let y = 0; y < ch; y++) {
+              const idx = (y * cw + x) * 4;
+              const lum = (data[idx] * 299 + data[idx + 1] * 587 + data[idx + 2] * 114) / 1000;
+              if (lum < 180) {
+                run++;
+                if (run > maxV) maxV = run;
+              } else {
+                run = 0;
+              }
+            }
+          }
+
+          let maxH = 0;
+          for (let y = 0; y < ch; y++) {
+            let run = 0;
+            for (let x = 0; x < cw; x++) {
+              const idx = (y * cw + x) * 4;
+              const lum = (data[idx] * 299 + data[idx + 1] * 587 + data[idx + 2] * 114) / 1000;
+              if (lum < 180) {
+                run++;
+                if (run > maxH) maxH = run;
+              } else {
+                run = 0;
+              }
+            }
+          }
+
+          // 坐標軸（P 軸縱向直線、Q 軸橫向直線）或圖形曲線連貫長度遠大於一般文字筆畫（文字筆畫 < 30px）
+          const hasGraph = maxV >= 45 || maxH >= 50;
+          resolve(hasGraph);
+        } catch(e) {
+          resolve(true);
+        }
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(true);
+      };
+      img.src = url;
+    } catch(e) {
+      resolve(true);
+    }
+  });
+}
 async function tryPost(silent,isVerify=false){
  try{
   const fixed=document.getElementById('ocrtext').value.trim();
@@ -2048,6 +2125,14 @@ async function tryPost(silent,isVerify=false){
   const chHint=eff?(`\n【考點章節】${eff.id} ${eff.name}`):'';
   const verifyTag=isVerify?'\n【學生反映：請以資深高職經濟學閱卷召集人身分進行「嚴格二次覆核驗算」，重新計算每個數字、正負號與觀念盲點，並於開頭說明覆核結論。注意：嚴禁使用微積分（高職生未學微積分），求總效用或極值限用觀念法（如MU=0時TU最大）或幾何圖形面積法】':'';
   const fd=new FormData();imgs.forEach(f=>fd.append('images',f));
+  if(imgs.length){
+    try {
+      const hasGraph = await detectImageCoordinateGraph(imgs[0]);
+      fd.append('hasGraph', hasGraph ? 'true' : 'false');
+    } catch(e){
+      fd.append('hasGraph', 'true');
+    }
+  }
   if(isVerify)fd.append('verify','true');
   fd.append('text',(fixed?('【學生已核對題目】'+fixed):'')+chHint+verifyTag);
    const r=await fetch('/api/solve',{method:'POST',body:fd});
