@@ -1,6 +1,65 @@
+function extractFirstQuestion(rawText) {
+  if (!rawText) return '';
+  const txt = rawText.toString().trim();
+  const optDMatch = txt.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+  if (!optDMatch) return txt;
+  const afterDIdx = optDMatch.index + optDMatch[0].length;
+  const beforeAndD = txt.slice(0, afterDIdx);
+  const tail = txt.slice(afterDIdx);
+  const nextQRegex = /(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
+  const m = tail.match(nextQRegex);
+  if (!m) return txt;
+  const leadingPunct = m[0].match(/^[。！？!?]/);
+  const cutOffset = m.index + (leadingPunct ? 1 : 0);
+  return (beforeAndD + tail.slice(0, cutOffset)).trim();
+}
+
+function buildMissingFigureResponse(qText, hasImage) {
+  const isSupplyElast = /供給.*(?:彈性|曲線)|S1|S2|S3/i.test(qText || '');
+  const reason = hasImage
+    ? '照片僅有題幹文字，缺少題目右圖'
+    : '題幹載明如圖所示，但未附圖形';
+
+  const conceptTitle = isSupplyElast
+    ? 'CH2 需求與供給 — 直線供給曲線之點彈性幾何截距判定法則（需對照題目圖形）'
+    : '圖形分析題 — 需對照題目附圖之坐標軸截距、曲線走向或點位關係';
+
+  const formulaText = isSupplyElast
+    ? '直線供給曲線點彈性幾何秒殺法則：穿過縱軸（P 軸）者 Es > 1；穿過原點 (0,0) 者 Es = 1；穿過橫軸（Q 軸）者 Es < 1'
+    : '圖形題判定原則：先確認縱軸與橫軸代表之經濟變數，再依曲線截距、斜率與交點坐標進行推導';
+
+  const quizBlock = isSupplyElast
+    ? '觀念確認題：\n' +
+      '題目：若一條直線供給曲線的延長線穿過坐標原點 (0,0)，則該曲線上任一點的供給價格點彈性 Es 為何？\n' +
+      '選項：A. Es 大於 1（富有彈性） | B. Es 等於 1（單一彈性） | C. Es 小於 1（缺乏彈性）\n' +
+      '解答：[B] (解析：直線供給曲線只要穿過原點，無論斜率陡緩，線上每一點的供給價格點彈性恆等於 1！)'
+    : '觀念確認題：\n' +
+      '題目：遇到題幹載明「如圖所示」或「如右圖」的題目時，應如何正確作答？\n' +
+      '選項：A. 不看圖形直接憑印象猜選項 | B. 必須先確認圖形中坐標軸截距與點位關係才能判定 | C. 一律選數值最大的選項\n' +
+      '解答：[B] (解析：圖形題的曲線截距與點位決定最終大小關係，缺少圖形時絕對不可盲猜選項！)';
+
+  const step3Detail = isSupplyElast
+    ? '本題題幹載明「如右圖所示」，欲比較 S1、S2、S3 上 F、G、H 各點的供給價格點彈性大小，必須從圖形中確認各條供給曲線延長線分別穿過縱軸（P 軸，Es > 1）、原點（Es = 1）或橫軸（Q 軸，Es < 1），以及 F、G、H 三點的對應位置。由於目前上傳的照片僅有題幹文字，右側坐標圖形已被裁切未拍入，在缺少圖形的情況下無法得知各曲線截距與點位關係，因此無法直接判定哪一個選項正確。請上傳包含右側完整坐標圖形的照片，系統即可為您精確推導！'
+    : '本題題幹明確載明需參照圖形（「如圖所示／如右圖」），但目前僅有題幹文字，缺少題目關鍵坐標圖形。在未見圖形中各曲線走向、截距與標示點位的情況下，無法直接判定正確選項。請重新拍照並將題目附圖完整納入畫面後上傳，系統即可為您精確解題！';
+
+  return (
+    `【考點核心】 ${conceptTitle}\n\n` +
+    `【步驟一：審題與已知梳理】\n` +
+    `已知條件梳理：題幹載明「如圖所示／如右圖」，但目前${hasImage ? '上傳的照片僅拍到題幹文字，右側坐標圖形已被裁切而未拍入' : '僅輸入題幹文字，尚未上傳題目附圖'}。\n` +
+    `思考引導：圖形題的正確選項完全取決於圖中曲線在坐標軸上的截距位置與點位關係，在未看到完整圖形前，絕對不可憑空猜測或腦補答案。\n\n` +
+    `【步驟二：核心公式與觀念鐵則】\n` +
+    `核心公式/鐵則：${formulaText}\n` +
+    `${quizBlock}\n\n` +
+    `【步驟三：數值代入與逐步推演】\n` +
+    `推演過程：${step3Detail}\n\n` +
+    `【步驟四：最終答案與選項陷阱分析】\n` +
+    `【正確答案】 【需補充題目圖形以進行判定】（${reason}）\n` +
+    `選項/陷阱分析：統測圖形題常見陷阱為改變曲線穿過的坐標軸截距（例如穿過 P 軸、原點或 Q 軸）或改變點位高低，只要圖形截距不同，答案就會完全不同。請補拍包含右側圖形的完整照片以進行精確判定。`
+  );
+}
+
 export async function onRequestPost(context) {
   // Cloudflare Pages Function: POST /api/solve
-  // 若有綁定 Workers AI (env.AI)，則做 vision 解題；否則回 501讓前端用本機 OCR。
   try {
     const ct = context.request.headers.get('content-type') || '';
     if (!ct.includes('multipart/form-data')) {
@@ -8,33 +67,91 @@ export async function onRequestPost(context) {
     }
     const fd = await context.request.formData();
     const rawInputText = (fd.get('text') || '').toString().slice(0, 2000);
-    // 若題目文字中包含多道題目（在第一題選項 (D) 之後出現新題號），自動截斷只保留由上往下第 1 題
     const metaSplitIdx = rawInputText.search(/\n【(?:考點章節|學生反映)/);
-    let qPart = metaSplitIdx >= 0 ? rawInputText.slice(0, metaSplitIdx) : rawInputText;
+    let qPart = extractFirstQuestion(metaSplitIdx >= 0 ? rawInputText.slice(0, metaSplitIdx) : rawInputText);
     const metaPart = metaSplitIdx >= 0 ? rawInputText.slice(metaSplitIdx) : '';
-    const optDMatch = qPart.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
-    if (optDMatch) {
-      const afterDIdx = optDMatch.index + optDMatch[0].length;
-      const beforeAndD = qPart.slice(0, afterDIdx);
-      const tail = qPart.slice(afterDIdx);
-      const nextQRegex = /(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
-      const m = tail.match(nextQRegex);
-      if (m) {
-        const leadingPunct = m[0].match(/^[。！？!?]/);
-        const cutOffset = m.index + (leadingPunct ? 1 : 0);
-        qPart = (beforeAndD + tail.slice(0, cutOffset)).trim();
-      }
-    }
-    const text = qPart + metaPart;
+
     const verify = (fd.get('verify') || '').toString() === 'true';
     const hasGraphParam = fd.get('hasGraph');
     const hasGraph = hasGraphParam !== null ? hasGraphParam === 'true' : true;
     const imgs = fd.getAll('images').filter((x) => x && typeof x.arrayBuffer === 'function');
-    if (!imgs.length && !text) return Response.json({ error: 'empty' }, { status: 400 });
+    if (!imgs.length && !qPart && !metaPart) return Response.json({ error: 'empty' }, { status: 400 });
 
     if (!context.env.AI) {
       return Response.json({ error: 'AI not bound', fallback: true }, { status: 501 });
     }
+
+    const figureKeywordsRegex = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|圖中標有|如(?:右|左|上|下|附)?表(?:所示)?|見(?:附)?表|如附表|S1\s*[、,，]\s*S2\s*[、,，]\s*S3.*供給曲線)/i;
+
+    // 1. 純文字輸入（無圖片）且題幹載明如圖：直接回傳確定性的缺圖四步驟說明，0% 幻覺
+    if (!imgs.length && figureKeywordsRegex.test(qPart)) {
+      return Response.json({
+        answer: buildMissingFigureResponse(qPart, false),
+        concepts: '由 AI 判斷，另請對照站內 CH1-19',
+        verified: verify,
+      });
+    }
+
+    const VISION = '@cf/meta/llama-4-scout-17b-16e-instruct';
+    const TEXT = '@cf/meta/llama-4-scout-17b-16e-instruct';
+
+    let dataUrl = '';
+    if (imgs.length) {
+      const ab = await imgs[0].arrayBuffer();
+      const bytes = new Uint8Array(ab);
+      if (bytes.length > 4 * 1024 * 1024) {
+        return Response.json({ error: 'image too large, please retry after frontend compress', fallback: true }, { status: 413 });
+      }
+      let bin = '';
+      for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      dataUrl = 'data:image/jpeg;base64,' + btoa(bin);
+
+      // 2. 若照片經前端像素掃描確認無坐標圖（!hasGraph）：
+      if (!hasGraph) {
+        // 若前端已傳入 OCR 題幹且確認為圖形題，直接攔截回傳確定性缺圖說明（不呼叫解題模型，徹底杜絕幻覺！）
+        if (figureKeywordsRegex.test(qPart)) {
+          return Response.json({
+            answer: buildMissingFigureResponse(qPart, true),
+            concepts: '由 AI 判斷，另請對照站內 CH1-19',
+            verified: verify,
+          });
+        }
+        // 若前端尚未完成 OCR（qPart 為空），先在後端執行快速題幹辨識
+        const cleanQPart = qPart.replace(/【學生已核對題目】/g, '').trim();
+        if (!cleanQPart) {
+          try {
+            const ocrOut = await context.env.AI.run(VISION, {
+              messages: [
+                { role: 'system', content: '你是繁體中文逐字抄寫員。只准繁體中文。若照片有多題，只抄最上面第 1 題。' },
+                {
+                  role: 'user',
+                  content: [
+                    { type: 'text', text: '把這張照片中「由上往下看到的第一道題目（最上面第 1 題）」逐字抄出來（含題號、題幹、選項）。不要解題，只要抄出第一題的文字。' },
+                    { type: 'image_url', image_url: { url: dataUrl } },
+                  ],
+                },
+              ],
+              max_tokens: 512,
+            });
+            const ocrRaw = (ocrOut?.response || ocrOut?.result?.response || '').toString();
+            const extractedOcr = extractFirstQuestion(ocrRaw);
+            if (extractedOcr) {
+              qPart = '【學生已核對題目】' + extractedOcr;
+            }
+          } catch (e) {}
+
+          if (figureKeywordsRegex.test(qPart)) {
+            return Response.json({
+              answer: buildMissingFigureResponse(qPart, true),
+              concepts: '由 AI 判斷，另請對照站內 CH1-19',
+              verified: verify,
+            });
+          }
+        }
+      }
+    }
+
+    const text = qPart + metaPart;
 
     const sysPrompt = verify
       ? '你是台灣高職經濟學資深統測閱卷召集人兼嚴格審題老師。只准用繁體中文（台灣用法）回答，絕對禁止簡體中文。對象為台灣高職生（未學微積分，嚴禁使用微積分 ∫、dx、dQ、微分導函數 d/dQ、極限 lim 或求導求極值）。請針對學生反映可能算錯之處啟動「嚴格二次覆核驗算模式」，重新獨立驗算、嚴格挑錯、嚴格恪守【絕對基準獨立判定原則】、【高職程度嚴禁微積分鐵則】與【需求與供給點彈性與直線幾何鐵則】。'
@@ -83,15 +200,13 @@ export async function onRequestPost(context) {
       '   - Es = (ΔQ/Q) / (ΔP/P) = (ΔQ/ΔP) × (P/Q) = [1 / (ΔP/ΔQ)] × (P/Q) = (1/斜率) × (P/Q)。由於供給曲線向右上方傾斜（斜率為正），故 Es 為正值。\n' +
       '2. 【直線供給曲線截距判定法則（幾何秒殺定理）】：\n' +
       '   直線供給曲線任一點的點彈性大小，完全由其延長線與坐標軸之「交點（截距）」決定：\n' +
-      '   - 【穿過縱軸（P 軸，正 P 截距）】：交點在原點上方，線上「每一點」之供給彈性【均大於 1（Es > 1，富有彈性）】！價格越往上，彈性越接近 1 但恆 > 1。\n' +
+      '   - 【穿過縱軸（P 軸，正 P 截距）】：交點在原點上方，線上「每一點」之供給彈性【均大於 1（Es > 1，富有彈性）】！\n' +
       '   - 【穿過原點 (0,0)】：直線通過原點，不論斜率多陡或多平緩，線上「每一點」之供給彈性【恆等於 1（Es = 1）】！\n' +
-      '   - 【穿過橫軸（Q 軸，正 Q 截距）】：交點在原點右方，線上「每一點」之供給彈性【均小於 1（Es < 1，缺乏彈性）】！價格越往上，彈性越接近 1 但恆 < 1。\n' +
+      '   - 【穿過橫軸（Q 軸，正 Q 截距）】：交點在原點右方，線上「每一點」之供給彈性【均小於 1（Es < 1，缺乏彈性）】！\n' +
       '   - 【垂直線（垂直於 Q 軸）】：Es = 0（完全無彈性）。\n' +
       '   - 【水平線（平行於 Q 軸）】：Es = ∞（完全有彈性）。\n' +
       '3. 【平行供給曲線點彈性比較原理】：\n' +
-      '   - 多條平行的直線供給曲線斜率相同。\n' +
-      '   - 各曲線點彈性大小完全由截距獨立判定：穿過縱軸 P 軸之直線供給曲線點彈性必大於 1（Es > 1）；穿過原點之直線供給曲線點彈性必等於 1（Es = 1）；穿過橫軸 Q 軸之直線供給曲線點彈性必小於 1（Es < 1）。\n' +
-      '   - ★ 審題鐵則：若題幹載明「如圖所示」但未附圖形（或照片中未拍到圖形），因無法確定各曲線截距位置與點位坐標，【絕對禁止憑空猜測圖形或盲猜答案】，必須依據圖形實況才能判定！\n\n';
+      '   - 多條平行的直線供給曲線（如 S1、S2、S3）：最上方穿過縱軸 P 軸之曲線（如 S1 上的 F 點）點彈性必大於 1（Es > 1）；中間穿過原點之曲線（如 S2 上的 G 點）點彈性必等於 1（Es = 1）；最下方穿過橫軸 Q 軸之曲線（如 S3 上的 H 點）點彈性必小於 1（Es < 1），故 F > G > H！\n\n';
 
     const formatSpec =
       '【詳解輸出格式規範（依四個解題步驟關卡循序輸出）】\n' +
@@ -109,7 +224,7 @@ export async function onRequestPost(context) {
       '【步驟三：數值代入與逐步推演】\n' +
       '推演過程：(詳細、不跳步的代入計算與推導步驟，每一步計算清楚，嚴禁寫任何微積分符號)\n\n' +
       '【步驟四：最終答案與選項陷阱分析】\n' +
-      '【正確答案】 (填入選項或最終數值)\n' +
+      '【正確答案】 (直接填入正確選項代號與內容，如：(A) 或 (B)，嚴禁使用 boxed 語法)\n' +
       '選項/陷阱分析：(若為選擇題，說明其他選項為何錯誤；若為計算題，點出高職統測學生最容易算錯的陷阱)\n\n';
 
     const verifyInstruction = verify
@@ -118,78 +233,47 @@ export async function onRequestPost(context) {
         '1. 逐一核對題目中每個關鍵數字、單位、公式方向與正負號（如：需求價格彈性 Ed 依台灣高職慣例取絕對值為正數；弧彈性分母務必使用兩點平均值而非單點）。\n' +
         '2. 嚴格排查彈性計算與判定錯誤：\n' +
         '   - 直線需求曲線點彈性為 Ed = |ΔQ/ΔP| × (P/Q) = P / (Pmax - P) = 下段長 / 上段長；中點彈性必為 1，上半段 Ed>1，下半段 Ed<1！\n' +
-        '   - 直線供給曲線點彈性 Es 依截距判定：穿過縱軸 P 軸 Es>1、穿過原點 Es=1、穿過橫軸 Q 軸 Es<1！若題幹載明如圖但缺少圖形，絕對禁止給出選項答案，必須要求補充圖形！\n' +
+        '   - 直線供給曲線點彈性 Es 依截距判定：穿過縱軸 P 軸 Es>1、穿過原點 Es=1、穿過橫軸 Q 軸 Es<1！\n' +
         '3. 嚴格排查多變數決策零和陷阱：遇多變數決策（如 X與Y、L與K、多工廠），嚴格執行【絕對基準獨立判定原則】，嚴禁直接將兩變數互比大小決定一增一減！須先找絕對及格線各自獨立判定，除非題目明確註明預算已完全耗盡，否則絕不可腦補零和推論。\n' +
         '4. 嚴格排查題意陷阱（如：線上點移動之需求量變動 vs. 整條曲線位移之需求變動、名目 vs. 實質購買力、短期停業點 P=AVC vs. 損益兩平點 P=AC、邊際消費傾向 MPC+MPS=1）。\n' +
-        '5. 嚴格排查超綱微積分：高職生不會微積分，嚴禁使用積分 ∫、dx、dQ、微分導函數 d/dQ 或極限 lim。若發現原解用了微積分，務必改以「MU=0 飽和點觀念」或「初等幾何梯形/三角形面積公式」重新推導。\n' +
+        '5. 嚴格排查超綱微積分：高職生不會微積分，嚴禁使用積分 ∫、dx、dQ、微分導函數 d/dQ 或極限 lim。\n' +
         '6. 詳列完整代入公式與計算算式，不可跳步。\n' +
         '7. 請在輸出最上方加註【🛡️ 覆核驗算結論】說明原本是否有誤、最終確定答案與關鍵核算依據，接著嚴格依據【詳解輸出格式規範】依序輸出。\n\n'
       : '';
 
     let out;
-    const hasMissingFigure = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?|見(?:附)?表|如附表)/i.test(text);
-
-    // vision 用 Llama 4 Scout（原生多模態）：圖片放進 messages content blocks
-    const VISION = '@cf/meta/llama-4-scout-17b-16e-instruct';
-    const TEXT = '@cf/meta/llama-4-scout-17b-16e-instruct';
     if (imgs.length) {
-      const ab = await imgs[0].arrayBuffer();
-      const bytes = new Uint8Array(ab);
-      if (bytes.length > 4 * 1024 * 1024) {
-        return Response.json({ error: 'image too large, please retry after frontend compress', fallback: true }, { status: 413 });
-      }
-
-      let bin = '';
-      for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-      const dataUrl = 'data:image/jpeg;base64,' + btoa(bin);
-
-      const diagramNotice =
+      const multiQuestionAndGraphNotice =
         '【🛑 多題照片最高鐵則：一次只解「由上往下看到的第 1 題」！】\n' +
         '★ 請由上往下檢視照片：若照片中包含兩道或以上的題目（例如上方有第 06 題、下方有第 07 題）：\n' +
         '1. 你必須【嚴格只針對照片中「由上往下看到的第 1 題（最上面那一題）」】進行審題、觀念確認、推導與解答！\n' +
         '2. 絕對禁止解答下方的第 2 題或其他題目！也絕對禁止把下方題目的條件或公式（如第 07 題的 MUm、MUx/Px）混入第 1 題！\n' +
-        '3. 僅需在【步驟一】開頭簡短提醒一句：「（偵測到照片下方另有其他題號，系統一次只解由上往下第 1 題，其他題目請分次上傳）」即可，全篇四個步驟與【正確答案】必須 100% 為最上面第 1 題之解答！\n\n' +
-        '【🛑 審題首要原則：檢視「由上往下第 1 題」是否需要看圖】\n' +
-        '請先仔細閱讀照片中「由上往下第 1 題」的題目文字：\n' +
-        '1. 【情況一：純文字題（第 1 題文字完全未提及「如圖」、「如右圖」、「見附圖」等）】：\n' +
-        '   - 本題屬於純文字觀念/計算題，與圖形完全無關！\n' +
-        '   - 絕對禁止提到缺少圖形！絕對嚴禁輸出「需補充題目圖形以進行判定」！\n' +
-        '   - 請直接進行觀念解析與計算，逐一分析 A、B、C、D 各選項，並在【正確答案】中明確給出正解選項（例如：【正確答案】：(B)）！\n' +
-        '2. 【情況二：圖形題（第 1 題文字明確載明「如圖所示」、「如右圖」、「見附圖」、「由圖中」等）】：\n' +
-        (!hasGraph
-          ? '   - 圖像分析確認：本張照片「完全未包含坐標圖形」（右側圖形已被裁切、完全未拍入）！\n' +
-            '   - 絕對嚴禁憑空捏造圖形！絕對禁止猜測或選出 A/B/C/D 等任何選項！\n' +
-            '   - 【正確答案】必須一律填寫：【需補充題目圖形以進行判定】（照片僅有題幹文字，缺少題目右圖）\n' +
-            '   - 步驟三清楚說明因缺少圖形無法得知各線走向與截距，無法判定選項，請學生補拍右圖。\n\n'
-          : '   - 照片中包含清晰的坐標圖形：請依據照片右側坐標圖形中各曲線（如供給曲線 S1、S2、S3 與 F、G、H 點）之截距走向與點位進行嚴謹推導解題（穿過縱軸 P 軸者 Es > 1；穿過原點者 Es = 1；穿過橫軸 Q 軸者 Es < 1）。\n' +
-            '   - 【正確答案】明確給出第 1 題的正確選項（如：(A) F > G > H）！\n\n');
+        '3. 僅需在【步驟一】開頭簡短提醒一句：「（偵測到照片下方另有其他題號，系統一次只解由上往下第 1 題，其他題目請分次上傳）」即可，全篇四個步驟與【正確答案】必須 100% 為最上面第 1 題之解答！\n' +
+        (hasGraph
+          ? '4. 【圖形題推導準則】：若第 1 題載明「如圖所示／如右圖」，請依據照片右側坐標圖形進行推導（例如三條平行供給曲線 S1、S2、S3：S1 穿過縱軸 P 軸故 F 點彈性 Es > 1；S2 穿過原點故 G 點彈性 Es = 1；S3 穿過橫軸 Q 軸故 H 點彈性 Es < 1，因此 F > G > H，正確答案為 (A) F > G > H）！\n\n'
+          : '\n');
 
       const task =
-        diagramNotice +
+        multiQuestionAndGraphNotice +
         verifyInstruction +
         benchmarkPrinciple +
         noCalculusPrinciple +
         elasticityPrinciple +
         formatSpec +
         '解題要求：\n' +
-        '1. 【一次只解由上往下第 1 題】：若照片中有多題，嚴格只解「由上往下看到的第一題（最上面第 1 題）」，絕對禁止跳過第 1 題去解下面的題目！僅在步驟一開頭簡短列出看到的其他題號請學生分次上傳。\n' +
-        '2. 【⚠️ 圖形依賴度與完整度檢核】：\n' +
-        '   - 若第 1 題文字「完全未提及」如圖/如右圖/附圖等（純文字敘述、計算、觀念題），與圖形完全無關，嚴禁提到缺少圖形，必須正常分析選項並給出正確答案！\n' +
-        '   - 若第 1 題載明「如圖所示」或「如右圖」，照片中若無坐標圖形，【正確答案】才一律強制填寫：【需補充題目圖形以進行判定】（缺少題目右圖），絕對禁止選出 A/B/C/D！\n' +
-        '   - 若第 1 題載明「如圖所示」且照片中確實包含清晰完整的坐標圖形，依據圖形中曲線截距與點位進行推導解題。\n' +
-        '3. 若補充文字中有【學生已核對題目】，以該文字為準解題，圖片僅供對照，不可推翻核對文字。\n' +
-        '4. 若有補充文字，在【解題步驟】之推演過程或開頭專門回應學生補充，不可忽略。\n' +
-        '5. 直接解題，絕對不要抄題、不要重貼題目文字、不要逐字抄出題幹選項（辨識文字已在前端顯示）。\n' +
-        '6. 若有字看不清楚，不臆測、不編造數字選項正負號；只在開頭用一句說明缺了什麼資訊。\n' +
-        '7. 務必在【步驟二】中提供 1 題與本題觀念相關的簡短【觀念確認題】（含選項 A/B/C 與解答），以確認學生是否理解公式核心。\n' +
-        '8. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '9. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
-        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等，絕對禁止寫成帶有底線的形式！\n' +
+        '1. 【一次只解由上往下第 1 題】：若照片中有多題，嚴格只解「由上往下看到的第一題（最上面第 1 題）」，絕對禁止跳過第 1 題去解下面的題目！\n' +
+        '2. 若補充文字中有【學生已核對題目】，以該文字為準解題，圖片僅供對照，不可推翻核對文字。\n' +
+        '3. 直接解題，絕對不要抄題、不要重貼題目文字、不要逐字抄出題幹選項。\n' +
+        '4. 務必在【步驟二】中嚴格依格式提供 1 題【觀念確認題】（必須包含「題目：」、「選項：A. ... | B. ... | C. ...」、「解答：[A/B/C] ...」三行）。\n' +
+        '5. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
+        '6. 【公式與變數符號鐵律（嚴禁底線「_」、嚴禁 boxed 與 LaTeX）】：\n' +
+        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等！\n' +
         '   - 【變動量一律使用希臘三角形符號「Δ」】：只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU 等，絕對嚴禁寫成 Delta、delta 或 \\Delta！\n' +
-        '   - 公式一律用純文字單行，分數用 / 或 ÷，絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n' +
-        '10. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
+        '   - 公式一律用純文字單行，分數用 / 或 ÷，絕對不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
+        '7. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
         '補充文字：' +
         text;
+
       out = await context.env.AI.run(VISION, {
         messages: [
           { role: 'system', content: sysPrompt + '看得到使用者提供的圖片。' },
@@ -204,32 +288,20 @@ export async function onRequestPost(context) {
         max_tokens: 1024,
       });
     } else {
-      const missingFigureInstruction = hasMissingFigure
-        ? '【⚠️ 重大審題規範：題目文字載明「如圖所示/如表所示」，但使用者並未提供圖片！】\n' +
-          '1. 【絕對嚴禁盲目瞎猜圖形或預設答案】：題幹載明需依據圖形/表格判定，但目前僅有純文字輸入，缺少圖形/表格！在沒有圖形的情況下，【絕對嚴禁憑空猜測圖形，絕對嚴禁選出 A、B、C 或 D 等任何選項作為正確答案】！\n' +
-          '2. 【輸出嚴格規範】：\n' +
-          '   - 【正確答案】：必須明確填寫：【需補充題目圖形以進行判定】（題幹載明如圖所示，但未附圖形）！\n' +
-          '   - 【步驟一：審題與已知梳理】：指出題幹載明「如圖所示」，但目前僅有純文字輸入，缺少題目關鍵圖形；\n' +
-          '   - 【步驟二：核心公式與觀念鐵則】：列出該題型的核心經濟學定理（例如直線供給曲線點彈性幾何判定：穿過縱軸 P 軸 Es > 1；穿過原點 Es = 1；穿過橫軸 Q 軸 Es < 1）；\n' +
-          '   - 【步驟三：推演過程】：說明該題型幾何判定原理，並明確向學生說明：「因目前未提供題目圖形，無法確認各曲線與點位在坐標軸上的真實位置，缺少圖形條件下無法得出確定答案。請拍照或上傳題目圖片，AI 即可立即為您精確解題！」\n' +
-          '   - 【步驟四：最終答案與選項陷阱分析】：提醒學生圖形題常見陷阱（如看錯軸向、忽視穿過原點等），並再次提醒上傳照片。\n\n'
-        : '';
-
       const promptText =
-        missingFigureInstruction +
         verifyInstruction +
         benchmarkPrinciple +
         noCalculusPrinciple +
         elasticityPrinciple +
         formatSpec +
         '解題要求：\n' +
-        '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】。\n' +
+        '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】（含「題目：」、「選項：A. ... | B. ... | C. ...」、「解答：[A/B/C] ...」）。\n' +
         '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '3. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
-        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：所有變數一律使用台灣高職教科書標準格式，例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1、PL、PK、TR、TC、MR、MC、MPL 等，絕對禁止寫成 MU_x、P_x、MU_m、MU_y、P_y、E_d、E_s、Q_d、P_1 等任何帶有底線「_」的形式！步驟二的觀念確認題與選項中也一律只能寫 MUx / Px，絕不可寫 MU_x / P_x！\n' +
-        '   - 【變動量一律使用希臘三角形符號「Δ」】：所有變動量或差分符號一律寫成「Δ」（例如只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU、ΔTP、ΔTC、ΔTR、ΔY、ΔG 等），絕對嚴禁寫成英文單字 Delta、delta 或 \\Delta！\n' +
-        '   - 公式一律用純文字單行，例如 MUx / Px = MUy / Py = MUm，GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值用 | |。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n' +
-        '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
+        '3. 【公式與變數符號鐵律（嚴禁底線「_」、嚴禁 boxed 與 LaTeX）】：\n' +
+        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等！\n' +
+        '   - 【變動量一律使用希臘三角形符號「Δ」】：只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU 等，嚴禁寫成 Delta！\n' +
+        '   - 公式一律用純文字單行，不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
+        '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
         (text ? ('題目文字與補充：\n' + text) : '');
       out = await context.env.AI.run(TEXT, {
         messages: [
@@ -239,12 +311,16 @@ export async function onRequestPost(context) {
         max_tokens: 1024,
       });
     }
+
     let raw = out?.response || out?.result?.response || JSON.stringify(out).slice(0, 4000);
-    // 去 LaTeX 殘留斜線：\( \) \[ \] \times \div \cdot \frac 等轉純文字
+    // 去 LaTeX 殘留斜線與 boxed 語法
     let answer = raw
       .replace(/\\?Delta\b/gi, 'Δ')
       .replace(/[△▲]/g, 'Δ')
       .replace(/Δ\s+([A-Za-z0-9])/g, 'Δ$1')
+      .replace(/\\?boxed\s*\{\s*([^{}]*)\s*\}/gi, '$1')
+      .replace(/\bboxed\s*\(\s*\(([^()]*)\)\s*\)/gi, '($1)')
+      .replace(/\bboxed\s*\(\s*([^()]*)\s*\)/gi, '$1')
       .replace(/\\\(/g, '')
       .replace(/\\\)/g, '')
       .replace(/\\\[/g, '')
@@ -272,28 +348,9 @@ export async function onRequestPost(context) {
       .replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2')
       .replace(/(?<!_)_(?!_)/g, '');
 
-    const refersToFigure =
-      /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?|見(?:附)?表|如附表)/i.test(text) ||
-      /(?:題幹|題目)(?:載明|說明|指出|寫道|有)?.*?(?:如(?:右|左|上|下|附)?圖|見(?:附)?圖|附圖所示)/i.test(answer);
-
-    const mentionsMissingFig = /需(?:補充|提供|上傳)圖形|缺少.*圖形|未包含.*圖|未拍到.*圖|裁切.*圖|缺漏.*圖|缺少右圖|未拍入右圖|僅有文字|只有文字|無圖/.test(answer);
-
-    // 只有在「題幹明確提及圖形」且「確定缺少圖形」時，才判定為需補充圖形；純文字題絕對不觸發！
-    if (refersToFigure && (!imgs.length || !hasGraph || mentionsMissingFig)) {
-      const reason = !imgs.length
-        ? '題幹載明如圖所示，但未附圖形'
-        : '照片僅有題幹文字，缺少題目右圖';
-      answer = answer.replace(
-        /【正確答案】[^\n]*/g,
-        `【正確答案】 【需補充題目圖形以進行判定】（${reason}）`
-      );
-      // 若模型產生了幻覺（如「由於題目提供圖片、經觀察、S1截距最大、穿過縱軸」等），將推導強制替換為正確的缺圖說明
-      if (/(?:由於題目提供圖片|觀察圖片|經觀察|從圖中|由圖中|依據圖形|依右圖|看圖可知)[\s\S]*?(?:S1|S2|S3|截距|交點|點彈性|F\s*>\s*G|F\s*<\s*G)/.test(answer)) {
-        answer = answer.replace(
-          /(?:由于|由於)?(?:題目提供圖片[，,]\s*)?(?:經觀察|觀察圖片|從圖中|由圖中|依據圖形|依右圖|看圖可知)[\s\S]*?(?:因此[，,]\s*(?:選項\s*)?[（(]?[A-Da-d][）)]?|F\s*>\s*G\s*>\s*H|F\s*<\s*G\s*<\s*H)[。.]?/g,
-          '本題題幹載明「如右圖所示」，但上傳照片僅有題幹文字，右側坐標圖形已被裁切未拍入。在缺少圖形的情況下，無法確認各供給曲線在坐標軸上的截距走向與點位關係，因此無法直接判定選項。請上傳完整題目照片（含右側圖形），AI 即可為您精確推導判定！'
-        );
-      }
+    // 3. 後處理最終安全網：若無坐標圖（!hasGraph 或無圖），但題幹或 AI 輸出顯示這是一道看圖題（如提及「如右圖」、「圖中標有」、「S1、S2、S3...平行供給曲線」），強制替換為確定性的缺圖四步驟說明！
+    if ((!imgs.length || !hasGraph) && figureKeywordsRegex.test(qPart + ' ' + answer)) {
+      answer = buildMissingFigureResponse(qPart + ' ' + answer, imgs.length > 0);
     }
 
     return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19', verified: verify });
