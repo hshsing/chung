@@ -161,6 +161,287 @@ body.mode-auto .wrap{max-width:1080px}
   body.mode-auto .term-grid{grid-template-columns:1fr}
 }
 
+/* === 步驟引導式解題關卡樣式 === */
+.step-stepper-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 10px 0 14px;
+  overflow-x: auto;
+  gap: 6px;
+}
+.step-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: .84rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.step-nav-btn:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+.step-nav-btn.active {
+  background: #ea580c;
+  border-color: #ea580c;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
+}
+.step-nav-btn.completed {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #16a34a;
+}
+.step-nav-btn.locked {
+  opacity: .55;
+  cursor: not-allowed;
+  background: #f1f5f9;
+}
+.step-arrow-divider {
+  color: #cbd5e1;
+  font-size: .8rem;
+  font-weight: 800;
+  user-select: none;
+}
+
+/* 關卡步驟卡片 */
+.step-card {
+  background: #ffffff;
+  border: 1.5px solid #fed7aa;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 3px 10px rgba(249, 115, 22, 0.06);
+  transition: all .25s ease;
+  position: relative;
+}
+.solution-stepper-wrap:not(.mode-expanded) .step-card.step-locked {
+  display: none !important;
+}
+.step-card.step-active {
+  border-color: #ea580c;
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.12);
+}
+.step-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed #fed7aa;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.step-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-badge-num {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.step-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #9a3412;
+}
+.step-status-tag {
+  font-size: .78rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* 步驟下一步操作區 */
+.step-action-bar {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed #fed7aa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.solution-stepper-wrap.mode-expanded .step-action-bar {
+  display: none;
+}
+.step-next-btn {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: .92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(234, 88, 12, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform .1s, opacity .2s;
+}
+.step-next-btn:hover {
+  opacity: .92;
+  transform: translateY(-1px);
+}
+.step-next-btn:active {
+  transform: scale(0.98);
+}
+
+/* 步驟二：觀念檢核題卡片 */
+.step-quiz-card {
+  background: #fff8f5;
+  border: 1.5px solid #fdba74;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 14px 0 8px;
+}
+.step-quiz-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 800;
+  color: #c2410c;
+  font-size: .92rem;
+  margin-bottom: 8px;
+}
+.step-quiz-question {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: .95rem;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.step-quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.step-opt-btn {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-opt-btn:hover {
+  border-color: #fdba74;
+  background: #fffaf5;
+}
+.step-opt-btn.correct {
+  background: #f0fdf4 !important;
+  border-color: #22c55e !important;
+  color: #15803d !important;
+  font-weight: 700;
+}
+.step-opt-btn.incorrect {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+  color: #991b1b !important;
+}
+.step-quiz-result {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: .88rem;
+  line-height: 1.55;
+  display: none;
+}
+.step-quiz-result.show {
+  display: block;
+}
+
+/* 步驟四：學習成效確認卡片 */
+.understanding-card {
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 16px;
+}
+.understanding-title {
+  font-weight: 800;
+  color: #166534;
+  font-size: .98rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.understanding-desc {
+  font-size: .84rem;
+  color: #14532d;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+.understanding-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.under-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s;
+}
+.under-btn.mastered {
+  background: #16a34a;
+  color: #fff;
+  border-color: #15803d;
+}
+.under-btn.mastered:hover {
+  background: #15803d;
+}
+.under-btn.review {
+  background: #fff;
+  color: #b45309;
+  border-color: #f59e0b;
+}
+.under-btn.review:hover {
+  background: #fffbeb;
+}
+.under-feedback-msg {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: .88rem;
+  font-weight: 600;
+  display: none;
+}
+
 </style>
 </head>
 <body>
@@ -168,7 +449,7 @@ body.mode-auto .wrap{max-width:1080px}
 <div class="wrap top">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
   <div>
-    <h1 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">高職經濟學解題網 <span style="font-size:.72rem;background:rgba(255,255,255,0.25);color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:999px;padding:2px 8px">v2026-10-16</span></h1>
+    <h1 style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">高職經濟學解題網 <span style="font-size:.72rem;background:rgba(255,255,255,0.25);color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:999px;padding:2px 8px">v2026-10-18 步驟闖關版</span></h1>
     <p>第一塊拍照上傳當場解題・第二塊點選看每章詳細內容・手機與桌機皆適應</p>
   </div>
   <!-- 介面模式切換器 (手機 / 桌機 / 自動) -->
@@ -201,13 +482,13 @@ body.mode-auto .wrap{max-width:1080px}
 <!-- Block 1 -->
 <div id="block1" class="card">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-  <h2 style="margin:0"><span class="badge">第一塊</span>拍照解題・AI 視圖直解＋智慧錯題本</h2>
+  <h2 style="margin:0"><span class="badge">第一塊</span>拍照解題・互動引導關卡＋智慧錯題本</h2>
   <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
     <a href="高職經濟學解題網_學生使用說明手冊.pdf" target="_blank" download="高職經濟學解題網_學生使用說明手冊.pdf" class="chip-btn" style="text-decoration:none;font-weight:700;color:#9a3412;border-color:#fdba74;background:#fffaf5">📄 下載學生說明手冊 (PDF)</a>
     <span class="muted" style="font-size:.82rem">拍照一鍵直解・可選微調</span>
   </div>
 </div>
-<p class="muted" style="margin-top:0">流程：<b>1. 拍照/上傳題目 → 2. 點擊立即解題 🚀</b>（若遇考卷反光或折痕，可點開下方「微調文字」修訂）。</p>
+<p class="muted" style="margin-top:0">流程：<b>1. 拍照/上傳題目 → 2. 點擊立即解題 ➔ 3. 循序逐步闖關、隨堂確認理解 🎯</b>（支援一鍵切換完整詳解）。</p>
 <details style="margin-bottom:8px"><summary>拍得清楚的小技巧（點開看）</summary>
 <ul class="muted"><li>平放考卷、手機垂直拿正，字體越清晰辨識越準</li><li>若考卷字太小或有折痕，可靠近拍攝或開燈避開陰影</li><li>若照片拍到多題，可善用下方「✂️ 裁切選取本題」或「🔄 旋轉」工具</li></ul></details>
 
@@ -330,8 +611,8 @@ body.mode-auto .wrap{max-width:1080px}
   </div>
 </details>
 
-<!-- 解題按鈕（一鍵直出詳解） -->
-<button class="primary" style="font-size:1.06rem;padding:12px;box-shadow:0 3px 12px rgba(249,115,22,0.3)" onclick="solve(true)">🚀 拍照立即解題（AI 視圖直解）</button>
+<!-- 解題按鈕（步驟引導解題） -->
+<button class="primary" style="font-size:1.06rem;padding:12px;box-shadow:0 3px 12px rgba(249,115,22,0.3)" onclick="solve(true)">🚀 立即啟動步驟解題（互動關卡＋觀念檢核）</button>
 
 <!-- 詳解呈現與動作工具列（解題後直接於下方展開） -->
 <div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1);margin-top:14px;margin-bottom:14px"></div>
@@ -1013,7 +1294,14 @@ function openTextMode(){
 function copyFullAnswer(){
   const ansBox=document.getElementById('answer');
   if(!ansBox)return;
-  const txt=ansBox.innerText.replace(/📋 複製詳解/g,'').trim();
+  const txt=ansBox.innerText
+    .replace(/📋 複製詳解/g,'')
+    .replace(/⚡ 一鍵展開完整詳解/g,'')
+    .replace(/🎯 切換為步驟關卡模式/g,'')
+    .replace(/👉 我看懂已知條件了.*?➔/g,'')
+    .replace(/👉 觀念確認完畢.*?➔/g,'')
+    .replace(/👉 計算看懂了.*?➔/g,'')
+    .trim();
   navigator.clipboard.writeText(txt).then(()=>alert('已複製完整詳解內容！')).catch(()=>alert('複製失敗'));
 }
 
@@ -1077,141 +1365,494 @@ function formatFormulaSubscripts(s){
 
 let _tw=null;function toTW(s){try{if(!_tw&&window.OpenCC){_tw=OpenCC.Converter({from:'cn',to:'tw'});}return _tw?_tw(s):s;}catch(e){return s;}}
 
-function renderMarkdownAnswer(rawText){
-  if(!rawText) return '';
-  let txt = toTW(clean(rawText.toString())).replace(/\$/g,'');
+function formatLineContent(line) {
+  if (!line) return '';
+  if (/【(?:通則[：:]\s*)?絕對基準獨立判定原則(?:.*?)】/.test(line)) {
+    let content = line.replace(/.*?【(?:通則[：:]\s*)?絕對基準獨立判定原則(?:.*?)】\s*:?/, '').trim();
+    return `
+      <div style="margin:8px 0;padding:8px 12px;background:#f0fdf4;border-left:4px solid #16a34a;border-radius:6px">
+        <div style="font-weight:700;color:#166534;font-size:.92rem">🎯 絕對基準獨立判定原則 (Absolute Benchmark Principle)</div>
+        ${content ? `<div style="margin-top:3px;color:#14532d;line-height:1.6">${content}</div>` : ''}
+      </div>
+    `;
+  }
+  if (/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件梳理|已知條件)(?:<\/strong>)?[：:]/.test(line)) {
+    let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件梳理|已知條件)(?:<\/strong>)?[：:]\s*/, '').trim();
+    return `<div style="margin:6px 0;line-height:1.75"><span style="color:#0f766e;font-weight:700">📌 已知條件：</span>${content}</div>`;
+  }
+  if (/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(思考引導|思考方向)(?:<\/strong>)?[：:]/.test(line)) {
+    let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(思考引導|思考方向)(?:<\/strong>)?[：:]\s*/, '').trim();
+    return `<div style="margin:6px 0;line-height:1.75"><span style="color:#0284c7;font-weight:700">💡 思考方向：</span>${content}</div>`;
+  }
+  if (/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式\/鐵則|核心公式|解題鐵則|核心依據)(?:<\/strong>)?[：:]/.test(line)) {
+    let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式\/鐵則|核心公式|解題鐵則|核心依據)(?:<\/strong>)?[：:]\s*/, '').trim();
+    return `<div style="margin:6px 0;line-height:1.75"><span style="color:#b45309;font-weight:700">📐 核心公式/鐵則：</span><code style="background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:4px;font-weight:600">${content}</code></div>`;
+  }
+  if (/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(推演過程|計算推導|推導過程|計算推演)(?:<\/strong>)?[：:]/.test(line)) {
+    let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(推演過程|計算推導|推導過程|計算推演)(?:<\/strong>)?[：:]\s*/, '').trim();
+    return `<div style="margin:6px 0;line-height:1.75"><span style="color:#1d4ed8;font-weight:700">🔢 推演過程：</span>${content}</div>`;
+  }
+  if (/【正確答案】/.test(line)) {
+    let content = line.replace(/.*?【正確答案】\s*:?/, '').trim();
+    return `
+      <div style="margin:10px 0;padding:10px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="display:inline-block;padding:3px 10px;background:#15803d;color:#ffffff;border-radius:6px;font-weight:800;font-size:.9rem;letter-spacing:1px">【正確答案】</span>
+        <span style="font-size:1.15rem;font-weight:800;color:#166534">${content || '(請參見推演)'}</span>
+      </div>
+    `;
+  }
+  if (/【(?:選項\/陷阱分析|選項與陷阱剖析|選項分析|陷阱分析)】/.test(line)) {
+    let content = line.replace(/.*?【.+?】\s*:?/, '').trim();
+    return `
+      <div style="margin:10px 0 6px 0;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b">
+        <div style="font-weight:800;font-size:.9rem;display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span>⚠️ 統測常考陷阱與選項分析</span>
+        </div>
+        ${content ? `<div style="line-height:1.65;color:#334155">${content}</div>` : ''}
+      </div>
+    `;
+  }
+  if (/【步驟[一二三四1-4].*?】/.test(line) || /【解題步驟】/.test(line)) {
+    return '';
+  }
+  return `<div style="margin:3px 0 3px 6px;line-height:1.7;color:#334155">${line}</div>`;
+}
+
+function parseSolutionSteps(rawText) {
+  let headerHtml = [];
+  let step1Lines = [];
+  let step2Lines = [];
+  let step3Lines = [];
+  let step4Lines = [];
+  let currentStep = 0;
+  let quizData = null;
+
+  const lines = rawText.split('\n');
+  let readingQuiz = false;
+  let quizQ = '', quizOpts = [], quizAns = '';
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+
+    if (/【步驟一|已知條件(?:梳理)?/.test(line)) {
+      currentStep = 1;
+      readingQuiz = false;
+      step1Lines.push(line);
+      continue;
+    } else if (/【步驟二|核心公式|解題鐵則/.test(line)) {
+      currentStep = 2;
+      readingQuiz = false;
+      step2Lines.push(line);
+      continue;
+    } else if (/【步驟三|推演過程|計算推導|計算推演/.test(line)) {
+      currentStep = 3;
+      readingQuiz = false;
+      step3Lines.push(line);
+      continue;
+    } else if (/【步驟四|【正確答案】|【選項(?:\/陷阱)?分析】/.test(line)) {
+      currentStep = 4;
+      readingQuiz = false;
+      step4Lines.push(line);
+      continue;
+    }
+
+    if (currentStep === 2 && /觀念確認題|觀念檢核題|檢核問題/.test(line)) {
+      readingQuiz = true;
+      continue;
+    }
+
+    if (readingQuiz) {
+      if (/^題目[：:]/.test(line)) {
+        quizQ = line.replace(/^題目[：:]\s*/, '');
+      } else if (/^選項[：:]/.test(line)) {
+        const rawOpts = line.replace(/^選項[：:]\s*/, '');
+        quizOpts = rawOpts.split(/\s*\|\s*/).map(o => o.trim()).filter(Boolean);
+      } else if (/^(?:解答|解析|正確答案)[：:]/.test(line)) {
+        quizAns = line.replace(/^(?:解答|解析|正確答案)[：:]\s*/, '');
+        const matchKey = quizAns.match(/^([A-Da-d])/);
+        quizData = {
+          q: quizQ,
+          options: quizOpts,
+          ansKey: matchKey ? matchKey[1].toUpperCase() : 'A',
+          explanation: quizAns
+        };
+        readingQuiz = false;
+      }
+      continue;
+    }
+
+    if (currentStep === 1) {
+      step1Lines.push(line);
+    } else if (currentStep === 2) {
+      step2Lines.push(line);
+    } else if (currentStep === 3) {
+      step3Lines.push(line);
+    } else if (currentStep === 4) {
+      step4Lines.push(line);
+    } else {
+      headerHtml.push(line);
+    }
+  }
+
+  if (step1Lines.length === 0 && step2Lines.length === 0 && step3Lines.length === 0 && step4Lines.length === 0) {
+    step1Lines = headerHtml.slice(0, Math.floor(headerHtml.length / 3));
+    step2Lines = headerHtml.slice(Math.floor(headerHtml.length / 3), Math.floor(headerHtml.length * 2 / 3));
+    step3Lines = headerHtml.slice(Math.floor(headerHtml.length * 2 / 3));
+    headerHtml = [];
+  }
+
+  return {
+    header: headerHtml,
+    step1: step1Lines,
+    step2: step2Lines,
+    step3: step3Lines,
+    step4: step4Lines,
+    quiz: quizData
+  };
+}
+
+let solCounter = 0;
+
+function renderMarkdownAnswer(rawText, customId) {
+  if (!rawText) return '';
+  const solId = customId || ('sol_' + (++solCounter) + '_' + Math.random().toString(36).substring(2, 6));
+
+  let txt = toTW(clean(rawText.toString())).replace(/\$/g, '');
   txt = txt.replace(/\*\*【(.+?)】\*\*/g, '【$1】');
   let escaped = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   escaped = escaped.replace(/&lt;(\/?)sub&gt;/gi, '<$1sub>');
   escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   escaped = formatFormulaSubscripts(escaped);
 
-  const lines = escaped.split('\n');
-  let html = [];
+  const parsed = parseSolutionSteps(escaped);
+  const quiz = parsed.quiz || {
+    q: '在進行計算與判定前，是否已確認各變數單位與正負號（如價格彈性取絕對值為正數）？',
+    options: ['A. 已確認，符合高職規範', 'B. 尚未核對'],
+    ansKey: 'A',
+    explanation: 'A (計算前務必核對已知條件，避免統測常見正負號陷阱！)'
+  };
 
-  for(let i = 0; i < lines.length; i++){
-    let line = lines[i].trim();
-    if(!line){
-      html.push('<div style="height:6px"></div>');
-      continue;
-    }
-
-    if(/【🛡️\s*覆核(?:驗算)?結論】/.test(line)){
-      let content = line.replace(/.*?【🛡️\s*覆核(?:驗算)?結論】\s*:?/, '').trim();
-      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【')){
-        i++;
-        content = lines[i].trim();
-      }
-      html.push(`
-        <div style="margin:8px 0 12px 0;padding:10px 14px;background:#fef2f2;border-left:4px solid #ef4444;border-radius:6px">
+  const headerHtml = parsed.header.map(l => {
+    if (/【🛡️\s*覆核(?:驗算)?結論】/.test(l)) {
+      let content = l.replace(/.*?【🛡️\s*覆核(?:驗算)?結論】\s*:?/, '').trim();
+      return `
+        <div style="margin:6px 0 10px 0;padding:10px 14px;background:#fef2f2;border-left:4px solid #ef4444;border-radius:6px">
           <div style="font-weight:700;color:#991b1b;font-size:1.02rem;display:flex;align-items:center;gap:6px">
             <span>🛡️ 覆核驗算結論</span>
           </div>
           ${content ? `<div style="margin-top:4px;color:#7f1d1d;line-height:1.65;font-weight:600">${content}</div>` : ''}
         </div>
-      `);
-      continue;
+      `;
     }
-
-    if(/【(?:通則[：:]\s*)?絕對基準獨立判定原則(?:.*?)】/.test(line)){
-      let content = line.replace(/.*?【(?:通則[：:]\s*)?絕對基準獨立判定原則(?:.*?)】\s*:?/, '').trim();
-      html.push(`
-        <div style="margin:10px 0 8px 0;padding:8px 12px;background:#f0fdf4;border-left:4px solid #16a34a;border-radius:6px">
-          <div style="font-weight:700;color:#166534;font-size:.95rem">🎯 絕對基準獨立判定原則 (Absolute Benchmark Principle)</div>
-          ${content ? `<div style="margin-top:4px;color:#14532d;line-height:1.65">${content}</div>` : ''}
-        </div>
-      `);
-      continue;
-    }
-
-    if(/【正確答案】/.test(line)){
-      let content = line.replace(/.*?【正確答案】\s*:?/, '').trim();
-      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【')){
-        i++;
-        content = lines[i].trim();
-      }
-      html.push(`
-        <div style="margin:10px 0 12px 0;padding:10px 14px;background:#f0fdf4;border:1.5px solid #86efac;border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span style="display:inline-block;padding:3px 10px;background:#15803d;color:#ffffff;border-radius:6px;font-weight:800;font-size:.9rem;letter-spacing:1px">【正確答案】</span>
-          <span style="font-size:1.15rem;font-weight:800;color:#166534">${content || '(請參見下方推演)'}</span>
-        </div>
-      `);
-      continue;
-    }
-
-    if(/【考點核心】/.test(line)){
-      let content = line.replace(/.*?【考點核心】\s*:?/, '').trim();
-      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:已知條件|核心公式)/.test(lines[i+1].trim())){
-        i++;
-        content = lines[i].trim();
-      }
-      html.push(`
-        <div style="margin:12px 0 8px 0;padding:8px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+    if (/【考點核心】/.test(l)) {
+      const content = l.replace(/.*?【考點核心】\s*:?/, '').trim();
+      return `
+        <div style="margin:6px 0 10px 0;padding:8px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
           <span style="display:inline-block;padding:2px 8px;background:#2563eb;color:#ffffff;border-radius:5px;font-weight:700;font-size:.82rem">【考點核心】</span>
           <span style="font-weight:700;color:#1e40af;font-size:.95rem">${content}</span>
         </div>
-      `);
-      continue;
+      `;
     }
+    return formatLineContent(l);
+  }).join('');
 
-    if(/【解題步驟】/.test(line)){
-      html.push(`
-        <div style="margin:14px 0 8px 0;padding-bottom:4px;border-bottom:1.5px solid #fed7aa;display:flex;align-items:center;gap:8px">
-          <span style="display:inline-block;padding:3px 10px;background:#c2410c;color:#ffffff;border-radius:5px;font-weight:700;font-size:.88rem">【解題步驟】</span>
+  const step1Body = parsed.step1.map(formatLineContent).filter(Boolean).join('');
+  const step2Body = parsed.step2.map(formatLineContent).filter(Boolean).join('');
+  const step3Body = parsed.step3.map(formatLineContent).filter(Boolean).join('');
+  const step4Body = parsed.step4.map(formatLineContent).filter(Boolean).join('');
+
+  const quizOptionsHtml = quiz.options.map(opt => {
+    const optLetter = (opt.match(/^([A-Da-d])/) || ['', ''])[1].toUpperCase();
+    const isCorrect = optLetter === quiz.ansKey;
+    const cleanOpt = opt.replace(/^[A-Da-d][.、\s]*/, '');
+    const cleanExpl = (quiz.explanation || '').replace(/'/g, "\\'");
+    return `
+      <button type="button" class="step-opt-btn" data-is-correct="${isCorrect}" onclick="handleStepQuizClick(this, ${isCorrect}, '${cleanExpl}', '${solId}-quiz-feedback')">
+        <span style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:#f1f5f9;color:#475569;font-weight:700;font-size:.8rem">${optLetter || '•'}</span>
+        <span>${cleanOpt}</span>
+      </button>
+    `;
+  }).join('');
+
+  return `
+    <div id="${solId}" class="solution-stepper-wrap" data-active-step="1" data-max-unlocked="1">
+      <!-- Top Actions Bar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="font-weight:700;color:var(--brand);font-size:1.02rem">💡 互動引導式解題關卡</span>
+          <span class="badge" style="background:#ffedd5;color:#c2410c;font-size:.74rem">逐步確認理解</span>
         </div>
-      `);
-      continue;
-    }
-
-    if(/【(?:選項\/陷阱分析|選項分析|陷阱分析)】/.test(line)){
-      const titleMatch = line.match(/【(.+?)】/);
-      const title = titleMatch ? titleMatch[1] : '選項/陷阱分析';
-      let content = line.replace(/.*?【.+?】\s*:?/, '').trim();
-      html.push(`
-        <div style="margin:14px 0 8px 0;padding-bottom:4px;border-bottom:1.5px solid #fecaca;display:flex;align-items:center;gap:8px">
-          <span style="display:inline-block;padding:3px 10px;background:#b91c1c;color:#ffffff;border-radius:5px;font-weight:700;font-size:.88rem">【${title}】</span>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="chip-btn" id="btn-mode-${solId}" onclick="toggleStepMode('${solId}')" style="color:#c2410c;border-color:#fdba74;background:#fffaf5;font-weight:700">
+            ⚡ 一鍵展開完整詳解
+          </button>
         </div>
-      `);
-      if(content){
-        html.push(`<div style="margin:4px 0 4px 8px;line-height:1.75;color:#334155">${content}</div>`);
-      }
-      continue;
-    }
+      </div>
 
-    if(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件梳理|已知條件)(?:<\/strong>)?[：:]/.test(line)){
-      let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件梳理|已知條件)(?:<\/strong>)?[：:]\s*/, '').trim();
-      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式|推演過程)[：:]/.test(lines[i+1].trim())){
-        i++;
-        content = lines[i].trim();
-      }
-      html.push(`<div style="margin:8px 0 4px 6px;line-height:1.75"><span style="color:#0f766e;font-weight:700">📌 已知條件梳理：</span>${content}</div>`);
-      continue;
-    }
+      <!-- Header Concept -->
+      ${headerHtml}
 
-    if(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式\/鐵則|核心公式|解題鐵則)(?:<\/strong>)?[：:]/.test(line)){
-      let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(核心公式\/鐵則|核心公式|解題鐵則)(?:<\/strong>)?[：:]\s*/, '').trim();
-      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件|推演過程)[：:]/.test(lines[i+1].trim())){
-        i++;
-        content = lines[i].trim();
-      }
-      html.push(`<div style="margin:8px 0 4px 6px;line-height:1.75"><span style="color:#b45309;font-weight:700">📐 核心公式/鐵則：</span><code style="background:#fef3c7;color:#92400e;padding:2px 6px;border-radius:4px;font-weight:600">${content}</code></div>`);
-      continue;
-    }
+      <!-- Stepper Navigation -->
+      <div class="step-stepper-wrap">
+        <button type="button" class="step-nav-btn active" id="${solId}-step-nav-1" onclick="jumpToStep(1, '${solId}')">
+          <span>🔍</span> <span>步驟 1：審題已知</span>
+        </button>
+        <span class="step-arrow-divider">➔</span>
+        <button type="button" class="step-nav-btn locked" id="${solId}-step-nav-2" onclick="jumpToStep(2, '${solId}')">
+          <span>📐</span> <span>步驟 2：核心公式</span>
+        </button>
+        <span class="step-arrow-divider">➔</span>
+        <button type="button" class="step-nav-btn locked" id="${solId}-step-nav-3" onclick="jumpToStep(3, '${solId}')">
+          <span>🔢</span> <span>步驟 3：逐步推導</span>
+        </button>
+        <span class="step-arrow-divider">➔</span>
+        <button type="button" class="step-nav-btn locked" id="${solId}-step-nav-4" onclick="jumpToStep(4, '${solId}')">
+          <span>🏆</span> <span>步驟 4：揭曉答案</span>
+        </button>
+      </div>
 
-    if(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(推演過程|計算推演|推導過程)(?:<\/strong>)?[：:]/.test(line)){
-      let content = line.replace(/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(推演過程|計算推演|推導過程)(?:<\/strong>)?[：:]\s*/, '').trim();
-      if(!content && i + 1 < lines.length && !lines[i+1].trim().startsWith('【') && !/^(?:[-*•]|\d+\.)?\s*(?:<strong>)?(已知條件|核心公式)[：:]/.test(lines[i+1].trim())){
-        i++;
-        content = lines[i].trim();
-      }
-      html.push(`<div style="margin:8px 0 4px 6px;line-height:1.75"><span style="color:#1d4ed8;font-weight:700">🔢 推演過程：</span>${content}</div>`);
-      continue;
-    }
+      <!-- Step 1 Card -->
+      <div class="step-card step-active" id="${solId}-step-card-1">
+        <div class="step-card-header">
+          <div class="step-card-title-group">
+            <span class="step-badge-num">步驟 1 / 4</span>
+            <span class="step-card-title">🔍 審題與已知條件梳理</span>
+          </div>
+          <span class="step-status-tag" style="background:#fef3c7;color:#b45309">🎯 請先仔細閱讀已知條件</span>
+        </div>
+        <div class="step-card-body">
+          ${step1Body || '<div style="color:var(--muted)">請核對題目中給予之變數數值與限制條件。</div>'}
+        </div>
+        <div class="step-action-bar">
+          <div style="font-size:.82rem;color:var(--muted)">💡 閱讀完已知條件後，請點擊右方進入下一步：</div>
+          <button type="button" class="step-next-btn" onclick="advanceStep(2, '${solId}')">
+            👉 我看懂已知條件了，進入「步驟 2：核心公式」➔
+          </button>
+        </div>
+      </div>
 
-    html.push(`<div style="margin:2px 0 2px 8px;line-height:1.75;color:#334155">${line}</div>`);
+      <!-- Step 2 Card -->
+      <div class="step-card step-locked" id="${solId}-step-card-2">
+        <div class="step-card-header">
+          <div class="step-card-title-group">
+            <span class="step-badge-num">步驟 2 / 4</span>
+            <span class="step-card-title">📐 核心公式與觀念鐵則</span>
+          </div>
+          <span class="step-status-tag" style="background:#eff6ff;color:#1d4ed8">💡 觀念確認關卡</span>
+        </div>
+        <div class="step-card-body">
+          ${step2Body}
+          <!-- Interactive Quiz -->
+          <div class="step-quiz-card">
+            <div class="step-quiz-header">
+              <span>🎯 隨堂觀念檢核：確認你是否理解本步驟公式原理？</span>
+            </div>
+            <div class="step-quiz-question">${quiz.q}</div>
+            <div class="step-quiz-options">
+              ${quizOptionsHtml}
+            </div>
+            <div class="step-quiz-result" id="${solId}-quiz-feedback"></div>
+          </div>
+        </div>
+        <div class="step-action-bar">
+          <div style="font-size:.82rem;color:var(--muted)">💡 完成觀念確認後，點擊進入數值推導：</div>
+          <button type="button" class="step-next-btn" onclick="advanceStep(3, '${solId}')">
+            👉 觀念確認完畢，進入「步驟 3：逐步推導」➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3 Card -->
+      <div class="step-card step-locked" id="${solId}-step-card-3">
+        <div class="step-card-header">
+          <div class="step-card-title-group">
+            <span class="step-badge-num">步驟 3 / 4</span>
+            <span class="step-card-title">🔢 數值代入與逐步推導</span>
+          </div>
+          <span class="step-status-tag" style="background:#fef2f2;color:#b91c1c">📐 不跳步計算</span>
+        </div>
+        <div class="step-card-body">
+          ${step3Body || '<div style="color:var(--muted)">詳細推導步驟。</div>'}
+        </div>
+        <div class="step-action-bar">
+          <div style="font-size:.82rem;color:var(--muted)">💡 核對計算算式無誤後，即可揭曉正確答案：</div>
+          <button type="button" class="step-next-btn" onclick="advanceStep(4, '${solId}')">
+            👉 計算看懂了，揭曉「步驟 4：最終答案與陷阱」➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4 Card -->
+      <div class="step-card step-locked" id="${solId}-step-card-4">
+        <div class="step-card-header">
+          <div class="step-card-title-group">
+            <span class="step-badge-num">步驟 4 / 4</span>
+            <span class="step-card-title">🏆 最終答案與選項陷阱分析</span>
+          </div>
+          <span class="step-status-tag" style="background:#f0fdf4;color:#15803d">🎉 完整解題達成</span>
+        </div>
+        <div class="step-card-body">
+          ${step4Body}
+          <!-- Understanding Check Card -->
+          <div class="understanding-card">
+            <div class="understanding-title">
+              <span>🌟 學習成效確認：這道題目你完全理解了嗎？</span>
+            </div>
+            <div class="understanding-desc">
+              請確認自己的掌握度，系統會為您在智慧錯題本中自動歸類與追蹤成效！
+            </div>
+            <div class="understanding-btns">
+              <button type="button" class="under-btn mastered" onclick="confirmStudentUnderstanding('mastered', '${solId}')">
+                🎉 我完全懂了（已精通掌握）
+              </button>
+              <button type="button" class="under-btn review" onclick="confirmStudentUnderstanding('review', '${solId}')">
+                🤔 還有點卡住（需要再看一次）
+              </button>
+            </div>
+            <div class="under-feedback-msg" id="${solId}-under-feedback"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleStepMode(solId) {
+  const container = document.getElementById(solId);
+  if (!container) return;
+  const isCurrentlyExpanded = container.classList.contains('mode-expanded');
+  if (isCurrentlyExpanded) {
+    container.classList.remove('mode-expanded');
+    const cur = parseInt(container.dataset.activeStep || '1', 10);
+    setStep(cur, solId);
+  } else {
+    container.classList.add('mode-expanded');
+    container.querySelectorAll('.step-card').forEach(c => c.classList.remove('step-locked'));
+    container.querySelectorAll('.step-nav-btn').forEach(b => {
+      b.classList.remove('locked');
+      b.classList.add('active');
+    });
+  }
+  const btn = document.getElementById(`btn-mode-${solId}`);
+  if (btn) {
+    btn.innerHTML = container.classList.contains('mode-expanded') ? '🎯 切換為步驟關卡模式' : '⚡ 一鍵展開完整詳解';
+  }
+}
+
+function setStep(stepNum, solId) {
+  const container = document.getElementById(solId);
+  if (!container) return;
+  container.dataset.activeStep = stepNum;
+  const maxUnlocked = Math.max(parseInt(container.dataset.maxUnlocked || '1', 10), stepNum);
+  container.dataset.maxUnlocked = maxUnlocked;
+
+  for (let i = 1; i <= 4; i++) {
+    const navBtn = document.getElementById(`${solId}-step-nav-${i}`);
+    const card = document.getElementById(`${solId}-step-card-${i}`);
+    if (navBtn) {
+      navBtn.classList.toggle('active', i === stepNum);
+      navBtn.classList.toggle('completed', i < stepNum);
+      navBtn.classList.toggle('locked', i > maxUnlocked);
+    }
+    if (card) {
+      if (container.classList.contains('mode-expanded')) {
+        card.classList.remove('step-locked');
+        card.classList.toggle('step-active', i === stepNum);
+      } else {
+        if (i <= stepNum) {
+          card.classList.remove('step-locked');
+          card.classList.toggle('step-active', i === stepNum);
+        } else {
+          card.classList.add('step-locked');
+        }
+      }
+    }
   }
 
-  return `<div class="formatted-answer" style="font-size:.95rem">${html.join('')}</div>`;
+  const curCard = document.getElementById(`${solId}-step-card-${stepNum}`);
+  if (curCard && stepNum > 1 && !container.classList.contains('mode-expanded')) {
+    curCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function advanceStep(nextStep, solId) {
+  setStep(nextStep, solId);
+}
+
+function jumpToStep(stepNum, solId) {
+  const container = document.getElementById(solId);
+  if (!container) return;
+  const maxUnlocked = parseInt(container.dataset.maxUnlocked || '1', 10);
+  if (stepNum <= maxUnlocked || container.classList.contains('mode-expanded')) {
+    setStep(stepNum, solId);
+  } else {
+    alert('請先依序完成前一步驟的閱讀與觀念確認，再解鎖此關卡！');
+  }
+}
+
+function handleStepQuizClick(btn, isCorrect, explanation, feedbackId) {
+  const parent = btn.parentElement;
+  if (!parent) return;
+  parent.querySelectorAll('.step-opt-btn').forEach(b => {
+    b.disabled = true;
+    b.style.pointerEvents = 'none';
+  });
+  if (isCorrect) {
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('incorrect');
+    parent.querySelectorAll('.step-opt-btn').forEach(b => {
+      if (b.dataset.isCorrect === 'true') {
+        b.classList.add('correct');
+      }
+    });
+  }
+  const fb = document.getElementById(feedbackId);
+  if (fb) {
+    fb.style.display = 'block';
+    fb.style.background = isCorrect ? '#f0fdf4' : '#fffbeb';
+    fb.style.border = isCorrect ? '1.5px solid #86efac' : '1.5px solid #fde68a';
+    fb.style.color = isCorrect ? '#166534' : '#92400e';
+    fb.innerHTML = `
+      <div style="font-weight:700;margin-bottom:4px">${isCorrect ? '🎉 答對了！觀念精準掌握！' : '💡 觀念釐清解析：'}</div>
+      <div>${explanation}</div>
+    `;
+  }
+}
+
+function confirmStudentUnderstanding(status, solId) {
+  const fb = document.getElementById(`${solId}-under-feedback`);
+  if (!fb) return;
+  fb.style.display = 'block';
+
+  if (status === 'mastered') {
+    fb.style.background = '#f0fdf4';
+    fb.style.border = '1.5px solid #86efac';
+    fb.style.color = '#15803d';
+    fb.innerHTML = '🎉 <b>太棒了！已確認掌握觀念！</b>系統已將本題在智慧錯題本中標記為「🟢 已理解」，請繼續保持！';
+    let h = [];
+    try { h = JSON.parse(localStorage.getItem('econ_hist') || '[]'); } catch (e) {}
+    if (h.length > 0) {
+      h[0].mastered = true;
+      try { localStorage.setItem('econ_hist', JSON.stringify(h)); } catch (e) {}
+      idbSaveHist(h);
+      renderHist();
+    }
+  } else {
+    fb.style.background = '#fffbeb';
+    fb.style.border = '1.5px solid #fde68a';
+    fb.style.color = '#b45309';
+    fb.innerHTML = '💪 <b>沒關係，多想一步就通了！</b>已為您標記為「📌 待加強複習」。建議點擊下方的「章節重點回看」或使用「🔄 請 AI 深度驗算重解」，加強該考點記憶！';
+    let h = [];
+    try { h = JSON.parse(localStorage.getItem('econ_hist') || '[]'); } catch (e) {}
+    if (h.length > 0) {
+      h[0].mastered = false;
+      try { localStorage.setItem('econ_hist', JSON.stringify(h)); } catch (e) {}
+      idbSaveHist(h);
+      renderHist();
+    }
+  }
 }
 preview.onload=()=>{
   finfo.textContent+=' ｜ 預覽已載入';
@@ -1292,34 +1933,33 @@ async function solve(manual){
   const ci=eff?eff.index:-1;
   const c=ci>=0?CH[ci]:null;
    const localFallbackRaw =
-`【正確答案】 請參閱下方推演與對應選項分析
+`【考點核心】 ${g}
 
-【考點核心】 ${g}
+【步驟一：審題與已知梳理】
+已知條件梳理：由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 範疇，請提取題幹給定之數值、已知變數（如價格 P、數量 Q、所得 I、產量）與限制前提。
+思考引導：先確認題目所求為「線上點移動（數量變動）」或「整條曲線移動（需求/供給變動）」，或是彈性與損益平衡等數值極值計算。
 
-【解題步驟】
+【步驟二：核心公式與觀念鐵則】
+核心公式/鐵則：${c ? c[4] : '依高職經濟課綱核心公式推導'}。遇多變數決策遵守【絕對基準獨立判定原則】：各別與絕對及格線（如消費 MUm、生產 MR 或 P、要素價格 PL 與 PK、建廠 MC）獨立比較。
+觀念確認題：
+題目：若題目同時涉及多個變數決策（如財貨 X 與 Y），應如何正確判定增減？
+選項：A. 直接將 X 與 Y 相互比大小決定一增一減 | B. 先找出絕對及格線（如 MUm），各自獨立與基準線比較 | C. 只要預算有剩就只買單一財貨
+解答：B (依據【絕對基準獨立判定原則】，必須先找絕對及格線各自獨立判定，嚴禁直接互比大小腦補一增一減)
 
-已知條件梳理：由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 範疇，請提取題幹給定之數值、變數與限制條件。
-
-核心公式/鐵則：${c ? c[4] : '依章節定義之核心公式推導'}。遇多變數決策遵守【絕對基準獨立判定原則】：各別與絕對及格線（如消費 MUm、生產 MR 或 P、要素價格 PL 與 PK、建廠 MC）獨立比較。
-
+【步驟三：數值代入與逐步推演】
 推演過程：
 1. 辨別變數：確認題目所求為線上點移動（數量變動）或整條線移動、名目值或實質值。
-2. 代入公式：依據上述核心公式依序代入題幹數據計算。
+2. 代入公式：依據上述核心公式依序代入題幹數據計算（純初等四則運算，嚴禁微積分）。
 3. 多變數獨立判定：若題目出現多種財貨或要素，先找絕對及格線獨立判定增減；除非題目明確註明預算已耗盡，否則符合標準即同時增加，絕不直接互比大小腦補一增一減。
 4. 單位與正負號驗證：如價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。
 
-【選項/陷阱分析】 統測常見陷阱：價格上限（有效設於均衡價格下方造成短缺）vs 價格下限、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs 損益兩平點 P = AC；多變數決策切勿直接互比大小推論一增一減。`;
+【步驟四：最終答案與選項陷阱分析】
+【正確答案】 請參閱題目選項與上方推演數值
+選項/陷阱分析：統測常見陷阱包括：弧彈性分母誤用單點（應為兩點平均）、價格上限誤設於均衡價格上方（無效）、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs. 損益兩平點 P = AC；多變數決策切勿直接互比大小推論一增一減。`;
 
-   const ansHtml = renderMarkdownAnswer(localFallbackRaw) + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
-     `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點上方按鈕複製詳解或啟動深度驗算。</div>`;
+   const ansHtml = renderMarkdownAnswer(localFallbackRaw, 'local-sol') + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
+     `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點步驟卡片依序引導學習或點擊切換完整詳解。</div>`;
    box.innerHTML=`
-      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-        <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析</span>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
-          <button type="button" class="chip-btn" style="color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
-        </div>
-      </div>
       ${ansHtml}
       <div class="verify-action-box" style="margin-top:14px;padding:12px 14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
         <div style="flex:1;min-width:220px">
@@ -1367,16 +2007,6 @@ async function tryPost(silent,isVerify=false){
    const aiHtml=renderMarkdownAnswer(shown);
    if(isVerify){
      box.innerHTML=`
-       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #fecaca;padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-           <span style="font-weight:700;color:#c2410c;font-size:1.05rem">🛡️ 題目詳解與考點分析（AI 嚴格覆核驗算版）</span>
-           <span class="badge" style="background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;font-size:.78rem">🛡️ 二次覆核驗算完成</span>
-         </div>
-         <div style="display:flex;gap:6px;flex-wrap:wrap">
-           <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
-           <button type="button" class="chip-btn" style="color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
-         </div>
-       </div>
        <div style="margin-bottom:10px;padding:8px 12px;background:#fef2f2;border-left:4px solid #ef4444;border-radius:6px;font-size:.85rem;color:#991b1b">
          <b>🛡️ 嚴格覆核模式報告：</b>已由 AI 重新從題目原數值獨立反推覆核，逐一排查高職統測易混淆公式、正負號與題意陷阱。
        </div>
@@ -1394,13 +2024,6 @@ async function tryPost(silent,isVerify=false){
      `;
    }else{
      box.innerHTML=`
-       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-         <span style="font-weight:700;color:var(--brand);font-size:1.05rem">💡 題目詳解與考點分析（AI）</span>
-         <div style="display:flex;gap:6px;flex-wrap:wrap">
-           <button type="button" class="chip-btn" onclick="copyFullAnswer()">📋 複製詳解</button>
-           <button type="button" class="chip-btn" style="color:#9a3412;border-color:#fdba74;background:#fffaf5;font-weight:600" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
-         </div>
-       </div>
        ${aiHtml}
        <div style="margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)">
          <b>觀念回看：</b>${linkCh(shown)||(eff?`<button class="ghost" onclick="gotoCh(${eff.index})">回看 ${eff.id} ${eff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
