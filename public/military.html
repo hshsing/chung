@@ -714,7 +714,6 @@
               <th onclick="toggleSort('classId')" style="width:90px">班級 ⬍</th>
               <th onclick="toggleSort('dept')" style="width:130px">年級與科別 ⬍</th>
               <th onclick="toggleSort('count')" style="width:140px">未寫次數 ⬍</th>
-              <th style="width:110px">扣初犯處分</th>
               <th style="width:230px">各週未寫次數分佈</th>
               <th>違規日期記錄</th>
               <th style="width:90px;text-align:center">操作</th>
@@ -3288,7 +3287,7 @@ function renderTable() {
 
   if (!tbody) return;
   if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--slate-400)">查無符合條件的班級</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--slate-400)">查無符合條件的班級</td></tr>`;
     return;
   }
 
@@ -3307,8 +3306,6 @@ function renderTable() {
     else if (c.displayCount >= 6) { badgeCls = 'badge-mid'; badgeIcon = '🚨'; }
     else if (c.displayCount >= 1) { badgeCls = 'badge-low'; badgeIcon = '⚠️'; }
     else { badgeIcon = '🌟'; }
-
-    const penaltyCount = Math.max(0, c.displayCount - 1);
 
     const weekBubbles = (currentData.weekDefs || []).map(w => {
       const wVal = c.weeks[w.key] || 0;
@@ -3332,9 +3329,6 @@ function renderTable() {
         <td>${c.grade}・${c.dept}</td>
         <td>
           <span class="badge ${badgeCls}">${badgeIcon} ${c.displayCount} 次</span>
-        </td>
-        <td>
-          <span style="font-weight:700;color:${penaltyCount > 0 ? '#b91c1c' : '#059669'}">${penaltyCount} 次</span>
         </td>
         <td>${weekBubbles}</td>
         <td>${datePills}</td>
@@ -3442,7 +3436,7 @@ function openClassDetail(cid) {
   const titleEl = document.getElementById('modal-class-title');
   const subEl = document.getElementById('modal-class-sub');
   if (titleEl) titleEl.innerText = `班級 ${c.classId} 小白板違規履歷紀錄`;
-  if (subEl) subEl.innerText = `${c.grade}・${c.dept} | 累計未寫 ${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)`;
+  if (subEl) subEl.innerText = `${c.grade}・${c.dept} | 累計未寫 ${c.total} 次`;
 
   const weekRows = (currentData.weekDefs || []).map(w => {
     const wCount = c.weeks[w.key] || 0;
@@ -3488,7 +3482,7 @@ function getSingleClassLineNotice(c) {
   const latestDef = (currentData.weekDefs || []).find(w => w.key === latestKey);
   const weekLabel = latestDef ? latestDef.name : '最新週';
 
-  return `【中壢高商生輔組通報】\n班級：${c.classId} (${c.grade}${c.dept})\n至${weekLabel}小白板累計未寫次數：${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次)。\n違規日期詳情：${datesStr}。\n請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
+  return `【中壢高商生輔組通報】\n班級：${c.classId} (${c.grade}${c.dept})\n至${weekLabel}小白板累計未寫次數：${c.total} 次。\n違規日期詳情：${datesStr}。\n請導師協助督促班級幹部每日按時填寫小白板，感謝您的辛勞配合！`;
 }
 
 function copyCurrentClassNotice() {
@@ -3540,7 +3534,7 @@ function generateReportType(type, btn) {
     const highClasses = (currentData.classes || []).filter(c => c.total >= 10);
     highClasses.sort((a, b) => b.total - a.total || a.classId.localeCompare(b.classId));
     text = `🚨【中壢高商教官室・小白板未寫高關懷班級名冊 (≥10次)】\n統計範圍：開學至${weekTitle}累計\n製表日期：${now}\n------------------------------\n高關懷班級共計 ${highClasses.length} 班：\n\n` +
-      highClasses.map((c, i) => `${i + 1}. ${c.classId} 班：累計未寫 ${c.total} 次 (初犯扣除後 ${Math.max(0, c.total - 1)} 次) - ${c.grade}${c.dept}`).join('\n') +
+      highClasses.map((c, i) => `${i + 1}. ${c.classId} 班：累計未寫 ${c.total} 次 - ${c.grade}${c.dept}`).join('\n') +
       `\n------------------------------\n處分建議：累計超過10次之班級幹部，請於下週一中午至教官室報到宣導或愛校服務。`;
   } else if (type === 'zero') {
     const zeroClasses = (currentData.classes || []).filter(c => c.total === 0);
@@ -3550,7 +3544,7 @@ function generateReportType(type, btn) {
   } else {
     const allSorted = [...(currentData.classes || [])].sort((a, b) => b.total - a.total || a.classId.localeCompare(b.classId));
     text = `📊【中壢高商 115-1 全校各班小白板未寫次數總排行】\n累計期間：開學至${weekTitle}\n更新時間：${now}\n------------------------------\n` +
-      allSorted.map((c, i) => `${String(i + 1).padStart(2, ' ')}. ${c.classId} 班 (${c.grade}${c.dept})：${c.total} 次 [扣初犯: ${Math.max(0, c.total - 1)} 次]`).join('\n');
+      allSorted.map((c, i) => `${String(i + 1).padStart(2, ' ')}. ${c.classId} 班 (${c.grade}${c.dept})：${c.total} 次`).join('\n');
   }
 
   const outEl = document.getElementById('report-text-output');
@@ -3768,11 +3762,11 @@ function exportCSV() {
   const weeks = currentData.weekDefs || [];
   const weekHeaders = weeks.map(w => w.name).join(',');
   
-  let csv = '\uFEFF排名,班級,年級,科別,未寫總次數,扣初犯後次數,' + weekHeaders + ',違規具體日期\n';
+  let csv = '\uFEFF排名,班級,年級,科別,未寫總次數,' + weekHeaders + ',違規具體日期\n';
   list.forEach((c, idx) => {
     const dates = c.records.map(r => r.date).join('; ');
     const weekVals = weeks.map(w => c.weeks[w.key] || 0).join(',');
-    csv += `${idx + 1},${c.classId},${c.grade},${c.dept},${c.displayCount},${Math.max(0, c.displayCount - 1)},${weekVals},"${dates}"\n`;
+    csv += `${idx + 1},${c.classId},${c.grade},${c.dept},${c.displayCount},${weekVals},"${dates}"\n`;
   });
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
