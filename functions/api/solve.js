@@ -97,7 +97,10 @@ export async function onRequestPost(context) {
         '5. 若有字看不清楚，不臆測、不編造數字選項正負號；只在開頭用一句說明缺了什麼資訊。\n' +
         '6. 務必在【步驟二】中提供 1 題與本題觀念相關的簡短【觀念確認題】（含選項 A/B/C 與解答），以確認學生是否理解公式核心。\n' +
         '7. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '8. 公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _（例如只能寫 Es 不准寫 E_s 或 $E_s$）。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，例如 [(Q2 - Q1)/Q1] / [(P2 - P1)/P1]。絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。\n' +
+        '8. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
+        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：所有變數一律使用台灣高職教科書標準格式，例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1、PL、PK、TR、TC、MR、MC、MPL 等，絕對禁止寫成 MU_x、P_x、MU_m、MU_y、P_y、E_d、E_s、Q_d、P_1 等任何帶有底線「_」的形式！步驟二的觀念確認題與選項中也一律只能寫 MUx / Px，絕不可寫 MU_x / P_x！\n' +
+        '   - 公式一律用純文字單行，例如 MUx / Px = MUy / Py = MUm，GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，Es = |(勞動供給量變動%) / (工資率變動%)|，絕對值直接用 | |。公式裡絕對不准出現 $ 和 _。\n' +
+        '   - 公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，例如 [(Q2 - Q1)/Q1] / [(P2 - P1)/P1]。絕對不要用 LaTeX、不要用 $ 包公式、不要用反斜線、不要用 space 指令。\n' +
         '9. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
         '補充文字：' +
         text;
@@ -123,7 +126,9 @@ export async function onRequestPost(context) {
         '解題要求：\n' +
         '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】。\n' +
         '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '3. 公式一律用純文字單行，例如 GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值用 | |。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n' +
+        '3. 【公式與變數符號鐵律（嚴禁底線「_」與 LaTeX）】：\n' +
+        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：所有變數一律使用台灣高職教科書標準格式，例如只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1、PL、PK、TR、TC、MR、MC、MPL 等，絕對禁止寫成 MU_x、P_x、MU_m、MU_y、P_y、E_d、E_s、Q_d、P_1 等任何帶有底線「_」的形式！步驟二的觀念確認題與選項中也一律只能寫 MUx / Px，絕不可寫 MU_x / P_x！\n' +
+        '   - 公式一律用純文字單行，例如 MUx / Px = MUy / Py = MUm，GDP = C + I + G + (X - M)，Ed = |需求量變動% / 價格變動%|，絕對值用 | |。公式嚴禁出現任何 frac、\\frac、dfrac，分數一律用 / 或 ÷，不要用 LaTeX、不要用 $ 包公式、不要用反斜線。\n' +
         '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！求總效用 TU 時，一律以「當 MU=0 時 TU 最大；MU>0 時 TU 增加」之高職觀念法直接判斷，或以初等幾何梯形/三角形面積公式求解，禁止寫任何微積分式。\n\n' +
         (text ? ('題目文字與補充：\n' + text) : '');
       out = await context.env.AI.run(TEXT, {
@@ -160,7 +165,9 @@ export async function onRequestPost(context) {
       .replace(/\bleft\b\s*\|\s*/gi, '|')
       .replace(/\s*\|\s*\bright\b/gi, '|')
       .replace(/\$\s*\$/g, '')
-      .replace(/\$/g, '');
+      .replace(/\$/g, '')
+      .replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2')
+      .replace(/(?<!_)_(?!_)/g, '');
     return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19', verified: verify });
   } catch (e) {
     return Response.json({ error: String(e).slice(0, 300), fallback: true }, { status: 500 });

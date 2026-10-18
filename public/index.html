@@ -1330,7 +1330,9 @@ function clean(s){
     .replace(/(?:\bspace\b\s*){2,}/gi,'')
     .replace(/\bleft\b\s*\|\s*/gi,'|')
     .replace(/\s*\|\s*\bright\b/gi,'|')
-    .replace(/\$\s*\$/g,'');
+    .replace(/\$\s*\$/g,'')
+    .replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2')
+    .replace(/(?<!_)_(?!_)/g, '');
 }
 
 function formatFormulaSubscripts(s){
@@ -1340,22 +1342,20 @@ function formatFormulaSubscripts(s){
   s = s.replace(/\b(?:d|t)?frac\b/gi, '');
   s = s.replace(/\{([^}]+)\}/g, '($1)').replace(/[{}]/g, '');
 
+  // 徹底移除變數中任何底線符號「_」，符合台灣高職教科書慣例（MUx, Px, MUm, MUy, Py, Ed, Es 等）
+  s = s.replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2');
+  s = s.replace(/(?<!_)_(?!_)/g, '');
+
   s = s.replace(/\bEd\b/g, 'E<sub>d</sub>');
   s = s.replace(/\bEs\b/g, 'E<sub>s</sub>');
-  s = s.replace(/\bE_d\b/g, 'E<sub>d</sub>');
-  s = s.replace(/\bE_s\b/g, 'E<sub>s</sub>');
   s = s.replace(/\(Ed\)/g, '(E<sub>d</sub>)');
   s = s.replace(/\(Es\)/g, '(E<sub>s</sub>)');
 
   s = s.replace(/\bQ([0-9])\b/g, 'Q<sub>$1</sub>');
   s = s.replace(/\bP([0-9])\b/g, 'P<sub>$1</sub>');
-  s = s.replace(/Q_([0-9])/g, 'Q<sub>$1</sub>');
-  s = s.replace(/P_([0-9])/g, 'P<sub>$1</sub>');
 
   s = s.replace(/\bQd\b/g, 'Q<sub>d</sub>');
   s = s.replace(/\bQs\b/g, 'Q<sub>s</sub>');
-  s = s.replace(/Q_d/g, 'Q<sub>d</sub>');
-  s = s.replace(/Q_s/g, 'Q<sub>s</sub>');
 
   s = s.replace(/\bP([LK])\b/g, 'P<sub>$1</sub>');
   s = s.replace(/\b(MRP|VMP|MP|MFC)([LK])\b/g, '$1<sub>$2</sub>');
@@ -1565,8 +1565,8 @@ function renderMarkdownAnswer(rawText, customId) {
   const quizOptionsHtml = quiz.options.map(opt => {
     const optLetter = (opt.match(/^([A-Da-d])/) || ['', ''])[1].toUpperCase();
     const isCorrect = optLetter === quiz.ansKey;
-    const cleanOpt = opt.replace(/^[A-Da-d][.、\s]*/, '');
-    const cleanExpl = (quiz.explanation || '').replace(/'/g, "\\'");
+    const cleanOpt = formatFormulaSubscripts(clean(opt.replace(/^[A-Da-d][.、\s]*/, '')));
+    const cleanExpl = formatFormulaSubscripts(clean(quiz.explanation || '')).replace(/'/g, "\\'");
     return `
       <button type="button" class="step-opt-btn" data-is-correct="${isCorrect}" onclick="handleStepQuizClick(this, ${isCorrect}, '${cleanExpl}', '${solId}-quiz-feedback')">
         <span style="display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:#f1f5f9;color:#475569;font-weight:700;font-size:.8rem">${optLetter || '•'}</span>
@@ -1648,7 +1648,7 @@ function renderMarkdownAnswer(rawText, customId) {
             <div class="step-quiz-header">
               <span>🎯 隨堂觀念檢核：確認你是否理解本步驟公式原理？</span>
             </div>
-            <div class="step-quiz-question">${quiz.q}</div>
+            <div class="step-quiz-question">${formatFormulaSubscripts(clean(quiz.q))}</div>
             <div class="step-quiz-options">
               ${quizOptionsHtml}
             </div>
