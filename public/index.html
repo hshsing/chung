@@ -2360,11 +2360,13 @@ function copyVerifyPrompt(customQ, customCh){
   } else {
     eff=getEffectiveChapter();
   }
+  const chIdx = (eff && typeof eff.index === 'number') ? eff.index : (eff && eff.id ? chIdxOf(eff.id) : -1);
+  const chObj = (chIdx >= 0 && CH[chIdx]) ? CH[chIdx] : null;
   const t=`請扮演台灣高職商管群經濟學資深統測閱卷召集人，針對以下題目進行「嚴格二次覆核驗算」：
 【題目】
 ${qText||'（請參見上傳照片題目）'}
 【所屬考點章節】
-${eff?`${eff.id} ${eff.name}`.trim():'高職經濟學'}
+${eff?`${eff.id} ${eff.name}`.trim():'高職經濟學'}${chObj?`\n【課綱核心公式】${chObj[4].replace(/<[^>]+>/g,'')}\n【課綱核心觀念】${chObj[2].replace(/<[^>]+>/g,'')}`:''}
 
 【通則一：絕對基準獨立判定原則 (Absolute Benchmark Principle)】
 只要題目中出現兩個或多個決策變數（如：多種財貨 X 與 Y、多種生產要素 L 與 K、多個工廠、多個國家），嚴禁直接將這兩個變數互相比大小來決定「一增一減」。
