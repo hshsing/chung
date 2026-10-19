@@ -776,67 +776,67 @@ let detectedCandidates=[]; // 候選清單 [{ idx, ch, name, score, hits }]
 const CHAPTER_DICT=[
   {
     idx: 0, ch: "CH1", name: "經濟基本概念",
-    tier1: ["ppc", "mrt", "生產可能曲線", "邊際轉換率", "機會成本", "稀少性", "自由財", "經濟財", "配置效率", "生產效率", "實證經濟", "規範經濟", "演繹法", "歸納法"],
+    tier1: ["ppc", "mrt", "生產可能曲線", "生產可能線", "邊際轉換率", "機會成本", "稀少性", "自由財", "經濟財", "配置效率", "生產效率", "實證經濟", "規範經濟", "演繹法", "歸納法"],
     tier2: ["經濟問題", "為誰生產", "如何生產", "基本問題", "循環圖", "要素市場", "家計", "凹向原點", "線內閒置", "線外達不到", "經濟原則"],
     anti: ["會計成本", "邊際成本", "短期成本", "平均成本", "成本函數", "tc", "ac", "mc"]
   },
   {
     idx: 1, ch: "CH2", name: "需求與供給",
-    tier1: ["需求法則", "供給法則", "需求彈性", "供給彈性", "弧彈性", "點彈性", "價格上限", "價格下限", "需求量變動", "需求變動", "替代財", "互補財", "正常財", "劣等財", "季芬財", "炫耀財", "ed", "es", "短缺", "過剩", "薄利多銷"],
-    tier2: ["均衡價格", "均衡數量", "均衡交易量", "總收益", "tr", "買方", "賣方", "供給量", "線上的移動", "線的移動", "降價", "漲價", "黑市"],
-    anti: ["引申需求", "要素需求", "總需求", "總供給", "邊際效用", "消費者剩餘", "cs", "勞動供給"]
+    tier1: ["需求法則", "供給法則", "需求價格彈性", "供給價格彈性", "需求的價格彈性", "供給的價格彈性", "價格彈性", "彈性係數", "需求彈性", "供給彈性", "弧彈性", "點彈性", "價格上限", "價格下限", "需求量變動", "需求變動", "供給量變動", "供給變動", "需求曲線", "供給曲線", "需求線", "供給線", "需求函數", "供給函數", "替代財", "互補財", "正常財", "劣等財", "季芬財", "炫耀財", "ed", "es", "短缺", "過剩", "薄利多銷"],
+    tier2: ["均衡價格", "均衡數量", "均衡交易量", "總收益", "tr", "買方", "賣方", "銷售量", "需求量", "供給量", "線上的移動", "線的移動", "降價", "漲價", "調漲", "調降", "價格調整", "黑市"],
+    anti: ["引申需求", "要素需求", "總需求", "總供給", "邊際效用", "勞動供給"]
   },
   {
     idx: 2, ch: "CH3", name: "消費行為理論",
-    tier1: ["邊際效用", "總效用", "邊際效用遞減", "mu", "tu", "消費者剩餘", "cs", "水與鑽石", "鑽石與水", "恩格爾", "恩格爾法則", "恩格爾曲線", "消費者主權", "mux/px", "等邊際效用"],
+    tier1: ["邊際效用", "總效用", "邊際效用遞減", "mu", "tu", "消費者剩餘", "消費者與生產者剩餘", "消費者剩餘與生產者剩餘", "cs", "水與鑽石", "鑽石與水", "價值矛盾", "恩格爾", "恩格爾法則", "恩格爾曲線", "消費者主權", "消費者均衡", "貨幣邊際效用", "mux/px", "mux", "muy", "mum", "等邊際效用"],
     tier2: ["主觀滿足", "滿足程度", "願意付", "實際付", "消費量", "每元效用", "偏好"],
-    anti: ["邊際產量", "邊際成本", "生產者剩餘", "ps", "邊際產值"]
+    anti: ["邊際產量", "邊際成本", "邊際產值"]
   },
   {
     idx: 3, ch: "CH4", name: "生產理論",
-    tier1: ["總產量", "平均產量", "邊際產量", "tp", "ap", "mp", "報酬遞減法則", "邊際報酬遞減", "合理生產區", "第二階段", "生產四要素", "馬爾薩斯人口論"],
+    tier1: ["總產量", "平均產量", "邊際產量", "tp", "ap", "mp", "報酬遞減法則", "邊際報酬遞減", "合理生產區", "第二階段", "生產三階段", "生產四要素", "生產者剩餘", "ps", "馬爾薩斯人口論"],
     tier2: ["短期與長期", "固定要素", "變動要素", "產量", "勞動投入", "資本投入", "mp穿過ap", "tp最大"],
     anti: ["邊際成本", "總成本", "平均成本", "mc", "ac", "tc", "會計成本"]
   },
   {
     idx: 4, ch: "CH5", name: "成本理論",
-    tier1: ["總成本", "固定成本", "變動成本", "邊際成本", "平均成本", "平均固定成本", "平均變動成本", "tc", "tfc", "tvc", "ac", "atc", "afc", "avc", "mc", "規模經濟", "規模不經濟", "內部經濟", "外部經濟", "lac", "lmc", "sac", "smc", "最適規模", "經濟利潤", "會計利潤", "內含成本", "隱藏成本", "外顯成本"],
+    tier1: ["總成本", "固定成本", "變動成本", "總固定成本", "總變動成本", "邊際成本", "平均成本", "平均固定成本", "平均變動成本", "tc", "tfc", "tvc", "ac", "atc", "afc", "avc", "mc", "規模經濟", "規模不經濟", "內部經濟", "外部經濟", "lac", "lmc", "sac", "smc", "最適規模", "經濟利潤", "會計利潤", "內含成本", "隱藏成本", "外顯成本"],
     tier2: ["正常利潤", "超額利潤", "規模報酬", "u形", "最低點", "短期成本", "長期成本"],
     anti: ["機會成本", "ppc", "mrt", "生產可能", "完全競爭", "歇業", "第一級差別", "第二級差別", "第三級差別"]
   },
   {
     idx: 5, ch: "CH6", name: "市場結構與廠商收益",
-    tier1: ["價格接受者", "價格決定者", "市場結構", "完全競爭市場", "純粹獨占", "自然獨占", "ar=mr=p", "p=ar=mr", "mr=p", "水平需求線", "進出障礙", "產品異質", "產品同質"],
-    tier2: ["平均收益", "邊際收益", "ar", "mr", "訂價能力", "定價能力"],
+    tier1: ["價格接受者", "價格決定者", "市場結構", "完全競爭市場", "純粹獨占", "自然獨占", "ar=mr=p", "p=ar=mr", "mr=p", "水平需求線", "進出障礙", "產品異質", "產品同質", "平均收益", "邊際收益"],
+    tier2: ["ar", "mr", "訂價能力", "定價能力"],
     anti: ["歇業點", "卡特爾", "差別取價", "跟跌不跟漲", "拗折", "停止營業", "歇業"]
   },
   {
     idx: 6, ch: "CH7", name: "完全競爭產量與價格",
-    tier1: ["完全競爭短期均衡", "歇業點", "歇業", "損益平衡點", "停止營業點", "停止營業", "短期供給線", "p=mr=mc", "最低avc", "最低ac", "avc最低點", "p>=avc", "p<avc", "短期虧損續產", "lac最低點"],
+    tier1: ["完全競爭短期均衡", "完全競爭廠商", "歇業點", "歇業", "損益平衡點", "損益兩平點", "停止營業點", "停止營業", "短期供給線", "短期供給曲線", "p=mr=mc", "最低avc", "最低ac", "avc最低點", "p>=avc", "p<avc", "短期虧損續產", "lac最低點"],
     tier2: ["完全競爭", "廠商均衡", "長期均衡", "正常利潤", "利潤極大產量"],
     anti: ["獨占", "寡占", "卡特爾", "差別取價", "拗折"]
   },
   {
     idx: 7, ch: "CH8", name: "獨占產量與價格",
-    tier1: ["第一級差別取價", "第二級差別取價", "第三級差別取價", "差別取價", "價格歧視", "差別訂價", "完全差別取價", "邊際成本訂價法", "平均成本訂價法", "管制獨占", "無謂損失", "市場區隔", "禁止轉售"],
-    tier2: ["獨占廠商", "獨占者", "獨占利潤", "mr=mc定量", "對ar定價"],
+    tier1: ["第一級差別取價", "第二級差別取價", "第三級差別取價", "差別取價", "價格歧視", "差別訂價", "完全差別取價", "邊際成本訂價法", "平均成本訂價法", "管制獨占", "無謂損失", "市場區隔", "禁止轉售", "獨占廠商"],
+    tier2: ["獨占者", "獨占利潤", "mr=mc定量", "對ar定價"],
     anti: ["獨占性競爭", "寡占", "完全競爭", "拗折需求線"]
   },
   {
     idx: 8, ch: "CH9", name: "不完全競爭產量與價格",
-    tier1: ["拗折需求線", "價格僵固", "價格僵固性", "跟跌不跟漲", "卡特爾", "價格領導制", "價格領導", "割喉戰", "割喉式競爭", "加成訂價", "非價格競爭", "異質產品", "斯威齊模型"],
-    tier2: ["獨占性競爭", "寡占", "互相猜心", "聯合壟斷", "電信三雄", "速食店"],
+    tier1: ["拗折需求線", "拗折需求曲線", "價格僵固", "價格僵固性", "跟跌不跟漲", "卡特爾", "價格領導制", "價格領導", "割喉戰", "割喉式競爭", "加成訂價", "非價格競爭", "異質產品", "斯威齊模型", "獨占性競爭", "寡占"],
+    tier2: ["互相猜心", "聯合壟斷", "電信三雄", "速食店"],
     anti: ["完全競爭", "純粹獨占", "自然獨占"]
   },
   {
     idx: 9, ch: "CH10", name: "分配理論",
-    tier1: ["羅倫茲曲線", "吉尼係數", "lorenz", "gini", "五等分位", "最高20%", "最低20%", "引申需求", "聯合需求", "vmp", "mrp", "邊際產值", "邊際產出收益", "vmpl", "mrpl", "要素需求", "功能性分配", "個人所得分配"],
+    tier1: ["羅倫茲曲線", "吉尼係數", "lorenz", "gini", "五等分位", "大島指數", "最高20%", "最低20%", "引申需求", "衍生需求", "聯合需求", "vmp", "mrp", "邊際產值", "邊際產出收益", "邊際生產收益", "vmpl", "mrpl", "要素需求", "功能性分配", "個人所得分配", "所得分配"],
     tier2: ["貧富差距", "不均等", "要素報酬", "工資地租利息利潤", "最適雇用", "雇用量"],
     anti: ["國民所得", "gdp", "gni", "實質工資", "名目工資"]
   },
   {
     idx: 10, ch: "CH11", name: "工資與地租",
-    tier1: ["實質工資", "名目工資", "後彎的勞動供給", "勞動供給後彎", "工會", "最低工資率", "差額地租", "李嘉圖地租", "準租", "經濟租", "地價公式", "年地租/利率", "勞動力", "勞動參與率"],
+    tier1: ["實質工資", "名目工資", "後彎的勞動供給", "勞動供給後彎", "勞動供給曲線", "工會", "最低工資率", "基本工資", "差額地租", "李嘉圖地租", "準租", "經濟租", "地價公式", "年地租/利率", "勞動力", "勞動參與率"],
     tier2: ["薪資", "地租", "休閒與工作", "所得效果大於替代效果", "購買力", "民間人口"],
     anti: ["失業率", "自然失業率", "景氣循環", "菲力普"]
   },
@@ -848,43 +848,43 @@ const CHAPTER_DICT=[
   },
   {
     idx: 12, ch: "CH13", name: "國民所得",
-    tier1: ["國內生產毛額", "國民生產毛額", "國民所得", "gdp", "gni", "gnp", "三面等價", "生產面加值", "支出面", "所得面", "gdp平減指數", "可支配所得", "di", "平均每人gdp", "綠色gdp", "new", "中間產品", "最終財", "國外要素所得淨額"],
+    tier1: ["國內生產毛額", "國民生產毛額", "國民所得毛額", "國民所得", "gdp", "gni", "gnp", "三面等價", "生產面加值", "附加價值", "支出面", "所得面", "gdp平減指數", "平減指數", "可支配所得", "di", "平均每人gdp", "綠色gdp", "經濟福利淨額", "new", "中間產品", "最終財", "最終產品", "國外要素所得淨額"],
     tier2: ["c+i+g+(x-m)", "名目gdp", "實質gdp", "折舊", "間接稅", "移轉支出", "總產出"],
     anti: ["簡單凱因斯", "消費函數", "緊縮缺口", "膨脹缺口", "45度線"]
   },
   {
     idx: 13, ch: "CH14", name: "所得水準的決定",
-    tier1: ["簡單凱因斯", "邊際消費傾向", "邊際儲蓄傾向", "mpc", "mps", "消費函數", "儲蓄函數", "45度線", "膨脹缺口", "緊縮缺口", "有效需求", "自發性消費", "自發性投資", "政府支出乘數", "稅收乘數", "平衡預算乘數", "節儉的矛盾", "節儉矛盾", "均衡所得", "ye"],
+    tier1: ["簡單凱因斯", "邊際消費傾向", "邊際儲蓄傾向", "平均消費傾向", "平均儲蓄傾向", "mpc", "mps", "apc", "aps", "消費函數", "儲蓄函數", "45度線", "膨脹缺口", "緊縮缺口", "有效需求", "自發性消費", "自發性投資", "政府支出乘數", "投資乘數", "支出乘數", "稅收乘數", "租稅乘數", "平衡預算乘數", "節儉的矛盾", "節儉矛盾", "均衡所得", "ye"],
     tier2: ["乘數", "充分就業所得", "c=a+by", "自發性", "誘發性", "k="],
     anti: ["貨幣乘數", "存款乘數", "準備率", "m1a", "m1b", "m2"]
   },
   {
     idx: 14, ch: "CH15", name: "貨幣與金融",
-    tier1: ["交易媒介", "計價標準", "延期支付", "價值儲藏", "m1a", "m1b", "m2", "費雪交易方程式", "mv=pt", "劍橋方程式", "m=kpy", "流動性陷阱", "存款準備率", "存款乘數", "貨幣乘數", "重貼現率", "公開市場操作", "三大政策工具", "活期儲蓄存款", "法定準備金", "超額準備"],
+    tier1: ["交易媒介", "計價標準", "延期支付", "價值儲藏", "m1a", "m1b", "m2", "費雪交易方程式", "mv=pt", "劍橋方程式", "m=kpy", "流動性陷阱", "存款準備率", "法定準備率", "存款乘數", "貨幣乘數", "重貼現率", "公開市場操作", "三大政策工具", "活期儲蓄存款", "法定準備金", "超額準備"],
     tier2: ["貨幣供給", "貨幣需求", "貨幣數量學說", "中央銀行", "買進債券", "賣出債券", "貨幣政策", "準備率"],
     anti: ["政府支出乘數", "稅收乘數", "平衡預算乘數", "財政政策"]
   },
   {
     idx: 15, ch: "CH16", name: "政府",
-    tier1: ["市場失靈", "外部性", "外部效果", "外部成本", "外部效益", "正外部性", "負外部性", "社會成本", "私人成本", "公共財", "搭便車", "非排他性", "非敵對性", "共有資源", "共有財", "公地的悲劇", "俱樂部財", "資訊不對稱", "逆選擇", "道德危險", "檸檬市場", "尋租", "自動穩定機能", "累進所得稅", "擴張性財政政策", "緊縮性財政政策"],
-    tier2: ["市場無法達到效率", "政府干預", "排他性", "敵對性", "庇古稅", "補貼", "政府收支"],
+    tier1: ["市場失靈", "外部性", "外部效果", "外部成本", "外部效益", "正外部性", "負外部性", "社會成本", "私人成本", "公共財", "準公共財", "搭便車", "非排他性", "非敵對性", "共有資源", "共有財", "公地的悲劇", "俱樂部財", "資訊不對稱", "逆選擇", "逆向選擇", "道德危險", "道德危機", "檸檬市場", "尋租", "皮古稅", "庇古稅", "寇斯定理", "自動穩定機能", "累進所得稅", "擴張性財政政策", "緊縮性財政政策"],
+    tier2: ["市場無法達到效率", "政府干預", "排他性", "敵對性", "補貼", "政府收支"],
     anti: ["公開市場操作", "重貼現率", "貨幣政策"]
   },
   {
     idx: 16, ch: "CH17", name: "國際貿易與國際金融",
-    tier1: ["絕對利益", "比較利益", "要素稟賦", "赫克夏-奧林", "從價稅", "從量稅", "保護關稅", "傾銷", "反傾銷", "匯率升值", "匯率貶值", "名目匯率", "實質匯率", "購買力平價", "外匯需求", "外匯供給", "管理浮動匯率", "國際收支", "經常帳", "金融帳", "貿易順差", "貿易逆差"],
+    tier1: ["絕對利益", "比較利益", "要素稟賦", "赫克夏-奧林", "從價稅", "從量稅", "保護關稅", "進口配額", "傾銷", "反傾銷", "匯率升值", "匯率貶值", "名目匯率", "實質匯率", "購買力平價", "外匯需求", "外匯供給", "管理浮動匯率", "國際收支", "經常帳", "金融帳", "貿易順差", "貿易逆差"],
     tier2: ["進出口", "出口商", "進口商", "關稅", "配額", "外匯", "台幣升值", "台幣貶值", "美金"],
     anti: ["可貸資金", "流動性偏好"]
   },
   {
     idx: 17, ch: "CH18", name: "經濟波動",
-    tier1: ["景氣循環", "景氣對策信號", "領先指標", "同時指標", "落後指標", "摩擦性失業", "結構性失業", "循環性失業", "自然失業率", "充分就業", "失業率計算", "需求拉動通膨", "成本推動通膨", "停滯性通膨", "菲力普曲線", "痛苦指數", "菜單成本", "皮鞋成本", "溫和通膨", "惡性通膨"],
+    tier1: ["景氣循環", "景氣指標", "景氣對策信號", "領先指標", "同時指標", "落後指標", "摩擦性失業", "結構性失業", "循環性失業", "自然失業率", "充分就業", "失業率計算", "失業率", "需求拉動通膨", "成本推動通膨", "停滯性通膨", "菲力普曲線", "痛苦指數", "菜單成本", "皮鞋成本", "溫和通膨", "惡性通膨"],
     tier2: ["景氣復甦", "景氣繁榮", "景氣衰退", "景氣蕭條", "物價上漲率", "通貨膨脹", "失業者"],
     anti: ["經濟成長率", "經濟發展", "哈羅德"]
   },
   {
     idx: 18, ch: "CH19", name: "經濟成長與經濟發展",
-    tier1: ["經濟成長率", "經濟發展", "哈羅德-多瑪", "harrod-domar", "資本產出比", "g=s/v", "貧窮惡性循環", "納克斯", "熊彼得創新", "創造性破壞", "索羅模型", "外生成長", "新成長理論", "內生成長", "知識經濟", "台灣經濟發展七階段", "進口替代", "出口擴張", "稀釋效果"],
+    tier1: ["經濟成長率", "經濟成長", "經濟發展", "哈羅德-多瑪", "哈羅德", "harrod-domar", "資本產出比", "g=s/v", "貧窮惡性循環", "納克斯", "熊彼得創新", "創造性破壞", "索羅模型", "外生成長", "新成長理論", "內生成長", "知識經濟", "台灣經濟發展七階段", "進口替代", "出口擴張", "稀釋效果"],
     tier2: ["實質gdp成長", "生活品質", "制度變遷", "人力資本", "科技進步"],
     anti: ["景氣循環", "痛苦指數", "領先指標", "景氣對策信號"]
   }
@@ -1046,11 +1046,11 @@ function normalizeOcrText(s){
 function extractFirstQuestion(rawText){
   if(!rawText)return '';
   let txt=normalizeOcrText(rawText.toString().trim());
-  const topOrphanRegex=/(?:(?:^|\n|\s)(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]))|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
+  const topOrphanRegex=/(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）])|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
   const firstHeader=txt.match(topOrphanRegex);
-  if(firstHeader && firstHeader.index>0 && firstHeader.index<180){
+  if(firstHeader && firstHeader.index>0 && firstHeader.index<300){
     const prefix=txt.slice(0,firstHeader.index);
-    if(!/[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．]/.test(prefix)){
+    if(!/[（(\[【]\s*[Aa]\s*[）)\]】][\s\S]*?[（(\[【]\s*[Bb]\s*[）)\]】]/.test(prefix)){
       txt=txt.slice(firstHeader.index).trim();
     }
   }
@@ -1600,11 +1600,25 @@ function renderMarkdownAnswer(rawText, customId) {
   const solId = customId || ('sol_' + (++solCounter) + '_' + Math.random().toString(36).substring(2, 6));
 
   let txt = toTW(clean(rawText.toString())).replace(/\$/g, '');
-  txt = txt.replace(/^[ \t]*#+[ \t]*/gm, '').replace(/\*\*【(.+?)】\*\*/g, '【$1】');
+  txt = txt
+    .replace(/^[ \t]*#+[ \t]*/gm, '')
+    .replace(/\*\*【(.+?)】\*\*/g, '【$1】')
+    .replace(/【考點章節】/g, '【考點核心】')
+    .replace(/【考點核心】\s*[:：]?\s*\n+\s*/g, '【考點核心】 ');
   let escaped = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   escaped = escaped.replace(/&lt;(\/?)sub&gt;/gi, '<$1sub>');
   escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   escaped = formatFormulaSubscripts(escaped);
+
+  let effCh = getEffectiveChapter();
+  if (!effCh) {
+    const rankedFromAns = rankChapters(txt);
+    if (rankedFromAns.length > 0) {
+      const top = rankedFromAns[0];
+      const c = CH[top.idx];
+      if (c) effCh = { index: top.idx, id: c[0], name: c[1] };
+    }
+  }
 
   const parsed = parseSolutionSteps(escaped);
   const quiz = parsed.quiz || {
@@ -1627,7 +1641,15 @@ function renderMarkdownAnswer(rawText, customId) {
       `;
     }
     if (/【考點核心】/.test(l)) {
-      const content = l.replace(/.*?【考點核心】\s*:?/, '').trim();
+      let content = l.replace(/.*?【考點核心】\s*[:：]?\s*/, '').trim();
+      if (effCh) {
+        const chTag = `${effCh.id} ${effCh.name}`;
+        if (!content || /未匹配特定章節/.test(content)) {
+          content = chTag;
+        } else if (!content.toUpperCase().startsWith(effCh.id.toUpperCase())) {
+          content = `${chTag} — ${content.replace(/^屬於統測\s*CH\d+\s*[-~～‑–]\s*CH\d+\s*/i, '')}`;
+        }
+      }
       return `
         <div style="margin:6px 0 10px 0;padding:8px 12px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
           <span style="display:inline-block;padding:2px 8px;background:#2563eb;color:#ffffff;border-radius:5px;font-weight:700;font-size:.82rem">【考點核心】</span>
@@ -2383,6 +2405,22 @@ async function tryPost(silent,isVerify=false){
 - (B) 陷阱：忽略需求增加會同時推升均衡價格 P，價格上漲會減少買方剩餘，故 CS 不一定增加（但 PS 一定增加）。
 - (D) 陷阱：彈性大小與剩餘大小成反比！供給彈性愈小（愈陡），生產者剩餘愈大；需求彈性愈小（愈陡），消費者剩餘愈大。`;
    }
+   if(j.ocrText && !document.getElementById('ocrtext').value.trim()){
+     const cleanOcr=extractFirstQuestion(toTW(clean(j.ocrText)));
+     if(cleanOcr){
+       document.getElementById('ocrtext').value=cleanOcr;
+       updateAutoCh(cleanOcr);
+       syncLatestHistOcr(cleanOcr);
+     }
+   }
+   if(!detectedCandidates.length){
+     const combinedForRank=(document.getElementById('ocrtext').value+'\n'+(j.ocrText||'')+'\n'+ans).trim();
+     if(combinedForRank){
+       detectedCandidates=rankChapters(combinedForRank);
+       renderAutoChUI();
+     }
+   }
+   const finalEff=getEffectiveChapter()||eff;
    const box=document.getElementById('answer');
    box.classList.remove('hide');
    const shown=toTW(clean(ans)).replace(/\$/g,'');
@@ -2394,7 +2432,7 @@ async function tryPost(silent,isVerify=false){
        </div>
        ${aiHtml}
        <div style="margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)">
-         <b>觀念回看：</b>${linkCh(shown)||(eff?`<button class="ghost" onclick="gotoCh(${eff.index})">回看 ${eff.id} ${eff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
+         <b>觀念回看：</b>${linkCh(shown)||(finalEff?`<button class="ghost" onclick="gotoCh(${finalEff.index})">回看 ${finalEff.id} ${finalEff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
        </div>
        <div style="margin-top:12px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
          <span style="font-size:.82rem;color:#475569">💡 若題目中有特定數字被拍照雜訊遮蔽，可展開上方微調文字修訂，或複製提示詞貼至外部 AI 驗算：</span>
@@ -2408,7 +2446,7 @@ async function tryPost(silent,isVerify=false){
      box.innerHTML=`
        ${aiHtml}
        <div style="margin-top:12px;padding-top:8px;border-top:1px dashed var(--line)">
-         <b>觀念回看：</b>${linkCh(shown)||(eff?`<button class="ghost" onclick="gotoCh(${eff.index})">回看 ${eff.id} ${eff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
+         <b>觀念回看：</b>${linkCh(shown)||(finalEff?`<button class="ghost" onclick="gotoCh(${finalEff.index})">回看 ${finalEff.id} ${finalEff.name}</button>`:'（可至第二塊搜尋詳細公式）')}
        </div>
        <div class="verify-action-box" style="margin-top:14px;padding:12px 14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
          <div style="flex:1;min-width:220px">
@@ -2435,7 +2473,7 @@ async function tryPost(silent,isVerify=false){
   const latestOcr=document.getElementById('ocrtext').value.trim();
   const fullQ=(latestOcr||fixed||"圖片上傳題目").trim();
   window.currentSolvedQuestion = fullQ;
-  saveHist(fullQ.slice(0,45)||"圖片題",eff?`${eff.id} ${eff.name}`:shown.slice(0,50),fullQ,aiHtml,currentImgThumb,isVerify);
+  saveHist(fullQ.slice(0,45)||"圖片題",finalEff?`${finalEff.id} ${finalEff.name}`:shown.slice(0,50),fullQ,aiHtml,currentImgThumb,isVerify);
   return true;
  }catch(e){return false;}
 }

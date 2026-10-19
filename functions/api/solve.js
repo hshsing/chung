@@ -10,11 +10,11 @@ function normalizeOcrText(s) {
 function extractFirstQuestion(rawText) {
   if (!rawText) return '';
   let txt = normalizeOcrText(rawText.toString().trim());
-  const topOrphanRegex = /(?:(?:^|\n|\s)(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]))|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
+  const topOrphanRegex = /(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）])|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
   const firstHeader = txt.match(topOrphanRegex);
-  if (firstHeader && firstHeader.index > 0 && firstHeader.index < 180) {
+  if (firstHeader && firstHeader.index > 0 && firstHeader.index < 300) {
     const prefix = txt.slice(0, firstHeader.index);
-    if (!/[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．]/.test(prefix)) {
+    if (!/[（(\[【]\s*[Aa]\s*[）)\]】][\s\S]*?[（(\[【]\s*[Bb]\s*[）)\]】]/.test(prefix)) {
       txt = txt.slice(firstHeader.index).trim();
     }
   }
@@ -29,6 +29,71 @@ function extractFirstQuestion(rawText) {
   const leadingPunct = m[0].match(/^[。！？!?]/);
   const cutOffset = m.index + (leadingPunct ? 1 : 0);
   return (beforeAndD + tail.slice(0, cutOffset)).trim();
+}
+
+async function callBackupOcr(dataUrl) {
+  const engines = ['2', '1'];
+  for (const eng of engines) {
+    try {
+      const fd = new FormData();
+      fd.append('apikey', 'helloworld');
+      fd.append('language', 'cht');
+      fd.append('isOverlayRequired', 'false');
+      fd.append('OCREngine', eng);
+      fd.append('base64Image', dataUrl);
+      const r = await fetch('https://api.ocr.space/parse/image', {
+        method: 'POST',
+        body: fd,
+      });
+      if (r.ok) {
+        const j = await r.json();
+        const parsed = j?.ParsedResults?.[0]?.ParsedText || '';
+        if (parsed && parsed.trim().length > 5) {
+          return parsed.trim();
+        }
+      }
+    } catch (e) {}
+  }
+  return '';
+}
+
+function detectChapterBackend(qText) {
+  if (!qText) return '';
+  const s = qText.toLowerCase();
+  const rules = [
+    ['CH1 經濟基本概念', ['生產可能曲線', 'ppc', '邊際轉換率', 'mrt', '機會成本', '稀少性', '自由財', '經濟財', '實證經濟', '規範經濟']],
+    ['CH2 需求與供給', ['需求價格彈性', '供給價格彈性', '需求的價格彈性', '供給的價格彈性', '價格彈性', '彈性係數', '需求彈性', '供給彈性', '弧彈性', '點彈性', '需求法則', '供給法則', '價格上限', '價格下限', '需求量變動', '需求變動', '替代財', '互補財', '正常財', '劣等財', '季芬財', '總收益']],
+    ['CH3 消費行為理論', ['邊際效用', '總效用', '消費者剩餘', '消費者均衡', '水與鑽石', '恩格爾', '消費者主權', 'mux', 'muy', 'mum']],
+    ['CH4 生產理論', ['總產量', '平均產量', '邊際產量', '報酬遞減', '合理生產區', '生產三階段', '生產者剩餘', '馬爾薩斯']],
+    ['CH5 成本理論', ['總成本', '固定成本', '變動成本', '邊際成本', '平均成本', '規模經濟', '規模不經濟', '經濟利潤', '會計利潤', '內含成本', '外顯成本', 'lac', 'avc', 'afc']],
+    ['CH6 市場結構與廠商收益', ['價格接受者', '價格決定者', '市場結構', '自然獨占', '平均收益', '邊際收益', 'ar=mr']],
+    ['CH7 完全競爭產量與價格', ['完全競爭', '歇業點', '停止營業點', '損益兩平點', '損益平衡點', '短期供給線', 'p=mr=mc']],
+    ['CH8 獨占產量與價格', ['獨占廠商', '純粹獨占', '差別取價', '差別訂價', '價格歧視', '邊際成本訂價', '平均成本訂價', '無謂損失']],
+    ['CH9 不完全競爭產量與價格', ['獨占性競爭', '寡占', '拗折需求', '價格僵固', '跟跌不跟漲', '卡特爾', '價格領導', '割喉戰', '加成訂價']],
+    ['CH10 分配理論', ['羅倫茲曲線', '吉尼係數', '五等分位', '引申需求', '聯合需求', '邊際產值', '邊際產出收益', 'vmpl', 'mrpl', '功能性分配', '個人所得分配']],
+    ['CH11 工資與地租', ['實質工資', '名目工資', '後彎', '勞動供給', '勞動參與率', '差額地租', '準租', '經濟租', '地價', '工會', '最低工資']],
+    ['CH12 利息與利潤', ['實質利率', '名目利率', '可貸資金', '流動性偏好', '時間偏好', '投資邊際效率', 'mei', '創新理論', '承擔風險']],
+    ['CH13 國民所得', ['國內生產毛額', '國民生產毛額', 'gdp', 'gni', 'gnp', '三面等價', '平減指數', '可支配所得', '綠色gdp', '中間產品', '最終財', '國外要素所得']],
+    ['CH14 所得水準的決定', ['簡單凱因斯', '邊際消費傾向', '邊際儲蓄傾向', 'mpc', 'mps', '消費函數', '儲蓄函數', '膨脹缺口', '緊縮缺口', '有效需求', '支出乘數', '稅收乘數', '平衡預算乘數', '節儉矛盾', '均衡所得']],
+    ['CH15 貨幣與金融', ['交易媒介', '價值儲藏', 'm1a', 'm1b', 'm2', '費雪', '劍橋方程式', '流動性陷阱', '存款準備率', '存款乘數', '貨幣乘數', '重貼現率', '公開市場操作']],
+    ['CH16 政府', ['市場失靈', '外部性', '外部成本', '外部效益', '公共財', '搭便車', '共有財', '俱樂部財', '資訊不對稱', '逆選擇', '道德危險', '尋租', '自動穩定機能', '財政政策']],
+    ['CH17 國際貿易與國際金融', ['絕對利益', '比較利益', '要素稟賦', '從價稅', '從量稅', '關稅', '傾銷', '匯率', '升值', '貶值', '外匯', '國際收支', '經常帳']],
+    ['CH18 經濟波動', ['景氣循環', '領先指標', '同時指標', '落後指標', '摩擦性失業', '結構性失業', '循環性失業', '自然失業率', '失業率', '需求拉動', '成本推動', '停滯性通膨', '菲力普曲線', '痛苦指數', '菜單成本', '皮鞋成本']],
+    ['CH19 經濟成長與經濟發展', ['經濟成長', '經濟發展', '哈羅德', '資本產出比', '貧窮惡性循環', '索羅', '內生成長', '外生成長', '知識經濟', '進口替代', '出口擴張', '稀釋效果']],
+  ];
+  let best = '';
+  let bestScore = 0;
+  for (const [label, kws] of rules) {
+    let sc = 0;
+    for (const k of kws) {
+      if (s.includes(k)) sc += 10;
+    }
+    if (sc > bestScore) {
+      bestScore = sc;
+      best = label;
+    }
+  }
+  return best;
 }
 
 async function callBackupTextAI(sysPrompt, promptText) {
@@ -172,39 +237,54 @@ export async function onRequestPost(context) {
         });
       }
 
-      // 若前端尚未完成 OCR（qPart 為空），先在後端嘗試快速題幹辨識
+      // 若前端尚未完成 OCR（qPart 為空），先在後端嘗試快速題幹辨識（含雲端備援 OCR）
       const cleanQPart = qPart.replace(/【學生已核對題目】/g, '').trim();
-      if (!cleanQPart && context.env.AI) {
-        try {
-          const ocrOut = await context.env.AI.run(VISION, {
-            messages: [
-              { role: 'system', content: '你是繁體中文逐字抄寫員。只准繁體中文。若照片有多題，只抄最上面第 1 題。' },
-              {
-                role: 'user',
-                content: [
-                  { type: 'text', text: '把這張照片中「由上往下看到的第一道題目（最上面第 1 題）」逐字抄出來（含題號、題幹、選項）。不要解題，只要抄出第一題的文字。' },
-                  { type: 'image_url', image_url: { url: dataUrl } },
-                ],
-              },
-            ],
-            max_tokens: 512,
-          });
-          const ocrRaw = (ocrOut?.response || ocrOut?.result?.response || '').toString();
-          const extractedOcr = extractFirstQuestion(ocrRaw);
-          if (extractedOcr) {
-            qPart = '【學生已核對題目】' + extractedOcr;
+      if (!cleanQPart) {
+        let ocrRaw = '';
+        if (context.env.AI) {
+          try {
+            const ocrOut = await context.env.AI.run(VISION, {
+              messages: [
+                { role: 'system', content: '你是繁體中文逐字抄寫員。只准繁體中文。若照片有多題，只抄最上面第 1 題。' },
+                {
+                  role: 'user',
+                  content: [
+                    { type: 'text', text: '把這張照片中「由上往下看到的第一道題目（最上面第 1 題）」逐字抄出來（含題號、題幹、選項）。不要解題，只要抄出第一題的文字。' },
+                    { type: 'image_url', image_url: { url: dataUrl } },
+                  ],
+                },
+              ],
+              max_tokens: 512,
+            });
+            ocrRaw = (ocrOut?.response || ocrOut?.result?.response || '').toString();
+          } catch (e) {
+            ocrRaw = '';
           }
-        } catch (e) {}
+        }
+        if (!ocrRaw || !ocrRaw.trim()) {
+          ocrRaw = await callBackupOcr(dataUrl);
+        }
+        const extractedOcr = extractFirstQuestion(ocrRaw);
+        if (extractedOcr) {
+          qPart = '【學生已核對題目】' + extractedOcr;
+        }
 
         if (!hasGraph && figureKeywordsRegex.test(qPart)) {
           return Response.json({
             answer: buildMissingFigureResponse(qPart, true),
+            ocrText: extractedOcr || '',
             concepts: '由 AI 判斷，另請對照站內 CH1-19',
             verified: verify,
           });
         }
       }
     }
+
+    const detectedBackendCh = detectChapterBackend(qPart);
+    const effectiveMetaPart =
+      metaPart && /【考點章節】/.test(metaPart)
+        ? metaPart
+        : (detectedBackendCh ? `\n【考點章節】${detectedBackendCh}` : '') + metaPart;
 
     const officialKey = extractLeadingAnswerKey(qPart);
     const officialKeyNotice = officialKey
@@ -215,7 +295,7 @@ export async function onRequestPost(context) {
         `3. 【步驟二：觀念確認題】的設計與「解答：[A/B/C]」必須與 (${officialKey}) 的核心經濟學原理完全一致，且「解答：[A/B/C]」括號內的字母必須對應「觀念確認題本身選項」的正確代號，嚴禁自相矛盾！\n\n`
       : '';
 
-    const text = qPart + metaPart;
+    const text = qPart + effectiveMetaPart;
 
     // 第一次解題即直接採用「資深統測閱卷召集人」最高嚴謹規格（與一鍵複製覆核 Prompt 同等級）
     const sysPrompt =
@@ -435,10 +515,13 @@ export async function onRequestPost(context) {
       return Response.json({ error: 'AI quota reached and waiting for OCR text', fallback: true }, { status: 503 });
     }
 
-    // 去 LaTeX 殘留斜線、Markdown 標題井字號與 boxed 語法
+    // 去 LaTeX 殘留斜線、Markdown 標題井字號與 boxed 語法，並確保【考點核心】與內容同行
     let answer = raw
       .replace(/^[ \t]*#+[ \t]*/gm, '')
       .replace(/\*\*(【[^】]+】)\*\*/g, '$1')
+      .replace(/【考點章節】/g, '【考點核心】')
+      .replace(/【考點核心】\s*[:：]?\s*\n+\s*/g, '【考點核心】 ')
+      .replace(/[‑–]/g, '-')
       .replace(/\\?Delta\b/gi, 'Δ')
       .replace(/[△▲]/g, 'Δ')
       .replace(/Δ\s+([A-Za-z0-9])/g, 'Δ$1')
@@ -473,6 +556,24 @@ export async function onRequestPost(context) {
       .replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2')
       .replace(/(?<!_)_(?!_)/g, '');
 
+    // 確保【考點核心】開頭一定明確標示單一課綱章節（如：CH2 需求與供給 — ...）
+    const metaChMatch = effectiveMetaPart.match(/【考點章節】\s*(CH\d+\s+\S+)/);
+    const targetChLabel = (metaChMatch ? metaChMatch[1] : detectedBackendCh || '').trim();
+    if (targetChLabel) {
+      if (/【考點核心】/.test(answer)) {
+        answer = answer.replace(/【考點核心】\s*([^\n]*)/, (full, rest) => {
+          const cleanRest = rest
+            .replace(/^[:：—\-\s]+/, '')
+            .replace(/^[【\[]?\s*CH\d+\s+\S+\s*[】\]]?\s*[—\-:：]?\s*/i, '')
+            .replace(/，?屬於統測\s*CH\d+(?:\s*[-~～]\s*CH\d+)?\s*[^。，\n]*[。]?/g, '')
+            .trim();
+          return `【考點核心】 ${targetChLabel}${cleanRest ? ' — ' + cleanRest : ''}`;
+        });
+      } else {
+        answer = `【考點核心】 ${targetChLabel}\n\n` + answer;
+      }
+    }
+
     // 3. 後處理最終安全網：若無坐標圖（!hasGraph 或無圖），但題幹或 AI 輸出顯示這是一道看圖題（如提及「如右圖」、「圖中標有」、「S1、S2、S3...平行供給曲線」），強制替換為確定性的缺圖四步驟說明！
     if ((!imgs.length || !hasGraph) && figureKeywordsRegex.test(qPart + ' ' + answer)) {
       answer = buildMissingFigureResponse(qPart + ' ' + answer, imgs.length > 0);
@@ -483,7 +584,7 @@ export async function onRequestPost(context) {
     ) {
       // 4. 針對「消費者與生產者剩餘（水平供給線 PS = 0）」若模型仍發生面積位置混淆之確定性修正
       answer =
-        '【考點核心】 CH3/CH4 消費者剩餘（CS）與生產者剩餘（PS）之定義、幾何面積與彈性關係\n\n' +
+        '【考點核心】 CH3 消費行為理論 / CH4 生產理論 — 消費者剩餘（CS）與生產者剩餘（PS）之定義、幾何面積與彈性關係\n\n' +
         '【步驟一：審題與已知梳理】\n' +
         '已知條件梳理：本題測驗消費者剩餘（CS）與生產者剩餘（PS）的四大核心性質：(A) 主觀心理感受 vs. 客觀實際收入、(B) 需求變動對 CS 的影響、(C) 水平供給線下的 PS 數值、(D) 供給彈性大小與 PS 的關係。\n' +
         '思考引導：先牢記幾何面積定義：「CS 為需求線以下、市價線以上面積；PS 為市價線以下、供給線以上面積」，再逐一檢視四個選項。\n\n' +
@@ -513,7 +614,13 @@ export async function onRequestPost(context) {
       );
     }
 
-    return Response.json({ answer, concepts: '由 AI 判斷，另請對照站內 CH1-19', verified: verify });
+    return Response.json({
+      answer,
+      ocrText: cleanCheckText,
+      chapter: targetChLabel,
+      concepts: '由 AI 判斷，另請對照站內 CH1-19',
+      verified: verify,
+    });
   } catch (e) {
     return Response.json({ error: String(e).slice(0, 300), fallback: true }, { status: 500 });
   }
