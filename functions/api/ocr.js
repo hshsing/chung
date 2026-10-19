@@ -42,12 +42,23 @@ export async function onRequestPost(context) {
       .replace(/\\/g, '')
       .replace(/\$(?:\s*space\s*)+\$?/gi, '')
       .replace(/(?:\bspace\b\s*){2,}/gi, '')
-      .replace(/\$\s*\$/g, '');
+      .replace(/\$\s*\$/g, '')
+      .trim();
 
-    // 若仍包含第 2 題以後的文字（在第一題選項 (D) 之後出現新題號），自動截斷只保留由上往下第 1 題
-    const optDMatch = text.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
-    if (optDMatch) {
-      const afterDIdx = optDMatch.index + optDMatch[0].length;
+    // 1) 若照片頂端切到上一題殘留的半截選項（如開頭不到 180 字內無 (A)，緊接著出現新題號如「( A ) 12.」或換行題號），先移除頂端殘留文字
+    const topOrphanRegex = /(?:(?:^|\n|\s)(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]))|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
+    const firstHeader = text.match(topOrphanRegex);
+    if (firstHeader && firstHeader.index > 0 && firstHeader.index < 180) {
+      const prefix = text.slice(0, firstHeader.index);
+      if (!/[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．]/.test(prefix)) {
+        text = text.slice(firstHeader.index).trim();
+      }
+    }
+
+    // 2) 必須完整出現 (A)...(B)...(C)...(D) 四個選項後，若下方還有第 2 題題號，才截斷只保留由上往下第 1 題
+    const fullOptsMatch = text.match(/(?:[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Bb]\s*[）)\]】]|[Bb]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Cc]\s*[）)\]】]|[Cc]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+    if (fullOptsMatch) {
+      const afterDIdx = fullOptsMatch.index + fullOptsMatch[0].length;
       const beforeAndD = text.slice(0, afterDIdx);
       const tail = text.slice(afterDIdx);
       const nextQRegex = /(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;

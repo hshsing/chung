@@ -1,9 +1,26 @@
+function normalizeOcrText(s) {
+  if (!s) return '';
+  let out = s.toString();
+  for (let i = 0; i < 3; i++) {
+    out = out.replace(/([\u4e00-\u9fff，。！？；：「」（）、《》【】％])\s+([\u4e00-\u9fff，。！？；：「」（）、《》【】％])/g, '$1$2');
+  }
+  return out.replace(/(\d)\s*,\s*(\d{3})\b/g, '$1,$2');
+}
+
 function extractFirstQuestion(rawText) {
   if (!rawText) return '';
-  const txt = rawText.toString().trim();
-  const optDMatch = txt.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
-  if (!optDMatch) return txt;
-  const afterDIdx = optDMatch.index + optDMatch[0].length;
+  let txt = normalizeOcrText(rawText.toString().trim());
+  const topOrphanRegex = /(?:(?:^|\n|\s)(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]))|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
+  const firstHeader = txt.match(topOrphanRegex);
+  if (firstHeader && firstHeader.index > 0 && firstHeader.index < 180) {
+    const prefix = txt.slice(0, firstHeader.index);
+    if (!/[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．]/.test(prefix)) {
+      txt = txt.slice(firstHeader.index).trim();
+    }
+  }
+  const fullOptsMatch = txt.match(/(?:[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Bb]\s*[）)\]】]|[Bb]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Cc]\s*[）)\]】]|[Cc]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+  if (!fullOptsMatch) return txt;
+  const afterDIdx = fullOptsMatch.index + fullOptsMatch[0].length;
   const beforeAndD = txt.slice(0, afterDIdx);
   const tail = txt.slice(afterDIdx);
   const nextQRegex = /(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
@@ -12,6 +29,34 @@ function extractFirstQuestion(rawText) {
   const leadingPunct = m[0].match(/^[。！？!?]/);
   const cutOffset = m.index + (leadingPunct ? 1 : 0);
   return (beforeAndD + tail.slice(0, cutOffset)).trim();
+}
+
+async function callBackupTextAI(sysPrompt, promptText) {
+  const models = ['openai', 'mistral'];
+  for (const mdl of models) {
+    try {
+      const r = await fetch('https://text.pollinations.ai/openai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: mdl,
+          messages: [
+            { role: 'system', content: sysPrompt },
+            { role: 'user', content: promptText },
+          ],
+          temperature: 0.1,
+        }),
+      });
+      if (r.ok) {
+        const j = await r.json();
+        const content = j?.choices?.[0]?.message?.content;
+        if (content && content.trim().length > 40) {
+          return { response: content };
+        }
+      }
+    } catch (e) {}
+  }
+  return null;
 }
 
 function buildMissingFigureResponse(qText, hasImage) {
@@ -92,10 +137,6 @@ export async function onRequestPost(context) {
     const imgs = fd.getAll('images').filter((x) => x && typeof x.arrayBuffer === 'function');
     if (!imgs.length && !qPart && !metaPart) return Response.json({ error: 'empty' }, { status: 400 });
 
-    if (!context.env.AI) {
-      return Response.json({ error: 'AI not bound', fallback: true }, { status: 501 });
-    }
-
     const figureKeywordsRegex = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|圖中標有|如(?:右|左|上|下|附)?表(?:所示)?|見(?:附)?表|如附表|S1\s*[、,，]\s*S2\s*[、,，]\s*S3.*供給曲線)/i;
 
     // 1. 純文字輸入（無圖片）且題幹載明如圖：直接回傳確定性的缺圖四步驟說明，0% 幻覺
@@ -131,9 +172,9 @@ export async function onRequestPost(context) {
         });
       }
 
-      // 若前端尚未完成 OCR（qPart 為空），先在後端執行快速題幹辨識，以確保能精準判斷是否缺圖及提取題幹
+      // 若前端尚未完成 OCR（qPart 為空），先在後端嘗試快速題幹辨識
       const cleanQPart = qPart.replace(/【學生已核對題目】/g, '').trim();
-      if (!cleanQPart) {
+      if (!cleanQPart && context.env.AI) {
         try {
           const ocrOut = await context.env.AI.run(VISION, {
             messages: [
@@ -277,35 +318,36 @@ export async function onRequestPost(context) {
       '【正確答案】 (直接填入正確選項代號與內容，如：(A) 或 (B) 或 (C)，嚴禁使用 boxed 語法)\n' +
       '選項/陷阱分析：(若為選擇題，說明其他選項為何錯誤；若為計算題，點出高職統測學生最容易算錯的陷阱)\n\n';
 
-    let out;
+    let out = null;
     const cleanCheckText = qPart.replace(/【學生已核對題目】/g, '').trim();
     const needsVisualGraphInspection = imgs.length > 0 && hasGraph && figureKeywordsRegex.test(qPart);
 
-    // 若題目已有完整辨識文字且不需要看右側坐標圖（例如一般文字選擇題或計算題），優先使用 70B 大型推理模型解題！
-    if (cleanCheckText && !needsVisualGraphInspection) {
-      const promptText =
-        officialKeyNotice +
-        strictCheckRules +
-        benchmarkPrinciple +
-        noCalculusPrinciple +
-        elasticityPrinciple +
-        surplusPrinciple +
-        formatSpec +
-        '解題要求：\n' +
-        '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】（含「題目：」、「選項：A. ... | B. ... | C. ...」、「解答：[A/B/C] ...」）。\n' +
-        '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '3. 【公式與變數符號鐵律（嚴禁底線「_」、嚴禁 boxed 與 LaTeX）】：\n' +
-        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等！\n' +
-        '   - 【變動量一律使用希臘三角形符號「Δ」】：只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU 等，嚴禁寫成 Delta！\n' +
-        '   - 公式一律用純文字單行，不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
-        '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
-        '題目文字與課綱補充：\n' +
-        text;
+    const textPrompt =
+      officialKeyNotice +
+      strictCheckRules +
+      benchmarkPrinciple +
+      noCalculusPrinciple +
+      elasticityPrinciple +
+      surplusPrinciple +
+      formatSpec +
+      '解題要求：\n' +
+      '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】（含「題目：」、「選項：A. ... | B. ... | C. ...」、「解答：[A/B/C] ...」）。\n' +
+      '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
+      '3. 【公式與變數符號鐵律（嚴禁底線「_」、嚴禁 boxed 與 LaTeX）】：\n' +
+      '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等！\n' +
+      '   - 【變動量一律使用希臘三角形符號「Δ」】：只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU 等，嚴禁寫成 Delta！\n' +
+      '   - 公式一律用純文字單行，不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
+      '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
+      '題目文字與課綱補充：\n' +
+      text;
+
+    if (context.env.AI && cleanCheckText && !needsVisualGraphInspection) {
+      const primaryModel = verify ? REASONING_70B : TEXT_FALLBACK;
       try {
-        out = await context.env.AI.run(REASONING_70B, {
+        out = await context.env.AI.run(primaryModel, {
           messages: [
             { role: 'system', content: sysPrompt },
-            { role: 'user', content: promptText },
+            { role: 'user', content: textPrompt },
           ],
           max_tokens: 1536,
           temperature: 0.1,
@@ -313,9 +355,23 @@ export async function onRequestPost(context) {
       } catch (e) {
         out = null;
       }
+      if (!out && primaryModel !== TEXT_FALLBACK) {
+        try {
+          out = await context.env.AI.run(TEXT_FALLBACK, {
+            messages: [
+              { role: 'system', content: sysPrompt },
+              { role: 'user', content: textPrompt },
+            ],
+            max_tokens: 1536,
+            temperature: 0.1,
+          });
+        } catch (e) {
+          out = null;
+        }
+      }
     }
 
-    if (!out && imgs.length) {
+    if (!out && context.env.AI && imgs.length) {
       const multiQuestionAndGraphNotice =
         '【🛑 多題照片最高鐵則：一次只解「由上往下看到的第 1 題」！】\n' +
         '★ 請由上往下檢視照片：若照片中包含兩道或以上的題目（例如上方有第 06 題、下方有第 07 題）：\n' +
@@ -349,51 +405,40 @@ export async function onRequestPost(context) {
         '補充文字：' +
         text;
 
-      out = await context.env.AI.run(VISION, {
-        messages: [
-          { role: 'system', content: sysPrompt + '看得到使用者提供的圖片。' },
-          {
-            role: 'user',
-            content: [
-              { type: 'text', text: task },
-              { type: 'image_url', image_url: { url: dataUrl } },
-            ],
-          },
-        ],
-        max_tokens: 1536,
-        temperature: 0.1,
-      });
-    } else if (!out) {
-      const promptText =
-        officialKeyNotice +
-        strictCheckRules +
-        benchmarkPrinciple +
-        noCalculusPrinciple +
-        elasticityPrinciple +
-        surplusPrinciple +
-        formatSpec +
-        '解題要求：\n' +
-        '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】（含「題目：」、「選項：A. ... | B. ... | C. ...」、「解答：[A/B/C] ...」）。\n' +
-        '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
-        '3. 【公式與變數符號鐵律（嚴禁底線「_」、嚴禁 boxed 與 LaTeX）】：\n' +
-        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等！\n' +
-        '   - 【變動量一律使用希臘三角形符號「Δ」】：只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU 等，嚴禁寫成 Delta！\n' +
-        '   - 公式一律用純文字單行，不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
-        '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
-        (text ? ('題目文字與補充：\n' + text) : '');
-      out = await context.env.AI.run(TEXT_FALLBACK, {
-        messages: [
-          { role: 'system', content: sysPrompt },
-          { role: 'user', content: promptText },
-        ],
-        max_tokens: 1536,
-        temperature: 0.1,
-      });
+      try {
+        out = await context.env.AI.run(VISION, {
+          messages: [
+            { role: 'system', content: sysPrompt + '看得到使用者提供的圖片。' },
+            {
+              role: 'user',
+              content: [
+                { type: 'text', text: task },
+                { type: 'image_url', image_url: { url: dataUrl } },
+              ],
+            },
+          ],
+          max_tokens: 1536,
+          temperature: 0.1,
+        });
+      } catch (e) {
+        out = null;
+      }
     }
 
-    let raw = out?.response || out?.result?.response || JSON.stringify(out).slice(0, 4000);
-    // 去 LaTeX 殘留斜線與 boxed 語法
+    // 當 Cloudflare 免費每日額度（10,000 neurons）耗盡或服務忙碌時，若已有題目文字則自動切換至雲端備援 AI 解題
+    if (!out && cleanCheckText) {
+      out = await callBackupTextAI(sysPrompt, textPrompt);
+    }
+
+    let raw = out?.response || out?.result?.response || '';
+    if (!raw || !raw.trim()) {
+      return Response.json({ error: 'AI quota reached and waiting for OCR text', fallback: true }, { status: 503 });
+    }
+
+    // 去 LaTeX 殘留斜線、Markdown 標題井字號與 boxed 語法
     let answer = raw
+      .replace(/^[ \t]*#+[ \t]*/gm, '')
+      .replace(/\*\*(【[^】]+】)\*\*/g, '$1')
       .replace(/\\?Delta\b/gi, 'Δ')
       .replace(/[△▲]/g, 'Δ')
       .replace(/Δ\s+([A-Za-z0-9])/g, 'Δ$1')

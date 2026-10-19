@@ -1034,12 +1034,29 @@ function renderAutoChUI(){
   }
 }
 
+function normalizeOcrText(s){
+  if(!s)return '';
+  let out=s.toString();
+  for(let i=0;i<3;i++){
+    out=out.replace(/([\u4e00-\u9fff，。！？；：「」（）、《》【】％])\s+([\u4e00-\u9fff，。！？；：「」（）、《》【】％])/g,'$1$2');
+  }
+  return out.replace(/(\d)\s*,\s*(\d{3})\b/g,'$1,$2');
+}
+
 function extractFirstQuestion(rawText){
   if(!rawText)return '';
-  const txt=rawText.toString().trim();
-  const optDMatch=txt.match(/(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
-  if(!optDMatch)return txt;
-  const afterDIdx=optDMatch.index+optDMatch[0].length;
+  let txt=normalizeOcrText(rawText.toString().trim());
+  const topOrphanRegex=/(?:(?:^|\n|\s)(?:(?:\d{1,3}\s*[（(\[【]\s*[A-Da-d]\s*[）)\]】])|(?:[（(\[【]\s*[A-Da-d]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]))|(?:^|\n)\s*(?:(?:[（(\[【]\s*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s]))))/;
+  const firstHeader=txt.match(topOrphanRegex);
+  if(firstHeader && firstHeader.index>0 && firstHeader.index<180){
+    const prefix=txt.slice(0,firstHeader.index);
+    if(!/[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．]/.test(prefix)){
+      txt=txt.slice(firstHeader.index).trim();
+    }
+  }
+  const fullOptsMatch=txt.match(/(?:[（(\[【]\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Bb]\s*[）)\]】]|[Bb]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Cc]\s*[）)\]】]|[Cc]\s*[.、．])[\s\S]*?(?:[（(\[【]\s*[Dd]\s*[）)\]】]|[Dd]\s*[.、．])\s*\S/);
+  if(!fullOptsMatch)return txt;
+  const afterDIdx=fullOptsMatch.index+fullOptsMatch[0].length;
   const beforeAndD=txt.slice(0,afterDIdx);
   const tail=txt.slice(afterDIdx);
   const nextQRegex=/(?:[。！？!?\n]\s*|\n\s*)(?:(?:\d{1,3}\s*[（(\[【][A-Da-d\s][）)\]】])|(?:[（(\[【][A-Da-d\s]*[）)\]】]\s*\d{1,3}\s*[.、．)）]?)|(?:第\s*[0-9一二三四五六七八九十]+\s*題)|(?:\d{1,3}\s*[.、．)）]\s*(?=[^\d\s])))/;
@@ -1154,8 +1171,19 @@ function resetImage(){
   if(cBox)cBox.style.display='none';
   const dZone=document.getElementById('drop-zone');
   if(dZone)dZone.style.display='block';
+  const ocrBox=document.getElementById('ocrtext');
+  if(ocrBox)ocrBox.value='';
+  detectedCandidates=[];
+  manualChIndex=-1;
+  const sel=document.getElementById('userch-select');
+  if(sel)sel.value='-1';
+  updateAutoCh('');
+  const ansBox=document.getElementById('answer');
+  if(ansBox){ansBox.innerHTML='';ansBox.classList.add('hide');}
+  window.currentSolvedQuestion='';
   finfo.textContent='';
-  ocrstat.textContent='';}
+  ocrstat.textContent='';
+}
 
 function loadDemo(idx){
   const d=DEMOS[idx % DEMOS.length];
@@ -1508,7 +1536,7 @@ function parseSolutionSteps(rawText) {
     }
 
     if (readingQuiz) {
-      const cleanQuizLine = line.replace(/^[-*•]\s*/, '');
+      const cleanQuizLine = line.replace(/^[-*•\s]+/, '').replace(/<\/?strong>/gi, '').trim();
       if (/^題目[：:]/.test(cleanQuizLine)) {
         quizQ = cleanQuizLine.replace(/^題目[：:]\s*/, '');
       } else if (/^選項[：:]/.test(cleanQuizLine)) {
@@ -1572,7 +1600,7 @@ function renderMarkdownAnswer(rawText, customId) {
   const solId = customId || ('sol_' + (++solCounter) + '_' + Math.random().toString(36).substring(2, 6));
 
   let txt = toTW(clean(rawText.toString())).replace(/\$/g, '');
-  txt = txt.replace(/\*\*【(.+?)】\*\*/g, '【$1】');
+  txt = txt.replace(/^[ \t]*#+[ \t]*/gm, '').replace(/\*\*【(.+?)】\*\*/g, '【$1】');
   let escaped = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   escaped = escaped.replace(/&lt;(\/?)sub&gt;/gi, '<$1sub>');
   escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -1914,7 +1942,36 @@ preview.onload=()=>{
   document.getElementById('drop-zone').style.display='none';
 };
 preview.onerror=()=>{finfo.textContent+=' ｜ 預覽無法顯示（若是 HEIC 格式請重拍為 JPEG）';ocrstat.textContent='預覽失敗時辨識也可能失敗，建議重拍為 JPEG。';};
-file.addEventListener('change',async()=>{try{const raw=[...file.files];if(!raw.length){finfo.textContent='沒有選到檔案（可能按到取消），請再選一次。';return;}const f=raw[0];finfo.textContent=`已選檔案約 ${Math.round(f.size/1024)}KB，載入預覽…`;preview.src=URL.createObjectURL(f);document.getElementById('preview-container').style.display='block';document.getElementById('drop-zone').style.display='none';try{const cb=await compressImage(f);imgs=[new File([cb],'q.jpg',{type:'image/jpeg'})];currentImgThumb=await makeThumbDataUrl(cb);finfo.textContent+=` → 壓縮約 ${Math.round(cb.size/1024)}KB，AI 辨識中…`;}catch(e){imgs=raw;currentImgThumb=await makeThumbDataUrl(f);}await runOcr();}catch(e){ocrstat.textContent='讀取照片失敗，請重拍一張（iPhone 請確認為 JPEG）再試。';}});
+file.addEventListener('change',async()=>{
+  try{
+    const raw=[...file.files];
+    if(!raw.length){finfo.textContent='沒有選到檔案（可能按到取消），請再選一次。';return;}
+    const ocrBox=document.getElementById('ocrtext');
+    if(ocrBox)ocrBox.value='';
+    detectedCandidates=[];
+    updateAutoCh('');
+    const ansBox=document.getElementById('answer');
+    if(ansBox){ansBox.innerHTML='';ansBox.classList.add('hide');}
+    window.currentSolvedQuestion='';
+    const f=raw[0];
+    finfo.textContent=`已選檔案約 ${Math.round(f.size/1024)}KB，載入預覽…`;
+    preview.src=URL.createObjectURL(f);
+    document.getElementById('preview-container').style.display='block';
+    document.getElementById('drop-zone').style.display='none';
+    try{
+      const cb=await compressImage(f);
+      imgs=[new File([cb],'q.jpg',{type:'image/jpeg'})];
+      currentImgThumb=await makeThumbDataUrl(cb);
+      finfo.textContent+=` → 壓縮約 ${Math.round(cb.size/1024)}KB，AI 辨識中…`;
+    }catch(e){
+      imgs=raw;
+      currentImgThumb=await makeThumbDataUrl(f);
+    }
+    await runOcr();
+  }catch(e){
+    ocrstat.textContent='讀取照片失敗，請重拍一張（iPhone 請確認為 JPEG）再試。';
+  }
+});
 async function runOcr(){
   const box=document.getElementById('ocrtext');
   if(!imgs.length){ocrstat.textContent='請先上傳圖片或載入示範題目';return;}
@@ -1929,6 +1986,7 @@ async function runOcr(){
         const j=await r.json();
         if(j.text){
           box.value=extractFirstQuestion(toTW(clean(j.text)));
+          finfo.textContent=finfo.textContent.replace(/AI 辨識中…/g,'✅ 題目辨識完成！');
           ocrstat.textContent='圖片載入完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
           updateAutoCh(box.value);
           syncLatestHistOcr(box.value);
@@ -1936,14 +1994,15 @@ async function runOcr(){
         }
         ocrstat.textContent='後端無文字，改本機辨識…';
       }else{
-        ocrstat.textContent=`後端忙碌（${r.status}），改本機辨識（約10–20秒）…`;
+        ocrstat.textContent=`雲端視覺忙碌（${r.status}），自動切換本機辨識中（約10–15秒）…`;
       }
-    }catch(e){clearInterval(timer);ocrstat.textContent='AI 逾時，改本機辨識（約10–20秒）…';}
+    }catch(e){clearInterval(timer);ocrstat.textContent='AI 逾時，自動切換本機辨識中（約10–15秒）…';}
     try{
       if(window.Tesseract){
         const t=await Tesseract.recognize(imgs[0],'chi_tra+eng');
-        box.value=extractFirstQuestion((t.data.text||'').slice(0,1200));
-        ocrstat.textContent='本機辨識完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
+        box.value=extractFirstQuestion(toTW(clean((t.data.text||'').slice(0,1500))));
+        finfo.textContent=finfo.textContent.replace(/AI 辨識中…/g,'✅ 題目辨識完成！');
+        ocrstat.textContent='題目辨識完成，已自動診斷章節！可直接點擊「🚀 拍照立即解題」。';
         updateAutoCh(box.value);
         syncLatestHistOcr(box.value);
         return box.value;
@@ -1956,6 +2015,124 @@ async function runOcr(){
 }
 document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.target.value));
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
+
+function buildSmartLocalSolution(all, eff, c, g) {
+  const cleanAll = normalizeOcrText((all || '').trim());
+  const isFigRef = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?)/i.test(cleanAll);
+  const isSupplyElasticity = /供給.*(?:彈性|曲線)|S1|S2|S3/i.test(cleanAll);
+
+  // 1) 檢查是否為兩點價格與數量之需求弧彈性與總收益計算題（如：從每杯 60 元調漲至 80 元，銷售量從 5,000 杯減少為 3,000 杯）
+  const pMatch = cleanAll.match(/(?:從|由)[^\d]{0,8}(\d+(?:,\d{3})*(?:\.\d+)?)\s*元[^\d]{0,10}(?:調漲|上漲|上升|調降|下跌|下降|變動|調整)?(?:至|為|到)\s*(\d+(?:,\d{3})*(?:\.\d+)?)\s*元/);
+  const qMatch = cleanAll.match(/(?:銷售量|需求量|數量)[^\d]{0,8}(?:從|由)?\s*(\d+(?:,\d{3})*(?:\.\d+)?)\s*[^\d]{0,6}(?:減少|增加|下降|上升|變動|調整)(?:為|至|到)\s*(\d+(?:,\d{3})*(?:\.\d+)?)/);
+  if (pMatch && qMatch && /彈性/.test(cleanAll)) {
+    const p1 = parseFloat(pMatch[1].replace(/,/g, ''));
+    const p2 = parseFloat(pMatch[2].replace(/,/g, ''));
+    const q1 = parseFloat(qMatch[1].replace(/,/g, ''));
+    const q2 = parseFloat(qMatch[2].replace(/,/g, ''));
+    if (p1 > 0 && p2 > 0 && q1 > 0 && q2 > 0 && p1 !== p2) {
+      const dQ = Math.abs(q2 - q1);
+      const dP = Math.abs(p2 - p1);
+      const sumP = p1 + p2;
+      const sumQ = q1 + q2;
+      const edRaw = (dQ / dP) * (sumP / sumQ);
+      const edStr = Number.isInteger(edRaw) ? String(edRaw) : parseFloat(edRaw.toFixed(2)).toString();
+      const tr1 = p1 * q1;
+      const tr2 = p2 * q2;
+      const trDiff = tr2 - tr1;
+      const trChangeWord = trDiff < 0 ? '減少' : (trDiff > 0 ? '增加' : '不變');
+      let matchedOpt = `彈性係數為 ${edStr}；總收益${trChangeWord}`;
+      const optRegex = /[（(\[【]\s*([A-Da-d])\s*[）)\]】]\s*([^（(\[【\n]+)/g;
+      let mOpt;
+      while ((mOpt = optRegex.exec(cleanAll)) !== null) {
+        const letter = mOpt[1].toUpperCase();
+        const body = mOpt[2].trim();
+        if (body.includes(edStr) && body.includes(`總收益${trChangeWord}`)) {
+          matchedOpt = `(${letter}) ${body}`;
+          break;
+        }
+      }
+      return (
+        `【考點核心】 CH2 需求與供給 — 需求價格弧彈性（中點公式）與總收益（TR）變化判定\n\n` +
+        `【步驟一：審題與已知梳理】\n` +
+        `已知條件梳理：原價格 P1 = ${p1} 元、新價格 P2 = ${p2} 元；原銷售量 Q1 = ${q1.toLocaleString()}、新銷售量 Q2 = ${q2.toLocaleString()}。\n` +
+        `思考引導：題目給定兩組價格與數量且未指定點彈性，依高職統測規範必須使用「弧彈性（中點公式）」計算 Ed，再由 TR = P × Q 比較調整前後之總收益變化。\n\n` +
+        `【步驟二：核心公式與觀念鐵則】\n` +
+        `核心公式/鐵則：【需求與供給點彈性與直線幾何鐵則】\n` +
+        `1. 需求弧彈性公式（中點公式）：Ed = | (Q2 - Q1) / (P2 - P1) | × (P1 + P2) / (Q1 + Q2)\n` +
+        `2. 總收益與彈性關係：總收益 TR = P × Q。當 Ed > 1（富有彈性）時，漲價會使總收益減少、降價會使總收益增加。\n` +
+        `觀念確認題：\n` +
+        `題目：當商品的需求價格彈性 Ed > 1（富有彈性）時，廠商若調漲價格，總收益（TR）會如何變化？\n` +
+        `選項：A. 總收益減少 | B. 總收益增加 | C. 總收益維持不變\n` +
+        `解答：[A] (解析：當 Ed > 1 時，數量減少的百分比大於價格上漲的百分比，因此漲價會導致總收益減少！)\n\n` +
+        `【步驟三：數值代入與逐步推演】\n` +
+        `推演過程：\n` +
+        `1. 計算價格與數量變動量：ΔQ = | ${q2} - ${q1} | = ${dQ}；ΔP = | ${p2} - ${p1} | = ${dP}。\n` +
+        `2. 計算兩點總和：P1 + P2 = ${p1} + ${p2} = ${sumP}；Q1 + Q2 = ${q1} + ${q2} = ${sumQ}。\n` +
+        `3. 代入弧彈性中點公式：Ed = (${dQ} / ${dP}) × (${sumP} / ${sumQ}) = ${dQ / dP} × ${sumP / sumQ} = ${edStr}（因 Ed = ${edStr} > 1，屬於富有彈性）。\n` +
+        `4. 計算並比較總收益（TR = P × Q）：\n` +
+        `   - 調整前總收益 TR1 = ${p1} × ${q1.toLocaleString()} = ${tr1.toLocaleString()} 元\n` +
+        `   - 調整後總收益 TR2 = ${p2} × ${q2.toLocaleString()} = ${tr2.toLocaleString()} 元\n` +
+        `   - 總收益變化：由 ${tr1.toLocaleString()} 元變為 ${tr2.toLocaleString()} 元，總收益${trChangeWord}${trDiff !== 0 ? ' ' + Math.abs(trDiff).toLocaleString() + ' 元' : ''}。\n\n` +
+        `【步驟四：最終答案與選項陷阱分析】\n` +
+        `【正確答案】 ${matchedOpt}\n` +
+        `選項/陷阱分析：\n` +
+        `- 陷阱一（誤用點彈性公式）：若誤用單一點 (P1/Q1) 代入，會算成 (${dQ}/${dP}) × (${p1}/${q1}) = ${parseFloat(((dQ / dP) * (p1 / q1)).toFixed(2))}，這是統測最常見的陷阱！給兩點未指定點彈性時，分母務必使用兩點平均值（中點公式）。\n` +
+        `- 陷阱二（總收益方向誤判）：因為 Ed = ${edStr} > 1（富有彈性），消費者對漲價非常敏感，漲價會導致銷售量大幅流失，總收益必然減少！`
+      );
+    }
+  }
+
+  // 2) 若題號本身附帶標準答案（如 ( A ) 12. 或 12(C)）
+  const keyMatch = cleanAll.match(/^(?:第?\s*\d{1,3}\s*題?\s*[.、．)]?\s*[（(\[【]\s*([A-Da-d])\s*[）)\]】]|[（(\[【]\s*([A-Da-d])\s*[）)\]】]\s*第?\s*\d{1,3}\s*[.、．)]?)\s*(\S[\s\S]*)$/);
+  const leadingKey = keyMatch ? (keyMatch[1] || keyMatch[2] || '').toUpperCase() : null;
+  let matchedOptText = '';
+  if (leadingKey) {
+    const optRe = new RegExp(`[（(\\[【]\\s*${leadingKey}\\s*[）)\\]】]\\s*([^（(\\[【\\n]+)`, 'i');
+    const m = cleanAll.match(optRe);
+    if (m) matchedOptText = `(${leadingKey}) ${m[1].trim()}`;
+    else matchedOptText = `(${leadingKey})`;
+  }
+
+  let fallbackFormula = c ? c[4].replace(/<[^>]+>/g, '') : '依高職經濟課綱核心公式推導';
+  let fallbackQuizQ = '在進行經濟學題目判定時，下列哪一項審題原則最為正確？';
+  let fallbackQuizOpts = 'A. 弧彈性分母應使用兩點之平均值（中點公式） | B. 價格彈性不需取絕對值 | C. 多變數決策可直接互比大小決定一增一減';
+  let fallbackQuizAns = '[A] (解析：高職統測計算弧彈性時，分母必須使用兩點價格與數量的平均值！)';
+  let fallbackSteps =
+    `1. 題幹關鍵條件梳理：${cleanAll ? cleanAll.slice(0, 220) : '依題幹給定條件進行分析'}。\n` +
+    `2. 核心公式對照：套用 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 核心公式（${fallbackFormula}）逐步代入驗算。\n` +
+    (matchedOptText ? `3. 選項核對結論：經核對各選項條件，正確選項為 ${matchedOptText}。` : '3. 單位與正負號驗證：確認價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。');
+
+  if (isSupplyElasticity) {
+    fallbackFormula = '直線供給曲線截距判定法則：穿過縱軸 P 軸 Es > 1；穿過原點 Es = 1；穿過橫軸 Q 軸 Es < 1。';
+    fallbackQuizQ = '直線供給曲線若通過原點 (0,0)，其線上每一點的點彈性大小為何？';
+    fallbackQuizOpts = 'A. 恆大於 1 (Es > 1) | B. 恆等於 1 (Es = 1) | C. 恆小於 1 (Es < 1)';
+    fallbackQuizAns = '[B] (通過原點之直線供給曲線，不論斜率多陡或多平緩，線上每一點之供給彈性恆等於 1)';
+    if (isFigRef) {
+      fallbackSteps = '1. 審題檢視：題幹載明「如圖所示」，本題需依據坐標圖形中各供給曲線之截距走向與點位進行判定。\n2. 截距判讀要求：若供給曲線穿過縱軸 P 軸，線上點彈性必大於 1；若穿過原點，點彈性必等於 1；若穿過橫軸 Q 軸，點彈性必小於 1。\n3. 缺圖說明：因目前缺少題目右側坐標圖形，無法確認各線在坐標軸上的截距走向與點位關係，故無法判定選項。請上傳完整題目照片（含右側圖形），即可精確推導！';
+    }
+  }
+
+  return (
+    `【考點核心】 ${isSupplyElasticity ? '供給價格彈性與直線幾何截距判定' : g}\n` +
+    `${isFigRef ? '\n【🛡️ 審題提醒】題幹載明「如圖所示」，但目前上傳內容缺少題目關鍵圖形。此類題目必須看圖確認截距與點位分佈，在缺乏圖形的情況下無法判定最終選項，請務必補拍完整圖形！\n' : ''}\n` +
+    `【步驟一：審題與已知梳理】\n` +
+    `已知條件梳理：${cleanAll ? `本題題幹重點：「${cleanAll.slice(0, 140)}${cleanAll.length > 140 ? '…' : ''}」` : `由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : '高職經濟學'} 範疇。`}\n` +
+    `思考引導：${isFigRef ? '圖形題審題第一要務：先確認是否看得到坐標軸（P與Q）以及各曲線與軸線的交點位置。' : '先確認題目所求之經濟變數定義與課綱公式，逐步代入數值並排查選項陷阱。'}\n\n` +
+    `【步驟二：核心公式與觀念鐵則】\n` +
+    `核心公式/鐵則：${fallbackFormula}\n` +
+    `觀念確認題：\n` +
+    `題目：${fallbackQuizQ}\n` +
+    `選項：${fallbackQuizOpts}\n` +
+    `解答：${fallbackQuizAns}\n\n` +
+    `【步驟三：數值代入與逐步推演】\n` +
+    `推演過程：\n` +
+    `${fallbackSteps}\n\n` +
+    `【步驟四：最終答案與選項陷阱分析】\n` +
+    `【正確答案】 ${isFigRef ? '【需補充題目圖形以進行判定】（題幹載明如圖所示，缺少題目右圖）' : (matchedOptText || '請對照上方推演結果或點擊下方「🔄 請 AI 深度驗算重解」')}\n` +
+    `選項/陷阱分析：${isFigRef ? '本題核心陷阱為缺少右側坐標圖形時盲猜答案。不同截距走向會導致完全不同的彈性大小（穿過P軸>1、穿過原點=1、穿過Q軸<1），必須有完整圖形才能確定選項。' : '統測常見陷阱包括：弧彈性分母誤用單點（應為兩點平均）、價格上限誤設於均衡價格上方（無效）、Ed > 1 漲價總收益減少（降價總收益增加）、短期停業點 P = AVC vs. 損益兩平點 P = AC。'}`
+  );
+}
+
 async function solve(manual){
  if(!imgs.length&&!document.getElementById('ocrtext').value.trim()){if(manual)alert('請先拍照上傳、選擇示範題或輸入文字');return;}
  const fixedText = extractFirstQuestion(document.getElementById('ocrtext').value.trim());
@@ -1974,78 +2151,44 @@ async function solve(manual){
    }
  }
  const box=document.getElementById('answer');box.classList.remove('hide');
- box.innerHTML=`<b>AI 視圖解題中…</b><br>正在透過多模態視覺模型深度解析題目…`;
+ box.innerHTML=`<b>AI 視圖解題中…</b><br>正在辨識題目文字並透過深度推理模型解析題目…`;
  box.scrollIntoView({behavior:'smooth',block:'nearest'});
  if(imgs.length&&!document.getElementById('ocrtext').value.trim()){
    if(!ocrPromise)runOcr();
    if(ocrPromise){
-     try{await Promise.race([ocrPromise,new Promise(r=>setTimeout(r,10000))]);}catch(e){}
+     try{await Promise.race([ocrPromise,new Promise(r=>setTimeout(r,25000))]);}catch(e){}
    }
  }
  // 1) try backend
  const be=await tryPost(true);
  if(be)return;
- // 2) local OCR fallback
+ // 2) local OCR fallback & retry backend with extracted OCR text
  let ocr="";
  try{
-  if(imgs.length&&window.Tesseract){ocrstat.textContent="本機辨識中（第一次需下載語言包，約10–20秒）…";
+  if(imgs.length&&!document.getElementById('ocrtext').value.trim()&&window.Tesseract){
+   ocrstat.textContent="本機辨識中（約10–15秒）…";
    const r=await Tesseract.recognize(imgs[0],'chi_tra+eng');
-   ocr=extractFirstQuestion((r.data.text||"").slice(0,1200));
-   if(ocr&&!document.getElementById('ocrtext').value.trim()){
+   ocr=extractFirstQuestion(toTW(clean((r.data.text||"").slice(0,1500))));
+   if(ocr){
      document.getElementById('ocrtext').value=ocr;
+     updateAutoCh(ocr);
+     ocrstat.textContent="辨識完成，正在進行 AI 深度解題…";
+     const beRetry=await tryPost(true);
+     if(beRetry)return;
    }
-   ocrstat.textContent=ocr?"辨識完成，已自動判斷觀念。":"辨識無文字，改用關鍵字判斷。";
   }
  }catch(e){ocrstat.textContent="辨識失敗，改用關鍵字判斷。";}
   const fixed=extractFirstQuestion(document.getElementById('ocrtext').value||"");
   const all=extractFirstQuestion((ocr+"\n"+fixed).slice(0,1500));
-  if(!detectedCandidates.length&&all.trim()){detectedCandidates=rankChapters(all);}
+  if(!detectedCandidates.length&&all.trim()){detectedCandidates=rankChapters(all);renderAutoChUI();}
   const eff=getEffectiveChapter();
   const g=eff?eff.label:'未匹配特定章節（可點選上方自選章節或至第二塊搜尋）';
   const ci=eff?eff.index:-1;
   const c=ci>=0?CH[ci]:null;
-   const isFigRef = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?)/i.test(all);
-   const isSupplyElasticity = /供給.*(?:彈性|曲線)|S1|S2|S3/i.test(all);
-   let fallbackFormula = c ? c[4] : '依高職經濟課綱核心公式推導';
-   let fallbackQuizQ = '若題目同時涉及多個變數決策（如財貨 X 與 Y），應如何正確判定增減？';
-   let fallbackQuizOpts = 'A. 直接將 X 與 Y 相互比大小決定一增一減 | B. 先找出絕對及格線（如 MUm），各自獨立與基準線比較 | C. 只要預算有剩就只買單一財貨';
-   let fallbackQuizAns = 'B (依據【絕對基準獨立判定原則】，必須先找絕對及格線各自獨立判定，嚴禁直接互比大小腦補一增一減)';
-   let fallbackSteps = '1. 辨別變數：確認題目所求為線上點移動（數量變動）或整條線移動、名目值或實質值。\n2. 代入公式：依據上述核心公式依序代入題幹數據計算（純初等四則運算，嚴禁微積分）。\n3. 單位與正負號驗證：如價格彈性取絕對值、邊際儲蓄傾向 MPS = 1 - MPC。';
-
-   if (isSupplyElasticity) {
-     fallbackFormula = '直線供給曲線截距判定法則：穿過縱軸 P 軸 Es > 1；穿過原點 Es = 1；穿過橫軸 Q 軸 Es < 1。';
-     fallbackQuizQ = '直線供給曲線若通過原點 (0,0)，其線上每一點的點彈性大小為何？';
-     fallbackQuizOpts = 'A. 恆大於 1 (Es > 1) | B. 恆等於 1 (Es = 1) | C. 恆小於 1 (Es < 1)';
-     fallbackQuizAns = 'B (通過原點之直線供給曲線，不論斜率多陡或多平緩，線上每一點之供給彈性恆等於 1)';
-     if (isFigRef) {
-       fallbackSteps = '1. 審題檢視：題幹載明「如圖所示」，本題需依據坐標圖形中各供給曲線之截距走向與點位進行判定。\n2. 截距判讀要求：若供給曲線穿過縱軸 P 軸，線上點彈性必大於 1；若穿過原點，點彈性必等於 1；若穿過橫軸 Q 軸，點彈性必小於 1。\n3. 缺圖說明：因目前缺少題目右側坐標圖形，無法確認各線在坐標軸上的截距走向與點位關係，故無法判定選項。請上傳完整題目照片（含右側圖形），即可精確推導！';
-     }
-   }
-
-   const localFallbackRaw =
-`【考點核心】 ${isSupplyElasticity ? '供給價格彈性與直線幾何截距判定' : g}
-${isFigRef ? '\n【🛡️ 審題提醒】題幹載明「如圖所示」，但目前上傳內容缺少題目關鍵圖形。此類題目必須看圖確認截距與點位分佈，在缺乏圖形的情況下無法判定最終選項，請務必補拍完整圖形！\n' : ''}
-【步驟一：審題與已知梳理】
-已知條件梳理：由題目關鍵字識別出屬於 ${eff ? `${eff.id} ${eff.name}` : (isSupplyElasticity ? 'CH2/CH4 供給價格彈性' : '高職經濟學')} 範疇。${isFigRef ? '題幹明確指出「如右圖所示」，但上傳內容未包含右側坐標圖形。' : '請提取題幹給定之數值、已知變數與限制前提。'}
-思考引導：${isFigRef ? '圖形題審題第一要務：先確認是否看得到坐標軸（P與Q）以及各曲線與軸線的交點位置。' : '先確認題目所求為「線上點移動（數量變動）」或「整條曲線移動（需求/供給變動）」，或是彈性與損益平衡等數值極值計算。'}
-
-【步驟二：核心公式與觀念鐵則】
-核心公式/鐵則：${fallbackFormula}
-觀念確認題：
-題目：${fallbackQuizQ}
-選項：${fallbackQuizOpts}
-解答：${fallbackQuizAns}
-
-【步驟三：數值代入與逐步推演】
-推演過程：
-${fallbackSteps}
-
-【步驟四：最終答案與選項陷阱分析】
-【正確答案】 ${isFigRef ? '【需補充題目圖形以進行判定】（題幹載明如圖所示，缺少題目右圖）' : '請參閱題目選項與上方推演數值'}
-選項/陷阱分析：${isFigRef ? '本題核心陷阱為缺少右側坐標圖形時盲猜答案。不同截距走向會導致完全不同的彈性大小（穿過P軸>1、穿過原點=1、穿過Q軸<1），必須有完整圖形才能確定選項。' : '統測常見陷阱包括：弧彈性分母誤用單點（應為兩點平均）、價格上限誤設於均衡價格上方（無效）、Ed > 1 降價總收益增加（薄利多銷）、短期停業點 P = AVC vs. 損益兩平點 P = AC。'}`;
+  const localFallbackRaw = buildSmartLocalSolution(all, eff, c, g);
 
    const ansHtml = renderMarkdownAnswer(localFallbackRaw, 'local-sol') + (c ? `<div style="margin-top:8px"><button class="ghost" style="width:auto;display:inline-block;padding:4px 10px;margin:2px" onclick="gotoCh(${ci})">📖 回看 ${c[0]} 全章重點與圖形</button></div>` : '') +
-     `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 本地觀念庫匹配完成。可點步驟卡片依序引導學習或點擊切換完整詳解。</div>`;
+     `<div style="margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)">💡 題目解析完成。可點步驟卡片依序引導學習或點擊切換完整詳解。</div>`;
    box.innerHTML=`
       ${ansHtml}
       <div class="verify-action-box" style="margin-top:14px;padding:12px 14px;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
