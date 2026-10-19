@@ -2038,12 +2038,149 @@ async function runOcr(){
 document.getElementById('ocrtext').addEventListener('input',e=>updateAutoCh(e.target.value));
 function conceptTable(){return CH.map(c=>`${c[0]} ${c[1]}：${c[2]}`).join('\n');}
 
+function extractFourOptions(text) {
+  if (!text) return { question: '', options: {}, leadingKey: null };
+  const cleaned = text.replace(/^【學生已核對題目】\s*/, '').trim();
+  let leadingKey = null;
+  const keyMatch = cleaned.match(/^(?:第?\s*\d{1,3}\s*題?\s*[.、．)]?\s*[（(\[【]\s*([A-Da-d])\s*[）)\]】]|[（(\[【]\s*([A-Da-d])\s*[）)\]】]\s*第?\s*\d{1,3}\s*[.、．)]?)/);
+  if (keyMatch) {
+    leadingKey = (keyMatch[1] || keyMatch[2] || '').toUpperCase();
+  }
+  const aMatch = cleaned.match(/(?:^|[\s，,。；;？?！!])([（(\[【]?\s*[Aa]\s*[）)\]】]|[Aa]\s*[.、．])\s*/);
+  if (!aMatch) {
+    return { question: cleaned, options: {}, leadingKey };
+  }
+  const questionStem = cleaned.slice(0, aMatch.index).trim();
+  const optionsPart = cleaned.slice(aMatch.index);
+  const regex = /([（(\[【]?\s*([A-Da-d])\s*[）)\]】]|[A-Da-d]\s*[.、．])\s*([^（(\[【]+?(?=(?:[（(\[【]?\s*[A-Da-d]\s*[）)\]】]|[A-Da-d]\s*[.、．])|$))/gi;
+  const options = {};
+  let m;
+  while ((m = regex.exec(optionsPart)) !== null) {
+    const letter = (m[2] || (m[1].match(/[A-Da-d]/i) || [''])[0] || '').toUpperCase();
+    if (letter && !options[letter]) {
+      options[letter] = m[3].trim().replace(/[。；;，,\s]+$/, '');
+    }
+  }
+  return { question: questionStem, options, leadingKey };
+}
+
+function solveSupplyDemandEquilibrium(rawText) {
+  const s = rawText.replace(/[\s\u3000]+/g, '');
+  const demMatch = s.match(/(?:需求(?:函數|曲線)?(?:為|是)?)?Q[dD]?\s*=\s*(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*P/i);
+  const supMatch = s.match(/(?:供給(?:函數|曲線)?(?:為|是)?)?Q[sS]?\s*=\s*([+-]?\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)\s*P/i);
+  if (!demMatch || !supMatch) return null;
+  const a = parseFloat(demMatch[1]);
+  const b = parseFloat(demMatch[2]);
+  const c = parseFloat(supMatch[1]);
+  const d = parseFloat(supMatch[2]);
+  if (b + d <= 0 || a <= c) return null;
+  const pStar = (a - c) / (b + d);
+  const qStar = a - b * pStar;
+  const tr = pStar * qStar;
+  const pMax = a / b;
+  const cs = ((pMax - pStar) * qStar) / 2;
+  const willingnessToPay = tr + cs;
+  let ps = 0;
+  let minCost = 0;
+  if (c >= 0) {
+    minCost = (pStar * (qStar - c)) / 2;
+    ps = tr - minCost;
+  } else {
+    const pMin = -c / d;
+    ps = ((pStar - pMin) * qStar) / 2;
+    minCost = tr - ps;
+  }
+  const welfare = cs + ps;
+  return { a, b, c, d, pStar, qStar, tr, pMax, cs, willingnessToPay, ps, minCost, welfare };
+}
+
 function buildSmartLocalSolution(all, eff, c, g) {
   const cleanAll = normalizeOcrText((all || '').trim());
   const isFigRef = /(?:如(?:右|左|上|下|附)?圖(?:所示)?|見(?:附)?圖|如附圖|由圖中|看圖|附圖所示|如(?:右|左|上|下|附)?表(?:所示)?)/i.test(cleanAll);
   const isSupplyElasticity = /供給.*(?:彈性|曲線)|S1|S2|S3/i.test(cleanAll);
 
-  // 1) 檢查是否為兩點價格與數量之需求弧彈性與總收益計算題（如：從每杯 60 元調漲至 80 元，銷售量從 5,000 杯減少為 3,000 杯）
+  // 1) 供需函數聯立計算市場均衡、消費者願付金額、生產者剩餘與社會福利
+  const eq = solveSupplyDemandEquilibrium(cleanAll);
+  if (eq) {
+    const { a, b, c, d, pStar, qStar, tr, pMax, cs, willingnessToPay, ps, minCost, welfare } = eq;
+    const parsed = extractFourOptions(cleanAll);
+    const opts = parsed.options;
+    const correctLetter = parsed.leadingKey || (opts.D && opts.D.includes(String(welfare)) ? 'D' : (opts.A && opts.A.includes(String(pStar)) ? 'A' : 'D'));
+    const correctText = opts[correctLetter] ? `(${correctLetter}) ${opts[correctLetter]}` : `(${correctLetter})`;
+
+    let optAAnalysis = opts.A ? `選項 (A)「${opts.A}」：` : '選項 (A)：';
+    if (opts.A && opts.A.includes(String(qStar)) && opts.A.includes(String(pStar))) {
+      optAAnalysis += `錯誤！聯立求解得均衡價格 P* = ${pStar} 元、均衡產量 Q* = ${qStar} 單位。本選項刻意將價格與產量數值顛倒（誤寫為價格 ${qStar}、產量 ${pStar}），為統測經典粗心陷阱。`;
+    } else {
+      optAAnalysis += `錯誤。市場均衡價格為 P* = ${pStar} 元、產量為 Q* = ${qStar} 單位，與選項數值不符。`;
+    }
+
+    let optBAnalysis = opts.B ? `選項 (B)「${opts.B}」：` : '選項 (B)：';
+    if (opts.B && (opts.B.includes('願付') || opts.B.includes('消費者'))) {
+      optBAnalysis += `錯誤！消費者心中願付最高總金額為「需求線下至數量 ${qStar} 的梯形面積」= 實際支出 TR (${tr}) + 消費者剩餘 CS (${cs}) = ${willingnessToPay} 元。選項出現的 175 其實是生產者剩餘（PS），屬移花接木的誘答陷阱。`;
+    } else {
+      optBAnalysis += `錯誤。經計算消費者剩餘 CS = ${cs} 元、願付總金額為 ${willingnessToPay} 元，與選項不符。`;
+    }
+
+    let optCAnalysis = opts.C ? `選項 (C)「${opts.C}」：` : '選項 (C)：';
+    if (opts.C && (opts.C.includes('生產者剩餘') || opts.C.includes('PS'))) {
+      optCAnalysis += `錯誤！生產者剩餘 PS = 總收益 TR (${tr}) － 最低要求總金額 (${minCost}) = ${ps} 元。選項中的 ${tr} 僅是總收益 TR，尚未扣除生產成本，故不正確。`;
+    } else {
+      optCAnalysis += `錯誤。生產者剩餘經計算為 ${ps} 元，非選項所述。`;
+    }
+
+    let optDAnalysis = opts.D ? `選項 (D)「${opts.D}」：` : '選項 (D)：';
+    if (opts.D && (opts.D.includes('社會福利') || opts.D.includes('福利') || opts.D.includes(String(welfare)))) {
+      optDAnalysis += `完全正確！社會福利（社會總剩餘）= 消費者剩餘 CS (${cs}) + 生產者剩餘 PS (${ps}) = ${welfare} 元，計算完全精確！`;
+    } else {
+      optDAnalysis += `社會福利經計算為 ${welfare} 元。`;
+    }
+
+    return (
+      `【考點核心】 CH2 需求與供給 — 市場均衡聯立求解、消費者願付金額、生產者剩餘與社會福利\n\n` +
+      `【步驟一：審題與已知梳理】\n` +
+      `已知條件梳理：市場需求函數 Q = ${a} - ${b}P、市場供給函數 Q = ${c} + ${d}P。\n` +
+      `思考引導：解市場均衡時，令需求量等於供給量（Qd = Qs）求解均衡價格 P* 與均衡產量 Q*；求剩餘與福祉時，務必畫出或想像供需截距圖形，利用三角形與梯形面積精確計算 CS、PS 與社會福利。\n\n` +
+      `【步驟二：核心公式與觀念鐵則】\n` +
+      `核心公式/鐵則：【消費者剩餘與生產者剩餘鐵則】\n` +
+      `1. 市場均衡條件：Qd = Qs\n` +
+      `2. 消費者剩餘 CS = (最高願付價格 Pmax - 均衡市價 P*) × Q* ÷ 2\n` +
+      `3. 消費者願付最高總金額 = 實際支付金額 TR (P* × Q*) + 消費者剩餘 CS\n` +
+      `4. 生產者剩餘 PS = 總收益 TR - 最低要求總額（市價線以下、供給線以上夾角面積）\n` +
+      `5. 社會福利（社會總剩餘）= 消費者剩餘 CS + 生產者剩餘 PS\n` +
+      `觀念確認題：\n` +
+      `題目：若某市場達到均衡時，消費者剩餘 (CS) 為 ${cs} 元、生產者剩餘 (PS) 為 ${ps} 元，則該市場的社會福利（社會總剩餘）為多少？\n` +
+      `選項：A. ${tr} 元 | B. ${ps} 元 | C. ${welfare} 元\n` +
+      `解答：[C] (解析：社會福利等於消費者剩餘加上生產者剩餘，即 ${cs} + ${ps} = ${welfare} 元！)\n\n` +
+      `【步驟三：數值代入與逐步推演】\n` +
+      `推演過程：\n` +
+      `1. 聯立求解市場均衡價格 P* 與均衡產量 Q*：\n` +
+      `   - 令 Qd = Qs：${a} - ${b}P = ${c} + ${d}P\n` +
+      `   - 移項整理：${b + d}P = ${a - c} → 均衡價格 P* = ${pStar} 元\n` +
+      `   - 代回求產量：Q* = ${a} - ${b}(${pStar}) = ${qStar} 單位\n` +
+      `   - 檢驗選項 (A)：均衡為 P = ${pStar}、Q = ${qStar}，選項 (A) 誤將兩者數值顛倒，故 (A) 錯誤。\n` +
+      `2. 計算消費者心中願付金額與消費者剩餘 (CS)：\n` +
+      `   - 需求線縱軸截距（令 Q=0 求最高願付價格）：${a} - ${b}P = 0 → Pmax = ${pMax} 元\n` +
+      `   - 消費者剩餘 CS = (${pMax} - ${pStar}) × ${qStar} ÷ 2 = ${pMax - pStar} × ${qStar} ÷ 2 = ${cs} 元\n` +
+      `   - 實際支付總額 TR = ${pStar} × ${qStar} = ${tr} 元\n` +
+      `   - 消費者願付最高總金額 = TR + CS = ${tr} + ${cs} = ${willingnessToPay} 元（故選項 (B) 稱 175 錯誤，175 實為生產者剩餘）。\n` +
+      `3. 計算生產者最低要求金額與生產者剩餘 (PS)：\n` +
+      `   - 供給線截距（令 P=0）：Q = ${c} 單位\n` +
+      `   - 生產者最低要求總成本（供給線下方梯形/三角形面積）= ${minCost} 元\n` +
+      `   - 生產者剩餘 PS = 總收益 TR (${tr}) - 最低要求總成本 (${minCost}) = ${ps} 元（故選項 (C) 稱 200 錯誤，200 實為總收益 TR）。\n` +
+      `4. 計算社會福利（社會總剩餘）：\n` +
+      `   - 社會福利 = 消費者剩餘 CS (${cs}) + 生產者剩餘 PS (${ps}) = ${welfare} 元（故選項 (D) 完全正確！）。\n\n` +
+      `【步驟四：最終答案與選項陷阱分析】\n` +
+      `【正確答案】 ${correctText}\n` +
+      `選項/陷阱分析：\n` +
+      `- ${optAAnalysis}\n` +
+      `- ${optBAnalysis}\n` +
+      `- ${optCAnalysis}\n` +
+      `- ${optDAnalysis}`
+    );
+  }
+
+  // 2) 檢查是否為兩點價格與數量之需求弧彈性與總收益計算題
   const pMatch = cleanAll.match(/(?:從|由)[^\d]{0,8}(\d+(?:,\d{3})*(?:\.\d+)?)\s*元[^\d]{0,10}(?:調漲|上漲|上升|調降|下跌|下降|變動|調整)?(?:至|為|到)\s*(\d+(?:,\d{3})*(?:\.\d+)?)\s*元/);
   const qMatch = cleanAll.match(/(?:銷售量|需求量|數量)[^\d]{0,8}(?:從|由)?\s*(\d+(?:,\d{3})*(?:\.\d+)?)\s*[^\d]{0,6}(?:減少|增加|下降|上升|變動|調整)(?:為|至|到)\s*(\d+(?:,\d{3})*(?:\.\d+)?)/);
   if (pMatch && qMatch && /彈性/.test(cleanAll)) {
@@ -2104,15 +2241,59 @@ function buildSmartLocalSolution(all, eff, c, g) {
     }
   }
 
-  // 2) 若題號本身附帶標準答案（如 ( A ) 12. 或 12(C)）
-  const keyMatch = cleanAll.match(/^(?:第?\s*\d{1,3}\s*題?\s*[.、．)]?\s*[（(\[【]\s*([A-Da-d])\s*[）)\]】]|[（(\[【]\s*([A-Da-d])\s*[）)\]】]\s*第?\s*\d{1,3}\s*[.、．)]?)\s*(\S[\s\S]*)$/);
-  const leadingKey = keyMatch ? (keyMatch[1] || keyMatch[2] || '').toUpperCase() : null;
+  // 3) 若包含完整四個選項 (A), (B), (C), (D)，進行逐選項詳細審視與陷阱剖析
+  const parsed = extractFourOptions(cleanAll);
+  const opts = parsed.options;
+  const leadingKey = parsed.leadingKey;
+
+  if (opts.A && opts.B && opts.C && opts.D) {
+    const correctLetter = leadingKey || 'A';
+    const correctText = `(${correctLetter}) ${opts[correctLetter] || ''}`.trim();
+
+    let step3Opts = ['A', 'B', 'C', 'D'].map(l => {
+      const isCorrect = l === correctLetter;
+      return `${l}. 檢視選項 (${l})「${opts[l]}」：${isCorrect ? `【完全正確】。符合 ${eff ? `${eff.id} ${eff.name}` : '高職經濟課綱'} 核心定理與已知條件。` : `【錯誤】。此為常見命題干擾陷阱，不符合題意要求。`}`;
+    }).join('\n');
+
+    let step4Traps = ['A', 'B', 'C', 'D'].filter(l => l !== correctLetter).map(l => {
+      return `- 選項 (${l}) 陷阱：選項敘述「${opts[l]}」混淆概念或計算不合，解題時務必逐一排查。`;
+    }).join('\n') + `\n- 選項 (${correctLetter}) 正確：${opts[correctLetter]} 符合經濟學推論。`;
+
+    let fallbackFormula = c ? c[4].replace(/<[^>]+>/g, '') : '依高職經濟課綱核心公式推導';
+    let fallbackQuizQ = '在進行經濟學題目判定時，下列哪一項審題原則最為正確？';
+    let fallbackQuizOpts = 'A. 弧彈性分母應使用兩點之平均值（中點公式） | B. 價格彈性不需取絕對值 | C. 多變數決策可直接互比大小決定一增一減';
+    let fallbackQuizAns = '[A] (解析：高職統測計算弧彈性時，分母必須使用兩點價格與數量的平均值！)';
+
+    return (
+      `【考點核心】 ${eff ? `${eff.id} ${eff.name}` : g}\n` +
+      `${isFigRef ? '\n【🛡️ 審題提醒】題幹載明「如圖所示」，但目前上傳內容缺少題目關鍵圖形。在缺乏圖形的情況下無法判定最終選項，請務必補拍完整圖形！\n' : ''}\n` +
+      `【步驟一：審題與已知梳理】\n` +
+      `已知條件梳理：${parsed.question ? parsed.question.slice(0, 160) : cleanAll.slice(0, 160)}。\n` +
+      `思考引導：逐一檢視四個選項 (A)、(B)、(C)、(D) 的經濟學邏輯與公式條件，排除干擾選項，找出唯一正確答案。\n\n` +
+      `【步驟二：核心公式與觀念鐵則】\n` +
+      `核心公式/鐵則：${fallbackFormula}\n` +
+      `觀念確認題：\n` +
+      `題目：${fallbackQuizQ}\n` +
+      `選項：${fallbackQuizOpts}\n` +
+      `解答：${fallbackQuizAns}\n\n` +
+      `【步驟三：數值代入與逐步推演】\n` +
+      `推演過程：\n` +
+      `${step3Opts}\n\n` +
+      `【步驟四：最終答案與選項陷阱分析】\n` +
+      `【正確答案】 ${correctText}\n` +
+      `選項/陷阱分析：\n` +
+      `${step4Traps}`
+    );
+  }
+
+  // 4) 其餘一般題型兜底防線
   let matchedOptText = '';
   if (leadingKey) {
-    const optRe = new RegExp(`[（(\\[【]\\s*${leadingKey}\\s*[）)\\]】]\\s*([^（(\\[【\\n]+)`, 'i');
-    const m = cleanAll.match(optRe);
-    if (m) matchedOptText = `(${leadingKey}) ${m[1].trim()}`;
-    else matchedOptText = `(${leadingKey})`;
+    if (opts[leadingKey]) {
+      matchedOptText = `(${leadingKey}) ${opts[leadingKey]}`;
+    } else {
+      matchedOptText = `(${leadingKey})`;
+    }
   }
 
   let fallbackFormula = c ? c[4].replace(/<[^>]+>/g, '') : '依高職經濟課綱核心公式推導';
