@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>高職經濟學解題網 — 學生使用說明手冊</title>
+<style>
+  @page {
+    size: A4;
+    margin: 12mm 14mm 12mm 14mm;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    color: #1e293b;
+    line-height: 1.55;
+    font-size: 9.8pt;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2.5px solid #ea580c;
+    padding-bottom: 7px;
+    margin-bottom: 11px;
+  }
+  .title-area h1 {
+    margin: 0;
+    font-size: 17.5pt;
+    color: #9a3412;
+    letter-spacing: 0.5px;
+  }
+  .title-area .subtitle {
+    margin: 3px 0 0;
+    font-size: 9.8pt;
+    color: #64748b;
+    font-weight: 600;
+  }
+  .badge-tag {
+    display: inline-block;
+    padding: 3px 9px;
+    background: #ffedd5;
+    color: #c2410c;
+    border: 1px solid #fdba74;
+    border-radius: 6px;
+    font-size: 8.5pt;
+    font-weight: 700;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+  .avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .section {
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 11.5pt;
+    font-weight: 800;
+    color: #9a3412;
+    margin: 0 0 7px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-left: 4px solid #ea580c;
+    padding-left: 8px;
+  }
+
+  /* 特色網格 */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 9px 11px;
+  }
+  .card-highlight {
+    background: #fffaf5;
+    border: 1.5px solid #fed7aa;
+  }
+  .card-green {
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+  }
+  .card-blue {
+    background: #eff6ff;
+    border: 1.5px solid #bfdbfe;
+  }
+  .card-red {
+    background: #fef2f2;
+    border: 1.5px solid #fecaca;
+  }
+
+  .card h3 {
+    margin: 0 0 3px 0;
+    font-size: 10.2pt;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card h4 {
+    margin: 0 0 3px 0;
+    font-size: 9.8pt;
+  }
+  .card p {
+    margin: 0;
+    font-size: 8.9pt;
+    color: #475569;
+    line-height: 1.45;
+  }
+
+  /* 步驟導引 */
+  .step-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: #ea580c;
+    color: #fff;
+    font-weight: 800;
+    font-size: 9.8pt;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-content h4 {
+    margin: 0 0 3px;
+    font-size: 9.8pt;
+    color: #0f172a;
+  }
+  .step-content p {
+    margin: 0;
+    font-size: 8.9pt;
+    color: #475569;
+  }
+
+  code {
+    background: #f1f5f9;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: "Consolas", monospace;
+    font-size: 8.8pt;
+    color: #c2410c;
+    font-weight: 600;
+  }
+
+  .footer {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    margin-top: 10px;
+    font-size: 8pt;
+    color: #94a3b8;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="header">
+    <div class="title-area">
+      <h1>高職經濟學解題網 ｜ 學生使用說明手冊</h1>
+      <div class="subtitle">技術型高中（高職）商管群統測經濟學・AI 智能視圖直解與複習平台</div>
+    </div>
+    <div>
+      <span class="badge-tag">2026 統測必備・2026/10/19 最新修訂版</span>
+    </div>
+  </div>
+
+  <!-- 1. 網站核心特色一覽 -->
+  <div class="section">
+    <div class="section-title">🌟 六大核心功能特色</div>
+    <div class="grid-3">
+      <div class="card card-highlight">
+        <h3 style="color:#9a3412">📷 AI 視圖一鍵直解</h3>
+        <p>搭載原生多模態視覺模型，拍照後直接讀取考卷題幹、選項與圖表，1 秒出詳解，不需等待打字。</p>
+      </div>
+      <div class="card card-green">
+        <h3 style="color:#166534">🎯 四步驟闖關與隨堂檢核</h3>
+        <p>審題已知 ➔ 公式與隨堂觀念檢核 ➔ 數值代入推演 ➔ 答案與選項剖析，引導自主思考不直接看答案。</p>
+      </div>
+      <div class="card card-red">
+        <h3 style="color:#991b1b">🛡️ 深度二次覆核驗算</h3>
+        <p>覺得答案怪怪的？點擊驗算立即啟動「資深審題召集人」模式，含供需市場聯立與彈性福利精確驗算。</p>
+      </div>
+      <div class="card card-blue">
+        <h3 style="color:#1e40af">🔍 考點診斷與公式預覽</h3>
+        <p>拍照後自動診斷統測 CH1～CH19 章節，即時調出核心必背公式；亦可隨時手動自選更換章節。</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#334155">📖 CH1~19 重點標準圖形</h3>
+        <p>全章節觀念庫、完全競爭廠商停業點與供給線、生產可能曲線 PPC、乘數效果等標準圖形一應俱全。</p>
+      </div>
+      <div class="card">
+        <h3 style="color:#334155">📓 雙核心永久智慧錯題本</h3>
+        <p>自動收錄每一次解題，支援 IndexedDB 永久保存防遺失，提供狀態標記、關鍵字搜尋與備份匯出。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 拍照解題 3 步驟快速上手 -->
+  <div class="section">
+    <div class="section-title">📸 3 秒極速上手：拍照解題操作步驟</div>
+    
+    <div class="step-box">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>拍照或從相簿上傳題目照片</h4>
+        <p>點擊相機圖示拍照或從相簿上傳考卷照片。<b>技巧：手機垂直拿正、光線充足避開陰影</b>；若一張照片拍到多題，可點選<b>「✂️ 裁切選取本題」</b>拉動上下拉桿框出該題範圍。</p>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>確認考題章節診斷（AI 精準判斷 ＋ 可手動自選）</h4>
+        <p>系統會即時診斷該題屬於統測哪一章（如：<code>CH2 需求與供給</code>、<code>CH7 完全競爭市場</code>），並即刻預覽該章核心必背公式。若有需要，隨時可點候選標籤或下拉選單自由更換章節。</p>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>點擊【🚀 拍照立即解題（AI 視圖直解）】</h4>
+        <p>AI 直接讀取考卷圖片進行高精度視覺運算，幾秒內即可在下方展開完整的結構化解題報告！</p>
+      </div>
+    </div>
+
+    <!-- 救題機制與純打字說明 -->
+    <div class="card card-highlight avoid-break" style="margin-top:8px">
+      <h3 style="color:#9a3412">💡 考卷反光或折痕怎麼辦？「題目文字微調」救題機制</h3>
+      <p style="font-size:9.1pt;line-height:1.55">
+        若考卷折痕剛好擋住關鍵數字（例如把 Ed=1.5 遮到像 1.8），不用重拍！點開折疊的<b>「✏️ 題目文字微調 / 手動純文字輸入」</b>，直接在文字框裡修正該數字，AI 將<b>以修改後的文字為準</b>進行精準解題。<br>
+        手邊沒有考卷時，也可點選<b>「✏️ 手動純文字解題」</b>直接打字或貼上題目發問；或點選上方<b>「📝 範例題」</b>一鍵快速體驗。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>高職經濟學解題網 ｜ 學生使用說明手冊 (v2026-10-19 最新修訂版)</span>
+    <span>第 1 頁 / 共 2 頁</span>
+  </div>
+
+  <!-- ==================== PAGE BREAK ==================== -->
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="header">
+    <div class="title-area">
+      <h1>高職經濟學解題網 ｜ 詳解導讀・覆核驗算與錯題管理</h1>
+      <div class="subtitle">四步驟循序闖關・資深審題覆核・智慧錯題本與 3 大防丟習慣</div>
+    </div>
+    <div>
+      <span class="badge-tag">複習提分指南・v2026-10-19</span>
+    </div>
+  </div>
+
+  <!-- 3. 詳解結構導讀 -->
+  <div class="section avoid-break">
+    <div class="section-title">💡 深度引導：四大循序闖關步驟關卡</div>
+    <div class="grid-2">
+      <div class="card card-highlight">
+        <h3 style="color:#9a3412">【步驟 1：審題與已知梳理】</h3>
+        <p>提煉題幹關鍵條件與數據變數（如市場供需函數、價格與產量），釐清統測核心命題目標與已知背景。</p>
+      </div>
+      <div class="card card-blue">
+        <h3 style="color:#1e40af">【步驟 2：核心公式與隨堂檢核】</h3>
+        <p>列出解題依據與必備公式（如均衡 $Q_D=Q_S$、彈性、福利面積），並提供即時觀念檢核題確保理解。</p>
+      </div>
+      <div class="card card-green">
+        <h3 style="color:#166534">【步驟 3：數值代入與逐步推演】</h3>
+        <p>不跳步的代入計算與推導驗證（聯立方程求解、幾何面積運算），並逐一計算檢視各選項數據真偽。</p>
+      </div>
+      <div class="card card-red">
+        <h3 style="color:#991b1b">【步驟 4：最終答案與選項剖析】</h3>
+        <p>明確公布最終正確選項（如 <code>(C)</code>），並逐一剖析其餘干擾選項之錯誤陷阱與統測考生最常犯盲點。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 深度覆核驗算機制 -->
+  <div class="section avoid-break">
+    <div class="section-title">🛡️ 覺得答案怪怪的？AI 深度二次覆核驗算機制</div>
+    <div class="card card-highlight" style="padding:10px 14px">
+      <div style="font-weight:700;color:#9a3412;font-size:10.2pt;margin-bottom:4px">
+        🤔 遇到刁鑽題目或正負號容易混淆？一鍵啟動深度驗算
+      </div>
+      <p style="font-size:9.1pt;line-height:1.6;color:#431407">
+        高職經濟學統測常有價格彈性取絕對值、弧彈性分母平均、短期停業點 P=AVC vs. 損益兩平點 P=AC 等細節陷阱。
+      </p>
+      <div style="margin-top:6px;font-size:9pt;line-height:1.6;color:#431407">
+        • <b>啟動驗算：</b>點擊詳解下方的<b>【🔄 請 AI 深度驗算重解】</b>按鈕，系統立即切換為「資深統測審題召集人模式」，從題目數據重新獨立反推覆核，並在最上方出具<b>【🛡️ 覆核驗算結論】</b>。<br>
+        • <b>貼給外部 AI 驗證：</b>點擊<b>「📋 一鍵複製覆核 Prompt」</b>，即可直接將格式完備的提問詞複製貼至 ChatGPT 或 Claude 要求重新驗算，取得第二意見。
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 錯題本與防丟秘訣 -->
+  <div class="section avoid-break">
+    <div class="section-title">📓 錯題不丟失！3 大防丟使用習慣與智慧錯題本</div>
+    
+    <div class="grid-3" style="margin-bottom:10px">
+      <div class="card card-highlight">
+        <h4 style="color:#9a3412">💡 習慣 1：常規瀏覽器分頁</h4>
+        <p>建議使用 Safari 或 Chrome 的「一般分頁」，切勿使用「無痕/私密瀏覽」，否則關閉視窗紀錄會被清空。</p>
+      </div>
+      <div class="card card-highlight">
+        <h4 style="color:#9a3412">💡 習慣 2：LINE / 臉書開啟</h4>
+        <p>從社群點開網址時，請點右上角「<code>⋮</code>」選<b>「在預設瀏覽器中開啟」</b>，紀錄才會安全存入手機。</p>
+      </div>
+      <div class="card card-highlight">
+        <h4 style="color:#9a3412">💡 習慣 3：定期備份匯出</h4>
+        <p>考前可點錯題本右上角<b>「📤 備份匯出」</b>下載 JSON 檔，換手機時點<b>「📥 還原匯入」</b>立即完整復原！</p>
+      </div>
+    </div>
+
+    <div class="card card-blue" style="font-size:9.1pt;line-height:1.6">
+      <h4 style="color:#1e40af;margin:0 0 3px">📓 智慧錯題本複習技巧：</h4>
+      解完的每一題都會自動收錄在首頁下方「智慧錯題本」。每題皆可點擊<b>「展開詳解」</b>重溫推演過程、依掌握程度切換<b>「待複習 ⏳ / 已掌握 ✅」</b>掌握個人弱點進度；遇到不熟的經典題，點擊<b>「🔄 載入上方重練」</b>可立即調回上方重新解題！
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>高職經濟學解題網 ｜ 預祝全體高職商管群同學統測經濟學勇奪滿級分！ (v2026-10-19 最新修訂版)</span>
+    <span>第 2 頁 / 共 2 頁</span>
+  </div>
+
+</body>
+</html>
