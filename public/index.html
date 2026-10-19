@@ -2153,8 +2153,10 @@ function detectImageCoordinateGraph(file) {
 async function tryPost(silent,isVerify=false){
  try{
   const fixed=extractFirstQuestion(document.getElementById('ocrtext').value.trim());
+  if(!detectedCandidates.length&&fixed){detectedCandidates=rankChapters(fixed);}
   const eff=getEffectiveChapter();
-  const chHint=eff?(`\n【考點章節】${eff.id} ${eff.name}`):'';
+  const chObj=(eff&&eff.index>=0&&CH[eff.index])?CH[eff.index]:null;
+  const chHint=eff?(`\n【考點章節】${eff.id} ${eff.name}`+(chObj?`\n【課綱核心公式】${chObj[4].replace(/<[^>]+>/g,'')}\n【課綱核心觀念】${chObj[2].replace(/<[^>]+>/g,'')}`:'')):'';
   const verifyTag=isVerify?'\n【學生反映：請以資深高職經濟學閱卷召集人身分進行「嚴格二次覆核驗算」，重新計算每個數字、正負號與觀念盲點，並於開頭說明覆核結論。注意：嚴禁使用微積分（高職生未學微積分），求總效用或極值限用觀念法（如MU=0時TU最大）或幾何圖形面積法】':'';
   const fd=new FormData();imgs.forEach(f=>fd.append('images',f));
   let detectedHasGraph = true;
@@ -2380,7 +2382,7 @@ ${eff?`${eff.id} ${eff.name}`.trim():'高職經濟學'}
 2. 【邊際定義】：高職經濟學之邊際（MU、MP、MC、MR）純粹是「每增加一單位所帶來的增量」，即 ΔTU/ΔQ、ΔTP/ΔL、ΔTC/ΔQ、ΔTR/ΔQ（離散差分除法），嚴禁寫成導函數求導！
 3. 【總效用 TU 與邊際效用 MU 關係】：
    - 觀念秒殺法：嚴格運用「當 MU = 0（或需求價格 P = 0）時，總效用 TU 達到最大值（飽和點）；當 MU > 0 時，TU 隨消費量增加；當 MU < 0 時，TU 隨消費量減少」之高職經濟課本觀念直接判定大小與飽和點，切勿微積分！
-   - 數值計算：若題目要求計算總效用 TU 數值或消費者剩餘 CS，一律使用初等幾何圖形面積解題（三角形面積 = 底 × 高 ÷ 2；梯形面積 = (上底 + 下底) × 高 ÷ 2，再乘上 MUm），嚴禁積分！
+   - 面積計算法：若給定線性 MU 函數求 TU，使用 MU 曲線與橫軸圍成之三角形或梯形面積計算，嚴禁積分！
 4. 【廠商極大化】：追求利潤最大或最適產量時，一律使用代數條件 MR = MC 與幾何圖形分析（或二次函數頂點坐標），絕對禁止對利潤函數進行一階微分令其等於 0！
 
 【通則三：需求與供給點彈性與直線幾何鐵則 (Elasticity Principle)】
@@ -2404,6 +2406,12 @@ ${eff?`${eff.id} ${eff.name}`.trim():'高職經濟學'}
 3. 【平行供給曲線點彈性比較原理】：
    - 直線供給曲線之點彈性大小，完全由其延長線在坐標軸上的截距決定：穿過縱軸 P 軸之曲線點彈性大於 1（Es > 1）；穿過原點之曲線點彈性等於 1（Es = 1）；穿過橫軸 Q 軸之曲線點彈性小於 1（Es < 1）。
    - ★ 審題鐵則：若題幹載明「如圖所示」但未附圖形（或未拍到圖形），因無法確定各曲線截距位置與點位坐標，【絕對禁止憑空猜測圖形或盲猜答案】，必須要求補充圖形才能判定！
+
+【通則四：消費者剩餘 (CS) 與生產者剩餘 (PS) 鐵則 (Surplus Principle)】
+1. 主觀心理性質：CS 與 PS 皆為買賣雙方「主觀心理感受的差額」，並非客觀帳面上的實際收入。
+2. 面積定義：CS 為需求曲線以下、市價水平線以上的面積；PS 為市價水平線以下、供給曲線以上的面積（嚴禁把供給線以下的 TVC 當成 PS）。
+3. 水平線與垂直線特例：當供給線為水平線（Es = ∞）時，供給線與市價線重疊，故【生產者剩餘 PS = 0】；當供給線為垂直線（Es = 0）時，PS = TR = P × Q。
+4. 彈性與剩餘反比關係：需求彈性愈小（愈陡），CS 愈大；供給彈性愈小（愈陡），PS 愈大。需求增加時因均衡價格上升，PS 必增加，但 CS 不一定增加。
 
 【嚴格覆核要求】
 1. 請重新逐一計算每個數值，注意正負號、單位與公式方向（如 Ed 取絕對值、弧彈性分母用平均數）。

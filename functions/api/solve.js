@@ -108,7 +108,8 @@ export async function onRequestPost(context) {
     }
 
     const VISION = '@cf/meta/llama-4-scout-17b-16e-instruct';
-    const TEXT = '@cf/meta/llama-4-scout-17b-16e-instruct';
+    const REASONING_70B = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
+    const TEXT_FALLBACK = '@cf/meta/llama-4-scout-17b-16e-instruct';
 
     let dataUrl = '';
     if (imgs.length) {
@@ -175,9 +176,9 @@ export async function onRequestPost(context) {
 
     const text = qPart + metaPart;
 
-    const sysPrompt = verify
-      ? '你是台灣高職經濟學資深統測閱卷召集人兼嚴格審題老師。只准用繁體中文（台灣用法）回答，絕對禁止簡體中文。對象為台灣高職生（未學微積分，嚴禁使用微積分 ∫、dx、dQ、微分導函數 d/dQ、極限 lim 或求導求極值）。請針對學生反映可能算錯之處啟動「嚴格二次覆核驗算模式」，重新獨立驗算、嚴格挑錯、嚴格恪守【絕對基準獨立判定原則】、【高職程度嚴禁微積分鐵則】、【需求與供給點彈性與直線幾何鐵則】與【消費者剩餘與生產者剩餘鐵則】。'
-      : '你是台灣高職經濟學助教。只准用繁體中文（台灣用法）回答，絕對禁止簡體中文。對象為台灣高職生（未學微積分，嚴禁使用微積分 ∫、dx、dQ、微分導函數 d/dQ、極限 lim 或求導求極值）。解題時嚴格遵守【絕對基準獨立判定原則】、【高職程度嚴禁微積分鐵則】、【需求與供給點彈性與直線幾何鐵則】與【消費者剩餘與生產者剩餘鐵則】。';
+    // 第一次解題即直接採用「資深統測閱卷召集人」最高嚴謹規格（與一鍵複製覆核 Prompt 同等級）
+    const sysPrompt =
+      '你是台灣高職商管群經濟學資深統測閱卷召集人兼嚴格審題老師。只准用繁體中文（台灣用法）回答，絕對禁止簡體中文。對象為台灣高職生（未學微積分，嚴禁使用微積分 ∫、dx、dQ、微分導函數 d/dQ、極限 lim 或求導求極值）。解題時必須先逐一驗算每個選項與數值，嚴格恪守【絕對基準獨立判定原則】、【高職程度嚴禁微積分鐵則】、【需求與供給點彈性與直線幾何鐵則】與【消費者剩餘與生產者剩餘鐵則】。';
 
     const benchmarkPrinciple =
       '【通則一：絕對基準獨立判定原則 (Absolute Benchmark Principle)】\n' +
@@ -248,13 +249,22 @@ export async function onRequestPost(context) {
       '5. 【供需變動對剩餘之影響】：\n' +
       '   - 當「需求增加（需求曲線右移）」時，在一般正斜率供給曲線下，均衡價格 P 與均衡數量 Q 同時上升，此時【生產者剩餘（PS）必然增加】，但【消費者剩餘（CS）不一定增加】（因為均衡價格 P 上漲會使原有消費量的剩餘縮水，若供給曲線極陡峭或垂直，CS 反而減少或不變；故選項若稱「需求增加，則消費者剩餘亦增加」並非恆成立，屬錯誤敘述！）。\n\n';
 
+    const strictCheckRules =
+      '【嚴格審題與覆核要求（每次解題必執行）】\n' +
+      '1. 先在心中完整算完或逐一驗證 (A)、(B)、(C)、(D) 四個選項的正確性，確定唯一正確答案後，再開始撰寫【步驟一】至【步驟四】，確保前後步驟邏輯 100% 一致！\n' +
+      '2. 逐一核對題目中每個關鍵數字、單位、公式方向與正負號（如：需求價格彈性 Ed 取絕對值為正數；弧彈性分母務必使用兩點平均值而非單點）。\n' +
+      '3. 嚴格排查題意陷阱（如：線上點移動之需求量變動 vs. 整條曲線位移之需求變動、名目 vs. 實質購買力、短期停業點 P=AVC vs. 損益兩平點 P=AC、邊際消費傾向 MPC+MPS=1）。\n' +
+      (verify
+        ? '4. 請在輸出最上方加註【🛡️ 覆核驗算結論】說明原本是否有誤、最終確定答案與關鍵核算依據，接著嚴格依據【詳解輸出格式規範】依序輸出。\n\n'
+        : '\n');
+
     const formatSpec =
       '【詳解輸出格式規範（依四個解題步驟關卡循序輸出）】\n' +
       '請嚴格依照以下四個步驟關卡輸出，協助學生循序漸進理解，不可省略任何一個步驟標題：\n\n' +
       '【考點核心】 (一句話點出這題在考什麼，包含對應CH1-19章節與觀念)\n\n' +
       '【步驟一：審題與已知梳理】\n' +
-      '已知條件梳理：(列出題目給的重要數據、已知變數與限制前提)\n' +
-      '思考引導：(一句話引導學生解題的切入角度，例如「先確認題目是問哪種彈性公式」或「先找出絕對基準線」)\n\n' +
+      '已知條件梳理：(列出題目給的重要數據、已知變數或各選項欲測驗之核心命題)\n' +
+      '思考引導：(一句話引導學生解題的切入角度，並先點出判定本題正確選項的關鍵準則)\n\n' +
       '【步驟二：核心公式與觀念鐵則】\n' +
       '核心公式/鐵則：(列出解題公式或依據，遇多變數決策題型務必標示【絕對基準獨立判定原則】；若涉及效用/極值援引【高職程度嚴禁微積分鐵則】；若涉及彈性務必標示【需求與供給點彈性與直線幾何鐵則】；若涉及消費者/生產者剩餘務必標示【消費者剩餘與生產者剩餘鐵則】)\n' +
       '觀念確認題：\n' +
@@ -262,28 +272,50 @@ export async function onRequestPost(context) {
       '選項：A. (選項1) | B. (選項2) | C. (選項3)\n' +
       '解答：[A/B/C] (請填寫上方「觀念確認題本身選項」對應的正確字母 A、B 或 C，切勿誤填原題目的選項代號！並附一句解析理由)\n\n' +
       '【步驟三：數值代入與逐步推演】\n' +
-      '推演過程：(詳細、不跳步的代入計算與推導步驟，每一步計算清楚，嚴禁寫任何微積分符號)\n\n' +
+      '推演過程：(詳細、不跳步的代入計算或逐一檢視 (A)(B)(C)(D) 四個選項正誤的推導步驟，嚴禁寫任何微積分符號)\n\n' +
       '【步驟四：最終答案與選項陷阱分析】\n' +
       '【正確答案】 (直接填入正確選項代號與內容，如：(A) 或 (B) 或 (C)，嚴禁使用 boxed 語法)\n' +
       '選項/陷阱分析：(若為選擇題，說明其他選項為何錯誤；若為計算題，點出高職統測學生最容易算錯的陷阱)\n\n';
 
-    const verifyInstruction = verify
-      ? '【重要指令：學生反映先前解答可能存在計算或觀念誤差，請啟動嚴格二次覆核驗算模式！】\n' +
-        '請不要盲從先前推導，徹底重新從題目條件獨立驗算：\n' +
-        '1. 逐一核對題目中每個關鍵數字、單位、公式方向與正負號（如：需求價格彈性 Ed 依台灣高職慣例取絕對值為正數；弧彈性分母務必使用兩點平均值而非單點）。\n' +
-        '2. 嚴格排查彈性與剩餘觀念錯誤：\n' +
-        '   - 直線需求曲線點彈性為 Ed = |ΔQ/ΔP| × (P/Q) = P / (Pmax - P) = 下段長 / 上段長；中點彈性必為 1，上半段 Ed>1，下半段 Ed<1！\n' +
-        '   - 直線供給曲線點彈性 Es 依截距判定：穿過縱軸 P 軸 Es>1、穿過原點 Es=1、穿過橫軸 Q 軸 Es<1！\n' +
-        '   - 消費者剩餘 CS 為需求線下、市價線上之面積；生產者剩餘 PS 為市價線下、供給線上之面積。當供給線為水平線時，PS 必為 0；供給彈性愈小（愈陡），PS 愈大；需求增加時因市價上升，CS 不一定增加！\n' +
-        '3. 嚴格排查多變數決策零和陷阱：遇多變數決策（如 X與Y、L與K、多工廠），嚴格執行【絕對基準獨立判定原則】，嚴禁直接將兩變數互比大小決定一增一減！\n' +
-        '4. 嚴格排查題意陷阱（如：線上點移動之需求量變動 vs. 整條曲線位移之需求變動、名目 vs. 實質購買力、短期停業點 P=AVC vs. 損益兩平點 P=AC、邊際消費傾向 MPC+MPS=1）。\n' +
-        '5. 嚴格排查超綱微積分：高職生不會微積分，嚴禁使用積分 ∫、dx、dQ、微分導函數 d/dQ 或極限 lim。\n' +
-        '6. 詳列完整代入公式與計算算式，不可跳步。\n' +
-        '7. 請在輸出最上方加註【🛡️ 覆核驗算結論】說明原本是否有誤、最終確定答案與關鍵核算依據，接著嚴格依據【詳解輸出格式規範】依序輸出。\n\n'
-      : '';
-
     let out;
-    if (imgs.length) {
+    const cleanCheckText = qPart.replace(/【學生已核對題目】/g, '').trim();
+    const needsVisualGraphInspection = imgs.length > 0 && hasGraph && figureKeywordsRegex.test(qPart);
+
+    // 若題目已有完整辨識文字且不需要看右側坐標圖（例如一般文字選擇題或計算題），優先使用 70B 大型推理模型解題！
+    if (cleanCheckText && !needsVisualGraphInspection) {
+      const promptText =
+        officialKeyNotice +
+        strictCheckRules +
+        benchmarkPrinciple +
+        noCalculusPrinciple +
+        elasticityPrinciple +
+        surplusPrinciple +
+        formatSpec +
+        '解題要求：\n' +
+        '1. 直接解題，絕對不要抄題、不要重貼題目文字；嚴格依照四個步驟關卡輸出，並在【步驟二】提供簡短【觀念確認題】（含「題目：」、「選項：A. ... | B. ... | C. ...」、「解答：[A/B/C] ...」）。\n' +
+        '2. 全篇只准繁體中文，絕對禁止簡體中文。\n' +
+        '3. 【公式與變數符號鐵律（嚴禁底線「_」、嚴禁 boxed 與 LaTeX）】：\n' +
+        '   - 變數與公式中【絕對禁止出現任何底線符號「_」】：只能寫 MUx、Px、MUm、MUy、Py、Ed、Es、Qd、Qs、P1、Q1 等！\n' +
+        '   - 【變動量一律使用希臘三角形符號「Δ」】：只能寫 ΔQ、ΔP、ΔQd、ΔQs、ΔTU 等，嚴禁寫成 Delta！\n' +
+        '   - 公式一律用純文字單行，不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
+        '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
+        '題目文字與課綱補充：\n' +
+        text;
+      try {
+        out = await context.env.AI.run(REASONING_70B, {
+          messages: [
+            { role: 'system', content: sysPrompt },
+            { role: 'user', content: promptText },
+          ],
+          max_tokens: 1536,
+          temperature: 0.1,
+        });
+      } catch (e) {
+        out = null;
+      }
+    }
+
+    if (!out && imgs.length) {
       const multiQuestionAndGraphNotice =
         '【🛑 多題照片最高鐵則：一次只解「由上往下看到的第 1 題」！】\n' +
         '★ 請由上往下檢視照片：若照片中包含兩道或以上的題目（例如上方有第 06 題、下方有第 07 題）：\n' +
@@ -297,7 +329,7 @@ export async function onRequestPost(context) {
       const task =
         officialKeyNotice +
         multiQuestionAndGraphNotice +
-        verifyInstruction +
+        strictCheckRules +
         benchmarkPrinciple +
         noCalculusPrinciple +
         elasticityPrinciple +
@@ -328,12 +360,13 @@ export async function onRequestPost(context) {
             ],
           },
         ],
-        max_tokens: 1024,
+        max_tokens: 1536,
+        temperature: 0.1,
       });
-    } else {
+    } else if (!out) {
       const promptText =
         officialKeyNotice +
-        verifyInstruction +
+        strictCheckRules +
         benchmarkPrinciple +
         noCalculusPrinciple +
         elasticityPrinciple +
@@ -348,12 +381,13 @@ export async function onRequestPost(context) {
         '   - 公式一律用純文字單行，不要用 LaTeX、不要用 $ 包公式、不要用 \\boxed{}、不要用反斜線。\n' +
         '4. 【高職嚴禁微積分】：全篇絕對禁止出現積分符號 ∫、\\int、dx、dQ、微分導函數 d/dQ 或極限 lim！\n\n' +
         (text ? ('題目文字與補充：\n' + text) : '');
-      out = await context.env.AI.run(TEXT, {
+      out = await context.env.AI.run(TEXT_FALLBACK, {
         messages: [
           { role: 'system', content: sysPrompt },
           { role: 'user', content: promptText },
         ],
-        max_tokens: 1024,
+        max_tokens: 1536,
+        temperature: 0.1,
       });
     }
 
