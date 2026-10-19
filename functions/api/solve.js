@@ -410,6 +410,8 @@ export async function onRequestPost(context) {
       metaPart && /【考點章節】/.test(metaPart)
         ? metaPart
         : (detectedBackendCh ? `\n【考點章節】${detectedBackendCh}` : '') + metaPart;
+    const metaChMatch = effectiveMetaPart.match(/【考點章節】\s*(CH\d+\s+\S+)/);
+    const targetChLabel = (metaChMatch ? metaChMatch[1] : detectedBackendCh || '').trim();
 
     const officialKey = extractLeadingAnswerKey(qPart);
     const officialKeyNotice = officialKey
@@ -688,8 +690,6 @@ export async function onRequestPost(context) {
       .replace(/(?<!_)_(?!_)/g, '');
 
     // 確保【考點核心】開頭一定明確標示單一課綱章節（如：CH2 需求與供給 — ...）
-    const metaChMatch = effectiveMetaPart.match(/【考點章節】\s*(CH\d+\s+\S+)/);
-    const targetChLabel = (metaChMatch ? metaChMatch[1] : detectedBackendCh || '').trim();
     if (targetChLabel) {
       if (/【考點核心】/.test(answer)) {
         answer = answer.replace(/【考點核心】\s*([^\n]*)/, (full, rest) => {
