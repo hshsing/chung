@@ -1421,19 +1421,17 @@ function formatFormulaSubscripts(s){
   s = s.replace(/\b([A-Za-z]{1,4})_\{?([a-zA-Z0-9]+)\}?\b/g, '$1$2');
   s = s.replace(/(?<!_)_(?!_)/g, '');
 
-  s = s.replace(/\bEd\b/g, 'E<sub>d</sub>');
-  s = s.replace(/\bEs\b/g, 'E<sub>s</sub>');
-  s = s.replace(/\(Ed\)/g, '(E<sub>d</sub>)');
-  s = s.replace(/\(Es\)/g, '(E<sub>s</sub>)');
+  s = s.replace(/\bE([ds])\b/gi, (m, p1) => 'E<sub>' + p1.toLowerCase() + '</sub>');
+  s = s.replace(/\(E([ds])\)/gi, (m, p1) => '(E<sub>' + p1.toLowerCase() + '</sub>)');
 
   s = s.replace(/\bQ([0-9])\b/g, 'Q<sub>$1</sub>');
   s = s.replace(/\bP([0-9])\b/g, 'P<sub>$1</sub>');
+  s = s.replace(/\b([LK])([0-9])\b/g, '$1<sub>$2</sub>');
 
-  s = s.replace(/\bQd\b/g, 'Q<sub>d</sub>');
-  s = s.replace(/\bQs\b/g, 'Q<sub>s</sub>');
+  s = s.replace(/\bQ([ds])\b/gi, (m, p1) => 'Q<sub>' + p1.toLowerCase() + '</sub>');
 
-  s = s.replace(/\bP([LK])\b/g, 'P<sub>$1</sub>');
-  s = s.replace(/\b(MRP|VMP|MP|MFC)([LK])\b/g, '$1<sub>$2</sub>');
+  s = s.replace(/\bP([LKlk])\b/g, (m, p1) => 'P<sub>' + p1.toUpperCase() + '</sub>');
+  s = s.replace(/\b(TP|AP|MP|MRP|VMP|MFC|AFC)([LKlk])\b/g, (m, p1, p2) => p1 + '<sub>' + p2.toUpperCase() + '</sub>');
 
   return s;
 }
@@ -2722,7 +2720,7 @@ async function reSolveWithVerification(){
         <p style="margin:4px 0"><b>3. 需求量變動 vs. 需求變動：</b>價格變動引發線上點移動（需求量變動）；所得、偏好、他財價格變動引發整條曲線平移（需求變動）。</p>
         <p style="margin:4px 0"><b>4. 完全競爭廠商去留準則：</b><code>P ≥ AVC</code> 短期忍痛續產；<code>P &lt; AVC</code> 立即停業；<code>P = AC</code> 損益兩平。</p>
         <p style="margin:4px 0"><b>5. 簡單凱因斯所得決定與乘數：</b>支出乘數 <code>K = 1 / (1 - MPC) = 1 / MPS</code>；稅收乘數 <code>KT = -MPC / (1 - MPC)</code>；平衡預算乘數恆等於 1。</p>
-        <p style="margin:4px 0"><b>6. 要素雇用利潤極大：</b>雇用要素至 <code>MRPL = PL</code>（完全競爭產品市場下 <code>VMPL = PL</code>），邊際產值等於要素工資。</p>
+        <p style="margin:4px 0"><b>6. 要素雇用利潤極大：</b>雇用要素至 <code>MRP<sub>L</sub> = P<sub>L</sub></code>（完全競爭產品市場下 <code>VMP<sub>L</sub> = P<sub>L</sub></code>），邊際產值等於要素工資。</p>
         <p style="margin:4px 0"><b>7. 多變數決策【絕對基準獨立判定原則】：</b>多種財貨(X,Y)、要素(L,K)、多工廠決策時，<b>嚴禁直接將變數互比大小決定「一增一減」</b>！必須先找出絕對及格線（如消費 MUm、要素價格 PL 與 PK、邊際收益 MR），各變數分別獨立跟基準線判定。除非題目明確註明「預算已完全耗盡」或「總資源固定」，否則只要均符合標準，唯一正確推論是「同時增加所有變數」，拒絕零和腦補！</p>
       </div>
     </div>
@@ -5134,7 +5132,7 @@ const CH_GUIDE = [
       },
       {
         "t": "最小成本要素組合（邊際生產力均等法則）",
-        "d": "MPL/PL = MPK/PK，使花在每一種要素最後一塊錢的邊際產量皆相等，達成生產成本最小化。"
+        "d": "MP<sub>L</sub>/P<sub>L</sub> = MP<sub>K</sub>/P<sub>K</sub>，使花在每一種要素最後一塊錢的邊際產量皆相等，達成生產成本最小化。"
       }
     ],
     "formulas": [
@@ -5226,7 +5224,7 @@ const CH_GUIDE = [
         "items": [
           "<b>勞動人口結構（以 15 歲為界）</b>：15 歲以上民間人口（不含軍人、監管人口）分為「<b>勞動力（＝ 就業者 ＋ 失業者）</b>」與「<b>非勞動力</b>（學生、家庭主婦、退休長者、想工作但未找工作的怯志工作者）」。",
           "<b>名目工資 vs. 實質工資</b>：名目工資是帳面領到的貨幣金額；<b>實質工資 ＝ (名目工資 ÷ 物價指數) × 100</b>，代表工資真正的「<b>實質購買力</b>」！若名目工資上漲率 ＜ 物價上漲率，實質工資反而下降！",
-          "<b>工會提高工資的三大方法</b>：① <b>減少勞動供給</b>（嚴格限制證照資格、限制外勞、延長受訓年限） ② <b>要求政府訂定最低基本工資（價格下限）</b> ③ <b>增加勞動需求</b>（協助促銷本業產品、提高勞工生產力 MPL）。",
+          "<b>工會提高工資的三大方法</b>：① <b>減少勞動供給</b>（嚴格限制證照資格、限制外勞、延長受訓年限） ② <b>要求政府訂定最低基本工資（價格下限）</b> ③ <b>增加勞動需求</b>（協助促銷本業產品、提高勞工生產力 MP<sub>L</sub>）。",
           "<b>個別勞動供給曲線後彎（Backward-Bending）完整剖析</b>：工資率上漲有兩股力量拉鋸：① <b>替代效果</b>（工資高使休閒變貴，誘使多工作少休閒，正斜率）；② <b>所得效果</b>（工資高使實質所得大增，想多買休閒少工作，負斜率）。工資偏低時替代效果 ＞ 所得效果（正斜率）；當工資極高時所得效果 ＞ 替代效果，曲線向後彎曲！"
         ]
       },
