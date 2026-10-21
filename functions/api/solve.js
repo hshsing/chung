@@ -31,6 +31,95 @@ function extractFirstQuestion(rawText) {
   return (beforeAndD + tail.slice(0, cutOffset)).trim();
 }
 
+function parseTableRowsToMarkdown(body) {
+  if (!body) return '';
+  body = body.replace(/\\?hline/gi, '\n');
+  const rawRows = body.split(/\\\\|\n+/);
+  
+  const rows = [];
+  for (let r of rawRows) {
+    let trimmed = r.trim();
+    if (!trimmed) continue;
+    trimmed = trimmed.replace(/\bhline\b/gi, '').trim();
+    if (!trimmed) continue;
+
+    let cells = trimmed.split('&').map(c => {
+      return c
+        .replace(/\\?(?:rm|mathrm|text|mathbf|mathit)\s*\{([^}]*)\}/gi, '$1')
+        .replace(/\\?small/gi, '')
+        .replace(/\\?(?:rm|mathrm|text|mathbf|mathit)/gi, '')
+        .replace(/[\${}]/g, '')
+        .trim();
+    });
+
+    if (cells.length > 1 && cells[0] === '') {
+      cells.shift();
+    }
+    if (cells.length > 0 && cells.some(c => c !== '')) {
+      rows.push(cells);
+    }
+  }
+
+  if (rows.length === 0) return '';
+  const maxCols = Math.max(...rows.map(r => r.length));
+  if (maxCols < 2) return '';
+
+  const normalizedRows = rows.map(r => {
+    while (r.length < maxCols) r.push('');
+    return r;
+  });
+
+  let md = '\n\n';
+  md += '| ' + normalizedRows[0].join(' | ') + ' |\n';
+  md += '| ' + new Array(maxCols).fill('---').join(' | ') + ' |\n';
+  for (let i = 1; i < normalizedRows.length; i++) {
+    md += '| ' + normalizedRows[i].join(' | ') + ' |\n';
+  }
+  md += '\n';
+  return md;
+}
+
+function cleanLatexNoise(s) {
+  if (!s) return '';
+  let out = s.toString();
+
+  out = out.replace(/\$?(\\?begin\{(?:array|tabular)\}(?:\{[^}]*\})?[\s\S]*?\\?end\{(?:array|tabular)\})\$?/gi, (match, tableBody) => {
+    let body = tableBody
+      .replace(/\\?begin\{(?:array|tabular)\}(?:\{[^}]*\})?/gi, '')
+      .replace(/\\?end\{(?:array|tabular)\}/gi, '')
+      .trim();
+
+    return parseTableRowsToMarkdown(body);
+  });
+
+  out = out.replace(/(?:^|\n)([ \t]*(?:\\?hline[ \t]*)?\n?(?:[ \t]*&[^\n]+&[^\n]*(?:\\\\|\\?hline)?\n?){2,})/gi, (match, tableBody) => {
+    return '\n' + parseTableRowsToMarkdown(tableBody) + '\n';
+  });
+
+  out = out.replace(/\\?(?:rm|mathrm|text|mathbf|mathit)\s*\{([^}]*)\}/gi, '$1');
+  out = out.replace(/\\?(?:small|large|normalsize|tiny)\b/gi, '');
+  out = out.replace(/\\?(?:rm|mathrm|text|mathbf|mathit)\b/gi, '');
+  out = out.replace(/\\?displaystyle\b/gi, '');
+  out = out.replace(/\\?hline\b/gi, '');
+  out = out.replace(/\\?cline\{[^}]*\}\s*/gi, '');
+
+  out = out.replace(/\$(?:\s*space\s*)+\$?/gi, '');
+  out = out.replace(/(?:\bspace\b\s*){2,}/gi, '');
+  out = out.replace(/\$\s*([A-Za-z0-9_=\s,，+*\/()\-]+?)\s*\$/g, '$1');
+  out = out.replace(/\$\s*\$/g, '');
+  out = out.replace(/\\space/gi, '');
+  out = out.replace(/\\left/gi, '');
+  out = out.replace(/\\right/gi, '');
+  out = out.replace(/\\\(/g, '');
+  out = out.replace(/\\\)/g, '');
+  out = out.replace(/\\\[/g, '');
+  out = out.replace(/\\\]/g, '');
+  out = out.replace(/\\/g, '');
+  out = out.replace(/[ \t]{2,}/g, ' ');
+
+  return out.trim();
+}
+
 async function callBackupOcr(dataUrl) {
   const engines = ['2', '1'];
   for (const eng of engines) {
@@ -370,11 +459,11 @@ export async function onRequestPost(context) {
           try {
             const ocrOut = await context.env.AI.run(VISION, {
               messages: [
-                { role: 'system', content: '你是繁體中文逐字抄寫員。只准繁體中文。若照片有多題，只抄最上面第 1 題。' },
+                { role: 'system', content: '你是高職經濟學繁體中文逐字抄寫員。只准繁體中文。全篇絕對禁止輸出任何 LaTeX 英文排版標籤（嚴禁 \\begin{array}、\\hline、\\small、\\rm 等奇怪英文！）。若題目有表格，請直接以純文字或 | 分隔。若照片有多題，只抄最上面第 1 題。' },
                 {
                   role: 'user',
                   content: [
-                    { type: 'text', text: '把這張照片中「由上往下看到的第一道題目（最上面第 1 題）」逐字抄出來（含題號、題幹、選項）。不要解題，只要抄出第一題的文字。' },
+                    { type: 'text', text: '把這張照片中「由上往下看到的第一道題目（最上面第 1 題）」逐字抄出來（含題號、題幹、選項、表格內容）。若題目包含表格，請直接用直條線 | 排成容易閱讀的純文字表格，嚴禁輸出 \\begin{array}、\\small、\\rm 等任何 LaTeX 排版標籤！看不清的字用□，嚴禁猜。不要解題，只要抄出第一題的文字。' },
                     { type: 'image_url', image_url: { url: dataUrl } },
                   ],
                 },
@@ -389,7 +478,7 @@ export async function onRequestPost(context) {
         if (!ocrRaw || !ocrRaw.trim()) {
           ocrRaw = await callBackupOcr(dataUrl);
         }
-        const extractedOcr = extractFirstQuestion(ocrRaw);
+        const extractedOcr = extractFirstQuestion(cleanLatexNoise(ocrRaw));
         if (extractedOcr) {
           qPart = '【學生已核對題目】' + extractedOcr;
         }
@@ -748,8 +837,8 @@ export async function onRequestPost(context) {
     }
 
     return Response.json({
-      answer,
-      ocrText: cleanCheckText,
+      answer: cleanLatexNoise(answer),
+      ocrText: cleanLatexNoise(cleanCheckText),
       chapter: targetChLabel,
       concepts: '由 AI 判斷，另請對照站內 CH1-19',
       verified: verify,

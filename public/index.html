@@ -1375,8 +1375,147 @@ function copyFullAnswer(){
 }
 
 function compressImage(f){return new Promise(res=>{const img=new Image();const to=setTimeout(()=>res(f),8000);img.onload=()=>{clearTimeout(to);let w=img.width,h=img.height;const mx=1600;if(Math.max(w,h)>mx){const r=mx/Math.max(w,h);w=Math.round(w*r);h=Math.round(h*r);}const cv=document.createElement('canvas');cv.width=w;cv.height=h;cv.getContext('2d').drawImage(img,0,0,w,h);cv.toBlob(b=>res(b||f),'image/jpeg',0.85);};img.onerror=()=>{clearTimeout(to);res(f);};img.src=URL.createObjectURL(f);});}
+function parseTableRowsToMarkdown(body) {
+  if (!body) return '';
+  body = body.replace(/\\?hline/gi, '\n');
+  const rawRows = body.split(/\\\\|\n+/);
+  
+  const rows = [];
+  for (let r of rawRows) {
+    let trimmed = r.trim();
+    if (!trimmed) continue;
+    trimmed = trimmed.replace(/\bhline\b/gi, '').trim();
+    if (!trimmed) continue;
+
+    let cells = trimmed.split('&').map(c => {
+      return c
+        .replace(/\\?(?:rm|mathrm|text|mathbf|mathit)\s*\{([^}]*)\}/gi, '$1')
+        .replace(/\\?small/gi, '')
+        .replace(/\\?(?:rm|mathrm|text|mathbf|mathit)/gi, '')
+        .replace(/[\${}]/g, '')
+        .trim();
+    });
+
+    if (cells.length > 1 && cells[0] === '') {
+      cells.shift();
+    }
+    if (cells.length > 0 && cells.some(c => c !== '')) {
+      rows.push(cells);
+    }
+  }
+
+  if (rows.length === 0) return '';
+  const maxCols = Math.max(...rows.map(r => r.length));
+  if (maxCols < 2) return '';
+
+  const normalizedRows = rows.map(r => {
+    while (r.length < maxCols) r.push('');
+    return r;
+  });
+
+  let md = '\n\n';
+  md += '| ' + normalizedRows[0].join(' | ') + ' |\n';
+  md += '| ' + new Array(maxCols).fill('---').join(' | ') + ' |\n';
+  for (let i = 1; i < normalizedRows.length; i++) {
+    md += '| ' + normalizedRows[i].join(' | ') + ' |\n';
+  }
+  md += '\n';
+  return md;
+}
+
+function cleanLatexNoise(s) {
+  if (!s) return '';
+  let out = s.toString();
+
+  out = out.replace(/\$?(\\?begin\{(?:array|tabular)\}(?:\{[^}]*\})?[\s\S]*?\\?end\{(?:array|tabular)\})\$?/gi, (match, tableBody) => {
+    let body = tableBody
+      .replace(/\\?begin\{(?:array|tabular)\}(?:\{[^}]*\})?/gi, '')
+      .replace(/\\?end\{(?:array|tabular)\}/gi, '')
+      .trim();
+
+    return parseTableRowsToMarkdown(body);
+  });
+
+  out = out.replace(/(?:^|\n)([ \t]*(?:\\?hline[ \t]*)?\n?(?:[ \t]*&[^\n]+&[^\n]*(?:\\\\|\\?hline)?\n?){2,})/gi, (match, tableBody) => {
+    return '\n' + parseTableRowsToMarkdown(tableBody) + '\n';
+  });
+
+  out = out.replace(/\\?(?:rm|mathrm|text|mathbf|mathit)\s*\{([^}]*)\}/gi, '$1');
+  out = out.replace(/\\?(?:small|large|normalsize|tiny)\b/gi, '');
+  out = out.replace(/\\?(?:rm|mathrm|text|mathbf|mathit)\b/gi, '');
+  out = out.replace(/\\?displaystyle\b/gi, '');
+  out = out.replace(/\\?hline\b/gi, '');
+  out = out.replace(/\\?cline\{[^}]*\}\s*/gi, '');
+
+  out = out.replace(/\$(?:\s*space\s*)+\$?/gi, '');
+  out = out.replace(/(?:\bspace\b\s*){2,}/gi, '');
+  out = out.replace(/\$\s*([A-Za-z0-9_=\s,，+*\/()\-]+?)\s*\$/g, '$1');
+  out = out.replace(/\$\s*\$/g, '');
+  out = out.replace(/[ \t]{2,}/g, ' ');
+
+  return out.trim();
+}
+
+function renderMarkdownTableToHtmlSingleLine(text) {
+  if (!text) return '';
+  const tableRegex = /(?:^|\n)([ \t]*\|[^\n]+\|[ \t]*\n[ \t]*\|(?:\s*:?---+:?\s*\|)+\s*(?:\n[ \t]*\|[^\n]+\|[ \t]*)+)/g;
+  
+  return text.replace(tableRegex, (match, tableBlock) => {
+    const lines = tableBlock.trim().split('\n');
+    if (lines.length < 2) return match;
+
+    const parseRow = (line) => {
+      return line.trim()
+        .replace(/^\|/, '')
+        .replace(/\|$/, '')
+        .split('|')
+        .map(cell => cell.trim());
+    };
+
+    const headerCells = parseRow(lines[0]);
+    const bodyRows = lines.slice(2).map(parseRow);
+
+    let html = '<div class="guide-table-wrap" style="margin:8px 0;max-width:100%;overflow-x:auto">';
+    html += '<table class="guide-table" style="width:100%;border-collapse:collapse;font-size:.9rem;background:#fff">';
+    html += '<thead><tr>';
+    for (const h of headerCells) {
+      html += `<th style="padding:6px 10px;font-weight:700;text-align:center;border:1px solid #fed7aa;background:#fff7ed;color:#9a3412">${h}</th>`;
+    }
+    html += '</tr></thead><tbody>';
+    for (const r of bodyRows) {
+      html += '<tr>';
+      for (const c of r) {
+        html += `<td style="padding:6px 10px;text-align:center;border:1px solid #ffedd5;color:#1c1917">${c}</td>`;
+      }
+      html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+
+    return '\n' + html + '\n';
+  });
+}
+
+function formatQuestionStemHtml(rawText) {
+  if (!rawText) return '';
+  let text = cleanLatexNoise(rawText);
+  let safe = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  safe = formatFormulaSubscripts(safe);
+  safe = renderMarkdownTableToHtmlSingleLine(safe);
+
+  const tables = [];
+  safe = safe.replace(/<div class="guide-table-wrap"[\s\S]*?<\/div>/g, (m) => {
+    tables.push(m);
+    return `___TABLE_${tables.length - 1}___`;
+  });
+  safe = safe.replace(/\n\s*\n/g, '<br><br>').replace(/\n/g, '<br>');
+  safe = safe.replace(/___TABLE_(\d+)___/g, (m, idx) => tables[+idx] || '');
+
+  return safe;
+}
+
 function clean(s){
   if(!s) return '';
+  s = cleanLatexNoise(s);
   return s
     .replace(/\\?Delta\b/gi,'Δ')
     .replace(/[△▲]/g,'Δ')
@@ -1427,6 +1566,9 @@ function formatFormulaSubscripts(s){
   s = s.replace(/\bQ([0-9])\b/g, 'Q<sub>$1</sub>');
   s = s.replace(/\bP([0-9])\b/g, 'P<sub>$1</sub>');
   s = s.replace(/\b([LK])([0-9])\b/g, '$1<sub>$2</sub>');
+
+  // 成本、產量與收益指標加上期別數字（如 TC1, AVC1, TVC2, AC3, TP1, MP2 等）自動下標
+  s = s.replace(/\b(TC|TVC|TFC|AC|AVC|AFC|MC|TR|AR|MR|TP|AP|MP)([0-9]+)\b/g, '$1<sub>$2</sub>');
 
   s = s.replace(/\bQ([ds])\b/gi, (m, p1) => 'Q<sub>' + p1.toLowerCase() + '</sub>');
 
@@ -1632,6 +1774,7 @@ function renderMarkdownAnswer(rawText, customId) {
   escaped = escaped.replace(/&lt;(\/?)sub&gt;/gi, '<$1sub>');
   escaped = escaped.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   escaped = formatFormulaSubscripts(escaped);
+  escaped = renderMarkdownTableToHtmlSingleLine(escaped);
 
   let effCh = getEffectiveChapter();
   if (!effCh) {
@@ -3117,7 +3260,7 @@ function saveHist(t,g,fullQ,fullA,imgThumb,verified){
   const ch=g?chIdxOf(g):-1;
   let h=[];
   try{h=JSON.parse(localStorage.getItem('econ_hist')||'[]');}catch(e){h=[];}
-  const cleanFullQ=(fullQ||t||'').trim();
+  const cleanFullQ=cleanLatexNoise(fullQ||t||'').trim();
   if(verified && h.length>0){
     const top=h[0];
     if(top && (top.fullQ===cleanFullQ || Math.abs(Date.now() - (top.id||0)) < 180000)){
@@ -3308,8 +3451,8 @@ function renderHist(){
     const isDone=!!item.mastered;
     const chTag=item.ch>=0?`${CH[item.ch][0]} ${CH[item.ch][1]}`:(item.g||'未分類');
     const rawFull=(item.fullQ||item.t||'（無題目文字）').trim();
-    const qFull=rawFull.replace(/</g,'&lt;').replace(/\n/g,'<br>');
-    const qShort=rawFull.slice(0,42).replace(/</g,'&lt;');
+    const qFull=formatQuestionStemHtml(rawFull);
+    const qShort=cleanLatexNoise(rawFull).replace(/\|[^\n|]+\|/g, ' [表格] ').replace(/\s+/g, ' ').slice(0,42).replace(/</g,'&lt;');
     const isLegacyShort=(!item.imgThumb && (rawFull.length<=32 || rawFull==='圖片上傳題目' || rawFull==='圖片題'));
     const fallbackA=item.ch>=0?`<b>本章核心必記公式：</b><code>${CH[item.ch][4]}</code><br><b>重點溫習：</b>${CH[item.ch][2]}`:'（此為舊版紀錄，點下方「載入上方重練」可重新產生完整詳解）';
     const aHtml=item.fullA||fallbackA;
