@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/10/22 下午5:09:11</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/10/22 下午5:19:03</span>
       </div>
     </div>
   </div>
@@ -666,6 +666,20 @@
       }
     }
 
+    // Flexible Department Matching (compatible with abbreviations and full titles)
+    function matchDept(classDept, filterVal) {
+      if (!filterVal || filterVal === 'all') return true;
+      if (!classDept) return false;
+      if (classDept === filterVal) return true;
+      if (filterVal.includes('商經') || filterVal.includes('商業')) return classDept.includes('商經');
+      if (filterVal.includes('國貿') || filterVal.includes('貿易')) return classDept.includes('國貿');
+      if (filterVal.includes('資處') || filterVal.includes('資料')) return classDept.includes('資處');
+      if (filterVal.includes('綜高') || filterVal.includes('高中')) return classDept.includes('綜高');
+      if (filterVal.includes('多媒') || filterVal.includes('設計') || filterVal.includes('7')) return classDept.includes('多媒');
+      if (filterVal.includes('綜職') || filterVal.includes('職能') || filterVal.includes('5')) return classDept.includes('綜職');
+      return classDept.includes(filterVal) || filterVal.includes(classDept);
+    }
+
     // Get Active Records for Table & Charts
     function getActiveRecords() {
       const records = [];
@@ -730,7 +744,7 @@
         };
 
         if (selectedGrade !== 'all' && r.grade !== parseInt(selectedGrade, 10)) continue;
-        if (selectedDept !== 'all' && r.dept !== selectedDept) continue;
+        if (selectedDept !== 'all' && !matchDept(r.dept, selectedDept)) continue;
         if (onlyTop6 && !r.isTop6) continue;
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
@@ -760,40 +774,60 @@
       const honorTitle = document.getElementById('honor-title');
       const daysBadge = document.getElementById('honor-days-badge');
 
+      const gText = selectedGrade === 'all' ? '全校各年級' : (selectedGrade === '1' ? '高一年級' : selectedGrade === '2' ? '高二年級' : '高三年級');
+      const dText = selectedDept === 'all' ? '' : (' (' + selectedDept.split(' ')[0] + ')');
+
       if (currentMode === 'biweek') {
         const bw = currentData.biWeeklyData[selectedBiWeek];
-        honorTitle.textContent = `${bw.label} 年級優勝榮譽榜 (1~6名)`;
+        honorTitle.textContent = `${bw.label} ${gText}${dText} 優勝榮譽榜 (1~6名)`;
         daysBadge.textContent = `評比區間：${bw.startDate} ~ ${bw.endDate} (共 ${bw.daysCount} 天，滿分 ${bw.daysCount * 2} 分)`;
       } else if (currentMode === 'term') {
-        honorTitle.textContent = '全學期期末總成績結算・優勝榮譽榜 (1~6名)';
+        honorTitle.textContent = `全學期期末總成績結算・${gText}${dText} 優勝榮譽榜 (1~6名)`;
         daysBadge.textContent = '評比區間：全學期共 28 評分日 (滿分 56 分)';
       } else if (currentMode === 'single_week') {
         const wInfo = currentData.weeklyData[selectedSingleWeek];
-        honorTitle.textContent = `第 ${selectedSingleWeek} 週 單週評比榮譽榜 (1~6名)`;
+        honorTitle.textContent = `第 ${selectedSingleWeek} 週 單週評比 ${gText}${dText} 榮譽榜 (1~6名)`;
         daysBadge.textContent = `評比天數：${wInfo.daysCount} 天 (滿分 ${wInfo.daysCount * 2} 分)`;
       }
 
-      for (const grade of [1, 2, 3]) {
+      // Determine which grade columns to render
+      const targetGrades = (selectedGrade === 'all') ? [1, 2, 3] : [parseInt(selectedGrade, 10)];
+      if (targetGrades.length === 1) {
+        container.className = 'grid grid-cols-1 max-w-xl mx-auto gap-4';
+      } else {
+        container.className = 'grid grid-cols-1 md:grid-cols-3 gap-4';
+      }
+
+      for (const grade of targetGrades) {
         const gradeName = grade === 1 ? '高一' : grade === 2 ? '高二' : '高三';
 
-        const list = currentData.classes
-          .filter(c => c.grade === grade)
-          .map(c => {
-            const code = c.code;
-            if (currentMode === 'biweek') {
-              const bw = currentData.biWeeklyData[selectedBiWeek].classes[code];
-              return { ...c, totalScore: bw.totalScore, avgScore: bw.avgScore, rank: bw.rank, infractionCount: bw.infractionCount, ratedDays: bw.ratedDays };
-            } else if (currentMode === 'term') {
-              const term = currentData.termSummary[code];
-              return { ...c, totalScore: term.totalScore, avgScore: term.avgScore, rank: term.overallRank, infractionCount: term.totalInfractions, ratedDays: term.totalDays };
-            } else {
-              const cw = currentData.weeklyData[selectedSingleWeek].classes[code];
-              return { ...c, totalScore: cw.totalScore, avgScore: cw.avgScore, rank: cw.rank, infractionCount: cw.infractionCount, ratedDays: cw.ratedDays };
-            }
-          });
+        let list = currentData.classes.filter(c => c.grade === grade);
 
-        list.sort((a, b) => b.totalScore - a.totalScore || b.avgScore - a.avgScore);
-        const top6 = list.slice(0, 6);
+        if (selectedDept !== 'all') {
+          list = list.filter(c => matchDept(c.dept, selectedDept));
+        }
+
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          list = list.filter(c => c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.dept.toLowerCase().includes(q));
+        }
+
+        const mappedList = list.map(c => {
+          const code = c.code;
+          if (currentMode === 'biweek') {
+            const bw = currentData.biWeeklyData[selectedBiWeek].classes[code];
+            return { ...c, totalScore: bw ? bw.totalScore : 0, avgScore: bw ? bw.avgScore : 0, rank: bw ? bw.rank : 99, infractionCount: bw ? bw.infractionCount : 0, ratedDays: bw ? bw.ratedDays : 0 };
+          } else if (currentMode === 'term') {
+            const term = currentData.termSummary[code];
+            return { ...c, totalScore: term ? term.totalScore : 0, avgScore: term ? term.avgScore : 0, rank: term ? term.overallRank : 99, infractionCount: term ? term.totalInfractions : 0, ratedDays: term ? term.totalDays : 0 };
+          } else {
+            const cw = currentData.weeklyData[selectedSingleWeek].classes[code];
+            return { ...c, totalScore: cw ? cw.totalScore : 0, avgScore: cw ? cw.avgScore : 0, rank: cw ? cw.rank : 99, infractionCount: cw ? cw.infractionCount : 0, ratedDays: cw ? cw.ratedDays : 0 };
+          }
+        });
+
+        mappedList.sort((a, b) => b.totalScore - a.totalScore || b.avgScore - a.avgScore);
+        const top6 = mappedList.slice(0, 6);
 
         const card = document.createElement('div');
         card.className = 'bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:shadow-md transition';
@@ -806,7 +840,7 @@
             <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">頒發錦旗</span>
           </div>
           <div class="space-y-2 mt-3">
-            ${top6.map((item, idx) => {
+            ${top6.length === 0 ? '<div class="py-8 text-center text-slate-400 text-xs">查無符合條件之班級</div>' : top6.map((item, idx) => {
               const rank = idx + 1;
               let badge = '';
               let rowBg = 'bg-slate-50/70 hover:bg-indigo-50/60';
@@ -851,7 +885,14 @@
       const tbody = document.getElementById('table-body');
       tbody.innerHTML = '';
 
-      document.getElementById('displayed-rows-count').textContent = records.length;
+      const titleSuffix = [];
+      if (selectedGrade !== 'all') titleSuffix.push(selectedGrade === '1' ? '高一年級' : selectedGrade === '2' ? '高二年級' : '高三年級');
+      if (selectedDept !== 'all') titleSuffix.push(selectedDept.split(' ')[0]);
+      if (onlyTop6) titleSuffix.push('僅前6名');
+      if (searchQuery) titleSuffix.push(`搜尋: "${searchQuery}"`);
+
+      const filterSummary = titleSuffix.length > 0 ? `（${titleSuffix.join(' / ')}）` : '（全校 48 班）';
+      document.getElementById('displayed-rows-count').textContent = `${records.length} 筆班級資料 ${filterSummary}`;
 
       // Table Header depends on mode
       if (currentMode === 'biweek') {
@@ -900,7 +941,11 @@
       }
 
       if (records.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="12" class="py-12 text-center text-slate-400">查無符合條件之班級資料</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="12" class="py-12 text-center text-slate-400">
+          <div class="text-sm font-bold text-slate-700 mb-1">查無符合目前篩選條件之班級資料</div>
+          <div class="text-xs text-slate-400 mb-3">當前篩選條件：${filterSummary}</div>
+          <button type="button" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-sm transition" onclick="resetFilters()">↺ 重設所有篩選條件</button>
+        </td></tr>`;
         return;
       }
 
@@ -978,28 +1023,57 @@
       const colors = ['#6366f1', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#06b6d4', '#ef4444', '#14b8a6'];
 
       let labels = [];
-      let topClasses = ['222', '232', '121', '711', '112', '421']; // Outstanding classes
+      const gTitle = selectedGrade === 'all' ? '' : (selectedGrade === '1' ? '高一' : selectedGrade === '2' ? '高二' : '高三');
+      const dTitle = selectedDept === 'all' ? '' : selectedDept.split(' ')[0];
+      const filterLabel = [gTitle, dTitle].filter(Boolean).join('・');
 
       if (currentMode === 'biweek' || currentMode === 'term') {
-        document.getElementById('chart-title').textContent = '各雙週結算成績走勢對比 (1~6名優勝班級)';
+        document.getElementById('chart-title').textContent = filterLabel ? `各雙週結算成績走勢對比 (${filterLabel})` : '各雙週結算成績走勢對比 (1~6名優勝班級)';
         labels = currentData.biWeeklyList.map(bw => bw.label.split(' ')[0] + ' ' + bw.label.split(' ')[1]);
       } else {
-        document.getElementById('chart-title').textContent = '單週成績走勢對比';
+        document.getElementById('chart-title').textContent = filterLabel ? `單週成績走勢對比 (${filterLabel})` : '單週成績走勢對比';
         labels = currentData.weeksPresent.map(w => `第${w}週`);
       }
 
-      const datasets = topClasses.map((code, idx) => {
-        const cls = currentData.classes.find(c => c.code === code) || currentData.classes[idx];
+      // Filter candidate classes for chart
+      let candidateClasses = currentData.classes;
+      if (selectedGrade !== 'all') {
+        candidateClasses = candidateClasses.filter(c => c.grade === parseInt(selectedGrade, 10));
+      }
+      if (selectedDept !== 'all') {
+        candidateClasses = candidateClasses.filter(c => matchDept(c.dept, selectedDept));
+      }
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        candidateClasses = candidateClasses.filter(c => c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q) || c.dept.toLowerCase().includes(q));
+      }
+
+      // Rank candidate classes to pick top 6
+      const ranked = candidateClasses.map(c => {
+        let sc = 0;
+        if (currentMode === 'biweek') {
+          sc = currentData.biWeeklyData[selectedBiWeek]?.classes[c.code]?.totalScore || 0;
+        } else if (currentMode === 'term') {
+          sc = currentData.termSummary[c.code]?.totalScore || 0;
+        } else {
+          sc = currentData.weeklyData[selectedSingleWeek]?.classes[c.code]?.totalScore || 0;
+        }
+        return { cls: c, score: sc };
+      }).sort((a, b) => b.score - a.score);
+
+      const topClasses = ranked.slice(0, 6).map(x => x.cls);
+
+      const datasets = topClasses.map((cls, idx) => {
         let scores = [];
 
         if (currentMode === 'biweek' || currentMode === 'term') {
           scores = currentData.biWeeklyList.map(bw => {
-            const bc = currentData.biWeeklyData[bw.id].classes[cls.code];
+            const bc = currentData.biWeeklyData[bw.id]?.classes[cls.code];
             return bc ? bc.totalScore : 0;
           });
         } else {
           scores = currentData.weeksPresent.map(w => {
-            const cw = currentData.weeklyData[w].classes[cls.code];
+            const cw = currentData.weeklyData[w]?.classes[cls.code];
             return cw ? cw.totalScore : 0;
           });
         }
@@ -1045,7 +1119,7 @@
       const targetInfractions = [];
       for (const cls of currentData.classes) {
         if (selectedGrade !== 'all' && cls.grade !== parseInt(selectedGrade, 10)) continue;
-        if (selectedDept !== 'all' && cls.dept !== selectedDept) continue;
+        if (selectedDept !== 'all' && !matchDept(cls.dept, selectedDept)) continue;
 
         if (currentMode === 'biweek') {
           const bw = currentData.biWeeklyData[selectedBiWeek].classes[cls.code];
@@ -1237,6 +1311,36 @@
       URL.revokeObjectURL(url);
     }
 
+    window.resetFilters = function() {
+      selectedGrade = 'all';
+      selectedDept = 'all';
+      onlyTop6 = false;
+      searchQuery = '';
+
+      document.querySelectorAll('.grade-btn').forEach(b => {
+        const isAll = b.dataset.grade === 'all';
+        b.classList.toggle('bg-white', isAll);
+        b.classList.toggle('text-indigo-700', isAll);
+        b.classList.toggle('shadow-sm', isAll);
+        b.classList.toggle('font-semibold', isAll);
+        b.classList.toggle('text-slate-600', !isAll);
+      });
+
+      const deptEl = document.getElementById('dept-filter');
+      if (deptEl) deptEl.value = 'all';
+
+      const searchEl = document.getElementById('class-search');
+      if (searchEl) searchEl.value = '';
+
+      const top6El = document.getElementById('toggle-top6-only');
+      if (top6El) top6El.checked = false;
+
+      renderPodium();
+      renderTable();
+      renderTrendChart();
+      renderInfractionChart();
+    };
+
     function bindEvents() {
       // Mode selector
       document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -1274,6 +1378,7 @@
           selectedGrade = btn.dataset.grade;
           renderPodium();
           renderTable();
+          renderTrendChart();
           renderInfractionChart();
         };
       });
@@ -1283,19 +1388,23 @@
         selectedDept = e.target.value;
         renderPodium();
         renderTable();
+        renderTrendChart();
         renderInfractionChart();
       };
 
       // Toggle top 6 only
       document.getElementById('toggle-top6-only').onchange = (e) => {
         onlyTop6 = e.target.checked;
+        renderPodium();
         renderTable();
       };
 
       // Search
       document.getElementById('class-search').oninput = (e) => {
         searchQuery = e.target.value.trim();
+        renderPodium();
         renderTable();
+        renderTrendChart();
       };
 
       // Modal bindings
