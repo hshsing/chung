@@ -54,13 +54,13 @@
 
       <!-- Navigation Tabs -->
       <nav class="flex items-center space-x-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold">
-        <a href="#" class="px-3.5 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm flex items-center space-x-1.5">
+        <a href="/military" data-nav="home" class="px-3.5 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm flex items-center space-x-1.5">
           <span>🏠</span><span>首頁總覽</span>
         </a>
-        <a href="whiteboard/index.html" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
+        <a href="/military/whiteboard" data-nav="whiteboard" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
           <span>📋</span><span>小白皮未寫統計</span>
         </a>
-        <a href="order/index.html" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
+        <a href="/military/order" data-nav="order" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
           <span>🏆</span><span>秩序成績計算</span>
         </a>
       </nav>
@@ -157,7 +157,7 @@
 
         <!-- Card Footer Action -->
         <div class="p-6 bg-slate-50 border-t border-slate-100">
-          <a href="whiteboard/index.html" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/25 active:scale-95 group-hover:bg-blue-700">
+          <a href="/military/whiteboard" data-nav="whiteboard" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/25 active:scale-95 group-hover:bg-blue-700">
             <span>開啟「小白皮未寫統計」看板</span>
             <span class="transition-transform group-hover:translate-x-1">➔</span>
           </a>
@@ -233,7 +233,7 @@
 
         <!-- Card Footer Action -->
         <div class="p-6 bg-slate-50 border-t border-slate-100">
-          <a href="order/index.html" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition flex items-center justify-center space-x-2 shadow-md shadow-indigo-500/25 active:scale-95 group-hover:bg-indigo-700">
+          <a href="/military/order" data-nav="order" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition flex items-center justify-center space-x-2 shadow-md shadow-indigo-500/25 active:scale-95 group-hover:bg-indigo-700">
             <span>開啟「秩序成績計算」系統</span>
             <span class="transition-transform group-hover:translate-x-1">➔</span>
           </a>
@@ -242,7 +242,7 @@
 
     </div>
 
-    <!-- Live Highlights Feed (Preview of both systems) -->
+    <!-- Live Highlights Feed -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
       <!-- Left Feed: Whiteboard Top High Care Alert -->
@@ -252,7 +252,7 @@
             <span class="text-rose-500">🚨</span>
             <span>小白皮看板：重點關懷輔導名單 (累計 ≥ 10 次)</span>
           </h4>
-          <a href="whiteboard/index.html" class="text-xs text-blue-600 hover:underline font-semibold">完整名單 ➔</a>
+          <a href="/military/whiteboard" data-nav="whiteboard" class="text-xs text-blue-600 hover:underline font-semibold">完整名單 ➔</a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
@@ -289,24 +289,21 @@
             <span class="text-amber-500">🏆</span>
             <span>秩序評比：期末總成績結算特優前三名</span>
           </h4>
-          <a href="order/index.html" class="text-xs text-indigo-600 hover:underline font-semibold">1~6名完整榜單 ➔</a>
+          <a href="/military/order" data-nav="order" class="text-xs text-indigo-600 hover:underline font-semibold">1~6名完整榜單 ➔</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-          <!-- Grade 1 -->
           <div class="p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-100 space-y-1">
             <div class="font-bold text-indigo-900">高一年級前三</div>
             <div class="text-slate-700">🥇 711 (52.0分)</div>
             <div class="text-slate-700">🥈 112 (51.0分)</div>
             <div class="text-slate-700">🥉 214 (50.0分)</div>
           </div>
-          <!-- Grade 2 -->
           <div class="p-2.5 rounded-lg bg-amber-50/70 border border-amber-200 space-y-1">
             <div class="font-bold text-amber-900">高二年級前三</div>
             <div class="text-amber-800 font-bold">🥇 222 (56.0滿分)</div>
             <div class="text-slate-700">🥈 121 (52.0分)</div>
             <div class="text-slate-700">🥉 421 (52.0分)</div>
           </div>
-          <!-- Grade 3 -->
           <div class="p-2.5 rounded-lg bg-purple-50/70 border border-purple-100 space-y-1">
             <div class="font-bold text-purple-900">高三年級前三</div>
             <div class="text-purple-900 font-bold">🥇 232 (56.0滿分)</div>
@@ -325,6 +322,21 @@
     <p>桃園市立中壢高商 115 學年度第 1 學期 生活輔導組・教官室 業務管理平台</p>
     <p>整合發布於 Cloudflare Pages (hshsing.pages.dev/military)</p>
   </footer>
+
+  <!-- Universal Link Fixer for both local file:/// and Cloudflare Pages -->
+  <script>
+    (function() {
+      const isFile = window.location.protocol === 'file:';
+      if (isFile) {
+        document.querySelectorAll('a[data-nav]').forEach(el => {
+          const target = el.getAttribute('data-nav');
+          if (target === 'home') el.href = 'index.html';
+          else if (target === 'whiteboard') el.href = 'whiteboard.html';
+          else if (target === 'order') el.href = 'order/index.html';
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>
