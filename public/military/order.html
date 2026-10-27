@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/10/27 上午10:10:57</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/10/27 上午11:46:16</span>
       </div>
     </div>
   </div>
@@ -200,22 +200,22 @@
             <span>結算與統計維度切換</span>
           </label>
           <span id="current-mode-badge" class="text-xs font-bold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 shadow-sm">
-            雙週結算模式 (每兩週結算一次 1~6 名)
+            單週詳細評比檢視模式
           </span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 p-1 bg-slate-100 rounded-xl" id="settlement-mode-group">
-          <button class="mode-btn py-2.5 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2 bg-white text-indigo-700 shadow-sm" data-mode="biweek">
+          <button class="mode-btn py-2.5 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2 bg-white text-indigo-700 shadow-sm" data-mode="single_week">
+            <span>📅</span>
+            <span>單週詳細檢視 (第2~8週)</span>
+          </button>
+          <button class="mode-btn py-2.5 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2 text-slate-600 hover:text-slate-900" data-mode="biweek">
             <span>🏅</span>
             <span>雙週結算 (每兩週一次 1~6名)</span>
           </button>
           <button class="mode-btn py-2.5 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2 text-slate-600 hover:text-slate-900" data-mode="term">
             <span>🏆</span>
             <span>期末總成績結算 (全學期 1~6名)</span>
-          </button>
-          <button class="mode-btn py-2.5 px-3 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-2 text-slate-600 hover:text-slate-900" data-mode="single_week">
-            <span>📅</span>
-            <span>單週詳細檢視 (第2~9週)</span>
           </button>
         </div>
       </div>
@@ -524,7 +524,7 @@
     }
 
     // State Variables
-    let currentMode = 'biweek'; // 'biweek', 'term', 'single_week'
+    let currentMode = 'single_week'; // 'single_week', 'biweek', 'term'
     let selectedBiWeek = 'bw_2_3'; // bw_2_3, bw_4_5, bw_6_7, bw_8_9
     let selectedSingleWeek = 2; // 2..9
     let selectedGrade = 'all'; // 'all', 1, 2, 3
