@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-10-22T09:04:11.103Z",
+  "updatedAt": "2026-10-27T01:46:51.622Z",
   "term": "115學年度第1學期 (115-1)",
   "months": [
     "115-1 10月份生活榮譽評比",
     "115-1 9月份生活榮譽評比"
   ],
-  "totalDays": 29,
+  "totalDays": 28,
   "weeksPresent": [
     2,
     3,
@@ -13,8 +13,7 @@
     5,
     6,
     7,
-    8,
-    9
+    8
   ],
   "biWeeklyList": [
     {
@@ -52,14 +51,13 @@
     },
     {
       "id": "bw_8_9",
-      "label": "第 8-9 週 (4 次雙週結算)",
+      "label": "第 8-9 週 (4 次雙週結算) (進行中)",
       "weeks": [
-        8,
-        9
+        8
       ],
-      "daysCount": 5,
+      "daysCount": 4,
       "startDate": "2026-10-19",
-      "endDate": "2026-10-26"
+      "endDate": "2026-10-22"
     }
   ],
   "biWeeklyData": {
@@ -16114,15 +16112,14 @@
     },
     "bw_8_9": {
       "id": "bw_8_9",
-      "label": "第 8-9 週 (4 次雙週結算)",
+      "label": "第 8-9 週 (4 次雙週結算) (進行中)",
       "weeks": [
-        8,
-        9
+        8
       ],
       "periodIndex": 4,
       "startDate": "2026-10-19",
-      "endDate": "2026-10-26",
-      "daysCount": 5,
+      "endDate": "2026-10-22",
+      "daysCount": 4,
       "classes": {
         "111": {
           "classCode": "111",
@@ -16130,27 +16127,13 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
-          "infractionCount": 2,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
+          "infractionCount": 1,
           "infractions": [
             {
               "date": "2026-10-19",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
               "score": -2,
               "reason": "w3",
               "reasonLabel": "走動 3 人次",
@@ -16199,23 +16182,9 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
             }
           ],
-          "rank": 13,
+          "rank": 12,
           "isTop6": false
         },
         "112": {
@@ -16224,9 +16193,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "商經科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -16253,13 +16222,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -16275,9 +16237,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "商經科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -16312,13 +16274,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -16334,10 +16289,10 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "商經科",
-          "totalScore": -1,
-          "avgScore": -0.2,
-          "ratedDays": 5,
-          "infractionCount": 3,
+          "totalScore": 1,
+          "avgScore": 0.25,
+          "ratedDays": 4,
+          "infractionCount": 2,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -16359,20 +16314,6 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
             }
           ],
           "dailyDetails": [
@@ -16410,23 +16351,9 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
             }
           ],
-          "rank": 16,
+          "rank": 14,
           "isTop6": false
         },
         "121": {
@@ -16435,9 +16362,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "商經科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -16490,13 +16417,6 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
           "rank": 6,
@@ -16508,9 +16428,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "商經科",
-          "totalScore": 3,
-          "avgScore": 0.6,
-          "ratedDays": 5,
+          "totalScore": 1,
+          "avgScore": 0.25,
+          "ratedDays": 4,
           "infractionCount": 2,
           "infractions": [
             {
@@ -16570,16 +16490,9 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
-          "rank": 9,
+          "rank": 10,
           "isTop6": false
         },
         "123": {
@@ -16588,9 +16501,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "商經科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -16617,13 +16530,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -16639,10 +16545,10 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "商經科",
-          "totalScore": -8,
-          "avgScore": -1.6,
-          "ratedDays": 5,
-          "infractionCount": 5,
+          "totalScore": -7,
+          "avgScore": -1.75,
+          "ratedDays": 4,
+          "infractionCount": 4,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -16692,20 +16598,6 @@
                   "text": "玩手機 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p1",
-              "reasonLabel": "玩手機 1 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 1,
-                  "text": "玩手機 1 人次"
-                }
-              ]
             }
           ],
           "dailyDetails": [
@@ -16757,20 +16649,6 @@
                   "text": "玩手機 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p1",
-              "reasonLabel": "玩手機 1 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 1,
-                  "text": "玩手機 1 人次"
-                }
-              ]
             }
           ],
           "rank": 14,
@@ -16782,9 +16660,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "商經科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -16811,13 +16689,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -16833,9 +16704,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "商經科",
-          "totalScore": -2,
-          "avgScore": -0.4,
-          "ratedDays": 5,
+          "totalScore": -4,
+          "avgScore": -1,
+          "ratedDays": 4,
           "infractionCount": 3,
           "infractions": [
             {
@@ -16930,16 +16801,9 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
-          "rank": 13,
+          "rank": 15,
           "isTop6": false
         },
         "133": {
@@ -16948,9 +16812,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "商經科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -16999,13 +16863,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17021,9 +16878,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "商經科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -17072,13 +16929,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17094,9 +16944,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -17123,13 +16973,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17145,9 +16988,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
+          "totalScore": 0,
+          "avgScore": 0,
+          "ratedDays": 4,
           "infractionCount": 2,
           "infractions": [
             {
@@ -17207,16 +17050,9 @@
                   "text": "走動 2 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
-          "rank": 13,
+          "rank": 15,
           "isTop6": false
         },
         "213": {
@@ -17225,9 +17061,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -17254,13 +17090,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17276,9 +17105,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "國貿科",
-          "totalScore": 7,
-          "avgScore": 1.4,
-          "ratedDays": 5,
+          "totalScore": 5,
+          "avgScore": 1.25,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -17331,13 +17160,6 @@
                   "text": "走動 1 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
           "rank": 11,
@@ -17349,9 +17171,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -17378,13 +17200,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17400,9 +17215,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -17429,13 +17244,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17451,9 +17259,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
+          "totalScore": 0,
+          "avgScore": 0,
+          "ratedDays": 4,
           "infractionCount": 2,
           "infractions": [
             {
@@ -17527,16 +17335,9 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
-          "rank": 10,
+          "rank": 11,
           "isTop6": false
         },
         "224": {
@@ -17545,10 +17346,10 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "國貿科",
-          "totalScore": -9,
-          "avgScore": -1.8,
-          "ratedDays": 5,
-          "infractionCount": 5,
+          "totalScore": -7,
+          "avgScore": -1.75,
+          "ratedDays": 4,
+          "infractionCount": 4,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -17596,20 +17397,6 @@
                   "name": "走動",
                   "count": 1,
                   "text": "走動 1 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
                 }
               ]
             }
@@ -17663,23 +17450,9 @@
                   "text": "走動 1 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
             }
           ],
-          "rank": 15,
+          "rank": 14,
           "isTop6": false
         },
         "225": {
@@ -17688,9 +17461,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "國貿科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -17743,13 +17516,6 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
           "rank": 6,
@@ -17761,10 +17527,10 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "國貿科",
-          "totalScore": -2,
-          "avgScore": -0.4,
-          "ratedDays": 5,
-          "infractionCount": 3,
+          "totalScore": 0,
+          "avgScore": 0,
+          "ratedDays": 4,
+          "infractionCount": 2,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -17793,20 +17559,6 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
             }
           ],
           "dailyDetails": [
@@ -17851,20 +17603,6 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
             }
           ],
           "rank": 13,
@@ -17876,9 +17614,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -17905,13 +17643,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17927,9 +17658,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -17956,13 +17687,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -17978,9 +17702,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "國貿科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18007,13 +17731,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18029,27 +17746,13 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
-          "infractionCount": 2,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
+          "infractionCount": 1,
           "infractions": [
             {
               "date": "2026-10-19",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
               "score": -2,
               "reason": "w2",
               "reasonLabel": "走動 2 人次",
@@ -18098,24 +17801,10 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
             }
           ],
-          "rank": 10,
-          "isTop6": false
+          "rank": 6,
+          "isTop6": true
         },
         "411": {
           "classCode": "411",
@@ -18123,9 +17812,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "資處科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18152,13 +17841,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18174,9 +17856,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
+          "totalScore": 0,
+          "avgScore": 0,
+          "ratedDays": 4,
           "infractionCount": 2,
           "infractions": [
             {
@@ -18250,16 +17932,9 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
-          "rank": 13,
+          "rank": 15,
           "isTop6": false
         },
         "413": {
@@ -18268,9 +17943,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "資處科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18297,13 +17972,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18319,9 +17987,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "資處科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -18374,13 +18042,6 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
           "rank": 6,
@@ -18392,10 +18053,10 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "資處科",
-          "totalScore": -10,
+          "totalScore": -8,
           "avgScore": -2,
-          "ratedDays": 5,
-          "infractionCount": 5,
+          "ratedDays": 4,
+          "infractionCount": 4,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -18445,20 +18106,6 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
             }
           ],
           "dailyDetails": [
@@ -18510,20 +18157,6 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
             }
           ],
           "rank": 16,
@@ -18535,9 +18168,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "資處科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18564,13 +18197,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18586,9 +18212,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "資處科",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -18637,13 +18263,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18659,27 +18278,13 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
-          "infractionCount": 2,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
+          "infractionCount": 1,
           "infractions": [
             {
               "date": "2026-10-19",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
               "score": -2,
               "reason": "w2",
               "reasonLabel": "走動 2 人次",
@@ -18728,24 +18333,10 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
             }
           ],
-          "rank": 10,
-          "isTop6": false
+          "rank": 6,
+          "isTop6": true
         },
         "433": {
           "classCode": "433",
@@ -18753,9 +18344,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "資處科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18782,13 +18373,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18804,9 +18388,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "綜高",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18833,13 +18417,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18855,9 +18432,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "綜高",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18884,13 +18461,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18906,9 +18476,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "綜高",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18935,13 +18505,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -18957,9 +18520,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "綜高",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -18986,13 +18549,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -19008,10 +18564,10 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "綜高",
-          "totalScore": -4,
-          "avgScore": -0.8,
-          "ratedDays": 5,
-          "infractionCount": 4,
+          "totalScore": -3,
+          "avgScore": -0.75,
+          "ratedDays": 4,
+          "infractionCount": 3,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -19045,20 +18601,6 @@
                   "name": "走動",
                   "count": 2,
                   "text": "走動 2 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p3",
-              "reasonLabel": "玩手機 3 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 3,
-                  "text": "玩手機 3 人次"
                 }
               ]
             }
@@ -19105,20 +18647,6 @@
                   "text": "走動 2 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p3",
-              "reasonLabel": "玩手機 3 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 3,
-                  "text": "玩手機 3 人次"
-                }
-              ]
             }
           ],
           "rank": 13,
@@ -19130,9 +18658,9 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "綜高",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -19163,13 +18691,6 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
           "rank": 1,
@@ -19181,10 +18702,10 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "綜高",
-          "totalScore": -3,
-          "avgScore": -0.6,
-          "ratedDays": 5,
-          "infractionCount": 4,
+          "totalScore": -2,
+          "avgScore": -0.5,
+          "ratedDays": 4,
+          "infractionCount": 3,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -19218,20 +18739,6 @@
                   "name": "走動",
                   "count": 1,
                   "text": "走動 1 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
                 }
               ]
             }
@@ -19276,20 +18783,6 @@
                   "name": "走動",
                   "count": 1,
                   "text": "走動 1 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
                 }
               ]
             }
@@ -19303,27 +18796,13 @@
           "grade": 2,
           "gradeName": "高二",
           "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
-          "infractionCount": 2,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
+          "infractionCount": 1,
           "infractions": [
             {
               "date": "2026-10-19",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
               "score": -2,
               "reason": "w3",
               "reasonLabel": "走動 3 人次",
@@ -19372,24 +18851,10 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
             }
           ],
-          "rank": 10,
-          "isTop6": false
+          "rank": 6,
+          "isTop6": true
         },
         "631": {
           "classCode": "631",
@@ -19397,10 +18862,10 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "綜高",
-          "totalScore": -6,
-          "avgScore": -1.2,
-          "ratedDays": 5,
-          "infractionCount": 4,
+          "totalScore": -4,
+          "avgScore": -1,
+          "ratedDays": 4,
+          "infractionCount": 3,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -19432,20 +18897,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
               "score": -2,
               "reason": "w3",
               "reasonLabel": "走動 3 人次",
@@ -19508,23 +18959,9 @@
                   "text": "走動 3 人次"
                 }
               ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
             }
           ],
-          "rank": 16,
+          "rank": 15,
           "isTop6": false
         },
         "632": {
@@ -19533,10 +18970,10 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "綜高",
-          "totalScore": -2,
-          "avgScore": -0.4,
-          "ratedDays": 5,
-          "infractionCount": 3,
+          "totalScore": 0,
+          "avgScore": 0,
+          "ratedDays": 4,
+          "infractionCount": 2,
           "infractions": [
             {
               "date": "2026-10-19",
@@ -19563,20 +19000,6 @@
                   "name": "走動",
                   "count": 4,
                   "text": "走動 4 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
                 }
               ]
             }
@@ -19623,20 +19046,6 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
             }
           ],
           "rank": 13,
@@ -19648,9 +19057,9 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "綜高",
-          "totalScore": 6,
-          "avgScore": 1.2,
-          "ratedDays": 5,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
           "infractionCount": 1,
           "infractions": [
             {
@@ -19703,13 +19112,6 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
             }
           ],
           "rank": 6,
@@ -19721,27 +19123,13 @@
           "grade": 3,
           "gradeName": "高三",
           "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 0.4,
-          "ratedDays": 5,
-          "infractionCount": 2,
+          "totalScore": 4,
+          "avgScore": 1,
+          "ratedDays": 4,
+          "infractionCount": 1,
           "infractions": [
             {
               "date": "2026-10-19",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            },
-            {
-              "date": "2026-10-26",
               "score": -2,
               "reason": "w2",
               "reasonLabel": "走動 2 人次",
@@ -19790,24 +19178,10 @@
               "reason": "",
               "reasonLabel": "未註記事由",
               "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
             }
           ],
-          "rank": 10,
-          "isTop6": false
+          "rank": 6,
+          "isTop6": true
         },
         "711": {
           "classCode": "711",
@@ -19815,9 +19189,9 @@
           "grade": 1,
           "gradeName": "高一",
           "dept": "多媒科",
-          "totalScore": 10,
+          "totalScore": 8,
           "avgScore": 2,
-          "ratedDays": 5,
+          "ratedDays": 4,
           "infractionCount": 0,
           "infractions": [],
           "dailyDetails": [
@@ -19844,13 +19218,6 @@
             },
             {
               "date": "2026-10-22",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            },
-            {
-              "date": "2026-10-26",
               "score": 2,
               "reason": "",
               "reasonLabel": "未註記事由",
@@ -41533,1381 +40900,6 @@
           "rank": 1
         }
       }
-    },
-    "9": {
-      "weekNum": 9,
-      "dates": [
-        "2026-10-26"
-      ],
-      "startDate": "2026-10-26",
-      "endDate": "2026-10-26",
-      "daysCount": 1,
-      "classes": {
-        "111": {
-          "classCode": "111",
-          "className": "高一・商經科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "商經科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 15
-        },
-        "112": {
-          "classCode": "112",
-          "className": "高一・商經科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "113": {
-          "classCode": "113",
-          "className": "高一・商經科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "114": {
-          "classCode": "114",
-          "className": "高一・商經科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "商經科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 15
-        },
-        "121": {
-          "classCode": "121",
-          "className": "高二・商經科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "122": {
-          "classCode": "122",
-          "className": "高二・商經科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "123": {
-          "classCode": "123",
-          "className": "高二・商經科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "124": {
-          "classCode": "124",
-          "className": "高二・商經科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "商經科",
-          "totalScore": -1,
-          "avgScore": -1,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p1",
-              "reasonLabel": "玩手機 1 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 1,
-                  "text": "玩手機 1 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p1",
-              "reasonLabel": "玩手機 1 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 1,
-                  "text": "玩手機 1 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "131": {
-          "classCode": "131",
-          "className": "高三・商經科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "132": {
-          "classCode": "132",
-          "className": "高三・商經科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "133": {
-          "classCode": "133",
-          "className": "高三・商經科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "134": {
-          "classCode": "134",
-          "className": "高三・商經科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "商經科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "211": {
-          "classCode": "211",
-          "className": "高一・國貿科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "212": {
-          "classCode": "212",
-          "className": "高一・國貿科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "213": {
-          "classCode": "213",
-          "className": "高一・國貿科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "214": {
-          "classCode": "214",
-          "className": "高一・國貿科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "221": {
-          "classCode": "221",
-          "className": "高二・國貿科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "222": {
-          "classCode": "222",
-          "className": "高二・國貿科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "223": {
-          "classCode": "223",
-          "className": "高二・國貿科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "224": {
-          "classCode": "224",
-          "className": "高二・國貿科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "國貿科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 14
-        },
-        "225": {
-          "classCode": "225",
-          "className": "高二・國貿科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "231": {
-          "classCode": "231",
-          "className": "高三・國貿科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "國貿科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "232": {
-          "classCode": "232",
-          "className": "高三・國貿科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "233": {
-          "classCode": "233",
-          "className": "高三・國貿科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "234": {
-          "classCode": "234",
-          "className": "高三・國貿科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "國貿科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "235": {
-          "classCode": "235",
-          "className": "高三・國貿科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "國貿科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "411": {
-          "classCode": "411",
-          "className": "高一・資處科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "412": {
-          "classCode": "412",
-          "className": "高一・資處科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "413": {
-          "classCode": "413",
-          "className": "高一・資處科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "421": {
-          "classCode": "421",
-          "className": "高二・資處科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "422": {
-          "classCode": "422",
-          "className": "高二・資處科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "資處科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "t3",
-              "reasonLabel": "說話 3 人次",
-              "reasonItems": [
-                {
-                  "type": "talk",
-                  "name": "說話",
-                  "count": 3,
-                  "text": "說話 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 14
-        },
-        "423": {
-          "classCode": "423",
-          "className": "高二・資處科",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "431": {
-          "classCode": "431",
-          "className": "高三・資處科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "432": {
-          "classCode": "432",
-          "className": "高三・資處科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "資處科",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "433": {
-          "classCode": "433",
-          "className": "高三・資處科",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "資處科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "611": {
-          "classCode": "611",
-          "className": "高一・綜高",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "612": {
-          "classCode": "612",
-          "className": "高一・綜高",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "613": {
-          "classCode": "613",
-          "className": "高一・綜高",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "614": {
-          "classCode": "614",
-          "className": "高一・綜高",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "621": {
-          "classCode": "621",
-          "className": "高二・綜高",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "綜高",
-          "totalScore": -1,
-          "avgScore": -1,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p3",
-              "reasonLabel": "玩手機 3 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 3,
-                  "text": "玩手機 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "p3",
-              "reasonLabel": "玩手機 3 人次",
-              "reasonItems": [
-                {
-                  "type": "phone",
-                  "name": "玩手機",
-                  "count": 3,
-                  "text": "玩手機 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "622": {
-          "classCode": "622",
-          "className": "高二・綜高",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "623": {
-          "classCode": "623",
-          "className": "高二・綜高",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "綜高",
-          "totalScore": -1,
-          "avgScore": -1,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -1,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "624": {
-          "classCode": "624",
-          "className": "高二・綜高",
-          "grade": 2,
-          "gradeName": "高二",
-          "dept": "綜高",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 14
-        },
-        "631": {
-          "classCode": "631",
-          "className": "高三・綜高",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "綜高",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w3",
-              "reasonLabel": "走動 3 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 3,
-                  "text": "走動 3 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "632": {
-          "classCode": "632",
-          "className": "高三・綜高",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "綜高",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "633": {
-          "classCode": "633",
-          "className": "高三・綜高",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "綜高",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        },
-        "634": {
-          "classCode": "634",
-          "className": "高三・綜高",
-          "grade": 3,
-          "gradeName": "高三",
-          "dept": "綜高",
-          "totalScore": -2,
-          "avgScore": -2,
-          "ratedDays": 1,
-          "infractionCount": 1,
-          "infractions": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": -2,
-              "reason": "w2",
-              "reasonLabel": "走動 2 人次",
-              "reasonItems": [
-                {
-                  "type": "walk",
-                  "name": "走動",
-                  "count": 2,
-                  "text": "走動 2 人次"
-                }
-              ]
-            }
-          ],
-          "rank": 11
-        },
-        "711": {
-          "classCode": "711",
-          "className": "高一・多媒科",
-          "grade": 1,
-          "gradeName": "高一",
-          "dept": "多媒科",
-          "totalScore": 2,
-          "avgScore": 2,
-          "ratedDays": 1,
-          "infractionCount": 0,
-          "infractions": [],
-          "dailyDetails": [
-            {
-              "date": "2026-10-26",
-              "score": 2,
-              "reason": "",
-              "reasonLabel": "未註記事由",
-              "reasonItems": []
-            }
-          ],
-          "rank": 1
-        }
-      }
     }
   },
   "termSummary": {
@@ -42917,10 +40909,10 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "商經科",
-      "totalScore": 21,
-      "avgScore": 0.72,
-      "totalDays": 29,
-      "totalInfractions": 10,
+      "totalScore": 23,
+      "avgScore": 0.82,
+      "totalDays": 28,
+      "totalInfractions": 9,
       "allInfractions": [
         {
           "date": "2026-09-08",
@@ -43047,20 +41039,6 @@
               "text": "走動 3 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w3",
-          "reasonLabel": "走動 3 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 3,
-              "text": "走動 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -43098,11 +41076,6 @@
           "total": 4,
           "avg": 1,
           "rank": 12
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 15
         }
       },
       "biWeekScores": {
@@ -43125,13 +41098,13 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 13,
+          "total": 4,
+          "avg": 1,
+          "rank": 12,
           "isTop6": false
         }
       },
-      "overallRank": 15,
+      "overallRank": 14,
       "isTop6": false
     },
     "112": {
@@ -43140,9 +41113,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "商經科",
-      "totalScore": 53,
-      "avgScore": 1.83,
-      "totalDays": 29,
+      "totalScore": 51,
+      "avgScore": 1.82,
+      "totalDays": 28,
       "totalInfractions": 2,
       "allInfractions": [
         {
@@ -43202,11 +41175,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -43229,7 +41197,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -43244,9 +41212,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "商經科",
-      "totalScore": 37,
-      "avgScore": 1.28,
-      "totalDays": 29,
+      "totalScore": 35,
+      "avgScore": 1.25,
+      "totalDays": 28,
       "totalInfractions": 6,
       "allInfractions": [
         {
@@ -43368,11 +41336,6 @@
           "total": 4,
           "avg": 1,
           "rank": 12
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -43395,8 +41358,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 12,
           "isTop6": false
         }
@@ -43410,10 +41373,10 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "商經科",
-      "totalScore": -1,
-      "avgScore": -0.03,
-      "totalDays": 29,
-      "totalInfractions": 16,
+      "totalScore": 1,
+      "avgScore": 0.04,
+      "totalDays": 28,
+      "totalInfractions": 15,
       "allInfractions": [
         {
           "date": "2026-09-07",
@@ -43628,20 +41591,6 @@
           "reason": "",
           "reasonLabel": "未註記事由",
           "reasonItems": []
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w2",
-          "reasonLabel": "走動 2 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 2,
-              "text": "走動 2 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -43679,11 +41628,6 @@
           "total": 1,
           "avg": 0.25,
           "rank": 14
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 15
         }
       },
       "biWeekScores": {
@@ -43706,9 +41650,9 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -1,
-          "avg": -0.2,
-          "rank": 16,
+          "total": 1,
+          "avg": 0.25,
+          "rank": 14,
           "isTop6": false
         }
       },
@@ -43721,9 +41665,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "商經科",
-      "totalScore": 50,
-      "avgScore": 1.72,
-      "totalDays": 29,
+      "totalScore": 48,
+      "avgScore": 1.71,
+      "totalDays": 28,
       "totalInfractions": 2,
       "allInfractions": [
         {
@@ -43790,11 +41734,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -43817,8 +41756,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
@@ -43832,9 +41771,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "商經科",
-      "totalScore": 23,
-      "avgScore": 0.79,
-      "totalDays": 29,
+      "totalScore": 21,
+      "avgScore": 0.75,
+      "totalDays": 28,
       "totalInfractions": 11,
       "allInfractions": [
         {
@@ -43999,11 +41938,6 @@
           "total": 1,
           "avg": 0.25,
           "rank": 10
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -44026,9 +41960,9 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 3,
-          "avg": 0.6,
-          "rank": 9,
+          "total": 1,
+          "avg": 0.25,
+          "rank": 10,
           "isTop6": false
         }
       },
@@ -44041,9 +41975,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "商經科",
-      "totalScore": 37,
-      "avgScore": 1.28,
-      "totalDays": 29,
+      "totalScore": 35,
+      "avgScore": 1.25,
+      "totalDays": 28,
       "totalInfractions": 7,
       "allInfractions": [
         {
@@ -44159,11 +42093,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -44186,7 +42115,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -44201,10 +42130,10 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "商經科",
-      "totalScore": 18,
-      "avgScore": 0.62,
-      "totalDays": 29,
-      "totalInfractions": 11,
+      "totalScore": 19,
+      "avgScore": 0.68,
+      "totalDays": 28,
+      "totalInfractions": 10,
       "allInfractions": [
         {
           "date": "2026-09-09",
@@ -44338,20 +42267,6 @@
               "text": "玩手機 3 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -1,
-          "reason": "p1",
-          "reasonLabel": "玩手機 1 人次",
-          "reasonItems": [
-            {
-              "type": "phone",
-              "name": "玩手機",
-              "count": 1,
-              "text": "玩手機 1 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -44389,11 +42304,6 @@
           "total": -7,
           "avg": -1.75,
           "rank": 14
-        },
-        "9": {
-          "total": -1,
-          "avg": -1,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -44416,8 +42326,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": -8,
-          "avg": -1.6,
+          "total": -7,
+          "avg": -1.75,
           "rank": 14,
           "isTop6": false
         }
@@ -44431,9 +42341,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "商經科",
-      "totalScore": 50,
-      "avgScore": 1.72,
-      "totalDays": 29,
+      "totalScore": 48,
+      "avgScore": 1.71,
+      "totalDays": 28,
       "totalInfractions": 3,
       "allInfractions": [
         {
@@ -44493,11 +42403,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -44520,7 +42425,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -44535,9 +42440,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "商經科",
-      "totalScore": 8,
-      "avgScore": 0.28,
-      "totalDays": 29,
+      "totalScore": 6,
+      "avgScore": 0.21,
+      "totalDays": 28,
       "totalInfractions": 14,
       "allInfractions": [
         {
@@ -44744,11 +42649,6 @@
           "total": -4,
           "avg": -1,
           "rank": 15
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -44771,9 +42671,9 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -2,
-          "avg": -0.4,
-          "rank": 13,
+          "total": -4,
+          "avg": -1,
+          "rank": 15,
           "isTop6": false
         }
       },
@@ -44786,9 +42686,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "商經科",
-      "totalScore": 30,
-      "avgScore": 1.03,
-      "totalDays": 29,
+      "totalScore": 28,
+      "avgScore": 1,
+      "totalDays": 28,
       "totalInfractions": 8,
       "allInfractions": [
         {
@@ -44925,11 +42825,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -44952,8 +42847,8 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
@@ -44967,9 +42862,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "商經科",
-      "totalScore": 9,
-      "avgScore": 0.31,
-      "totalDays": 29,
+      "totalScore": 7,
+      "avgScore": 0.25,
+      "totalDays": 28,
       "totalInfractions": 14,
       "allInfractions": [
         {
@@ -45176,11 +43071,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -45203,8 +43093,8 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
@@ -45218,9 +43108,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "國貿科",
-      "totalScore": 39,
-      "avgScore": 1.34,
-      "totalDays": 29,
+      "totalScore": 37,
+      "avgScore": 1.32,
+      "totalDays": 28,
       "totalInfractions": 7,
       "allInfractions": [
         {
@@ -45336,11 +43226,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -45363,7 +43248,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -45378,9 +43263,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "國貿科",
-      "totalScore": 41,
-      "avgScore": 1.41,
-      "totalDays": 29,
+      "totalScore": 39,
+      "avgScore": 1.39,
+      "totalDays": 28,
       "totalInfractions": 5,
       "allInfractions": [
         {
@@ -45475,11 +43360,6 @@
           "total": 0,
           "avg": 0,
           "rank": 15
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -45502,9 +43382,9 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 13,
+          "total": 0,
+          "avg": 0,
+          "rank": 15,
           "isTop6": false
         }
       },
@@ -45517,9 +43397,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "國貿科",
-      "totalScore": 30,
-      "avgScore": 1.03,
-      "totalDays": 29,
+      "totalScore": 28,
+      "avgScore": 1,
+      "totalDays": 28,
       "totalInfractions": 9,
       "allInfractions": [
         {
@@ -45677,11 +43557,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -45704,7 +43579,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -45719,9 +43594,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "國貿科",
-      "totalScore": 49,
-      "avgScore": 1.69,
-      "totalDays": 29,
+      "totalScore": 47,
+      "avgScore": 1.68,
+      "totalDays": 28,
       "totalInfractions": 3,
       "allInfractions": [
         {
@@ -45795,11 +43670,6 @@
           "total": 5,
           "avg": 1.25,
           "rank": 11
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -45822,8 +43692,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 7,
-          "avg": 1.4,
+          "total": 5,
+          "avg": 1.25,
           "rank": 11,
           "isTop6": false
         }
@@ -45837,9 +43707,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "國貿科",
-      "totalScore": 24,
-      "avgScore": 0.83,
-      "totalDays": 29,
+      "totalScore": 22,
+      "avgScore": 0.79,
+      "totalDays": 28,
       "totalInfractions": 10,
       "allInfractions": [
         {
@@ -46011,11 +43881,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -46038,7 +43903,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -46053,9 +43918,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "國貿科",
-      "totalScore": 58,
+      "totalScore": 56,
       "avgScore": 2,
-      "totalDays": 29,
+      "totalDays": 28,
       "totalInfractions": 0,
       "allInfractions": [],
       "weekScores": {
@@ -46093,11 +43958,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -46120,7 +43980,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -46135,9 +43995,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "國貿科",
-      "totalScore": 26,
-      "avgScore": 0.9,
-      "totalDays": 29,
+      "totalScore": 24,
+      "avgScore": 0.86,
+      "totalDays": 28,
       "totalInfractions": 9,
       "allInfractions": [
         {
@@ -46295,11 +44155,6 @@
           "total": 0,
           "avg": 0,
           "rank": 11
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -46322,9 +44177,9 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 10,
+          "total": 0,
+          "avg": 0,
+          "rank": 11,
           "isTop6": false
         }
       },
@@ -46337,10 +44192,10 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "國貿科",
-      "totalScore": -12,
-      "avgScore": -0.41,
-      "totalDays": 29,
-      "totalInfractions": 20,
+      "totalScore": -10,
+      "avgScore": -0.36,
+      "totalDays": 28,
+      "totalInfractions": 19,
       "allInfractions": [
         {
           "date": "2026-09-07",
@@ -46579,20 +44434,6 @@
               "text": "走動 1 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "t3",
-          "reasonLabel": "說話 3 人次",
-          "reasonItems": [
-            {
-              "type": "talk",
-              "name": "說話",
-              "count": 3,
-              "text": "說話 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -46630,11 +44471,6 @@
           "total": -7,
           "avg": -1.75,
           "rank": 14
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 14
         }
       },
       "biWeekScores": {
@@ -46657,9 +44493,9 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -9,
-          "avg": -1.8,
-          "rank": 15,
+          "total": -7,
+          "avg": -1.75,
+          "rank": 14,
           "isTop6": false
         }
       },
@@ -46672,9 +44508,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "國貿科",
-      "totalScore": 33,
-      "avgScore": 1.14,
-      "totalDays": 29,
+      "totalScore": 31,
+      "avgScore": 1.11,
+      "totalDays": 28,
       "totalInfractions": 8,
       "allInfractions": [
         {
@@ -46811,11 +44647,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -46838,8 +44669,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
@@ -46853,10 +44684,10 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "國貿科",
-      "totalScore": 14,
-      "avgScore": 0.48,
-      "totalDays": 29,
-      "totalInfractions": 14,
+      "totalScore": 16,
+      "avgScore": 0.57,
+      "totalDays": 28,
+      "totalInfractions": 13,
       "allInfractions": [
         {
           "date": "2026-09-09",
@@ -47004,20 +44835,6 @@
               "text": "走動 3 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w3",
-          "reasonLabel": "走動 3 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 3,
-              "text": "走動 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -47055,11 +44872,6 @@
           "total": 0,
           "avg": 0,
           "rank": 13
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -47082,8 +44894,8 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -2,
-          "avg": -0.4,
+          "total": 0,
+          "avg": 0,
           "rank": 13,
           "isTop6": false
         }
@@ -47097,9 +44909,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "國貿科",
-      "totalScore": 58,
+      "totalScore": 56,
       "avgScore": 2,
-      "totalDays": 29,
+      "totalDays": 28,
       "totalInfractions": 0,
       "allInfractions": [],
       "weekScores": {
@@ -47137,11 +44949,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -47164,7 +44971,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -47179,9 +44986,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "國貿科",
-      "totalScore": 58,
+      "totalScore": 56,
       "avgScore": 2,
-      "totalDays": 29,
+      "totalDays": 28,
       "totalInfractions": 0,
       "allInfractions": [],
       "weekScores": {
@@ -47219,11 +45026,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -47246,7 +45048,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -47261,9 +45063,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "國貿科",
-      "totalScore": 58,
+      "totalScore": 56,
       "avgScore": 2,
-      "totalDays": 29,
+      "totalDays": 28,
       "totalInfractions": 0,
       "allInfractions": [],
       "weekScores": {
@@ -47301,11 +45103,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -47328,7 +45125,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -47343,10 +45140,10 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "國貿科",
-      "totalScore": 26,
-      "avgScore": 0.9,
-      "totalDays": 29,
-      "totalInfractions": 9,
+      "totalScore": 28,
+      "avgScore": 1,
+      "totalDays": 28,
+      "totalInfractions": 8,
       "allInfractions": [
         {
           "date": "2026-09-11",
@@ -47451,20 +45248,6 @@
               "text": "走動 2 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w2",
-          "reasonLabel": "走動 2 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 2,
-              "text": "走動 2 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -47502,11 +45285,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -47529,13 +45307,13 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 10,
-          "isTop6": false
+          "total": 4,
+          "avg": 1,
+          "rank": 6,
+          "isTop6": true
         }
       },
-      "overallRank": 10,
+      "overallRank": 8,
       "isTop6": false
     },
     "411": {
@@ -47544,9 +45322,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "資處科",
-      "totalScore": 37,
-      "avgScore": 1.28,
-      "totalDays": 29,
+      "totalScore": 35,
+      "avgScore": 1.25,
+      "totalDays": 28,
       "totalInfractions": 8,
       "allInfractions": [
         {
@@ -47669,11 +45447,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -47696,7 +45469,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -47711,9 +45484,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "資處科",
-      "totalScore": 43,
-      "avgScore": 1.48,
-      "totalDays": 29,
+      "totalScore": 41,
+      "avgScore": 1.46,
+      "totalDays": 28,
       "totalInfractions": 4,
       "allInfractions": [
         {
@@ -47808,11 +45581,6 @@
           "total": 0,
           "avg": 0,
           "rank": 15
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -47835,9 +45603,9 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 13,
+          "total": 0,
+          "avg": 0,
+          "rank": 15,
           "isTop6": false
         }
       },
@@ -47850,9 +45618,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "資處科",
-      "totalScore": 40,
-      "avgScore": 1.38,
-      "totalDays": 29,
+      "totalScore": 38,
+      "avgScore": 1.36,
+      "totalDays": 28,
       "totalInfractions": 5,
       "allInfractions": [
         {
@@ -47973,11 +45741,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -48000,7 +45763,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -48015,9 +45778,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "資處科",
-      "totalScore": 50,
-      "avgScore": 1.72,
-      "totalDays": 29,
+      "totalScore": 48,
+      "avgScore": 1.71,
+      "totalDays": 28,
       "totalInfractions": 3,
       "allInfractions": [
         {
@@ -48091,11 +45854,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -48118,8 +45876,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
@@ -48133,10 +45891,10 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "資處科",
-      "totalScore": -2,
-      "avgScore": -0.07,
-      "totalDays": 29,
-      "totalInfractions": 18,
+      "totalScore": 0,
+      "avgScore": 0,
+      "totalDays": 28,
+      "totalInfractions": 17,
       "allInfractions": [
         {
           "date": "2026-09-09",
@@ -48340,20 +46098,6 @@
               "text": "走動 3 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "t3",
-          "reasonLabel": "說話 3 人次",
-          "reasonItems": [
-            {
-              "type": "talk",
-              "name": "說話",
-              "count": 3,
-              "text": "說話 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -48391,11 +46135,6 @@
           "total": -8,
           "avg": -2,
           "rank": 16
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 14
         }
       },
       "biWeekScores": {
@@ -48418,7 +46157,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -10,
+          "total": -8,
           "avg": -2,
           "rank": 16,
           "isTop6": false
@@ -48433,9 +46172,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "資處科",
-      "totalScore": 27,
-      "avgScore": 0.93,
-      "totalDays": 29,
+      "totalScore": 25,
+      "avgScore": 0.89,
+      "totalDays": 28,
       "totalInfractions": 11,
       "allInfractions": [
         {
@@ -48593,11 +46332,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -48620,7 +46354,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -48635,9 +46369,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "資處科",
-      "totalScore": 28,
-      "avgScore": 0.97,
-      "totalDays": 29,
+      "totalScore": 26,
+      "avgScore": 0.93,
+      "totalDays": 28,
       "totalInfractions": 9,
       "allInfractions": [
         {
@@ -48760,11 +46494,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -48787,13 +46516,13 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
       },
-      "overallRank": 9,
+      "overallRank": 10,
       "isTop6": false
     },
     "432": {
@@ -48802,10 +46531,10 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "資處科",
-      "totalScore": 19,
-      "avgScore": 0.66,
-      "totalDays": 29,
-      "totalInfractions": 11,
+      "totalScore": 21,
+      "avgScore": 0.75,
+      "totalDays": 28,
+      "totalInfractions": 10,
       "allInfractions": [
         {
           "date": "2026-09-09",
@@ -48925,20 +46654,6 @@
               "text": "走動 2 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w2",
-          "reasonLabel": "走動 2 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 2,
-              "text": "走動 2 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -48976,11 +46691,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -49003,10 +46713,10 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 10,
-          "isTop6": false
+          "total": 4,
+          "avg": 1,
+          "rank": 6,
+          "isTop6": true
         }
       },
       "overallRank": 11,
@@ -49018,9 +46728,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "資處科",
-      "totalScore": 36,
-      "avgScore": 1.24,
-      "totalDays": 29,
+      "totalScore": 34,
+      "avgScore": 1.21,
+      "totalDays": 28,
       "totalInfractions": 8,
       "allInfractions": [
         {
@@ -49136,11 +46846,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -49163,7 +46868,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -49178,9 +46883,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "綜高",
-      "totalScore": 34,
-      "avgScore": 1.17,
-      "totalDays": 29,
+      "totalScore": 32,
+      "avgScore": 1.14,
+      "totalDays": 28,
       "totalInfractions": 8,
       "allInfractions": [
         {
@@ -49310,11 +47015,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -49337,7 +47037,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -49352,9 +47052,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "綜高",
-      "totalScore": 23,
-      "avgScore": 0.79,
-      "totalDays": 29,
+      "totalScore": 21,
+      "avgScore": 0.75,
+      "totalDays": 28,
       "totalInfractions": 11,
       "allInfractions": [
         {
@@ -49532,11 +47232,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -49559,13 +47254,13 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
         }
       },
-      "overallRank": 14,
+      "overallRank": 15,
       "isTop6": false
     },
     "613": {
@@ -49574,9 +47269,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "綜高",
-      "totalScore": 36,
-      "avgScore": 1.24,
-      "totalDays": 29,
+      "totalScore": 34,
+      "avgScore": 1.21,
+      "totalDays": 28,
       "totalInfractions": 9,
       "allInfractions": [
         {
@@ -49692,11 +47387,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -49719,7 +47409,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -49734,9 +47424,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "綜高",
-      "totalScore": 52,
+      "totalScore": 50,
       "avgScore": 1.79,
-      "totalDays": 29,
+      "totalDays": 28,
       "totalInfractions": 2,
       "allInfractions": [
         {
@@ -49796,11 +47486,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -49823,7 +47508,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -49838,10 +47523,10 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "綜高",
-      "totalScore": 10,
-      "avgScore": 0.34,
-      "totalDays": 29,
-      "totalInfractions": 14,
+      "totalScore": 11,
+      "avgScore": 0.39,
+      "totalDays": 28,
+      "totalInfractions": 13,
       "allInfractions": [
         {
           "date": "2026-09-10",
@@ -50003,20 +47688,6 @@
               "text": "走動 2 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -1,
-          "reason": "p3",
-          "reasonLabel": "玩手機 3 人次",
-          "reasonItems": [
-            {
-              "type": "phone",
-              "name": "玩手機",
-              "count": 3,
-              "text": "玩手機 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -50054,11 +47725,6 @@
           "total": -3,
           "avg": -0.75,
           "rank": 13
-        },
-        "9": {
-          "total": -1,
-          "avg": -1,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -50081,8 +47747,8 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -4,
-          "avg": -0.8,
+          "total": -3,
+          "avg": -0.75,
           "rank": 13,
           "isTop6": false
         }
@@ -50096,9 +47762,9 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "綜高",
-      "totalScore": 24,
-      "avgScore": 0.83,
-      "totalDays": 29,
+      "totalScore": 22,
+      "avgScore": 0.79,
+      "totalDays": 28,
       "totalInfractions": 11,
       "allInfractions": [
         {
@@ -50270,11 +47936,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -50297,7 +47958,7 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
@@ -50312,10 +47973,10 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "綜高",
-      "totalScore": 19,
-      "avgScore": 0.66,
-      "totalDays": 29,
-      "totalInfractions": 11,
+      "totalScore": 20,
+      "avgScore": 0.71,
+      "totalDays": 28,
+      "totalInfractions": 10,
       "allInfractions": [
         {
           "date": "2026-09-11",
@@ -50449,20 +48110,6 @@
               "text": "走動 1 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -1,
-          "reason": "w2",
-          "reasonLabel": "走動 2 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 2,
-              "text": "走動 2 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -50500,11 +48147,6 @@
           "total": -2,
           "avg": -0.5,
           "rank": 12
-        },
-        "9": {
-          "total": -1,
-          "avg": -1,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -50527,8 +48169,8 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": -3,
-          "avg": -0.6,
+          "total": -2,
+          "avg": -0.5,
           "rank": 12,
           "isTop6": false
         }
@@ -50542,10 +48184,10 @@
       "grade": 2,
       "gradeName": "高二",
       "dept": "綜高",
-      "totalScore": 17,
-      "avgScore": 0.59,
-      "totalDays": 29,
-      "totalInfractions": 14,
+      "totalScore": 19,
+      "avgScore": 0.68,
+      "totalDays": 28,
+      "totalInfractions": 13,
       "allInfractions": [
         {
           "date": "2026-09-09",
@@ -50693,20 +48335,6 @@
               "text": "走動 3 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w3",
-          "reasonLabel": "走動 3 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 3,
-              "text": "走動 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -50744,11 +48372,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 14
         }
       },
       "biWeekScores": {
@@ -50771,13 +48394,13 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 10,
-          "isTop6": false
+          "total": 4,
+          "avg": 1,
+          "rank": 6,
+          "isTop6": true
         }
       },
-      "overallRank": 13,
+      "overallRank": 12,
       "isTop6": false
     },
     "631": {
@@ -50786,10 +48409,10 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "綜高",
-      "totalScore": -7,
-      "avgScore": -0.24,
-      "totalDays": 29,
-      "totalInfractions": 18,
+      "totalScore": -5,
+      "avgScore": -0.18,
+      "totalDays": 28,
+      "totalInfractions": 17,
       "allInfractions": [
         {
           "date": "2026-09-07",
@@ -50992,20 +48615,6 @@
               "text": "走動 3 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w3",
-          "reasonLabel": "走動 3 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 3,
-              "text": "走動 3 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -51043,11 +48652,6 @@
           "total": -4,
           "avg": -1,
           "rank": 15
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -51070,9 +48674,9 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -6,
-          "avg": -1.2,
-          "rank": 16,
+          "total": -4,
+          "avg": -1,
+          "rank": 15,
           "isTop6": false
         }
       },
@@ -51085,10 +48689,10 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "綜高",
-      "totalScore": 13,
-      "avgScore": 0.45,
-      "totalDays": 29,
-      "totalInfractions": 13,
+      "totalScore": 15,
+      "avgScore": 0.54,
+      "totalDays": 28,
+      "totalInfractions": 12,
       "allInfractions": [
         {
           "date": "2026-09-08",
@@ -51215,20 +48819,6 @@
               "text": "走動 4 人次"
             }
           ]
-        },
-        {
-          "date": "2026-10-26",
-          "score": -2,
-          "reason": "w2",
-          "reasonLabel": "走動 2 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 2,
-              "text": "走動 2 人次"
-            }
-          ]
         }
       ],
       "weekScores": {
@@ -51266,11 +48856,6 @@
           "total": 0,
           "avg": 0,
           "rank": 13
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -51293,8 +48878,8 @@
           "isTop6": false
         },
         "bw_8_9": {
-          "total": -2,
-          "avg": -0.4,
+          "total": 0,
+          "avg": 0,
           "rank": 13,
           "isTop6": false
         }
@@ -51308,9 +48893,9 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "綜高",
-      "totalScore": 40,
-      "avgScore": 1.38,
-      "totalDays": 29,
+      "totalScore": 38,
+      "avgScore": 1.36,
+      "totalDays": 28,
       "totalInfractions": 5,
       "allInfractions": [
         {
@@ -51398,11 +48983,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -51425,13 +49005,13 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 6,
-          "avg": 1.2,
+          "total": 4,
+          "avg": 1,
           "rank": 6,
           "isTop6": true
         }
       },
-      "overallRank": 5,
+      "overallRank": 6,
       "isTop6": true
     },
     "634": {
@@ -51440,10 +49020,10 @@
       "grade": 3,
       "gradeName": "高三",
       "dept": "綜高",
-      "totalScore": 40,
-      "avgScore": 1.38,
-      "totalDays": 29,
-      "totalInfractions": 5,
+      "totalScore": 42,
+      "avgScore": 1.5,
+      "totalDays": 28,
+      "totalInfractions": 4,
       "allInfractions": [
         {
           "date": "2026-09-09",
@@ -51475,20 +49055,6 @@
         },
         {
           "date": "2026-10-19",
-          "score": -2,
-          "reason": "w2",
-          "reasonLabel": "走動 2 人次",
-          "reasonItems": [
-            {
-              "type": "walk",
-              "name": "走動",
-              "count": 2,
-              "text": "走動 2 人次"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-26",
           "score": -2,
           "reason": "w2",
           "reasonLabel": "走動 2 人次",
@@ -51537,11 +49103,6 @@
           "total": 4,
           "avg": 1,
           "rank": 6
-        },
-        "9": {
-          "total": -2,
-          "avg": -2,
-          "rank": 11
         }
       },
       "biWeekScores": {
@@ -51564,10 +49125,10 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 2,
-          "avg": 0.4,
-          "rank": 10,
-          "isTop6": false
+          "total": 4,
+          "avg": 1,
+          "rank": 6,
+          "isTop6": true
         }
       },
       "overallRank": 5,
@@ -51579,9 +49140,9 @@
       "grade": 1,
       "gradeName": "高一",
       "dept": "多媒科",
-      "totalScore": 54,
+      "totalScore": 52,
       "avgScore": 1.86,
-      "totalDays": 29,
+      "totalDays": 28,
       "totalInfractions": 2,
       "allInfractions": [
         {
@@ -51641,11 +49202,6 @@
           "total": 8,
           "avg": 2,
           "rank": 1
-        },
-        "9": {
-          "total": 2,
-          "avg": 2,
-          "rank": 1
         }
       },
       "biWeekScores": {
@@ -51668,7 +49224,7 @@
           "isTop6": true
         },
         "bw_8_9": {
-          "total": 10,
+          "total": 8,
           "avg": 2,
           "rank": 1,
           "isTop6": true
