@@ -63,6 +63,9 @@
         <a href="/military/order" data-nav="order" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
           <span>🏆</span><span>秩序成績計算</span>
         </a>
+        <a href="/military/roster" data-nav="roster" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
+          <span>📑</span><span>班級名冊與簽領</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -86,7 +89,7 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 flex-1 space-y-8 pb-12">
 
     <!-- The 2 Big Feature Block Cards -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
       <!-- ================= 區塊一：小白皮未寫統計 ================= -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
@@ -240,6 +243,95 @@
         </div>
       </div>
 
+      <!-- ================= 區塊三：班級名冊與物資收發簽領 ================= -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
+        <div>
+          <!-- Card Header Banner -->
+          <div class="p-6 bg-gradient-to-br from-teal-600 to-emerald-700 text-white relative overflow-hidden">
+            <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl font-black select-none pointer-events-none">📑</div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-sm">
+                行政與教務常用表單
+              </span>
+              <span class="text-xs text-teal-100 font-medium">全校 54 班・A4 完美置中</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shadow-inner">
+                📑
+              </div>
+              <div>
+                <h3 class="text-2xl font-extrabold text-white tracking-tight">班級名冊與簽領表單</h3>
+                <p class="text-xs text-teal-100 mt-0.5">生輔組・教官室・學務處 萬用表單列印</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Body Description & KPIs -->
+          <div class="p-6 space-y-5">
+            <p class="text-sm text-slate-600 leading-relaxed">
+              整合「學生個人名冊」（支援雙欄/單欄/記事欄名冊、Excel 匯入）與「各年級物資收發簽領表」（高一至高三各 18 班、一年級剛好一張 A4、可自訂物品與標題），專為 A4 紙張與印表機調校，版面極致工整。
+            </p>
+
+            <!-- 4 Quick Stats Badges -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div class="bg-teal-50/70 p-2.5 rounded-xl border border-teal-100 text-center">
+                <span class="text-[11px] font-semibold text-teal-600 block">學生名冊</span>
+                <span class="text-lg font-extrabold text-teal-900 number-font">54 班</span>
+              </div>
+              <div class="bg-emerald-50/70 p-2.5 rounded-xl border border-emerald-100 text-center">
+                <span class="text-[11px] font-semibold text-emerald-600 block">年級簽領</span>
+                <span class="text-lg font-extrabold text-emerald-900 number-font">各 18 班</span>
+              </div>
+              <div class="bg-cyan-50/70 p-2.5 rounded-xl border border-cyan-100 text-center">
+                <span class="text-[11px] font-semibold text-cyan-600 block">列印規格</span>
+                <span class="text-lg font-extrabold text-cyan-900 number-font">A4 一頁</span>
+              </div>
+              <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-center">
+                <span class="text-[11px] font-semibold text-slate-600 block">名冊匯入</span>
+                <span class="text-lg font-extrabold text-slate-800 number-font">Excel/CSV</span>
+              </div>
+            </div>
+
+            <!-- Features Bullet Points -->
+            <div class="space-y-2 text-xs text-slate-600">
+              <div class="flex items-start space-x-2">
+                <span class="text-teal-600 font-bold">✓</span>
+                <span>學生個人名冊：全校 54 班一班一張 A4 上下左右置中，支援男女分列與範本下載</span>
+              </div>
+              <div class="flex items-start space-x-2">
+                <span class="text-teal-600 font-bold">✓</span>
+                <span>各年級物資簽領表：高一/二/三各 18 班剛好 3 頁，單行不換行，簽名格適中整潔</span>
+              </div>
+              <div class="flex items-start space-x-2">
+                <span class="text-teal-600 font-bold">✓</span>
+                <span>彈性標題與備註：運動會班旗繳回、物品收發自由填寫，頁尾備註可自由修改清空</span>
+              </div>
+              <div class="flex items-start space-x-2">
+                <span class="text-teal-600 font-bold">✓</span>
+                <span>嚴格科別排序：商經 ➔ 國貿 ➔ 資處 ➔ 多媒 ➔ 綜高 ➔ 綜職，各年級完全一致</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer Action -->
+        <div class="p-6 bg-slate-50 border-t border-slate-100 space-y-2">
+          <div class="grid grid-cols-2 gap-2">
+            <a href="/military/roster#roster" data-nav="roster" class="w-full py-2 px-2.5 rounded-xl bg-teal-50 text-teal-800 hover:bg-teal-100 border border-teal-200 font-bold text-xs text-center transition flex items-center justify-center space-x-1">
+              <span>🎓</span><span>名冊列印</span>
+            </a>
+            <a href="/military/roster#signoff" data-nav="roster" class="w-full py-2 px-2.5 rounded-xl bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 font-bold text-xs text-center transition flex items-center justify-center space-x-1">
+              <span>📋</span><span>簽領表列印</span>
+            </a>
+          </div>
+          <a href="/military/roster" data-nav="roster" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-teal-600 hover:bg-teal-700 transition flex items-center justify-center space-x-2 shadow-md shadow-teal-500/25 active:scale-95 group-hover:bg-teal-700">
+            <span>開啟「班級名冊與簽領」系統</span>
+            <span class="transition-transform group-hover:translate-x-1">➔</span>
+          </a>
+        </div>
+      </div>
+
+
     </div>
 
     <!-- Live Highlights Feed -->
@@ -333,6 +425,7 @@
           if (target === 'home') el.href = 'index.html';
           else if (target === 'whiteboard') el.href = 'whiteboard.html';
           else if (target === 'order') el.href = 'order/index.html';
+          else if (target === 'roster') el.href = 'roster.html';
         });
       }
     })();

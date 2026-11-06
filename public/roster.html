@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中壢高商 115-1 班級名冊與物資收發簽領系統 | 生輔組・教官室</title>
+  <!-- 載入 SheetJS 支援 Excel (.xlsx / .xls) 直接讀取與匯出 -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    /* 全域設定 */
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* 字體大小等級定義 (預設為大字體 lg) */
+    :root {
+      --scale-title: 26pt;
+      --scale-meta: 13pt;
+      --scale-th: 15pt;
+      --scale-td: 14pt;
+      --scale-seat: 14pt;
+      --scale-row-h: 30px;
+      --scale-signoff-row-h: 38px;
+      --scale-footer: 12pt;
+    }
+
+    /* 特大字 (XL) */
+    body.font-xl {
+      --scale-title: 30pt;
+      --scale-meta: 14.5pt;
+      --scale-th: 16.5pt;
+      --scale-td: 15.5pt;
+      --scale-seat: 15.5pt;
+      --scale-row-h: 33px;
+      --scale-signoff-row-h: 41px;
+      --scale-footer: 13pt;
+    }
+
+    /* 標準字 (MD) */
+    body.font-md {
+      --scale-title: 23pt;
+      --scale-meta: 11.5pt;
+      --scale-th: 13pt;
+      --scale-td: 12pt;
+      --scale-seat: 12pt;
+      --scale-row-h: 26px;
+      --scale-signoff-row-h: 34px;
+      --scale-footer: 10.5pt;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Microsoft JhengHei", "微軟正黑體", "Noto Sans TC", "PingFang TC", Arial, sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+
+    /* 頂部操作工具列（列印時自動隱藏） */
+    .toolbar-container {
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: #0f172a;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    /* 主模式頁籤切換 */
+    .nav-tabs-bar {
+      display: flex;
+      align-items: center;
+      background: #0b1120;
+      border-bottom: 1px solid #1e293b;
+      padding: 0 18px;
+      gap: 4px;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 18px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #94a3b8;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      font-family: inherit;
+      user-select: none;
+    }
+    .tab-btn:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .tab-btn.active {
+      color: #38bdf8;
+      border-bottom-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    /* 控制面板工具列 */
+    .toolbar {
+      color: #f8fafc;
+      padding: 9px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      background: #2563eb;
+      color: #fff;
+      font-size: 11.5px;
+      padding: 2.5px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .badge-custom {
+      background: #059669 !important;
+    }
+    .badge-info {
+      background: #0284c7 !important;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+      font-family: inherit;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+    .btn-secondary:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+    .btn-emerald {
+      background: #059669;
+      color: #ffffff;
+      border-color: #10b981;
+    }
+    .btn-emerald:hover {
+      background: #047857;
+      color: #ffffff;
+    }
+    .btn-indigo {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #6366f1;
+    }
+    .btn-indigo:hover {
+      background: #4338ca;
+      color: #ffffff;
+    }
+    .btn-active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+    }
+    .tool-label {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-left: 2px;
+    }
+    .divider {
+      width: 1px;
+      height: 22px;
+      background: #334155;
+      margin: 0 3px;
+    }
+
+    select, input[type="text"] {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 6px 10px;
+      font-size: 12.5px;
+      border-radius: 6px;
+      outline: none;
+      font-family: inherit;
+    }
+    select:focus, input[type="text"]:focus {
+      border-color: #38bdf8;
+    }
+
+    /* 下拉選單樣式 */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      min-width: 165px;
+      z-index: 10000;
+      overflow: hidden;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      color: #f1f5f9;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .dropdown-item:hover {
+      background: #334155;
+      color: #38bdf8;
+    }
+
+    /* 拖曳上傳提示覆蓋層 */
+    .drag-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      z-index: 99999;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #ffffff;
+      border: 4px dashed #38bdf8;
+      pointer-events: none;
+    }
+    .drag-overlay.active {
+      display: flex;
+    }
+
+    /* 螢幕預覽容器 */
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px;
+      gap: 22px;
+    }
+
+    /* 每一張 A4 頁面 */
+    .class-page, .grade-page {
+      background: #ffffff;
+      width: 210mm;
+      height: 297mm;
+      padding: 10mm 14mm;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      position: relative;
+
+      /* ★★★ 上下左右都置中對齊 ★★★ */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* 垂直置中 (上下置中) */
+      align-items: center;     /* 水平置中 (左右置中) */
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .table-wrap, .grade-wrap {
+      width: 98%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 標題：班級名冊 / 簽領清冊 */
+    .roster-header-box {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .roster-title {
+      font-size: var(--scale-title);
+      font-weight: 900;
+      letter-spacing: 10px;
+      text-indent: 10px; /* 抵消最後一字間距，確保絕對水平置中 */
+      color: #000000;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* ★★★ 資訊行：只保留年級別與年月日 ★★★ */
+    .roster-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--scale-meta);
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 8px;
+      padding: 0 2mm;
+      border-bottom: 2.5px solid #000000;
+      padding-bottom: 4px;
+    }
+
+    /* 表格共用設定：上下左右置中 */
+    table.roster-table {
+      border-collapse: collapse;
+      border: 2px solid #000000;
+      width: 100%;
+      background: #ffffff;
+      margin: 0 auto;
+    }
+    table.roster-table th, 
+    table.roster-table td {
+      border: 1px solid #000000;
+      text-align: center;      /* 水平置中 (左右置中) */
+      vertical-align: middle;  /* 垂直置中 (上下置中) */
+      color: #000000;
+    }
+    table.roster-table th {
+      background-color: #f1f5f9;
+      font-weight: 900;
+      letter-spacing: 2px;
+      font-size: var(--scale-th);
+    }
+    table.roster-table td {
+      font-size: var(--scale-td);
+      font-weight: 600;
+    }
+    .student-name {
+      font-weight: 800;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+    .student-seat {
+      font-family: "Arial", sans-serif;
+      font-weight: 700;
+      font-size: var(--scale-seat);
+    }
+
+    /* 模式一：雙欄並列模式（左右對稱） */
+    .table-container-double {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 6mm;
+    }
+    .table-container-double .sub-col {
+      flex: 1;
+    }
+    .table-container-double table.roster-table th {
+      padding: 6px 4px;
+    }
+    .table-container-double table.roster-table td {
+      padding: 5px 4px;
+      height: var(--scale-row-h);
+    }
+
+    /* 模式二：單欄標準模式 */
+    .table-container-single {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .table-container-single table.roster-table th {
+      font-size: calc(var(--scale-th) * 0.88);
+      padding: 4px 4px;
+    }
+    .table-container-single table.roster-table td {
+      font-size: calc(var(--scale-td) * 0.88);
+      padding: 3.5px 4px;
+      height: calc(var(--scale-row-h) * 0.8);
+    }
+
+    /* 模式三：單欄附備註簽到欄 */
+    .table-container-notes {
+      width: 100%;
+      margin: 0 auto;
+    }
+    .table-container-notes table.roster-table th {
+      font-size: calc(var(--scale-th) * 0.88);
+      padding: 4px 4px;
+    }
+    .table-container-notes table.roster-table td {
+      font-size: calc(var(--scale-td) * 0.88);
+      padding: 3.5px 4px;
+      height: calc(var(--scale-row-h) * 0.8);
+    }
+    .col-notes {
+      width: 32%;
+    }
+
+    /* 年級物資簽領專屬表格（18班專用高度、固定比例欄位、單行不折行） */
+    .grade-table {
+      table-layout: fixed;
+      width: 100%;
+    }
+    .grade-table th {
+      padding: 7px 2px;
+      font-size: calc(var(--scale-th) * 0.98);
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+    }
+    .grade-table td {
+      height: var(--scale-signoff-row-h);
+      padding: 3px 4px;
+      white-space: nowrap;
+    }
+    .cell-sign-space {
+      background-color: #fafafa;
+    }
+
+    /* 頁尾 */
+    .roster-footer {
+      width: 100%;
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--scale-footer);
+      font-weight: 700;
+      color: #334155;
+      padding: 0 4mm;
+    }
+
+    /* 通知 Toast 訊息框 */
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100000;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      font-size: 14px;
+      line-height: 1.5;
+      display: none;
+      max-width: 420px;
+      border-left: 5px solid #10b981;
+      animation: slideIn 0.3s ease-out;
+    }
+    .toast-box.error {
+      border-left-color: #ef4444;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ★★★ 列印專屬 CSS：確保剛好一張 A4、絕不溢頁、上下左右置中 ★★★ */
+    @page {
+      size: A4 portrait;
+      margin: 8mm 12mm;
+    }
+    @media print {
+      body {
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .preview-container {
+        padding: 0 !important;
+        gap: 0 !important;
+        display: block !important;
+      }
+      .class-page, .grade-page {
+        /* 每個班級/年級強制換頁 */
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+
+        /* A4 實體尺寸 297mm，扣除邊距 16mm = 281mm，設 270mm 保證絕對不溢頁 */
+        height: 270mm !important;
+        max-height: 270mm !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+
+        /* 上下左右徹底置中 */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; /* 上下置中 */
+        align-items: center !important;     /* 左右置中 */
+        overflow: hidden !important;
+      }
+      .class-page:last-child, .grade-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      table.roster-table th {
+        background-color: #f1f5f9 !important;
+      }
+      .cell-sign-space {
+        background-color: #ffffff !important;
+      }
+    }
+  
+    /* ================= 中壢高商 生輔組・教官室 平台頂部導覽列樣式 ================= */
+    .portal-topbar {
+      background: linear-gradient(to right, #0f172a, #1e1b4b, #172554);
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 7px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .portal-topbar-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .portal-badge-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 600;
+      background-color: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      margin-right: 6px;
+    }
+    .portal-mono-note {
+      color: #94a3b8;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+    }
+
+    .portal-header {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      backdrop-filter: blur(8px);
+    }
+    .portal-header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 10px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .portal-brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .portal-brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0f172a, #4338ca);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(67, 56, 202, 0.25);
+    }
+    .portal-brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .portal-badge-academic {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      background-color: #eef2ff;
+      color: #4338ca;
+      border: 1px solid #c7d2fe;
+    }
+    .portal-brand-subtitle {
+      font-size: 11.5px;
+      color: #64748b;
+      margin: 2px 0 0 0;
+      font-weight: 500;
+    }
+    .portal-nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .portal-nav-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .portal-nav-btn:hover {
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .portal-nav-btn.active {
+      background: #ffffff;
+      color: #4338ca;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    }
+
+    /* 列印時強制隱藏全站頂部導覽列 */
+    @media print {
+      .portal-topbar,
+      .portal-header {
+        display: none !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="portal-topbar">
+    <div class="portal-topbar-inner">
+      <div style="display:flex;align-items:center;">
+        <span class="portal-badge-status">● 系統運行中</span>
+        <span>桃園市立中壢高級商業職業學校 115 學年度第 1 學期 生輔組・教官室</span>
+      </div>
+      <div class="portal-mono-note">
+        Cloudflare Pages 雲端服務：hshsing.pages.dev/military/roster
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Navigation Bar -->
+  <header class="portal-header">
+    <div class="portal-header-inner">
+      <div class="portal-brand-wrap">
+        <div class="portal-brand-logo">📑</div>
+        <div>
+          <h1 class="portal-brand-title">
+            中壢高商 生輔組・教官室
+            <span class="portal-badge-academic">115-1 行政專用</span>
+          </h1>
+          <p class="portal-brand-subtitle">學生生活常規評比 ＆ 班級名冊簽領表單系統</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="portal-nav-bar">
+        <a href="/military" data-nav="home" class="portal-nav-btn">
+          <span>🏠</span><span>首頁總覽</span>
+        </a>
+        <a href="/military/whiteboard" data-nav="whiteboard" class="portal-nav-btn">
+          <span>📋</span><span>小白皮未寫統計</span>
+        </a>
+        <a href="/military/order" data-nav="order" class="portal-nav-btn">
+          <span>🏆</span><span>秩序成績計算</span>
+        </a>
+        <a href="/military/roster" data-nav="roster" class="portal-nav-btn active">
+          <span>📑</span><span>班級名冊與簽領</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- 拖曳檔案覆蓋提示 -->
+  <div class="drag-overlay" id="dragOverlay">
+    <div style="font-size: 48px; margin-bottom: 12px;">📄</div>
+    <div style="font-size: 20px; font-weight: 700;">放開滑鼠即可立即匯入學生名冊檔案</div>
+    <div style="font-size: 14px; color: #94a3b8; margin-top: 6px;">支援 Excel (.xlsx, .xls) 與 CSV (.csv) 格式</div>
+  </div>
+
+  <!-- 頂部操作工具列 -->
+  <div class="toolbar-container no-print">
+    <!-- 功能頁籤切換 (班級名冊 VS 各年級物資收發) -->
+    <nav class="nav-tabs-bar">
+      <button class="tab-btn" id="tabRoster" onclick="switchMainView('roster')">
+        <span>🎓</span> 班級學生名冊 (一班一張)
+      </button>
+      <button class="tab-btn active" id="tabSignoff" onclick="switchMainView('signoff')">
+        <span>📋</span> 各年級收發簽領表 (各18班，一年級一張)
+      </button>
+    </nav>
+
+    <!-- 模式一工具列：班級學生名冊 -->
+    <div class="toolbar" id="toolbarRoster" style="display: none;">
+      <div class="toolbar-left">
+        <div class="brand">
+          <span>🏫 學生名冊</span>
+          <span class="badge" id="classCountBadge">載入中...</span>
+          <span class="badge badge-custom" id="customDataBadge" style="display:none;">自訂名冊</span>
+        </div>
+
+        <!-- 快速篩選班級 -->
+        <select id="classSelect" onchange="renderPages()">
+          <option value="ALL">🖨️ 列印全部班級</option>
+        </select>
+      </div>
+
+      <div class="toolbar-right">
+        <!-- 範本下載下拉選單 -->
+        <div class="dropdown">
+          <button class="btn btn-emerald" onclick="toggleDropdown(event, 'templateMenu')" title="下載標準格式範本供填寫後匯入">
+            <span>📥</span> 下載範本 ▾
+          </button>
+          <div class="dropdown-menu" id="templateMenu">
+            <div class="dropdown-item" onclick="downloadTemplate('xlsx')">
+              <span>📗</span> Excel 範本 (.xlsx)
+            </div>
+            <div class="dropdown-item" onclick="downloadTemplate('csv')">
+              <span>📄</span> CSV 範本 (.csv)
+            </div>
+          </div>
+        </div>
+
+        <!-- 匯入名冊按鈕 -->
+        <button class="btn btn-indigo" onclick="triggerFileInput()" title="上傳包含學生名冊的 Excel 或 CSV 檔案">
+          <span>📁</span> 匯入名冊
+        </button>
+        <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFileSelect(event)">
+
+        <!-- 還原預設按鈕 -->
+        <button class="btn btn-secondary" id="btnResetData" onclick="resetToDefaultData()" style="display:none;" title="清除自訂名冊，還原至原始預設資料">
+          <span>🔄</span> 還原預設
+        </button>
+
+        <div class="divider"></div>
+
+        <!-- 字體大小調整 -->
+        <span class="tool-label">字體：</span>
+        <button class="btn btn-secondary btn-active btnFontLg" onclick="setFontSize('lg')">大字 (推薦)</button>
+        <button class="btn btn-secondary btnFontXl" onclick="setFontSize('xl')">特大 (XL)</button>
+        <button class="btn btn-secondary btnFontMd" onclick="setFontSize('md')">標準</button>
+
+        <div class="divider"></div>
+
+        <!-- 版型樣式選擇 -->
+        <span class="tool-label">版型：</span>
+        <button class="btn btn-secondary btn-active" id="btnDouble" onclick="setMode('double')">雙欄並列</button>
+        <button class="btn btn-secondary" id="btnSingle" onclick="setMode('single')">單欄標準</button>
+        <button class="btn btn-secondary" id="btnNotes" onclick="setMode('notes')">簽名備註</button>
+
+        <!-- 欄位順序切換 -->
+        <span class="tool-label">欄位：</span>
+        <button class="btn btn-secondary btn-active" id="btnNameFirst" onclick="setOrder('name-first')">姓名優先</button>
+        <button class="btn btn-secondary" id="btnGenderFirst" onclick="setOrder('gender-first')">性別優先</button>
+
+        <!-- 一鍵列印按鈕 -->
+        <button class="btn btn-primary" onclick="window.print()" style="margin-left: 6px; font-size: 13.5px; padding: 7px 16px;">
+          <span>🖨️</span> 列印 / 存為 PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- 模式二工具列：各年級物資收發簽領表 -->
+    <div class="toolbar" id="toolbarSignoff" style="display: flex; background: #0f2027; border-top: 1px solid #1e3a47;">
+      <div class="toolbar-left">
+        <div class="brand">
+          <span>📋 簽領清冊</span>
+          <span class="badge badge-info">各年級 18 班</span>
+        </div>
+
+        <!-- 年級篩選 -->
+        <span class="tool-label" style="color:#38bdf8;">年級：</span>
+        <select id="gradeSelect" onchange="renderPages()">
+          <option value="ALL">🖨️ 全校全部年級（高一/高二/高三 共 3 頁）</option>
+          <option value="1">一年級（共 18 班，剛好 1 頁）</option>
+          <option value="2">二年級（共 18 班，剛好 1 頁）</option>
+          <option value="3">三年級（共 18 班，剛好 1 頁）</option>
+        </select>
+
+        <div class="divider"></div>
+
+        <!-- 表單大標題自訂（使用者自由填寫收回或發出什麼） -->
+        <span class="tool-label" style="color:#e2e8f0;">清冊標題：</span>
+        <input type="text" id="inputFormTitle" value="運動會各班班旗繳回簽收清冊" style="width: 250px; font-weight: bold;" placeholder="例如：運動會班旗繳回簽收表、號碼布領取清冊" oninput="renderPages()">
+
+        <div class="divider"></div>
+
+        <!-- 簽名欄名稱切換 -->
+        <span class="tool-label" style="color:#38bdf8;">簽名欄：</span>
+        <select id="signLabelSelect" onchange="renderPages()" style="width: 120px;">
+          <option value="繳回人簽名">繳回人簽名</option>
+          <option value="領取人簽名">領取人簽名</option>
+          <option value="簽名欄">簽名欄</option>
+        </select>
+
+        <div class="divider"></div>
+
+        <!-- 頁尾備註自訂（可自由修改或清空留白，承辦單位與經辦人員簽章已刪除） -->
+        <span class="tool-label" style="color:#38bdf8;">頁尾備註：</span>
+        <input type="text" id="inputFooterNote" value="備註：請各班負責同學送達時當場核對並完成簽名。" style="width: 260px;" placeholder="頁尾備註（清空則留白）" oninput="renderPages()">
+      </div>
+
+      <div class="toolbar-right">
+        <!-- 字體大小調整 -->
+        <span class="tool-label">字體：</span>
+        <button class="btn btn-secondary btn-active btnFontLg" onclick="setFontSize('lg')">大字 (推薦)</button>
+        <button class="btn btn-secondary btnFontXl" onclick="setFontSize('xl')">特大 (XL)</button>
+        <button class="btn btn-secondary btnFontMd" onclick="setFontSize('md')">標準</button>
+
+        <div class="divider"></div>
+
+        <!-- 一鍵列印按鈕 -->
+        <button class="btn btn-primary" onclick="window.print()" style="margin-left: 6px; font-size: 13.5px; padding: 7px 18px; background: #0284c7; border-color: #38bdf8;">
+          <span>🖨️</span> 列印簽領單 (一年級一張)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 浮動提示 Toast -->
+  <div class="toast-box" id="toastBox"></div>
+
+  <!-- 班級名冊 / 簽領表 頁面容器 -->
+  <main class="preview-container" id="pagesContainer"></main>
+
+  <script>
+    // 預設 54 班、1,808 位學生資料
+    const rawDefaultData = [{"c":"111","n":"商經一一","s":[["01","余罡浩","男"],["02","吳詠睿","男"],["03","林秉周","男"],["04","洪義翔","男"],["05","紀宏昇","男"],["06","徐崇愷","男"],["07","徐煜偉","男"],["08","張彥霆","男"],["09","郭家豪","男"],["10","陳柏叡","男"],["11","陳致嘉","男"],["12","湯哲綸","男"],["13","劉軒輔","男"],["14","潘戎丞","男"],["15","簡子翔","男"],["16","魏宏綦","男"],["17","于晴","女"],["18","余沛蓉","女"],["19","吳愷芯","女"],["20","沈韋蓁","女"],["21","林奕絜","女"],["22","林晏岑","女"],["23","邱芷晴","女"],["24","邱稚庭","女"],["25","邱緁畇","女"],["26","洪若亜","女"],["27","張虔瑄","女"],["28","陳以芯","女"],["29","陳妤璇","女"],["30","陳稻薏","女"],["31","彭子瑜","女"],["32","黃婕寧","女"],["33","黃婷紜","女"],["34","劉緯汝","女"],["35","鄧馥萲","女"],["36","戴沛淇","女"],["37","鍾文寀","女"],["38","鍾宜臻","女"],["39","魏洛亭","女"]]},{"c":"112","n":"商經一二","s":[["01","何宥承","男"],["02","吳豫","男"],["03","李守繕","男"],["04","唐亭軒","男"],["05","徐祥富","男"],["06","張喬濱","男"],["07","陳宇恩","男"],["08","曾于展","男"],["09","游家睿","男"],["10","游勝源","男"],["11","劉祐成","男"],["12","潘陳恩哲","男"],["13","蔡承恩","男"],["14","鄭育鼎","男"],["15","鍾承峰","男"],["16","王品妍","女"],["17","林右婕","女"],["18","林紫晴","女"],["19","姜佳瑩","女"],["20","倪偲恩","女"],["21","張巧怡","女"],["22","莊秭瑜","女"],["23","莊涵渝","女"],["24","許聿萱","女"],["25","許芷綺","女"],["26","陳紫彤","女"],["27","彭郁雯","女"],["28","彭莉蓁","女"],["29","曾憶涵","女"],["30","黃品臻","女"],["31","黃楷喬","女"],["32","楊詠涵","女"],["33","萬昀竺","女"],["34","葉嘉淇","女"],["35","劉旻蓁","女"],["36","劉紫欣","女"],["37","蔡和蓉","女"],["38","鄭湘婷","女"]]},{"c":"113","n":"商經一三","s":[["01","王雨恩","男"],["02","吳丞皓","男"],["03","吳致捷","男"],["04","呂韋杰","男"],["05","林楷傑","男"],["06","邱奕凡","男"],["07","徐康淇","男"],["08","莊才懋","男"],["09","曾鈺棋","男"],["10","黃梓恩","男"],["11","楊佳穎","男"],["12","廖珈熏","男"],["13","謝品學","男"],["14","鍾嶧威","男"],["15","羅楚玄","男"],["16","王巧瑄","女"],["17","余艾兒","女"],["18","吳佳昀","女"],["19","吳絲綰","女"],["20","阮順恩","女"],["21","林佩宜","女"],["22","林昱珠","女"],["23","林祐萱","女"],["24","范娜娜","女"],["25","徐佳榕","女"],["26","涂芷綾","女"],["27","梁晏瑜","女"],["28","畢雨悅","女"],["29","郭家甄","女"],["30","陳芷綾","女"],["31","陳品妍","女"],["32","陳湘琪","女"],["34","劉奕妡","女"],["35","蔡沛霓","女"],["36","蔡宜霏","女"],["37","鄭雨婕","女"],["38","黎宇喬","女"]]},{"c":"114","n":"商經一四","s":[["01","江崇瑀","男"],["02","吳允宸","男"],["03","吳德瀚","男"],["04","李元中","男"],["05","邱冠語","男"],["06","梁致瑋","男"],["07","莊詠程","男"],["08","郭程嘉","男"],["09","陳宇澤","男"],["10","黃康瑀","男"],["11","儀忠","男"],["12","蔡鎮遠","男"],["13","鄭丞鈞","男"],["14","謝承宏","男"],["15","龔俊杰","男"],["16","王心妤","女"],["17","石宇棠","女"],["18","余家嫙","女"],["19","吳霏","女"],["20","林育翎","女"],["21","施雨彤","女"],["22","胡智蘭","女"],["23","孫瑢容","女"],["24","梁妘榛","女"],["25","莊千霈","女"],["26","莊子欣","女"],["27","莊詠淇","女"],["28","許采婕","女"],["29","陳盈蓁","女"],["30","黃毓婷","女"],["31","葉文晴","女"],["32","劉柔和","女"],["33","潘宥蓁","女"],["34","蕭伃廷","女"],["35","薛宇晴","女"],["36","謝涵雅","女"],["37","鍾沛玲","女"],["38","顏綵柔","女"]]},{"c":"121","n":"商經二一","s":[["02","吳少軒","男"],["03","洪建暉","男"],["04","許書維","男"],["05","彭彥勳","男"],["06","曾子瑜","男"],["07","黃世帛","男"],["08","楊孝銍","男"],["09","劉威鼎","男"],["10","鄭博鴻","男"],["11","羅道宥","男"],["12","王安妤","女"],["13","江育馨","女"],["14","吳沄蔆","女"],["15","吳晏婷","女"],["16","呂沛宸","女"],["17","呂季潔","女"],["18","呂欣寧","女"],["19","李沛恩","女"],["20","邱子芸","女"],["21","邱柔婷","女"],["22","徐紫瑄","女"],["23","高湘芸","女"],["24","高靖恩","女"],["25","張心寧","女"],["26","莊芯甯","女"],["27","陳詠心","女"],["28","陳瑋琳","女"],["29","游羽涵","女"],["30","黃宇安","女"],["31","楊晴","女"],["32","葉郁婷","女"],["33","詹詠如","女"],["34","管千亞","女"],["35","蔡沂恩","女"],["36","蔡和蓁","女"],["37","鍾閔瑄","女"],["38","魏瑄彤","女"]]},{"c":"122","n":"商經二二","s":[["01","王証威","男"],["02","余修睿","男"],["03","吳明駿","男"],["04","李宥楷","男"],["05","林閻邦","男"],["06","邱敬程","男"],["07","莊均皓","男"],["08","陳禹睿","男"],["09","曾宇翔","男"],["10","詹勳祈","男"],["11","顏崊羽","男"],["12","王劉丞庭","女"],["13","吳婷雯","女"],["14","林育涵","女"],["15","林奕萱","女"],["16","林語倫","女"],["17","邱巧妘","女"],["18","邱媺涵","女"],["19","金端洇","女"],["20","范心瑜","女"],["21","高靖怡","女"],["22","陳子晴","女"],["23","陳郡蓉","女"],["24","彭子宴","女"],["25","彭丞蓮","女"],["26","覃思涵","女"],["27","黃子倢","女"],["28","黃安妤","女"],["29","黃彥涵","女"],["30","楊蕎安","女"],["31","劉可萱","女"],["32","劉芷薰","女"],["33","鄭丞琳","女"],["34","戴秋惠","女"],["35","鍾云淇","女"],["36","鍾沛珈","女"],["37","簡佑珊","女"],["38","藍稚淩","女"]]},{"c":"123","n":"商經二三","s":[["01","王建鈞","男"],["02","白宏洋","男"],["03","吳冠辰","男"],["05","林浚崴","男"],["06","胡宸睿","男"],["07","許竣皓","男"],["08","楊健安","男"],["09","羅千憶","男"],["10","羅盛顯","男"],["11","王妍溱","女"],["12","呂采薇","女"],["14","李函潔","女"],["15","沈纕綺","女"],["16","林欣儀","女"],["17","林禹岑","女"],["18","林苡真","女"],["19","林郁萍","女"],["20","邱羽彤","女"],["22","范姜思羽","女"],["23","唐羽彤","女"],["24","徐巧岑","女"],["25","徐湘庭","女"],["26","張沛晴","女"],["27","張宛庭","女"],["28","張貽婷","女"],["29","郭羽晴","女"],["30","郭沛瑀","女"],["31","陳可函","女"],["32","陳怡霈","女"],["33","湯智甯","女"],["34","黃柔元","女"],["35","黃愷妍","女"],["36","葛家琦","女"],["37","蔡靜渝","女"],["38","謝妡怡","女"],["39","吳婕妤","女"]]},{"c":"124","n":"商經二四","s":[["01","余秉峰","男"],["02","吳東壬","男"],["03","呂瑞恩","男"],["04","李坤翰","男"],["05","李嘉偉","男"],["06","林宇康","男"],["07","林承頡","男"],["08","陸宥霖","男"],["09","傅穎威","男"],["10","彭翊銘","男"],["11","趙以謙","男"],["12","古甄雅","女"],["13","巫心渝","女"],["14","官佑晴","女"],["15","林沂蓁","女"],["16","花廷語","女"],["17","邱雅媛","女"],["18","邱鏡凌","女"],["19","范瑋芸","女"],["20","徐暄穎","女"],["21","張芸瑄","女"],["23","莊宇甯","女"],["25","許情惠","女"],["26","連翊杉","女"],["27","陳昕榆","女"],["28","陳靖容","女"],["29","彭俞瑄","女"],["30","楊芮格","女"],["31","劉于禎","女"],["32","鄧芃予","女"],["33","鄭伊岑","女"],["34","賴婕寧","女"],["35","魏霈慈","女"],["36","羅天頤","女"],["37","蘇心葳","女"]]},{"c":"131","n":"商經三一","s":[["01","宋祐辰","男"],["03","莊詠翔","男"],["04","許宇軒","男"],["05","郭昱昇","男"],["06","陳上晨","男"],["07","彭允廷","男"],["08","温竣貿","男"],["09","葉承銘","男"],["10","潘奕儒","男"],["11","賴得熙","男"],["13","尤思涵","女"],["14","王品涵","女"],["15","古瑩瑩","女"],["16","余妍蓁","女"],["17","呂心媗","女"],["18","呂宛蓉","女"],["19","李庭瑜 Yuli Kikuang","女"],["20","阮郁涵","女"],["21","卓彥誼","女"],["22","姜雨彤","女"],["23","徐子庭","女"],["24","高筱筑","女"],["25","張欣語","女"],["26","許紫琳","女"],["27","陳巧芸","女"],["28","陳瑩軒","女"],["29","曾靚芠","女"],["30","楊妤妘","女"],["31","葉芷宜","女"],["32","葉昱伶","女"],["33","鄒菀茹","女"],["35","廖芸瑄","女"],["37","賴品錡","女"],["38","謝語溱","女"],["39","詹晏如","女"]]},{"c":"132","n":"商經三二","s":[["02","石家麒","男"],["03","江俊潁","男"],["04","呂宇凡","男"],["05","林泓豪","男"],["07","許睿恩","男"],["08","郭啟睿","男"],["09","陳韋達","男"],["10","黃子家","男"],["11","黃韋綸","男"],["12","鄭哲宇","男"],["13","朱芊豫","女"],["14","吳咏倪","女"],["15","吳若慈","女"],["16","吳寅榕","女"],["17","呂羿萱","女"],["18","巫伊絜","女"],["19","李妍萱","女"],["20","沈佳臻","女"],["21","沈芮臻","女"],["22","林欣怡","女"],["23","林秋香","女"],["24","林湘潔","女"],["25","徐湘妍","女"],["26","梁雅筑","女"],["27","莊芯瑀","女"],["28","莊采璇","女"],["29","陳怡霖","女"],["30","陳郁錡","女"],["31","陳婕鈞","女"],["32","彭婉庭","女"],["33","楊書庭","女"],["34","廖翊岑","女"],["35","蔡芯語","女"],["36","謝姿云","女"],["37","鍾宜霏","女"],["38","簡昀萱","女"]]},{"c":"133","n":"商經三三","s":[["01","吳承宥","男"],["02","呂冠廷","男"],["03","林元凱","男"],["04","林彥佑","男"],["05","林義傑","男"],["06","范博淵","男"],["07","葉存祐","男"],["08","廖子棋","男"],["09","廖方傑","男"],["10","廖翊安","男"],["11","賴奕辰","男"],["12","鍾宇祥","男"],["13","王昱穎","女"],["14","江梓筠","女"],["15","余雅澄","女"],["16","吳采臻","女"],["17","吳若涵","女"],["18","邱子菱","女"],["19","邱婉瑜","女"],["20","徐亦萱","女"],["21","高心妤","女"],["22","張瀞琳","女"],["23","莊翊潁","女"],["24","莊螢婕","女"],["25","許亦妍","女"],["26","許家芸","女"],["27","陳羿如","女"],["28","陳珮瑜","女"],["29","陳紜綿","女"],["30","曾子亭","女"],["31","游羽喬","女"],["32","黃苡瑄","女"],["33","黃婉庭","女"],["34","葉宇亭","女"],["35","葉欣儀","女"],["36","葉鈺潼","女"],["37","劉湘庭","女"],["38","鄭若彤","女"]]},{"c":"134","n":"商經三四","s":[["01","林子棋","男"],["02","林子鈞","男"],["03","林育昇","男"],["04","邱繼霆","男"],["05","許智華","男"],["07","游翔竣","男"],["08","楊少鈞","男"],["09","楊敏言","男"],["10","蔡辰浩","男"],["11","鄧永毅","男"],["12","謝均浩","男"],["13","甘雅慧","女"],["14","江柏葳","女"],["15","宋可晴","女"],["16","李昕樺","女"],["17","李思嫻","女"],["18","李婉瑜","女"],["19","周詩涵","女"],["20","林怡辰","女"],["21","虎歆亞","女"],["22","孫小喬","女"],["23","徐子崴","女"],["24","張姍羽","女"],["25","張庭怡","女"],["26","梁翊瑄","女"],["27","陳品妡","女"],["28","陳梓晴","女"],["29","傅靖文","女"],["30","黃子宣","女"],["32","黃郁家","女"],["33","黃家宜","女"],["34","葉芊汝","女"],["35","蕭羽倢","女"],["36","謝侑蓁","女"],["37","謝宜蓁","女"]]},{"c":"211","n":"國貿一一","s":[["01","林奇生","男"],["02","林延寬","男"],["03","張安信","男"],["04","許岑瑞","男"],["05","陳佳皓","男"],["06","黃子睿","男"],["07","黃乾盛","男"],["08","蕭忠宏","男"],["09","蘇有汯","男"],["10","尤珮萱","女"],["11","王希瑗","女"],["12","王苡嘒","女"],["13","古子妤","女"],["14","吳冠瑩","女"],["15","吳謹安","女"],["16","李妘萱","女"],["17","林伊柔","女"],["18","林艾璇","女"],["19","林沛橙","女"],["20","林芮亘","女"],["21","林祉喬","女"],["22","邱婕寧","女"],["23","徐梓喬","女"],["24","張佑葳","女"],["25","張宸瑜","女"],["26","梁可薇","女"],["27","許品柔","女"],["28","許恩綺","女"],["29","許晏滋","女"],["30","陳妤瑄","女"],["31","陳品蓁","女"],["32","陳柔安","女"],["33","湯筱琋","女"],["34","黃詠歆","女"],["35","葉恩萱","女"],["36","詹渝安","女"]]},{"c":"212","n":"國貿一二","s":[["01","吳宥霖","男"],["02","林靖傑","男"],["03","高浚達","男"],["04","梁紘瑜","男"],["05","陳柏勳","男"],["06","陳嘉安","男"],["07","黃柏傑","男"],["08","歐家齊","男"],["09","鍾兆恩","男"],["10","方品喬","女"],["11","古雅芬","女"],["12","江語榛","女"],["13","余芯瑀","女"],["14","吳欣諭","女"],["15","呂育瑄","女"],["16","宋可晴","女"],["17","李芮恩","女"],["18","卓旻璇","女"],["19","林芷妡","女"],["20","林藍玉","女"],["21","邱婕瑜","女"],["22","俞彤蓁","女"],["23","姜雨希","女"],["24","徐妍榛","女"],["25","高于甯","女"],["26","陳季妃","女"],["27","陳品妤","女"],["28","陳庭萱","女"],["29","黃喬妤","女"],["30","劉欣晏","女"],["31","鄭采瑄","女"],["32","賴姮亘","女"],["33","謝佩珊","女"],["34","簡妘豫","女"],["35","羅琳琇","女"],["36","羅靜慈","女"]]},{"c":"213","n":"國貿一三","s":[["01","江丞量","男"],["02","吳正熙","男"],["03","阮胤翔","男"],["04","邱士鈞","男"],["05","許皓軒","男"],["06","劉秉嘉","男"],["07","劉純緯","男"],["08","鄭金龍","男"],["09","羅瑞城","男"],["10","安芯緹","女"],["11","吳巧昕","女"],["12","吳沛恩","女"],["13","李林宜","女"],["14","林湘梓","女"],["15","邱畇溱","女"],["16","姜妍畇","女"],["17","范芸榛","女"],["18","徐婉芸","女"],["19","張芯瑗","女"],["20","張思瑀","女"],["21","張恩綺","女"],["22","張硯橙","女"],["23","張鑫婕","女"],["24","莊庭瑜","女"],["25","陳品卉","女"],["26","陳薏如","女"],["27","馮琦惠","女"],["28","黃彥庭","女"],["29","楊詠琳","女"],["30","葉依姍","女"],["31","葉品妍","女"],["32","劉書妍","女"],["33","劉梓柔","女"],["34","蔡艾芯","女"],["35","鄭芸蓁","女"],["36","饒勻晴","女"],["37","黃瑞豐","男"]]},{"c":"214","n":"國貿一四","s":[["01","吳富榮","男"],["02","徐喆樂","男"],["03","高豊翔","男"],["04","黃君宇","男"],["05","黃崇恩","男"],["06","楊盛文","男"],["07","詹膳謙","男"],["08","戴柏昇","男"],["09","王稚華","女"],["10","江翊菱","女"],["11","余柚美","女"],["12","吳宇蓁","女"],["13","呂文歆","女"],["14","呂欣儒","女"],["15","林羿嫺","女"],["16","林語婕","女"],["17","洪心榆","女"],["18","范瑈恩","女"],["19","張育萍","女"],["20","陳妍蓁","女"],["21","陳品甄","女"],["22","陳品璇","女"],["23","陳奕婷","女"],["24","陳靖媗","女"],["25","游又臻","女"],["26","黃玟綺","女"],["27","黃品慈","女"],["28","黃貽琇","女"],["29","葉沛綦","女"],["30","劉子瑜","女"],["31","蔡羽涵","女"],["32","蔡宜蓁","女"],["33","蔡倬妍","女"],["34","蔡榳軒","女"],["35","謝羽恩","女"],["36","羅畇閑","女"]]},{"c":"221","n":"國貿二一","s":[["01","李益翔","男"],["02","沈鈺茗","男"],["03","邱子宇","男"],["04","邱顯翔","男"],["05","徐浩展","男"],["06","郭育宏","男"],["07","彭博軒","男"],["08","曾楷元","男"],["09","葉勇宏","男"],["10","詹宗祐","男"],["11","賴宥霖","男"],["12","簡浩宇","男"],["13","蘇宥瑋","男"],["14","吳美岑","女"],["15","吳語嫣","女"],["16","呂婕瑜","女"],["17","李芊妤","女"],["18","李侑潔","女"],["19","李欣憶","女"],["20","李諾穎","女"],["21","李","女"],["22","沈孟漩","女"],["23","林歆築","女"],["24","林璽恩","女"],["26","邱煒甯","女"],["27","范庭畇","女"],["28","徐沁彤","女"],["29","徐沛琪","女"],["30","徐嘉玲","女"],["31","陳妘恩","女"],["32","陳奕涵","女"],["33","陳鈺瑄","女"],["34","彭郁雯","女"],["35","黃祈恩","女"],["36","劉永彤","女"],["37","鄭佩欣","女"]]},{"c":"222","n":"國貿二二","s":[["01","史晨希","男"],["02","江柏叡","男"],["03","周暘晏","男"],["04","周頌恩","男"],["05","林建利","男"],["06","邱靖賀","男"],["07","張青岳","男"],["08","張祐綸","男"],["09","許恩齊","男"],["10","彭彥瑜","男"],["11","楊寶文","男"],["12","蔣伯承","男"],["13","鄧聖勳","男"],["14","方嘉璐","女"],["15","古楹玄","女"],["16","吳汛宸","女"],["17","吳若琪","女"],["18","呂絜","女"],["19","李昀蓁","女"],["20","岳柏妤","女"],["21","林宇萱","女"],["22","林采誼","女"],["23","林婷怡","女"],["24","范恩綺","女"],["25","徐樂","女"],["26","莊羽蕎","女"],["27","許舒涵","女"],["28","郭晏瑜","女"],["29","陳昕妍","女"],["30","陳嘉瑩","女"],["31","曾昕","女"],["32","黃郁庭","女"],["33","蔡宜伶","女"],["34","閻竹語","女"],["35","戴凡瑄","女"],["36","簡睿庭","女"]]},{"c":"223","n":"國貿二三","s":[["01","王彥鈞","男"],["02","吳昇蒲","男"],["03","宋博鈞","男"],["04","林成叡","男"],["05","袁華賸","男"],["06","許勝棋","男"],["07","曾彥睿","男"],["08","黃功誠","男"],["09","黃名可","男"],["10","葉長明","男"],["11","蕭立恩","男"],["12","蕭靖沅","男"],["13","羅翊軒","男"],["14","王蜜雪","女"],["15","伍捷安","女"],["16","林宜璇","女"],["17","徐孟蓁","女"],["18","徐姵慈","女"],["19","張李昀萱","女"],["20","張綺恩","女"],["21","陳佩均","女"],["22","陳思庭","女"],["23","傅馨柔","女"],["24","曾雅暄","女"],["25","游苡琦","女"],["26","黃子寧","女"],["27","黃崴慈","女"],["28","黃嘉妤","女"],["29","黃潔芸","女"],["30","葉恬伶","女"],["31","鄒睿庭","女"],["32","劉彥鈞","女"],["33","劉睿絲","女"],["34","鄭巧軒","女"],["35","謝逸菲","女"],["36","魏孟宣","女"]]},{"c":"224","n":"國貿二四","s":[["01","古沁潔","男"],["02","伍加恩","男"],["03","朱恩廷","男"],["04","江浩任","男"],["05","李宗澄","男"],["06","林煒翔","男"],["07","張旭鋐","男"],["08","傅致豪","男"],["09","傅壘","男"],["10","曾以承","男"],["11","謝獻翊","男"],["12","鍾博任","男"],["13","方妍晴","女"],["14","江沁妤","女"],["15","吳翊憓","女"],["16","吳湘妮","女"],["17","宋麗妍","女"],["18","林莉臻","女"],["19","張尹薰","女"],["20","張沐伊","女"],["21","張睿禎","女"],["22","郭品言","女"],["23","陳卉妤","女"],["24","陳彤渝","女"],["25","彭沁渝","女"],["26","彭軒瑩","女"],["27","黃安妤","女"],["28","黃詩芸","女"],["29","鄒玗媗","女"],["30","劉宇函","女"],["31","劉芯岑","女"],["32","鄧芃云","女"],["33","鄭宇晴","女"],["34","盧芃彤","女"],["35","謝家凌","女"],["36","鍾宇喬","女"]]},{"c":"225","n":"國貿二五","s":[["02","呂弦澄","男"],["03","李禹承","男"],["04","林丞宥","男"],["05","林存軒","男"],["06","林施凱鈞","男"],["07","邱垣凱","男"],["08","許睿成","男"],["09","陳浩穎","男"],["10","馮忠謙","男"],["11","黃敬恩","男"],["12","劉家齊","男"],["13","謝承恩","男"],["14","丁蕊","女"],["15","王宜珺","女"],["16","朱沛瑜","女"],["17","吳詩羽","女"],["18","呂佳妮","女"],["19","周韋君","女"],["20","林子甯","女"],["21","林珊槿","女"],["22","徐永曦","女"],["23","梁若靈","女"],["24","連秀鑫","女"],["25","陳立雯","女"],["26","陳芓澐","女"],["27","傅筱宜","女"],["28","曾瑀芯","女"],["29","黃子芸","女"],["30","黃采瑄","女"],["31","黃品瑄","女"],["32","黃紹崴","女"],["33","廖雅菁","女"],["34","劉冠妤","女"],["35","賴宥潔","女"],["36","蘇尹偵","女"]]},{"c":"231","n":"國貿三一","s":[["01","李立安","男"],["02","李厚泉","男"],["03","邱禹翔","男"],["04","邱博鈞","男"],["05","胡竣程","男"],["06","陳昱均","男"],["07","陳柏緯","男"],["08","楊皓喆","男"],["09","鄒冠恩","男"],["10","蔡睿倫","男"],["11","丁靚菲","女"],["12","古沛君","女"],["13","吳旻真","女"],["14","吳苡慈","女"],["15","吳若妍","女"],["16","周一芸","女"],["17","林芛萱","女"],["18","施妤蓁","女"],["19","徐羽彤","女"],["20","張彤","女"],["21","張芳慈","女"],["22","陳芊鳳","女"],["23","陳宣融","女"],["24","陳荷頤","女"],["25","曾予妡","女"],["26","曾梓庭","女"],["27","黃以媜","女"],["29","黃意婷","女"],["30","楊阿比","女"],["31","葉芷其","女"],["32","葉家君","女"],["34","劉庭甄","女"],["35","鍾孟璇","女"],["36","羅千慈","女"]]},{"c":"232","n":"國貿三二","s":[["01","侯秉勳","男"],["02","陳昱翔","男"],["03","陳柏楷","男"],["04","黃宥鈞","男"],["05","黃紹銓","男"],["07","廖家睿","男"],["08","翟宇鈞","男"],["09","劉冠廷","男"],["10","韓宗佑","男"],["11","王語晨","女"],["12","吳以安","女"],["13","李芷萱","女"],["14","沈紫涵","女"],["15","林沇家","女"],["16","林季姍","女"],["17","邱伶蘭","女"],["18","邱品諭","女"],["20","侯霈琳","女"],["21","胡筱筠","女"],["22","張雅筑","女"],["23","郭沛綾","女"],["24","陳品心","女"],["25","陳映璇","女"],["26","陳豫潔","女"],["27","黃宣豫","女"],["28","黃禹涵","女"],["29","楊妤淇","女"],["30","楊謹","女"],["31","廖唯甯","女"],["32","趙予婕","女"],["33","趙庭昀","女"],["34","鄧羽涵","女"],["35","簡安蔓","女"]]},{"c":"233","n":"國貿三三","s":[["01","呂蘅祐","男"],["03","周維杰","男"],["04","邱詣聖","男"],["05","張子","男"],["06","曾子傑","男"],["07","黃孫威","男"],["08","葉祐竣","男"],["09","賴柏舟","男"],["10","嚴辰安","男"],["11","吳采宸","女"],["12","吳禹萱","女"],["13","李昀禎","女"],["14","沈郁婷","女"],["15","官雅涵","女"],["16","柯妤蓁","女"],["17","洪苡瑄","女"],["18","徐紫涵","女"],["19","徐瑋彤","女"],["21","張芸瑄","女"],["22","梁又玄","女"],["23","陳禹榳","女"],["24","陳怡婷","女"],["25","陳柔均","女"],["27","楊安婷","女"],["28","楊椀晴","女"],["29","葉芃昀","女"],["30","葉宣吾","女"],["31","詹家溱","女"],["32","劉庭語","女"],["33","賴妤凡","女"],["35","鍾盈溱","女"]]},{"c":"234","n":"國貿三四","s":[["01","林柏融","男"],["02","徐祥恩","男"],["03","高平宇","男"],["04","郭博竣","男"],["05","陳科權","男"],["06","陳震","男"],["08","黃愷傑","男"],["09","黎世閎","男"],["10","顏季凡","男"],["11","王麒安","女"],["12","朱宥羽","女"],["13","呂妘溱","女"],["14","林子琦","女"],["15","林秭瑜","女"],["16","姜倖媛","女"],["17","紀宜均","女"],["18","范芸瑄","女"],["19","徐寀菡","女"],["20","莊旻軒","女"],["21","陳以薰","女"],["22","陳姿妤","女"],["23","陳音儒","女"],["24","陳詩函","女"],["25","曾子芸","女"],["26","游尚恩","女"],["27","葉曉菁","女"],["28","詹宜庭","女"],["29","劉品妍","女"],["30","劉恩綺","女"],["31","魯郁欣","女"],["33","賴姿綾","女"],["34","羅婕鳳","女"],["35","羅靖絜","女"]]},{"c":"235","n":"國貿三五","s":[["01","吳享益","男"],["02","宋灃家","男"],["03","李少鋒","男"],["04","李東晏","男"],["06","張容韶","男"],["07","楊竣凱","男"],["08","蔡秉軒","男"],["10","江焄馨","女"],["11","何宛純","女"],["12","余方馨","女"],["13","吳欣儒","女"],["14","吳程雅","女"],["15","吳穗","女"],["16","呂羽婕","女"],["17","李乙萱","女"],["18","林志玲","女"],["19","秦筠","女"],["20","張子儀","女"],["21","盛千芸","女"],["22","章梓渝","女"],["23","許尹薰","女"],["24","許睿芯","女"],["25","陳筠涵","女"],["26","游馨雅","女"],["27","黃姿瑀","女"],["28","黃雅筑","女"],["29","黃詩蘋","女"],["30","楊秀雲","女"],["31","蔡知芸","女"],["32","賴少妍","女"],["33","鍾映祈","女"],["34","簡子芹","女"],["35","蘇予柔","女"]]},{"c":"411","n":"資處一一","s":[["01","王靖凱","男"],["02","余壕治","男"],["03","吳聲宥","男"],["04","李承煜","男"],["05","李昆育","男"],["06","李煜睿","男"],["07","邱品栯","男"],["08","孫駿宗","男"],["09","張東智","男"],["10","連翊勛","男"],["11","陳立騰","男"],["12","陳冠瑞","男"],["13","游璨鳴","男"],["14","黃柏霖","男"],["15","黃浚碩","男"],["16","黃榮慶","男"],["17","蔡林翔","男"],["18","黎宇恩","男"],["19","謝泓峻","男"],["20","羅靖勝","男"],["21","江宣霏","女"],["22","吳衣柔","女"],["23","吳旻頤","女"],["24","沈侑欣","女"],["25","沈玥辛","女"],["26","房靖芸","女"],["27","林語恩","女"],["28","姚家榛","女"],["29","張文瑄","女"],["30","許珈瑜","女"],["31","許懷方","女"],["32","劉芊妤","女"],["33","劉康緹","女"],["34","鄭涵恩","女"],["35","謝詠晴","女"],["36","鍾侑伶","女"],["37","鍾家妮","女"],["38","魏芙宣","女"]]},{"c":"412","n":"資處一二","s":[["01","王威翔","男"],["02","王鈞平","男"],["03","江吉岡","男"],["04","杜崇愷","男"],["05","林廷翰","男"],["06","林品全","男"],["07","林宥呈","男"],["08","紀廷宥","男"],["09","耿崧耀","男"],["10","張晨恩","男"],["11","許碩峰","男"],["12","陳彥博","男"],["13","詹杰勳","男"],["14","詹翔竣","男"],["15","鄒玉傑","男"],["16","劉冠承","男"],["17","蔡承叡","男"],["18","蔡睿桉","男"],["19","蔡鎧楓","男"],["20","謝侑廷","男"],["21","謝暟宬","男"],["22","江梓柔","女"],["23","徐曉瑜","女"],["24","張妘恩","女"],["25","張芮菁","女"],["26","張凱菲","女"],["27","郭姸彤","女"],["28","陳品瑄","女"],["29","陳姿予","女"],["30","黃梓芸","女"],["31","黃筠涵","女"],["32","歐芷均","女"],["33","賴怡璇","女"],["34","謝彣忻","女"],["35","魏妘婕","女"],["36","羅甯珈","女"],["37","蘇羽薇","女"],["38","蘇筠喬","女"]]},{"c":"413","n":"資處一三","s":[["01","吳惠越","男"],["02","呂家緯","男"],["03","呂博翰","男"],["04","巫丞軒","男"],["05","李翰祥","男"],["06","卓昱成","男"],["07","姜智允","男"],["08","姜碩紘","男"],["09","張家碩","男"],["10","張富程","男"],["11","莊博瑞","男"],["12","陳奕丞","男"],["13","陳宥臺","男"],["14","陳柏全","男"],["15","黃立杰","男"],["16","黃柏翰","男"],["17","葉柏惟","男"],["18","葉家豪","男"],["19","廖柏睿","男"],["20","劉軒宇","男"],["21","鍾曜鴻","男"],["22","多芷伶","女"],["23","江子妍","女"],["24","吳依心","女"],["25","宋品妮","女"],["26","李羿嫻","女"],["27","林亞蓁","女"],["28","孫苗芷","女"],["29","張凡真","女"],["30","莊品均","女"],["31","許紫嫣","女"],["32","陳姿均","女"],["33","黃紫玲","女"],["34","劉韋欣","女"],["35","蔡湘蓁","女"],["36","蕭湘穎","女"],["37","閻姿妤","女"],["38","譚絜緗","女"]]},{"c":"421","n":"資處二一","s":[["01","王冠燊","男"],["02","呂維宗","男"],["03","宋正捷","男"],["04","武建鈞","男"],["05","邱慶傑","男"],["06","唐樂昕","男"],["07","翁偉文","男"],["08","高子傑","男"],["09","張駿盛","男"],["10","陳宙毅","男"],["11","陳萬德","男"],["12","陳誌培","男"],["13","彭信之","男"],["14","葉宇哲","男"],["15","廖家祥","男"],["16","廖軒禾","男"],["17","劉宏凱","男"],["18","劉秉學","男"],["19","劉冠琳","男"],["20","劉軒豪","男"],["21","謝駿清","男"],["22","王怡珍","女"],["23","江紫櫻","女"],["24","呂妍蓁","女"],["25","李珮思","女"],["26","邱沛晨","女"],["27","胡庭蓁","女"],["28","徐嘉孜","女"],["29","高婕恩","女"],["31","郭子萱","女"],["32","黃悅寧","女"],["33","黃唯溱","女"],["34","蔡侑璇","女"],["35","鄭羽庭","女"],["36","黎宛昀","女"],["37","簡郁珊","女"]]},{"c":"422","n":"資處二二","s":[["01","余亞宸","男"],["02","余宥霆","男"],["03","李良能","男"],["04","林子元","男"],["06","姜柏宇","男"],["07","馬綜鍏","男"],["08","張紘鈞","男"],["09","許皓鈞","男"],["10","陳渤林","男"],["11","陳濬玹","男"],["12","曾兆生","男"],["13","游秉軒","男"],["14","游淮恩","男"],["15","黃彥鈞","男"],["16","黃智暐","男"],["18","劉浩廷","男"],["19","劉尉能","男"],["20","黎晉豪","男"],["21","謝定軒","男"],["22","古語喬","女"],["23","李宸妡","女"],["24","林巧芯","女"],["25","林立敏","女"],["26","林佑欣","女"],["27","林芷安","女"],["28","邱衣翎","女"],["29","張晏欣","女"],["30","張愷恬","女"],["31","傅羿榛","女"],["32","曾葦如","女"],["33","黃子芮","女"],["34","劉伍銚","女"],["35","劉珮臻","女"],["36","蔡易昀","女"],["37","羅湘妮","女"],["38","龔姵綺","女"]]},{"c":"423","n":"資處二三","s":[["01","王宇豪","男"],["02","周尚禹","男"],["03","林羿捷","男"],["04","林楷峻","男"],["05","洪麒崴","男"],["06","徐天威","男"],["07","張丞智","男"],["08","張晏宸","男"],["09","梁畯凱","男"],["10","許子烽","男"],["11","陳彥廷","男"],["12","陳家閎","男"],["13","黃丞佑","男"],["14","葉承昱","男"],["15","鄒永樂","男"],["16","廖軒霆","男"],["17","趙彥穎","男"],["18","鍾昀恩","男"],["19","鍾瀚霆","男"],["20","藍宇恩","男"],["21","羅致誠","男"],["22","余珊妘","女"],["24","范宇婕","女"],["25","范凱婷","女"],["26","徐沛琳","女"],["27","梁湲媛","女"],["28","傅愷妍","女"],["29","曾采潔","女"],["30","黃歆媛","女"],["31","劉心妤","女"],["32","劉玟彤","女"],["33","劉毓瑄","女"],["34","蔣瑾萱","女"],["35","蕭妤倢","女"],["36","鍾宜恩","女"],["37","魏語萱","女"],["38","羅辰安","女"]]},{"c":"431","n":"資處三一","s":[["01","方裕舜","男"],["02","王愷毅","男"],["03","朱辰翰","男"],["04","江子昂","男"],["05","吳淑瀚","男"],["06","吳濬酉","男"],["07","李念勳","男"],["08","李柏諺","男"],["09","李韋志","男"],["10","邱駿浩","男"],["11","姚佑昇","男"],["12","許哲宇","男"],["13","游家睿","男"],["14","程浚瑋","男"],["15","黃梓勛","男"],["16","黃聖庭","男"],["17","劉宥霆","男"],["18","劉釋文","男"],["19","賴世文","男"],["20","王采瑀","女"],["21","吳云蓁","女"],["22","李郁茹","女"],["23","周婕妤","女"],["24","林琇恩","女"],["25","林詠婕","女"],["26","邵芸淇","女"],["27","張喻捷","女"],["28","陳欣鎂","女"],["29","陳亭妘","女"],["30","陳柔璇","女"],["31","彭宥芸","女"],["32","彭柔雅","女"],["33","黃子溶","女"],["34","楊佳軒","女"],["35","廖珮雯","女"],["36","劉品辰","女"],["37","劉耘慈","女"],["38","簡君潔","女"]]},{"c":"432","n":"資處三二","s":[["01","王育瑋","男"],["02","石伯泓","男"],["03","江鈞愷","男"],["04","余泰呈","男"],["05","吳宜哲","男"],["06","吳承皝","男"],["07","呂泯叡","男"],["08","林延丞","男"],["09","邱俊彥","男"],["10","唐鈺富","男"],["11","徐子豪","男"],["12","徐佑齊","男"],["13","郭正翰","男"],["14","陳柏廷","男"],["15","彭冠語","男"],["16","黃宗豪","男"],["17","趙柏崴","男"],["18","劉宸希","男"],["19","羅承學","男"],["20","同可瑜","女"],["21","何悅綺","女"],["22","吳美君","女"],["23","李羽軒","女"],["24","李樂芊","女"],["25","林耘祺","女"],["26","邱敏瑄","女"],["27","徐偉茹","女"],["28","張曉潔","女"],["29","莊珈欣","女"],["30","許瑋芩","女"],["31","楊芷晴","女"],["32","葉曉涵","女"],["34","趙羿婷","女"],["35","謝沛錡","女"],["36","簡鈺芸","女"],["37","羅亞妍","女"],["38","羅宜安","女"]]},{"c":"433","n":"資處三三","s":[["01","余室均","男"],["02","巫冠勳","男"],["03","李祐安","男"],["04","李瑋絡","男"],["05","徐晨恩","男"],["06","徐睿謙","男"],["07","張文銓","男"],["08","陳楷學","男"],["09","彭博顥","男"],["10","彭璽恩","男"],["12","葉承恩","男"],["13","鄒旻均","男"],["14","劉君楷","男"],["15","鄧家穎","男"],["16","黎宇恆","男"],["17","賴廷承","男"],["18","賴禹綸","男"],["19","王立勻","女"],["20","江宥萱","女"],["21","李采凌","女"],["22","林佳霓","女"],["23","姜若涵","女"],["24","胡姍妮","女"],["25","范先慧","女"],["26","袁子珺","女"],["27","張芯瑜","女"],["28","張詠喻","女"],["29","梁詩湣","女"],["30","陳映彤","女"],["31","彭于馨","女"],["32","黃繶丞","女"],["33","楊祐芸","女"],["34","楊梓玄","女"],["35","廖子晴","女"],["36","劉庭妤","女"],["37","蔡旻希","女"],["38","鄭茹云","女"],["39","鍾沁榕","女"]]},{"c":"511","n":"綜職一一","s":[["01","吳青翰","男"],["02","朱紹恩","男"],["03","林威燁","男"],["04","馬士紘","男"],["05","邱佳翔","男"],["06","廖昱愷","男"],["07","劉明軒","男"],["08","陳兆硯","男"],["09","盧肇恆","男"],["10","蘇桂煜","男"],["11","杜恩瑜","女"],["12","金湘淇","女"],["13","許小樂","女"],["14","廖淮瑄","女"]]},{"c":"512","n":"綜職一二","s":[["01","吳彥勳","男"],["02","余至杰","男"],["03","奉峻永","男"],["04","洪彥良","男"],["05","倪振誠","男"],["06","莊庭浩","男"],["07","蔡侑宸","男"],["08","陳昊","男"],["09","鄭博睿","男"],["10","呂苡嫺","女"],["11","余芷瑄","女"],["12","李葭琪","女"],["13","張家家","女"],["14","萬紫櫻","女"]]},{"c":"521","n":"綜職二一","s":[["01","吳予恩","男"],["02","宋辰揚","男"],["03","李宇鋒","男"],["04","李訓葵","男"],["05","李訓霆","男"],["06","卓冠廷","男"],["07","林圳庭","男"],["08","張子濬","男"],["09","游俊樺","男"],["11","劉泓佑","男"],["12","徐宛宇","女"],["13","徐宥琳","女"],["14","曾家瀅","女"],["15","歐陽詩婷","女"]]},{"c":"522","n":"綜職二二","s":[["01","王宏廷","男"],["02","王宥程","男"],["03","呂博凱","男"],["04","范凱元","男"],["05","曹禾潾","男"],["06","許詠鈞","男"],["07","楊濬豪","男"],["08","溫峻瑋","男"],["09","蔡明凱","男"],["10","蔡松晊","男"],["11","鄭家凱","男"],["12","謝和軒","男"],["13","邱晏柔","女"],["14","張恩綺","女"],["15","葉怡彤","女"]]},{"c":"531","n":"綜職三一","s":[["01","朱柏叡","男"],["02","李定誠","男"],["03","邱靖傑","男"],["04","馮挺嘉","男"],["05","黃宇希","男"],["06","趙柏瑋","男"],["07","謝宗祐","男"],["08","王語婷","女"],["09","吳少宣","女"],["10","呂宥萱","女"],["11","陳采妮","女"]]},{"c":"532","n":"綜職三二","s":[["01","王育安","男"],["03","張晉尉","男"],["04","陳震玉","男"],["05","陳懿","男"],["06","黃定宇","男"],["08","謝政原","男"],["09","伊芸萱","女"],["10","胡允禾","女"],["11","許惠瑜","女"],["13","陳芷涵","女"]]},{"c":"611","n":"綜高一一","s":[["01","佘程愷","男"],["02","余冠廷","男"],["03","吳侑恩","男"],["04","吳滕浩","男"],["05","李祐恩","男"],["06","卓群祐","男"],["07","林晅宥","男"],["08","徐世諺","男"],["09","陳廷益","男"],["10","彭敬元","男"],["11","温盛堡","男"],["12","湯閔傑","男"],["14","黃庭岳","男"],["15","蔡杰修","男"],["16","謝柏任","男"],["17","王維頡","女"],["18","余品萱","女"],["19","吳旻璇","女"],["20","李亞潔","女"],["21","李舒妃","女"],["22","林喬苡","女"],["23","林瑜婕","女"],["24","邱歆喬","女"],["25","洪韶妘","女"],["26","范維庭","女"],["27","徐筱婕","女"],["28","張紫惞","女"],["29","許馨云","女"],["30","彭婕恩","女"],["31","葉乙妘","女"],["32","廖家盈","女"],["33","鄧宇晴","女"],["34","謝欣晏","女"],["35","鍾依岑","女"]]},{"c":"612","n":"綜高一二","s":[["01","朱紘毅","男"],["02","何寬栩","男"],["03","林逸傑","男"],["04","翁祖格","男"],["05","梁世威","男"],["06","許珈豪","男"],["07","陳孟澤","男"],["08","陳宥熙","男"],["09","陳柏硯","男"],["10","黃品綱","男"],["11","黃梓源","男"],["12","黃紹齊","男"],["13","楊浩謙","男"],["14","潘彥國","男"],["15","蔡明希","男"],["16","鄭丞智","男"],["17","王以甯","女"],["18","朱羽凝","女"],["19","朱郁晴","女"],["20","宋歆瑜","女"],["21","李芝妮","女"],["22","李郡芩","女"],["23","林彤恩","女"],["24","林晏榛","女"],["25","徐筱婷","女"],["26","徐筱琳","女"],["27","涂芸熙","女"],["28","許惟恩","女"],["29","許新妮","女"],["31","詹涴羽","女"],["32","鄒佳妤","女"],["33","廖子晴","女"],["34","劉紫妮","女"],["35","簡婉如","女"]]},{"c":"613","n":"綜高一三","s":[["01","王品淳","男"],["02","王晨宇","男"],["03","吳宥承","男"],["04","林柏丞","男"],["05","徐義峰","男"],["06","莊睿承","男"],["07","許博洋","男"],["08","陳衍聿","男"],["09","陳萬鴻","男"],["10","彭依翔","男"],["11","廖棖廷","男"],["12","劉智浩","男"],["13","賴彥輔","男"],["14","謝沅昊","男"],["15","謝翔宇","男"],["16","鍾新佑","男"],["17","王紫瑄","女"],["18","余沛穎","女"],["20","范書語","女"],["21","徐采潔","女"],["22","梁妤喬","女"],["23","陳芊禾","女"],["24","陳宥安","女"],["25","陳宥璇","女"],["26","陳禹喬","女"],["27","游沛妤","女"],["28","游昀臻","女"],["29","黃姵綺","女"],["30","黃筱晴","女"],["31","葉家妤","女"],["32","劉玟汕","女"],["33","蕭郁蓁","女"],["34","謝昀蓁","女"],["35","羅葦琪","女"]]},{"c":"614","n":"綜高一四","s":[["01","戈紹宣","男"],["02","朱承睿","男"],["03","呂其恩","男"],["04","李沁翔","男"],["05","林允喆","男"],["06","林哲熙","男"],["07","張信傑","男"],["08","彭浚睿","男"],["09","温良彬","男"],["10","湯浚彬","男"],["11","黃宥瑞","男"],["12","葉羿辰","男"],["13","廖御丞","男"],["14","趙逸修","男"],["15","賴思筌","男"],["16","謝昕叡","男"],["17","羅雲平","男"],["18","吳宸瑜","女"],["19","林巧婕","女"],["20","邱湘婕","女"],["21","姚詠晰","女"],["22","施沁婕","女"],["23","范愷芯","女"],["24","張庭瑀","女"],["25","張恩慈","女"],["26","張雅姸","女"],["27","張語倢","女"],["28","梅忠鈺","女"],["29","陳彩茵","女"],["30","黃思靜","女"],["31","黃璽書","女"],["32","楊喬媃","女"],["33","熊可晴","女"],["34","歐陽柔安","女"],["35","鄭之庭","女"],["36","蕭沚瑜","女"]]},{"c":"621","n":"綜高二一","s":[["01","韓瓋之","男"],["02","陳童恩","女"],["03","黃靖芝","女"],["04","余政峰","男"],["05","徐守賢","男"],["06","郭育誠","男"],["07","彭惟暄","男"],["08","呂宛諭","女"],["09","翁秀庭","女"],["10","葉芸禎","女"],["11","詹馨甯","女"],["12","張楷晟","男"],["13","許博維","男"],["14","戴浩宇","男"],["15","吳沛庭","女"],["16","劉姸岑","女"],["17","鐘婕羽","女"],["18","彭鉅元","男"],["19","曾晉恩","男"],["20","黃楷宸","男"],["21","蔡杰宇","男"],["22","林愷威","男"],["23","葉育成","男"],["24","楊晏涵","女"],["25","宋克允","男"],["26","李開鈞","男"],["27","林家澤","男"],["28","陳柏睿","男"],["29","周育綾","女"],["30","張依璇","女"],["31","黃若晴","女"],["32","簡慈恩","女"],["33","黃浩臣","男"],["34","黃澤鈞","男"],["35","余屏萱","女"]]},{"c":"622","n":"綜高二二","s":[["01","徐靖翔","男"],["02","余侑宣","女"],["03","李禹僾","女"],["04","余鼎泰","男"],["05","宋芓漒","男"],["06","肖亘佑","男"],["07","林祐聖","男"],["08","吳宥萱","女"],["09","陳利慈","女"],["10","黃湘婷","女"],["11","鍾綺恩","女"],["12","戚善榮","男"],["13","謝仁恩","男"],["14","羅雲鴻","男"],["15","林榮飛","男"],["16","陳柏硯","男"],["17","宋宥昕","女"],["18","高宜甄","女"],["19","黃紫語","女"],["20","鍾沛昀","女"],["21","陳彥綸","男"],["22","羅康霖","男"],["23","李元皓","男"],["24","李碩頴","男"],["25","潘文華","男"],["26","蔡戎勳","男"],["27","李羽橙","女"],["28","李姿璇","女"],["29","張涔芸","女"],["30","蔡郁芳","女"],["31","簡語柔","女"],["32","葉嘉銘","男"],["33","謝定宸","男"],["34","謝宥威","男"]]},{"c":"623","n":"綜高二三","s":[["01","李岱霖","男"],["02","黃秉城","男"],["03","鄧福杰","男"],["04","廖美婷","女"],["05","黎倚均","女"],["06","王睿揚","男"],["07","許詠勝","男"],["08","傅泰恩","男"],["09","劉文軒","男"],["10","左芸慈","女"],["11","吳孟芩","女"],["12","李品萱","女"],["13","沈閔琯","女"],["14","吳聲侑","男"],["15","吳蕙妤","女"],["16","黃宥慈","女"],["17","黃苡晴","女"],["18","葉曉霓","女"],["19","劉亦芩","女"],["20","彭威期","男"],["21","彭翊展","男"],["22","葉晉誠","男"],["23","余侑芯","女"],["24","莊汶宜","女"],["25","莊家瑜","女"],["26","陳祺","女"],["27","楊欣姵","女"],["28","葉庭如","女"],["29","黃碩偉","男"],["30","胡瀞芸","女"],["31","黃宥寧","女"],["32","羅昱璿","女"],["33","黃仁惠","女"],["34","簡毓靖","女"],["35","黃子紘","男"],["36","吳若熙","女"],["37","黃梓旋","女"]]},{"c":"624","n":"綜高二四","s":[["01","辜瀚頡","男"],["02","王湘萲","女"],["03","邱睿妍","女"],["04","許詠晴","女"],["05","傅羽忻","女"],["06","張耀元","男"],["07","楊承寯","男"],["08","葉潔妤","女"],["09","許樂","男"],["10","郭睿棋","男"],["11","賴弘晹","男"],["12","吳芳語","女"],["13","林柏亨","男"],["14","王允潔","女"],["15","廖安琪","女"],["16","蕭丞妤","女"],["17","蕭淨予","女"],["18","陳捷崴","男"],["19","陳玉芸","女"],["20","黃巧沂","女"],["21","黎泓廷","男"],["22","張家溱","女"],["23","楊惟甯","女"],["24","詹為心","女"],["25","詹紓昀","女"],["26","梁博丞","男"],["27","楊岳霖","男"],["28","江安畇","女"],["29","姜宥妡","女"],["30","樊珮妤","女"],["31","鄭宇閎","男"],["32","宋頤蓁","女"],["33","李宇婕","女"],["34","區志瑛","女"],["35","黃品璇","女"],["36","詹睿函","女"],["37","廖美宣","女"]]},{"c":"631","n":"綜高三一","s":[["01","王羿凱","男"],["02","吳翊慈","女"],["03","宋芷羽","女"],["04","許安宇","女"],["05","魏凌靖","女"],["06","邱宥寧","女"],["07","葉千萓","女"],["08","劉子雲","女"],["09","洪允昱","男"],["10","楊裕琦","男"],["11","徐品蓉","女"],["12","王雪雲","女"],["13","江謝宜螢","女"],["14","林佩穎","女"],["15","陳語淇","女"],["16","葉秶誼","女"],["17","羅翎瑀","女"],["18","吳宇興","男"],["19","郭宥誠","男"],["20","鍾依昀","女"],["21","吳鼎濬","男"],["22","宋邵諭","男"],["23","黃相凱","男"],["24","余懿元","男"],["25","許閔翔","男"],["26","葉宇辰","男"],["27","劉子睿","男"],["28","劉丞恩","男"],["29","姜沛辰","女"],["30","張羽涵","女"],["31","黃莘喬","女"],["32","廖翊妃","女"],["33","王鈞立","男"],["34","吳泳霆","男"],["35","徐溱宏","男"],["36","張維霖","男"],["37","莊竣宇","男"],["38","黃霆彥","男"],["39","詹豐銘","男"]]},{"c":"632","n":"綜高三二","s":[["01","呂詠翔","男"],["02","黃冠鳴","男"],["03","廖維彥","男"],["04","高紫薰","女"],["05","陳季嫻","女"],["06","黃于瑄","女"],["07","李東昇","男"],["08","尤思詠","女"],["09","江家瑜","女"],["10","吳宜真","女"],["11","徐苡恩","女"],["12","郭紜蓁","女"],["13","陳聿婷","女"],["14","魏元信","男"],["15","古孟芸","女"],["16","曾佑亦","女"],["17","何羽潔","女"],["18","姜芷涵","女"],["19","郭昀庭","女"],["20","陳虹蓁","女"],["21","邱楷恩","男"],["22","夏子婷","女"],["23","朱漢維","男"],["24","宋宥辰","男"],["25","巫至皓","男"],["26","林翊軒","男"],["27","張宸愷","男"],["28","葉佳悅","男"],["29","鍾博淞","男"],["30","黃柔瑄","女"],["31","吳思杰","男"],["32","張凱鈞","男"],["33","陳欣詮","男"],["34","楊子玄","男"],["35","鍾文愷","男"],["36","張瑜文","女"],["37","劉芯妧","女"],["38","范瑞恩","男"],["39","黃莛媗","女"]]},{"c":"633","n":"綜高三三","s":[["01","李沅澄","男"],["02","李浤源","男"],["03","林莛育","男"],["04","徐亦謙","男"],["05","吳翊楹","女"],["06","徐詩穎","女"],["07","陳秐杉","女"],["08","陳家如","女"],["09","曾才怡","女"],["10","曾羽彤","女"],["11","林祐丞","男"],["12","陳宇宸","男"],["13","王韻淳","女"],["14","彭雁翎","女"],["15","林郁晴","女"],["16","孫羽涵","女"],["17","張晏甄","女"],["18","鄧語析","女"],["19","藍于庭","女"],["20","古兆鈞","男"],["21","張家瑋","男"],["22","何譿心","女"],["23","那芊芊","女"],["24","胡睿庭","女"],["25","梁芸瑄","女"],["26","陳治璇","女"],["27","劉盈姍","女"],["28","賴彥伶","女"],["29","林宇謙","男"],["31","翁語妡","女"],["32","張雅柔","女"],["33","王妍心","女"]]},{"c":"634","n":"綜高三四","s":[["01","阮昂修","男"],["02","林允皓","男"],["04","李采軒","女"],["05","花宇婕","女"],["06","張昀喬","女"],["07","陳芸孜","女"],["08","陳宥臻","女"],["09","黃苡瑄","女"],["10","楊婕妤","女"],["11","邱聖紘","男"],["12","風峻博","男"],["13","林孟臻","女"],["14","姜羽柔","女"],["15","徐溱宜","女"],["16","張芮瑜","女"],["17","莊欣倪","女"],["18","彭羽彤","女"],["19","黃子綾","女"],["20","陳毅軒","男"],["21","史小葳","女"],["22","林歆霓","女"],["23","范羽真","女"],["24","翁安妤","女"],["25","莊耘惠","女"],["26","陳薇涵","女"],["27","周碩陞","男"],["28","陳宇謙","男"],["29","謝家弘","男"],["30","許芮瑄","女"],["31","陳妘溱","女"],["32","陳育璿","女"],["33","譚伊杉","女"],["34","彭丞宥","男"]]},{"c":"711","n":"多媒一一","s":[["01","何昱誠","男"],["02","吳有浤","男"],["03","呂秉融","男"],["04","李泳志","男"],["05","李家輝","男"],["06","潘岑翰","男"],["07","鄭文騫","男"],["08","羅啟承","男"],["09","王惠君","女"],["10","史寓淅","女"],["11","甘雨靜","女"],["12","何采潔","女"],["13","余采蓁","女"],["14","李苡溱","女"],["15","沈品彤","女"],["16","林子心","女"],["17","凃誼君","女"],["18","徐歆妮","女"],["19","馬宥琳","女"],["20","高沛晴","女"],["21","高苡甄","女"],["22","高若芸","女"],["23","高萱恩","女"],["24","張子晏","女"],["25","莊宜芹","女"],["26","許芸禎","女"],["27","許惠晴","女"],["28","許晴","女"],["29","陳立恩","女"],["30","陳明妤","女"],["31","陳韋彤","女"],["32","陳益嫙","女"],["33","傅于洳","女"],["34","曾澺蓁","女"],["35","游睿瑜","女"],["36","楊丁肜","女"],["37","劉沛涵","女"],["38","賴靖文","女"],["39","簡楚恩","女"],["40","羅翊惠","女"]]}];
+
+    // ★★★ 科別排列順序：商經 -> 國貿 -> 資處 -> 多媒 -> 綜高 -> 綜職 ★★★
+    const deptOrder = ['商經', '國貿', '資處', '多媒', '綜高', '綜職'];
+
+    function getDeptPriority(className) {
+      for (let i = 0; i < deptOrder.length; i++) {
+        if (className.includes(deptOrder[i])) return i;
+      }
+      return 99;
+    }
+
+    function getGradeNum(classCode, className) {
+      if (classCode && classCode.length === 3) {
+        const mid = classCode.charAt(1);
+        if (mid === '1' || mid === '2' || mid === '3') return parseInt(mid, 10);
+      }
+      if (className.includes('一') && !className.includes('二') && !className.includes('三')) return 1;
+      if (className.includes('二')) return 2;
+      if (className.includes('三')) return 3;
+      return 99;
+    }
+
+    function compareClasses(a, b) {
+      const ga = getGradeNum(a.c, a.n);
+      const gb = getGradeNum(b.c, b.n);
+      if (ga !== gb) return ga - gb;
+
+      const da = getDeptPriority(a.n);
+      const db = getDeptPriority(b.n);
+      if (da !== db) return da - db;
+
+      return a.c.localeCompare(b.c);
+    }
+
+    const defaultData = [...rawDefaultData].sort(compareClasses);
+
+    // 當前運行的資料（優先從 localStorage 讀取自訂匯入資料）
+    let currentData = defaultData;
+    let currentMainView = 'signoff'; // 'roster' | 'signoff'，預設顯示簽領表
+    let currentMode = 'double'; // 'double' | 'single' | 'notes'
+    let currentOrder = 'name-first'; // 'name-first' | 'gender-first'
+    let currentFontSize = 'lg'; // 'md' | 'lg' | 'xl'
+
+    // 切換主功能視圖
+    function switchMainView(view) {
+      currentMainView = view;
+      document.getElementById('tabRoster').classList.toggle('active', view === 'roster');
+      document.getElementById('tabSignoff').classList.toggle('active', view === 'signoff');
+      document.getElementById('toolbarRoster').style.display = view === 'roster' ? 'flex' : 'none';
+      document.getElementById('toolbarSignoff').style.display = view === 'signoff' ? 'flex' : 'none';
+      renderPages();
+    }
+
+    // 初始化檢查自訂資料與字體大小設定
+    function initData() {
+      try {
+        const saved = localStorage.getItem('custom_student_roster_data');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            currentData = parsed;
+            document.getElementById('customDataBadge').style.display = 'inline-block';
+            document.getElementById('btnResetData').style.display = 'inline-flex';
+          }
+        }
+      } catch (e) {
+        console.error('Failed to load cached roster data:', e);
+      }
+
+      try {
+        const savedFontSize = localStorage.getItem('roster_font_size');
+        if (savedFontSize && ['md', 'lg', 'xl'].includes(savedFontSize)) {
+          setFontSize(savedFontSize);
+        }
+      } catch (e) {}
+    }
+
+    // 設定字體大小
+    function setFontSize(size) {
+      currentFontSize = size;
+      document.body.classList.remove('font-md', 'font-lg', 'font-xl');
+      if (size !== 'lg') {
+        document.body.classList.add('font-' + size);
+      }
+      document.querySelectorAll('.btnFontMd').forEach(b => b.classList.toggle('btn-active', size === 'md'));
+      document.querySelectorAll('.btnFontLg').forEach(b => b.classList.toggle('btn-active', size === 'lg'));
+      document.querySelectorAll('.btnFontXl').forEach(b => b.classList.toggle('btn-active', size === 'xl'));
+
+      try {
+        localStorage.setItem('roster_font_size', size);
+      } catch (e) {}
+    }
+
+    // 顯示 Toast 訊息
+    let toastTimeout;
+    function showToast(message, isError = false) {
+      const box = document.getElementById('toastBox');
+      box.innerText = message;
+      box.className = 'toast-box' + (isError ? ' error' : '');
+      box.style.display = 'block';
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        box.style.display = 'none';
+      }, 4500);
+    }
+
+    // 下拉選單控制
+    function toggleDropdown(e, menuId) {
+      e.stopPropagation();
+      const menu = document.getElementById(menuId);
+      menu.classList.toggle('show');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+    });
+
+    // 觸發檔案上傳
+    function triggerFileInput() {
+      document.getElementById('fileInput').click();
+    }
+
+    // 範本下載功能
+    function downloadTemplate(type) {
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+
+      const sampleRows = [
+        ['班級代碼', '班級名稱', '座號', '性別', '姓名'],
+        ['111', '商經一一', '01', '男', '陳大文'],
+        ['111', '商經一一', '02', '女', '林小美'],
+        ['111', '商經一一', '03', '男', '張志豪'],
+        ['111', '商經一一', '04', '女', '王淑芬'],
+        ['111', '商經一一', '05', '男', '李建國'],
+        ['211', '國貿一一', '01', '女', '黃雅婷'],
+        ['211', '國貿一一', '02', '男', '周冠宇'],
+        ['211', '國貿一一', '03', '女', '吳佳玲'],
+        ['211', '國貿一一', '04', '男', '蔡宗翰'],
+        ['211', '國貿一一', '05', '女', '許芳瑜']
+      ];
+
+      if (type === 'xlsx' && typeof XLSX !== 'undefined') {
+        try {
+          const ws = XLSX.utils.aoa_to_sheet(sampleRows);
+          ws['!cols'] = [{ wch: 12 }, { wch: 14 }, { wch: 8 }, { wch: 8 }, { wch: 12 }];
+          const wb = XLSX.utils.book_new();
+          XLSX.utils.book_append_sheet(wb, ws, '學生名冊範本');
+          XLSX.writeFile(wb, '班級名冊匯入範本.xlsx');
+          showToast('✅ 已下載 Excel 範本「班級名冊匯入範本.xlsx」！');
+          return;
+        } catch (err) {
+          console.warn('XLSX export failed, fallback to CSV:', err);
+        }
+      }
+
+      const csvContent = '\uFEFF' + sampleRows.map(r => r.join(',')).join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = '班級名冊匯入範本.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast('✅ 已下載 CSV 範本「班級名冊匯入範本.csv」！');
+    }
+
+    // 處理檔案匯入
+    function handleFileSelect(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      processUploadedFile(file);
+      e.target.value = '';
+    }
+
+    // 支援拖曳上傳
+    window.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      document.getElementById('dragOverlay').classList.add('active');
+    });
+    window.addEventListener('dragleave', (e) => {
+      if (e.relatedTarget === null) {
+        document.getElementById('dragOverlay').classList.remove('active');
+      }
+    });
+    window.addEventListener('drop', (e) => {
+      e.preventDefault();
+      document.getElementById('dragOverlay').classList.remove('active');
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+        processUploadedFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // 解析上傳的檔案
+    function processUploadedFile(file) {
+      const fileName = file.name;
+      const ext = fileName.split('.').pop().toLowerCase();
+
+      showToast('⏳ 正在解析檔案「' + fileName + '」...');
+
+      if (ext === 'xlsx' || ext === 'xls') {
+        if (typeof XLSX === 'undefined') {
+          showToast('❌ 目前離線且未載入 Excel 模組，請另存為 CSV 格式（UTF-8）後匯入！', true);
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          try {
+            const data = new Uint8Array(evt.target.result);
+            const wb = XLSX.read(data, { type: 'array' });
+            const sheet = wb.Sheets[wb.SheetNames[0]];
+            const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+            parseRosterRows(rows, fileName);
+          } catch (err) {
+            console.error(err);
+            showToast('❌ Excel 檔案解析失敗：' + err.message, true);
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (ext === 'csv') {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          try {
+            const text = evt.target.result;
+            const rows = parseCsvText(text);
+            parseRosterRows(rows, fileName);
+          } catch (err) {
+            console.error(err);
+            showToast('❌ CSV 檔案解析失敗：' + err.message, true);
+          }
+        };
+        reader.readAsText(file, 'utf-8');
+      } else {
+        showToast('❌ 不支援的檔案格式，請上傳 .xlsx, .xls 或 .csv 檔案！', true);
+      }
+    }
+
+    // 簡易強健 CSV 解析
+    function parseCsvText(text) {
+      const lines = text.split(/\r?\n/);
+      const rows = [];
+      for (let line of lines) {
+        line = line.trim();
+        if (!line) continue;
+        const row = [];
+        let inQuotes = false;
+        let token = '';
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            row.push(token.trim().replace(/^"|"$/g, ''));
+            token = '';
+          } else {
+            token += char;
+          }
+        }
+        row.push(token.trim().replace(/^"|"$/g, ''));
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    // 解析資料行並組裝成班級名冊物件
+    function parseRosterRows(rows, fileName) {
+      if (!rows || rows.length < 2) {
+        showToast('❌ 檔案內容為空或無足夠資料！', true);
+        return;
+      }
+
+      let headerIdx = -1;
+      let colCode = -1, colName = -1, colSeat = -1, colGender = -1, colSName = -1;
+
+      for (let r = 0; r < Math.min(rows.length, 5); r++) {
+        const row = rows[r].map(cell => String(cell || '').trim());
+        let code = -1, name = -1, seat = -1, gender = -1, sname = -1;
+
+        for (let c = 0; c < row.length; c++) {
+          const val = row[c];
+          if (/代碼|代號|班代|code/i.test(val)) code = c;
+          else if (/班級|班名|class/i.test(val)) name = c;
+          else if (/座號|號碼|seat/i.test(val)) seat = c;
+          else if (/性別|性|gender/i.test(val)) gender = c;
+          else if (/姓名|學生|name/i.test(val)) sname = c;
+        }
+
+        if (seat !== -1 && (sname !== -1 || name !== -1)) {
+          headerIdx = r;
+          colCode = code;
+          colName = name;
+          colSeat = seat;
+          colGender = gender;
+          colSName = sname;
+          break;
+        }
+      }
+
+      if (headerIdx === -1) {
+        headerIdx = 0;
+        colCode = 0;
+        colName = 1;
+        colSeat = 2;
+        colGender = 3;
+        colSName = 4;
+      } else {
+        if (colCode === -1) colCode = 0;
+        if (colName === -1) colName = 1;
+        if (colSeat === -1) colSeat = 2;
+        if (colGender === -1) colGender = 3;
+        if (colSName === -1) colSName = 4;
+      }
+
+      const classMap = new Map();
+      let totalStudents = 0;
+
+      for (let i = headerIdx + 1; i < rows.length; i++) {
+        const r = rows[i];
+        if (!r || r.length === 0) continue;
+
+        let code = String(r[colCode] !== undefined ? r[colCode] : '').trim();
+        let cname = String(r[colName] !== undefined ? r[colName] : '').trim();
+        let seat = String(r[colSeat] !== undefined ? r[colSeat] : '').trim();
+        let gender = String(r[colGender] !== undefined ? r[colGender] : '').trim();
+        let sname = String(r[colSName] !== undefined ? r[colSName] : '').trim();
+
+        if (!sname && !seat) continue;
+
+        if (!cname && code) cname = code;
+        if (!code && cname) code = cname;
+        if (!code && !cname) {
+          code = 'DEFAULT';
+          cname = '未命名班級';
+        }
+
+        if (/^\d+$/.test(seat)) {
+          seat = seat.padStart(2, '0');
+        }
+
+        if (!gender) gender = '-';
+
+        const classKey = code + '_' + cname;
+        if (!classMap.has(classKey)) {
+          classMap.set(classKey, {
+            c: code,
+            n: cname,
+            s: []
+          });
+        }
+
+        classMap.get(classKey).s.push([seat, sname, gender]);
+        totalStudents++;
+      }
+
+      if (totalStudents === 0 || classMap.size === 0) {
+        showToast('❌ 未能在檔案中解析出任何有效學生資料，請參照範本欄位！', true);
+        return;
+      }
+
+      const newClasses = Array.from(classMap.values()).map(c => {
+        c.s.sort((a, b) => {
+          const sa = parseInt(a[0], 10);
+          const sb = parseInt(b[0], 10);
+          if (!isNaN(sa) && !isNaN(sb)) return sa - sb;
+          return a[0].localeCompare(b[0]);
+        });
+        return c;
+      });
+
+      // 班級依年級與科別順序排序 (商經 -> 國貿 -> 資處 -> 多媒 -> 綜高 -> 綜職)
+      newClasses.sort(compareClasses);
+
+      currentData = newClasses;
+      try {
+        localStorage.setItem('custom_student_roster_data', JSON.stringify(newClasses));
+      } catch (err) {
+        console.warn('LocalStorage save failed:', err);
+      }
+
+      document.getElementById('customDataBadge').style.display = 'inline-block';
+      document.getElementById('btnResetData').style.display = 'inline-flex';
+      initSelect();
+      renderPages();
+
+      showToast(`🎉 匯入成功！共解析出 ${newClasses.length} 個班級、${totalStudents} 位學生。`);
+    }
+
+    // 還原為預設資料
+    function resetToDefaultData() {
+      if (!confirm('確定要還原為系統原始預設的 54 班學生名冊嗎？現有自訂資料將被清除。')) {
+        return;
+      }
+      try {
+        localStorage.removeItem('custom_student_roster_data');
+      } catch (e) {}
+
+      currentData = defaultData;
+      document.getElementById('customDataBadge').style.display = 'none';
+      document.getElementById('btnResetData').style.display = 'none';
+      initSelect();
+      renderPages();
+      showToast('🔄 已還原為原始 54 班、1,808 位學生名冊！');
+    }
+
+    // 初始化班級下拉選單
+    function initSelect() {
+      const select = document.getElementById('classSelect');
+      const prevVal = select.value;
+      select.innerHTML = '';
+
+      let totalStudents = 0;
+      currentData.forEach(c => totalStudents += c.s.length);
+
+      document.getElementById('classCountBadge').innerText = `共 ${currentData.length} 班 / ${totalStudents} 人`;
+
+      const allOpt = document.createElement('option');
+      allOpt.value = 'ALL';
+      allOpt.innerText = `🖨️ 列印全部班級（共 ${currentData.length} 班，剛好 ${currentData.length} 頁）`;
+      select.appendChild(allOpt);
+
+      currentData.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.c;
+        opt.innerText = `${c.c} ${c.n} (${c.s.length}人)`;
+        select.appendChild(opt);
+      });
+
+      if (prevVal && select.querySelector(`option[value="${prevVal}"]`)) {
+        select.value = prevVal;
+      } else {
+        select.value = 'ALL';
+      }
+    }
+
+    // 設定版型模式
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('btnDouble').classList.toggle('btn-active', mode === 'double');
+      document.getElementById('btnSingle').classList.toggle('btn-active', mode === 'single');
+      document.getElementById('btnNotes').classList.toggle('btn-active', mode === 'notes');
+      renderPages();
+    }
+
+    // 設定欄位順序
+    function setOrder(order) {
+      currentOrder = order;
+      document.getElementById('btnNameFirst').classList.toggle('btn-active', order === 'name-first');
+      document.getElementById('btnGenderFirst').classList.toggle('btn-active', order === 'gender-first');
+      renderPages();
+    }
+
+    // 依照年級分組（各年級 18 班，依照「商經、國貿、資處、多媒、綜高、綜職」順序）
+    function getClassesByGrade() {
+      const g1 = [], g2 = [], g3 = [], other = [];
+      currentData.forEach(c => {
+        const code = String(c.c || '');
+        const name = String(c.n || '');
+        if (code.length === 3 && code[1] === '1') g1.push(c);
+        else if (code.length === 3 && code[1] === '2') g2.push(c);
+        else if (code.length === 3 && code[1] === '3') g3.push(c);
+        else if (name.includes('一') && !name.includes('二') && !name.includes('三')) g1.push(c);
+        else if (name.includes('二')) g2.push(c);
+        else if (name.includes('三')) g3.push(c);
+        else other.push(c);
+      });
+      g1.sort(compareClasses);
+      g2.sort(compareClasses);
+      g3.sort(compareClasses);
+      other.sort(compareClasses);
+      return { g1, g2, g3, other };
+    }
+
+    // 渲染頁面
+    function renderPages() {
+      const container = document.getElementById('pagesContainer');
+
+      if (currentMainView === 'roster') {
+        // 模式一：學生個人名冊
+        const selectedClass = document.getElementById('classSelect').value;
+        let classesToRender = currentData;
+        if (selectedClass !== 'ALL') {
+          classesToRender = currentData.filter(c => c.c === selectedClass);
+        }
+        container.innerHTML = classesToRender.map(c => renderClassHtml(c)).join('');
+      } else {
+        // 模式二：各年級收發簽領表（各 18 班，一年級一張 A4）
+        const selectedGrade = document.getElementById('gradeSelect').value;
+        const formTitle = document.getElementById('inputFormTitle').value.trim() || '各年級物資收發簽收清冊';
+        const signLabel = document.getElementById('signLabelSelect').value || '繳回人簽名';
+        const footerNote = (document.getElementById('inputFooterNote')?.value || '').trim();
+
+        const gradeGroups = getClassesByGrade();
+        let pagesHtml = '';
+
+        if (selectedGrade === 'ALL' || selectedGrade === '1') {
+          pagesHtml += renderGradeSignoffHtml(gradeGroups.g1, '一年級', formTitle, signLabel, footerNote);
+        }
+        if (selectedGrade === 'ALL' || selectedGrade === '2') {
+          pagesHtml += renderGradeSignoffHtml(gradeGroups.g2, '二年級', formTitle, signLabel, footerNote);
+        }
+        if (selectedGrade === 'ALL' || selectedGrade === '3') {
+          pagesHtml += renderGradeSignoffHtml(gradeGroups.g3, '三年級', formTitle, signLabel, footerNote);
+        }
+        if (gradeGroups.other.length > 0 && selectedGrade === 'ALL') {
+          pagesHtml += renderGradeSignoffHtml(gradeGroups.other, '其他班級', formTitle, signLabel, footerNote);
+        }
+
+        container.innerHTML = pagesHtml;
+      }
+    }
+
+    // 產生「各年級物資收發簽領表」單張 A4 HTML（剛好 18 班一張）
+    // ★★★ 依使用者要求：
+    // 1. 資訊行只保留年級別與年月日；
+    // 2. 欄位去除「班級人數」與「項目點收確認」；
+    // 3. 頁尾刪除「承辦單位：學務處 / 體育組」與「經辦人員簽章：____________________」★★★
+    function renderGradeSignoffHtml(classes, gradeName, formTitle, signLabel, footerNote = '') {
+      let rowsHtml = '';
+      classes.forEach((c, idx) => {
+        rowsHtml += `
+          <tr>
+            <td class="student-seat">${String(idx + 1).padStart(2, '0')}</td>
+            <td class="student-seat">${c.c}</td>
+            <td class="student-name" style="font-size: calc(var(--scale-td) * 1.08);">${c.n}</td>
+            <td class="cell-sign-space"></td>
+            <td class="cell-sign-space"></td>
+            <td></td>
+          </tr>
+        `;
+      });
+
+      const footerHtml = footerNote ? `
+            <!-- 頁尾說明（已依需求完全刪除承辦單位與經辦人員簽章） -->
+            <div class="roster-footer">
+              <span>${footerNote}</span>
+            </div>` : '';
+
+      return `
+        <article class="grade-page" id="page-grade-${gradeName}">
+          <div class="grade-wrap">
+            <!-- 標題為自訂大標題，絕對置中 -->
+            <div class="roster-header-box">
+              <h1 class="roster-title">${formTitle}</h1>
+              <!-- 這一行只保留年級別跟年月日，其他不要 -->
+              <div class="roster-meta">
+                <span>年級別：${gradeName}</span>
+                <span>日期：民國 ______ 年 ______ 月 ______ 日</span>
+              </div>
+            </div>
+
+            <!-- 18 班簽領表格：班級代碼單行不折行、欄位寬度勻稱適中 -->
+            <table class="roster-table grade-table">
+              <thead>
+                <tr>
+                  <th style="width: 6%;">序號</th>
+                  <th style="width: 18%;">班級代碼</th>
+                  <th style="width: 24%;">班級名稱</th>
+                  <th style="width: 18%;">${signLabel}</th>
+                  <th style="width: 17%;">點收人核章</th>
+                  <th style="width: 17%;">備註</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rowsHtml}
+              </tbody>
+            </table>
+
+            ${footerHtml}
+          </div>
+        </article>
+      `;
+    }
+
+    // 產生單一班級的學生名冊 HTML (原有一班一張)
+    function renderClassHtml(c) {
+      const students = c.s;
+      const count = students.length;
+      let boys = 0, girls = 0;
+      students.forEach(s => {
+        if (s[2] === '男') boys++;
+        else if (s[2] === '女') girls++;
+      });
+
+      let tableHtml = '';
+
+      if (currentMode === 'double') {
+        const half = Math.ceil(students.length / 2);
+        const left = students.slice(0, half);
+        const right = students.slice(half);
+
+        tableHtml = `
+          <div class="table-container-double">
+            <div class="sub-col">
+              ${renderTableHtml(left, false)}
+            </div>
+            <div class="sub-col">
+              ${renderTableHtml(right, false, left.length - right.length)}
+            </div>
+          </div>
+        `;
+      } else if (currentMode === 'single') {
+        tableHtml = `
+          <div class="table-container-single">
+            ${renderTableHtml(students, false)}
+          </div>
+        `;
+      } else {
+        tableHtml = `
+          <div class="table-container-notes">
+            ${renderTableHtml(students, true)}
+          </div>
+        `;
+      }
+
+      return `
+        <article class="class-page" data-code="${c.c}" id="page-${c.c}">
+          <div class="table-wrap">
+            <!-- 標題為「班級名冊」，水平垂直置中 -->
+            <div class="roster-header-box">
+              <h1 class="roster-title">班級名冊</h1>
+              <div class="roster-meta">
+                <span>班級代碼：${c.c}</span>
+                <span>班級名稱：${c.n}</span>
+                <span>總人數：${count} 人（男 ${boys} / 女 ${girls}）</span>
+              </div>
+            </div>
+
+            <!-- 表格主體 -->
+            ${tableHtml}
+
+            <!-- 頁尾 -->
+            <div class="roster-footer">
+              <span>導師簽名：____________________</span>
+              <span>列印日期：民國 ______ 年 ______ 月 ______ 日</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // 產生學生表格內部 HTML
+    function renderTableHtml(studentList, withNotes = false, padCount = 0) {
+      let headers = '';
+      if (withNotes) {
+        if (currentOrder === 'name-first') {
+          headers = '<tr><th style="width: 14%;">座號</th><th style="width: 32%;">姓名</th><th style="width: 20%;">性別</th><th class="col-notes">備註 / 簽名</th></tr>';
+        } else {
+          headers = '<tr><th style="width: 14%;">座號</th><th style="width: 20%;">性別</th><th style="width: 32%;">姓名</th><th class="col-notes">備註 / 簽名</th></tr>';
+        }
+      } else {
+        if (currentOrder === 'name-first') {
+          headers = '<tr><th style="width: 22%;">座號</th><th style="width: 50%;">姓名</th><th style="width: 28%;">性別</th></tr>';
+        } else {
+          headers = '<tr><th style="width: 22%;">座號</th><th style="width: 28%;">性別</th><th style="width: 50%;">姓名</th></tr>';
+        }
+      }
+
+      let rows = '';
+      studentList.forEach(s => {
+        const seat = s[0];
+        const name = s[1];
+        const gender = s[2];
+
+        if (withNotes) {
+          if (currentOrder === 'name-first') {
+            rows += `<tr><td class="student-seat">${seat}</td><td class="student-name">${name}</td><td>${gender}</td><td></td></tr>`;
+          } else {
+            rows += `<tr><td class="student-seat">${seat}</td><td>${gender}</td><td class="student-name">${name}</td><td></td></tr>`;
+          }
+        } else {
+          if (currentOrder === 'name-first') {
+            rows += `<tr><td class="student-seat">${seat}</td><td class="student-name">${name}</td><td>${gender}</td></tr>`;
+          } else {
+            rows += `<tr><td class="student-seat">${seat}</td><td>${gender}</td><td class="student-name">${name}</td></tr>`;
+          }
+        }
+      });
+
+      // 補齊對稱空格
+      for (let i = 0; i < padCount; i++) {
+        if (withNotes) {
+          rows += '<tr><td class="student-seat">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td></td></tr>';
+        } else {
+          rows += '<tr><td class="student-seat">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>';
+        }
+      }
+
+      return `
+        <table class="roster-table">
+          <thead>${headers}</thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    // 初始化執行
+    initData();
+    initSelect();
+    switchMainView('signoff'); // 預設開啟簽領表視圖方便立即查看
+  </script>
+
+  <!-- Universal Link Fixer & Hash Router -->
+  <script>
+    (function() {
+      // 支援本地 file:/// 與遠端 Cloudflare Pages 正確跳轉
+      const isFile = window.location.protocol === 'file:';
+      if (isFile) {
+        document.querySelectorAll('a[data-nav]').forEach(el => {
+          const target = el.getAttribute('data-nav');
+          const isNested = window.location.pathname.includes('/roster/');
+          const prefix = isNested ? '../' : '';
+          if (target === 'home') el.href = prefix + 'index.html';
+          else if (target === 'whiteboard') el.href = prefix + 'whiteboard.html';
+          else if (target === 'order') el.href = prefix + 'order/index.html';
+          else if (target === 'roster') el.href = isNested ? 'index.html' : 'roster.html';
+        });
+      }
+
+      // 支援網址 Hash 切換分頁（例如 #roster 或 #signoff）
+      function checkUrlHash() {
+        const hash = window.location.hash.toLowerCase();
+        if (hash === '#roster' || hash === '#student') {
+          if (typeof switchMainView === 'function') switchMainView('roster');
+        } else if (hash === '#signoff' || hash === '#grade') {
+          if (typeof switchMainView === 'function') switchMainView('signoff');
+        }
+      }
+
+      window.addEventListener('load', checkUrlHash);
+      window.addEventListener('hashchange', checkUrlHash);
+    })();
+  </script>
+
+</body>
+</html>
