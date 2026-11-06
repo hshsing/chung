@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/6 下午2:51:08</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/6 下午2:56:40</span>
       </div>
     </div>
   </div>
@@ -155,8 +155,8 @@
         <div>
           <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">評比有效天數</p>
           <div class="flex items-baseline space-x-1 mt-0.5">
-            <span class="text-2xl font-extrabold text-slate-900 number-font" id="kpi-days">28</span>
-            <span class="text-xs text-slate-500 font-medium">天 (期末總滿分 56 分)</span>
+            <span class="text-2xl font-extrabold text-slate-900 number-font" id="kpi-days">34</span>
+            <span class="text-xs text-slate-500 font-medium" id="kpi-days-desc">天 (期末總滿分 68 分)</span>
           </div>
         </div>
       </div>
@@ -403,7 +403,7 @@
 
         <!-- All 28 Days Record Grid -->
         <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">全學期 28 評比日每日得分總覽</h4>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2" id="modal-daily-grid-title">全學期各評比日每日得分歷程總覽</h4>
           <div id="modal-daily-grid" class="grid grid-cols-4 sm:grid-cols-7 gap-1.5 text-xs"></div>
         </div>
       </div>
@@ -552,7 +552,9 @@
 
     function updateKPICards() {
       document.getElementById('kpi-biweeks').textContent = (currentData.biWeeklyList || []).length || 4;
-      document.getElementById('kpi-days').textContent = currentData.totalDays || 28;
+      document.getElementById('kpi-days').textContent = currentData.totalDays || 34;
+      const descEl = document.getElementById('kpi-days-desc');
+      if (descEl) descEl.textContent = '天 (期末總滿分 ' + (currentData.totalDays * 2) + ' 分)';
       document.getElementById('kpi-classes').textContent = currentData.classes.length || 48;
 
       let totalSum = 0;
@@ -638,9 +640,9 @@
           <div class="p-2.5 rounded-lg bg-amber-50/80 border border-amber-200 text-xs text-amber-900 flex items-center justify-between">
             <div class="flex items-center space-x-2">
               <span class="text-base">🏆</span>
-              <span class="font-bold">全學期期末總成績結算榜：彙整全期 28 個評比日，計算各年級 1~6 名榮譽班級！</span>
+              <span class="font-bold">全學期期末總成績結算榜：彙整全期 ${currentData.totalDays} 個評比日，計算各年級 1~6 名榮譽班級！</span>
             </div>
-            <span class="px-2.5 py-0.5 rounded-full bg-amber-200/70 text-amber-950 font-bold text-[11px]">期末總評滿分 56 分</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-200/70 text-amber-950 font-bold text-[11px]">期末總評滿分 ${currentData.totalDays * 2} 分</span>
           </div>
         `;
       }
@@ -767,7 +769,7 @@
         daysBadge.textContent = `評比區間：${bw.startDate} ~ ${bw.endDate} (共 ${bw.daysCount} 天，滿分 ${bw.daysCount * 2} 分)`;
       } else if (currentMode === 'term') {
         honorTitle.textContent = `全學期期末總成績結算・${gText}${dText} 優勝榮譽榜 (1~6名)`;
-        daysBadge.textContent = '評比區間：全學期共 28 評分日 (滿分 56 分)';
+        daysBadge.textContent = '評比區間：全學期共 ' + currentData.totalDays + ' 評分日 (滿分 ' + (currentData.totalDays * 2) + ' 分)';
       } else if (currentMode === 'single_week') {
         const wInfo = currentData.weeklyData[selectedSingleWeek];
         honorTitle.textContent = `第 ${selectedSingleWeek} 週 單週評比 ${gText}${dText} 榮譽榜 (1~6名)`;
@@ -893,16 +895,14 @@
           </tr>
         `;
       } else if (currentMode === 'term') {
+        const bwHeaders = (currentData.biWeeklyList || []).map(bw => `<th class="py-3 px-2 text-center whitespace-nowrap">${bw.label.split('(')[0].trim()}</th>`).join('');
         thead.innerHTML = `
           <tr>
             <th class="py-3 px-3 cursor-pointer hover:bg-slate-100" onclick="sortTable('rank')">期末總名次 ↕</th>
             <th class="py-3 px-3 cursor-pointer hover:bg-slate-100" onclick="sortTable('classCode')">班級 ↕</th>
             <th class="py-3 px-3 cursor-pointer hover:bg-slate-100" onclick="sortTable('className')">年級與科別 ↕</th>
             <th class="py-3 px-3 text-center">期末榮譽 (1~6名)</th>
-            <th class="py-3 px-2 text-center">第2-3週</th>
-            <th class="py-3 px-2 text-center">第4-5週</th>
-            <th class="py-3 px-2 text-center">第6-7週</th>
-            <th class="py-3 px-2 text-center">第8-9週</th>
+            ${bwHeaders}
             <th class="py-3 px-3 text-right cursor-pointer hover:bg-slate-100 bg-amber-50/50 text-amber-950 font-bold" onclick="sortTable('totalScore')">期末總得分 ↕</th>
             <th class="py-3 px-3 text-right cursor-pointer hover:bg-slate-100 bg-amber-50/70 text-amber-950 font-bold" onclick="sortTable('avgScore')">總平均分 ↕</th>
             <th class="py-3 px-3 text-center cursor-pointer hover:bg-slate-100" onclick="sortTable('infractionCount')">全期違規 ↕</th>
@@ -951,11 +951,11 @@
           // Bi-weekly progression cells
           let bwCols = '';
           const bwScores = r.termSummary.biWeekScores || {};
-          ['bw_2_3', 'bw_4_5', 'bw_6_7', 'bw_8_9'].forEach(bid => {
-            const bs = bwScores[bid];
+          (currentData.biWeeklyList || []).forEach(bw => {
+            const bs = bwScores[bw.id];
             const isT6 = bs && bs.isTop6;
             bwCols += `
-              <td class="py-2.5 px-2 text-center number-font">
+              <td class="py-2.5 px-2 text-center number-font whitespace-nowrap">
                 <span class="inline-block px-1.5 py-0.5 rounded ${isT6 ? 'bg-amber-100 text-amber-900 font-bold border border-amber-300' : 'text-slate-700'}">
                   ${bs ? bs.total + ' (第'+bs.rank+'名)' : '-'}
                 </span>
@@ -1076,7 +1076,7 @@
       const term = currentData.termSummary[code];
       document.getElementById('modal-class-code').textContent = cls.code + ' 班';
       document.getElementById('modal-class-name').textContent = cls.name;
-      document.getElementById('modal-class-summary').textContent = `年級與科別: ${cls.name} | 期末總得分: ${term.totalScore.toFixed(1)} 分 (滿分56分) | 日平均: ${term.avgScore.toFixed(2)} 分 | 年級期末總名次: 第 ${term.overallRank} 名 ${term.isTop6 ? '⭐(榮譽前6名)' : ''}`;
+      document.getElementById('modal-class-summary').textContent = `年級與科別: ${cls.name} | 期末總得分: ${term.totalScore.toFixed(1)} 分 (滿分${term.totalDays * 2}分) | 日平均: ${term.avgScore.toFixed(2)} 分 | 年級期末總名次: 第 ${term.overallRank} 名 ${term.isTop6 ? '⭐(榮譽前6名)' : ''}`;
 
       // Bi-weekly badges
       const biweekDiv = document.getElementById('modal-biweek-ranks');
@@ -1098,7 +1098,7 @@
       const infList = document.getElementById('modal-infractions-list');
       infList.innerHTML = '';
       if (term.allInfractions.length === 0) {
-        infList.innerHTML = `<div class="p-3 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-semibold flex items-center space-x-2"><span>🎉</span><span>該班在全學期 28 天評比中表現優異，無任何扣分違規紀錄！</span></div>`;
+        infList.innerHTML = `<div class="p-3 rounded-lg bg-emerald-50 text-emerald-800 text-xs font-semibold flex items-center space-x-2"><span>🎉</span><span>該班在全學期 ${term.totalDays} 天評比中表現優異，無任何扣分違規紀錄！</span></div>`;
       } else {
         term.allInfractions.forEach(inf => {
           const itemDiv = document.createElement('div');
@@ -1159,21 +1159,24 @@
     async function triggerOnlineSync() {
       const statusDiv = document.getElementById('sync-status-msg');
       statusDiv.classList.remove('hidden');
+      statusDiv.className = 'text-xs p-2.5 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-900 font-mono';
       statusDiv.innerHTML = '⏳ 正在自雲端伺服器載入最新生活榮譽評比資料...';
       try {
         const res = await fetch('./scores_data.json?t=' + Date.now());
-        if (res.ok) {
-          const fresh = await res.json();
-          currentData = fresh;
-          localStorage.setItem('clvsc_115_1_scores', JSON.stringify(fresh));
-          const timeStr = fresh.updatedAt ? new Date(fresh.updatedAt).toLocaleString('zh-TW') : '';
-          statusDiv.innerHTML = '✓ 成功同步最新評比數據！(共收錄 ' + fresh.totalDays + ' 天評分紀錄，最後發布: ' + timeStr + ')，正在刷新畫面...';
-          setTimeout(() => { closeSyncModal(); initUI(); }, 800);
-          return;
-        }
-      } catch (e) {}
-
-      statusDiv.innerHTML = '✓ 資料已與雲端同步！若學校甫新增月份或分頁，請在電腦中執行「一鍵更新與發布全站.bat」全自動抓取並推播最新試算表。';
+        if (!res.ok) throw new Error('雲端伺服器回應異常 (HTTP ' + res.status + ')');
+        const fresh = await res.json();
+        currentData = fresh;
+        localStorage.setItem('clvsc_115_1_scores', JSON.stringify(fresh));
+        const timeStr = fresh.updatedAt ? new Date(fresh.updatedAt).toLocaleString('zh-TW') : '';
+        const monthsStr = (fresh.months && fresh.months.length > 0) ? '，涵蓋 ' + fresh.months.join('、') : '';
+        statusDiv.className = 'text-xs p-2.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-900 font-mono';
+        statusDiv.innerHTML = '✓ 成功同步最新評比數據！(共收錄 ' + fresh.totalDays + ' 天評分' + monthsStr + '，最後更新: ' + timeStr + ')，正在刷新畫面...';
+        setTimeout(() => { closeSyncModal(); initUI(); }, 900);
+        return;
+      } catch (e) {
+        statusDiv.className = 'text-xs p-2.5 rounded-lg bg-rose-50 border border-rose-300 text-rose-900 font-mono';
+        statusDiv.innerHTML = '❌ 同步失敗: ' + (e.message || '無法連線到雲端資料庫') + '。<br>提示：若學校剛剛發布新月份試算表，請在電腦中雙擊執行「一鍵更新與發布全站.bat」，系統將全自動爬取學校試算表並推播至雲端！';
+      }
     }
 
     function handleFileDrop(file) {
