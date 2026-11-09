@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/9 下午2:50:45</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/9 下午3:03:24</span>
       </div>
     </div>
   </div>
@@ -122,6 +122,14 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
           匯出 CSV
+        </button>
+
+        <button id="btn-open-excel-modal" class="inline-flex items-center px-3.5 py-2 rounded-lg text-sm font-semibold text-emerald-800 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:border-emerald-400 transition shadow-sm active:scale-95">
+          <svg class="w-4 h-4 mr-1.5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+            <path d="M8 12h8v2H8zm0 4h8v2H8zm0-8h4v2H8z"/>
+          </svg>
+          匯出榮譽競賽 Excel
         </button>
       </div>
     </div>
@@ -289,9 +297,17 @@
           <span class="text-lg">🏆</span>
           <span id="honor-title" class="text-slate-900 font-extrabold text-base">第 2-3 週 雙週結算年級優勝榮譽榜 (1~6名)</span>
         </h2>
-        <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full" id="honor-days-badge">
-          評比日數：10 天 (滿分 20 分)
-        </span>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full" id="honor-days-badge">
+            評比日數：10 天 (滿分 20 分)
+          </span>
+          <button id="btn-quick-download-excel" class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 hover:shadow-sm transition active:scale-95" title="依照學校格式匯出生活榮譽競賽(秩序) Excel 試算表">
+            <svg class="w-3.5 h-3.5 mr-1 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <span>一鍵匯出本期 Excel 榮譽榜</span>
+          </button>
+        </div>
       </div>
 
       <!-- 3 Grade Podium Columns -->
@@ -486,6 +502,99 @@
 
       <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
         <button id="btn-cancel-sync" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-200 transition">
+          關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Export Honor Competition Excel -->
+  <div id="excel-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-5 bg-gradient-to-r from-emerald-700 to-teal-700 text-white flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-bold">生活榮譽競賽(秩序) Excel 試算表產生器</h3>
+            <p class="text-xs text-emerald-100">依據實際評分與同分同名次規則，自動產出學校標準格式 Excel</p>
+          </div>
+        </div>
+        <button id="btn-close-excel-modal" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">✕</button>
+      </div>
+
+      <div class="p-5 space-y-4 text-xs">
+        <!-- Preview info badge -->
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-800 text-xs flex items-center space-x-1.5">
+              <span>📋</span><span>產生格式預覽（符合學校陳核與公告標準表格）：</span>
+            </span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">標準格式</span>
+          </div>
+          <div class="p-2.5 bg-white rounded border border-slate-200 font-mono text-[11px] text-slate-600 overflow-x-auto leading-relaxed">
+            <div class="text-slate-800 font-bold">B1: 生活榮譽競賽(秩序)</div>
+            <div>A2: 週次： | B2: 週次 | C2: <span id="excel-preview-week" class="text-indigo-600 font-bold">8.9</span></div>
+            <div>A3: 一年級 | B3: 一年級 | 第一名 112 | 第一名 214 | 第一名 711 | 第四名 613...</div>
+            <div>A4: 二年級 | B4: 二年級 | 第一名 222 | 第一名 622 | 第三名 123 | 第四名 225...</div>
+            <div>A5: 三年級 | B5: 三年級 | 第一名 131 | 第一名 233 | 第一名 234 | 第四名 232...</div>
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <!-- Option 1: Active Period -->
+          <button id="btn-export-active-excel" class="w-full p-3.5 rounded-xl border border-emerald-300 bg-emerald-50/70 hover:bg-emerald-100/80 text-left transition flex items-center justify-between group">
+            <div class="space-y-1">
+              <div class="font-bold text-emerald-900 text-sm flex items-center space-x-2">
+                <span>📥</span>
+                <span id="export-active-title">下載當前結算 Excel (如第 8.9 週)</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-200 text-emerald-900">推薦</span>
+              </div>
+              <p class="text-slate-600 text-[11px]">產出目前所選週次之單一結算表，格式與附圖完全一致</p>
+            </div>
+            <span class="text-emerald-700 font-bold text-xs group-hover:translate-x-1 transition-transform">下載 →</span>
+          </button>
+
+          <!-- Option 2: All Bi-weeks stacked -->
+          <button id="btn-export-all-excel" class="w-full p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/50 hover:bg-indigo-100/70 text-left transition flex items-center justify-between group">
+            <div class="space-y-1">
+              <div class="font-bold text-indigo-950 text-sm flex items-center space-x-2">
+                <span>📚</span>
+                <span>下載全學期各雙週總表 Excel (全週次向下堆疊)</span>
+              </div>
+              <p class="text-slate-600 text-[11px]">將第 2-3、4-5、6-7、8-9、10-11 週依序向下排列於同一工作表中</p>
+            </div>
+            <span class="text-indigo-700 font-bold text-xs group-hover:translate-x-1 transition-transform">下載 →</span>
+          </button>
+
+          <!-- Option 3: Full multi-sheet workbook -->
+          <button id="btn-export-workbook-excel" class="w-full p-3.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition flex items-center justify-between group">
+            <div class="space-y-1">
+              <div class="font-bold text-slate-800 text-sm flex items-center space-x-2">
+                <span>📑</span>
+                <span>下載完整多工作表 Excel 活頁簿 (含全部項目)</span>
+              </div>
+              <p class="text-slate-600 text-[11px]">包含「當前結算」、「全學期雙週總表」、「期末總成績結算」等多個工作表分頁</p>
+            </div>
+            <span class="text-slate-700 font-bold text-xs group-hover:translate-x-1 transition-transform">下載 →</span>
+          </button>
+
+          <!-- Option 4: Term summary -->
+          <button id="btn-export-term-excel" class="w-full p-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-left transition flex items-center justify-between text-slate-700">
+            <div class="flex items-center space-x-2">
+              <span>🏆</span>
+              <span class="font-bold text-xs">僅下載期末總成績結算 Excel (全學期 1~6名)</span>
+            </div>
+            <span class="text-slate-500 font-bold text-xs">下載 →</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end">
+        <button id="btn-cancel-excel-modal" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-200 transition">
           關閉
         </button>
       </div>
@@ -1316,6 +1425,200 @@
       URL.revokeObjectURL(url);
     }
 
+    // --- 生活榮譽競賽(秩序) Excel 試算表產生與匯出功能 ---
+    function getChineseRank(rank) {
+      const map = { 1: '第一名', 2: '第二名', 3: '第三名', 4: '第四名', 5: '第五名', 6: '第六名', 7: '第七名', 8: '第八名' };
+      return map[rank] || ('第' + rank + '名');
+    }
+
+    function getAwardedClasses(classesInGrade) {
+      const sorted = [...classesInGrade].sort((a, b) => a.rank - b.rank || b.totalScore - a.totalScore || a.classCode.localeCompare(b.classCode));
+      const rankGroups = [];
+      for (const c of sorted) {
+        if (c.rank > 6) continue;
+        let grp = rankGroups.find(g => g.rank === c.rank);
+        if (!grp) {
+          grp = { rank: c.rank, classes: [] };
+          rankGroups.push(grp);
+        }
+        grp.classes.push(c);
+      }
+
+      const result = [];
+      for (const grp of rankGroups) {
+        if (result.length + grp.classes.length <= 6) {
+          result.push(...grp.classes);
+        } else {
+          if (result.length === 0) {
+            result.push(...grp.classes);
+          }
+          break;
+        }
+      }
+      return result;
+    }
+
+    function buildPeriodRows(period, isFirst) {
+      const weekStr = period.weeks ? period.weeks.join('.') : (period.weekNum ? String(period.weekNum) : '全學期');
+      const rows = [];
+      if (isFirst) {
+        rows.push(['週次：', '週次', weekStr]);
+      } else {
+        rows.push(['', '週次', weekStr]);
+      }
+
+      const gradeNames = ['一年級', '二年級', '三年級'];
+      for (let g = 1; g <= 3; g++) {
+        const gName = gradeNames[g - 1];
+        const row = [gName, gName];
+        const gradeClasses = Object.values(period.classes || {}).filter(c => c.grade === g);
+        const awarded = getAwardedClasses(gradeClasses);
+        
+        awarded.forEach(c => {
+          row.push(getChineseRank(c.rank));
+          row.push(c.classCode);
+        });
+        
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function createStyledSheet(aoaData) {
+      const ws = XLSX.utils.aoa_to_sheet(aoaData);
+      ws['!cols'] = [
+        { wch: 10 }, { wch: 10 },
+        { wch: 9 },  { wch: 8 },
+        { wch: 9 },  { wch: 8 },
+        { wch: 9 },  { wch: 8 },
+        { wch: 9 },  { wch: 8 },
+        { wch: 9 },  { wch: 8 },
+        { wch: 9 },  { wch: 8 }
+      ];
+      return ws;
+    }
+
+    function getActivePeriodInfo() {
+      if (currentMode === 'biweek') {
+        const bw = (currentData.biWeeklyData && currentData.biWeeklyData[selectedBiWeek]) || {};
+        const weekLabel = bw.weeks ? bw.weeks.join('.') : '雙週';
+        return {
+          title: '第 ' + weekLabel + ' 週 雙週結算',
+          weekLabel: weekLabel,
+          period: bw
+        };
+      } else if (currentMode === 'term') {
+        const termClasses = {};
+        for (const [code, t] of Object.entries(currentData.termSummary || {})) {
+          termClasses[code] = { ...t, rank: t.overallRank };
+        }
+        return {
+          title: '全學期期末總成績結算',
+          weekLabel: '全學期',
+          period: { weeks: ['全學期'], classes: termClasses }
+        };
+      } else {
+        const sw = (currentData.weeklyData && currentData.weeklyData[selectedSingleWeek]) || {};
+        return {
+          title: '第 ' + selectedSingleWeek + ' 週 單週評比',
+          weekLabel: String(selectedSingleWeek),
+          period: { weekNum: selectedSingleWeek, classes: sw.classes || {} }
+        };
+      }
+    }
+
+    function exportHonorExcel(actionType) {
+      if (typeof XLSX === 'undefined') {
+        alert('SheetJS (XLSX) 函式庫尚未載入完成，請稍候重試或檢查網路連線。');
+        return;
+      }
+
+      const activeInfo = getActivePeriodInfo();
+
+      if (actionType === 'active') {
+        const aoa = [
+          ['', '生活榮譽競賽(秩序)'],
+          ...buildPeriodRows(activeInfo.period, true)
+        ];
+        const wb = XLSX.utils.book_new();
+        const ws = createStyledSheet(aoa);
+        XLSX.utils.book_append_sheet(wb, ws, '生活榮譽競賽(秩序)');
+        XLSX.writeFile(wb, `生活榮譽競賽(秩序)_第${activeInfo.weekLabel}週.xlsx`);
+      } else if (actionType === 'all_biweeks') {
+        const aoa = [['', '生活榮譽競賽(秩序)']];
+        const allBw = (currentData.biWeeklyList || []).map(item => currentData.biWeeklyData[item.id]).filter(Boolean);
+        allBw.forEach((bw, idx) => {
+          aoa.push(...buildPeriodRows(bw, idx === 0));
+        });
+        const wb = XLSX.utils.book_new();
+        const ws = createStyledSheet(aoa);
+        XLSX.utils.book_append_sheet(wb, ws, '生活榮譽競賽(秩序)');
+        XLSX.writeFile(wb, '生活榮譽競賽(秩序)_全學期各雙週總表.xlsx');
+      } else if (actionType === 'term') {
+        const termClasses = {};
+        for (const [code, t] of Object.entries(currentData.termSummary || {})) {
+          termClasses[code] = { ...t, rank: t.overallRank };
+        }
+        const termPeriod = { weeks: ['全學期'], classes: termClasses };
+        const aoa = [
+          ['', '生活榮譽競賽(秩序)'],
+          ...buildPeriodRows(termPeriod, true)
+        ];
+        const wb = XLSX.utils.book_new();
+        const ws = createStyledSheet(aoa);
+        XLSX.utils.book_append_sheet(wb, ws, '生活榮譽競賽(秩序)');
+        XLSX.writeFile(wb, '生活榮譽競賽(秩序)_期末總成績結算.xlsx');
+      } else if (actionType === 'workbook') {
+        const wb = XLSX.utils.book_new();
+        
+        // Sheet 1: 當前檢視期
+        const aoaActive = [
+          ['', '生活榮譽競賽(秩序)'],
+          ...buildPeriodRows(activeInfo.period, true)
+        ];
+        XLSX.utils.book_append_sheet(wb, createStyledSheet(aoaActive), '當期榮譽榜');
+
+        // Sheet 2: 全學期雙週總表
+        const aoaAll = [['', '生活榮譽競賽(秩序)']];
+        const allBw = (currentData.biWeeklyList || []).map(item => currentData.biWeeklyData[item.id]).filter(Boolean);
+        allBw.forEach((bw, idx) => {
+          aoaAll.push(...buildPeriodRows(bw, idx === 0));
+        });
+        XLSX.utils.book_append_sheet(wb, createStyledSheet(aoaAll), '全學期各雙週總表');
+
+        // Sheet 3: 期末總結算
+        const termClasses = {};
+        for (const [code, t] of Object.entries(currentData.termSummary || {})) {
+          termClasses[code] = { ...t, rank: t.overallRank };
+        }
+        const aoaTerm = [
+          ['', '生活榮譽競賽(秩序)'],
+          ...buildPeriodRows({ weeks: ['全學期'], classes: termClasses }, true)
+        ];
+        XLSX.utils.book_append_sheet(wb, createStyledSheet(aoaTerm), '期末總結算');
+
+        XLSX.writeFile(wb, '生活榮譽競賽(秩序)_完整榮譽榜活頁簿.xlsx');
+      }
+    }
+
+    function openExcelModal() {
+      const activeInfo = getActivePeriodInfo();
+      const previewWeekEl = document.getElementById('excel-preview-week');
+      if (previewWeekEl) previewWeekEl.textContent = activeInfo.weekLabel;
+      const activeTitleEl = document.getElementById('export-active-title');
+      if (activeTitleEl) activeTitleEl.textContent = `下載當前結算 Excel (${activeInfo.title})`;
+
+      const modal = document.getElementById('excel-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeExcelModal() {
+      const modal = document.getElementById('excel-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
     window.resetFilters = function() {
       selectedGrade = 'all';
       selectedDept = 'all';
@@ -1433,6 +1736,32 @@
       };
 
       document.getElementById('btn-export-csv').onclick = exportToCSV;
+
+      // Excel Export Modal & Direct Download bindings
+      document.getElementById('btn-open-excel-modal').onclick = openExcelModal;
+      document.getElementById('btn-quick-download-excel').onclick = () => exportHonorExcel('active');
+      document.getElementById('btn-close-excel-modal').onclick = closeExcelModal;
+      document.getElementById('btn-cancel-excel-modal').onclick = closeExcelModal;
+      document.getElementById('excel-modal').onclick = (e) => {
+        if (e.target.id === 'excel-modal') closeExcelModal();
+      };
+
+      document.getElementById('btn-export-active-excel').onclick = () => {
+        exportHonorExcel('active');
+        closeExcelModal();
+      };
+      document.getElementById('btn-export-all-excel').onclick = () => {
+        exportHonorExcel('all_biweeks');
+        closeExcelModal();
+      };
+      document.getElementById('btn-export-workbook-excel').onclick = () => {
+        exportHonorExcel('workbook');
+        closeExcelModal();
+      };
+      document.getElementById('btn-export-term-excel').onclick = () => {
+        exportHonorExcel('term');
+        closeExcelModal();
+      };
     }
 
     window.addEventListener('DOMContentLoaded', initUI);
