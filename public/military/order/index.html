@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/9 下午1:38:22</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/9 下午1:52:53</span>
       </div>
     </div>
   </div>
@@ -1209,14 +1209,32 @@
         const cWeek = currentData.weeklyData[w].classes[code];
         if (cWeek && cWeek.dailyDetails) allDays.push(...cWeek.dailyDetails);
       }
-      allDays.forEach(d => {
+            allDays.forEach(d => {
         const isPerfect = d.score >= 2;
         const div = document.createElement('div');
         div.className = `p-1.5 rounded-lg text-center border ${isPerfect ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-300 text-rose-900'}`;
+
+        let subText = '✓滿分';
+        let tipText = '滿分 (2.0分)';
+        if (!isPerfect) {
+          const deduction = 2 - d.score;
+          const dedStr = (deduction % 1 === 0 ? deduction.toFixed(0) : deduction.toFixed(1));
+          if (d.reason && d.reason.trim()) {
+            subText = d.reason.trim();
+            tipText = `扣 ${dedStr} 分: ${d.reason.trim()}`;
+          } else {
+            subText = `扣${dedStr}分`;
+            tipText = `得分 ${d.score.toFixed(1)} 分 (扣 ${dedStr} 分，未註記事由)`;
+          }
+        } else if (d.reason && d.reason.trim()) {
+          subText = d.reason.trim();
+          tipText = `滿分 (2.0分) - ${d.reason.trim()}`;
+        }
+
         div.innerHTML = `
           <div class="text-[9px] text-slate-500">${d.date.slice(5)}</div>
           <div class="font-extrabold text-xs my-0.5 ${isPerfect ? 'text-emerald-700' : 'text-rose-600'}">${d.score.toFixed(1)}</div>
-          <div class="text-[8px] truncate" title="${d.reason || '滿分'}">${d.reason || '✓滿分'}</div>
+          <div class="text-[8px] truncate" title="${tipText}">${subText}</div>
         `;
         grid.appendChild(div);
       });
