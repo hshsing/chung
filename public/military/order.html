@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/19 上午11:29:47</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/19 上午11:40:05</span>
       </div>
     </div>
   </div>
@@ -615,15 +615,15 @@
 
       <!-- Body -->
       <div class="p-5 space-y-4 text-xs overflow-y-auto flex-1">
-        <!-- Mode Switcher: Broadcast vs LINE -->
+        <!-- Mode Switcher: LINE vs Broadcast -->
         <div class="flex items-center justify-between p-1 bg-slate-100 rounded-xl">
-          <button id="btn-anno-mode-broadcast" class="flex-1 py-2 rounded-lg font-bold text-center transition bg-white text-amber-800 shadow-sm flex items-center justify-center space-x-1.5">
+          <button id="btn-anno-mode-line" class="flex-1 py-2 rounded-lg font-bold text-center transition bg-white text-amber-800 shadow-sm flex items-center justify-center space-x-1.5">
+            <span>💬</span>
+            <span>班長 / 導師 LINE 群組通報</span>
+          </button>
+          <button id="btn-anno-mode-broadcast" class="flex-1 py-2 rounded-lg font-bold text-center transition text-slate-600 hover:text-slate-900 flex items-center justify-center space-x-1.5">
             <span>📢</span>
             <span>校園現場廣播稿（口播詞）</span>
-          </button>
-          <button id="btn-anno-mode-line" class="flex-1 py-2 rounded-lg font-bold text-center transition text-slate-600 hover:text-slate-900 flex items-center justify-center space-x-1.5">
-            <span>💬</span>
-            <span>導師 / 幹部 LINE 群組通報</span>
           </button>
         </div>
 
@@ -631,15 +631,15 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 bg-amber-50/60 rounded-xl border border-amber-200/80">
           <div>
             <label class="block font-bold text-amber-950 mb-1">📍 集合地點</label>
-            <input type="text" id="anno-input-location" value="司令台前方（依年級排隊就位）" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <input type="text" id="anno-input-location" value="司令台前方跑道（依年級排隊就位）" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
           </div>
           <div>
             <label class="block font-bold text-amber-950 mb-1">⏰ 集合時間</label>
-            <input type="text" id="anno-input-time" value="明日升旗朝會廣播時立即就位" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <input type="text" id="anno-input-time" value="11/20(五)12:30" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
           </div>
           <div>
             <label class="block font-bold text-amber-950 mb-1">👔 受獎代表</label>
-            <input type="text" id="anno-input-rep" value="各得獎班級班長或受獎幹部" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <input type="text" id="anno-input-rep" value="各得獎班級班長" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
           </div>
         </div>
 
@@ -1679,7 +1679,7 @@
       modal.classList.remove('flex');
     }
 
-    let announcementMode = 'broadcast';
+    let announcementMode = 'line';
 
     function getGradeWinners(g) {
       let classes = {};
@@ -1700,16 +1700,32 @@
 
     function renderAnnouncementText() {
       const activeInfo = getActivePeriodInfo();
-      const location = (document.getElementById('anno-input-location').value || '司令台前方').trim();
-      const time = (document.getElementById('anno-input-time').value || '明日升旗朝會廣播時立即就位').trim();
-      const rep = (document.getElementById('anno-input-rep').value || '各得獎班級班長或受獎幹部').trim();
+      const location = (document.getElementById('anno-input-location').value || '司令台前方跑道（依年級排隊就位）').trim();
+      const time = (document.getElementById('anno-input-time').value || '11/20(五)12:30').trim();
+      const rep = (document.getElementById('anno-input-rep').value || '各得獎班級班長').trim();
 
       const g1Winners = getGradeWinners(1);
       const g2Winners = getGradeWinners(2);
       const g3Winners = getGradeWinners(3);
 
+      const periodLabel = activeInfo.weekLabel === '全學期' ? '全學期' : '第 ' + activeInfo.weekLabel + ' 週 ';
+
       let text = '';
-      if (announcementMode === 'broadcast') {
+      if (announcementMode === 'line') {
+        const fmt = list => list.length ? list.map(c => getChineseRank(c.rank) + ' ' + c.classCode).join('、') : '（無）';
+        text = '📢【中壢高商 115-1 生活榮譽競賽・' + activeInfo.title + ' 頒獎通報】\n' +
+               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+               '各位班長好：\n' +
+               '本校【' + periodLabel + '】生活常規秩序評比優勝班級已結算完畢，恭喜以下得獎班級：\n' +
+               '🏆【一年級得獎班級】：\n  ' + fmt(g1Winners) + '\n' +
+               '🏆【二年級得獎班級】：\n  ' + fmt(g2Winners) + '\n' +
+               '🏆【三年級得獎班級】：\n  ' + fmt(g3Winners) + '\n\n' +
+               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+               '📍 集合地點：' + location + '\n' +
+               '⏰ 集合時間：' + time + '\n' +
+               '👔 受獎代表：請各得獎班級【' + rep + '】穿著整齊校服。\n\n' +
+               '～ 學務處 生輔組 敬啟 ～';
+      } else {
         const fmt = list => list.length ? list.map(c => getChineseRank(c.rank) + ' ' + c.classCode + ' 班').join('、') : '（無）';
         text = '【學務處生輔組 司令台領獎現場廣播口播詞】\n' +
                '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
@@ -1720,21 +1736,6 @@
                '【三年級優勝】：' + fmt(g3Winners) + '\n\n' +
                '請以上得獎班級的【' + rep + '】，聽到廣播後，請立即至【' + location + '】依年級名次集合整隊，準備接受全校公開表揚與頒獎。\n' +
                '（重複廣播一次：請以上得獎班級代表立即至司令台集合整隊。）';
-      } else {
-        const fmt = list => list.length ? list.map(c => getChineseRank(c.rank) + ' ' + c.classCode).join('、') : '（無）';
-        text = '📢【中壢高商 115-1 生活榮譽競賽・' + activeInfo.title + ' 頒獎通報】\n' +
-               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-               '各位導師、班長及受獎幹部好：\n' +
-               '本校【' + activeInfo.title + '】生活常規秩序評比優勝班級已結算完畢，恭喜以下表現優異班級榮獲表揚：\n\n' +
-               '🏆【一年級得獎班級】：\n  ' + fmt(g1Winners) + '\n' +
-               '🏆【二年級得獎班級】：\n  ' + fmt(g2Winners) + '\n' +
-               '🏆【三年級得獎班級】：\n  ' + fmt(g3Winners) + '\n\n' +
-               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-               '📍 集合地點：' + location + '\n' +
-               '⏰ 集合時間：' + time + '\n' +
-               '👔 受獎代表：請各得獎班級【' + rep + '】穿著整齊校服至司令台集合整隊受獎。\n\n' +
-               '感謝各位導師的悉心督導與全體同學的共同維護！\n' +
-               '～ 學務處 生輔組 敬啟 ～';
       }
 
       const textarea = document.getElementById('announcement-textarea');
