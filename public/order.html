@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/13 下午4:31:05</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/19 上午11:29:47</span>
       </div>
     </div>
   </div>
@@ -116,6 +116,11 @@
             <path d="M8 12h8v2H8zm0 4h8v2H8zm0-8h4v2H8z"/>
           </svg>
           匯出榮譽競賽 Excel
+        </button>
+
+        <button id="btn-open-announcement-modal" class="inline-flex items-center px-3.5 py-2 rounded-lg text-sm font-semibold text-amber-900 bg-amber-50 border border-amber-300 hover:bg-amber-100 hover:border-amber-400 transition shadow-sm active:scale-95">
+          <span class="mr-1.5 text-base">📢</span>
+          <span>司令台領獎通報</span>
         </button>
       </div>
     </div>
@@ -292,6 +297,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <span>一鍵匯出本期 Excel 榮譽榜</span>
+          </button>
+          <button id="btn-quick-open-announcement" class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 hover:bg-amber-100 hover:shadow-sm transition active:scale-95" title="產生司令台集合與領獎通知廣播/LINE訊息">
+            <span class="mr-1 text-xs">📢</span>
+            <span>產生領獎通報</span>
           </button>
         </div>
       </div>
@@ -583,6 +592,86 @@
         <button id="btn-cancel-excel-modal" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-200 transition">
           關閉
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Award Announcement & Stage Assembly Generator -->
+  <div id="announcement-modal" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Header -->
+      <div class="p-5 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-xl">
+            📢
+          </div>
+          <div>
+            <h3 class="text-base font-bold">司令台集合・領獎通報產生器</h3>
+            <p class="text-xs text-amber-100" id="announcement-modal-subtitle">自動生成雙週秩序評比優勝班級領獎廣播詞與導師群組通知</p>
+          </div>
+        </div>
+        <button id="btn-close-announcement-modal" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">✕</button>
+      </div>
+
+      <!-- Body -->
+      <div class="p-5 space-y-4 text-xs overflow-y-auto flex-1">
+        <!-- Mode Switcher: Broadcast vs LINE -->
+        <div class="flex items-center justify-between p-1 bg-slate-100 rounded-xl">
+          <button id="btn-anno-mode-broadcast" class="flex-1 py-2 rounded-lg font-bold text-center transition bg-white text-amber-800 shadow-sm flex items-center justify-center space-x-1.5">
+            <span>📢</span>
+            <span>校園現場廣播稿（口播詞）</span>
+          </button>
+          <button id="btn-anno-mode-line" class="flex-1 py-2 rounded-lg font-bold text-center transition text-slate-600 hover:text-slate-900 flex items-center justify-center space-x-1.5">
+            <span>💬</span>
+            <span>導師 / 幹部 LINE 群組通報</span>
+          </button>
+        </div>
+
+        <!-- Customizable Settings Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 bg-amber-50/60 rounded-xl border border-amber-200/80">
+          <div>
+            <label class="block font-bold text-amber-950 mb-1">📍 集合地點</label>
+            <input type="text" id="anno-input-location" value="司令台前方（依年級排隊就位）" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+          <div>
+            <label class="block font-bold text-amber-950 mb-1">⏰ 集合時間</label>
+            <input type="text" id="anno-input-time" value="明日升旗朝會廣播時立即就位" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+          <div>
+            <label class="block font-bold text-amber-950 mb-1">👔 受獎代表</label>
+            <input type="text" id="anno-input-rep" value="各得獎班級班長或受獎幹部" class="w-full bg-white border border-amber-300 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500">
+          </div>
+        </div>
+
+        <!-- Generated Text Area -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-700 text-xs flex items-center space-x-1">
+              <span>📝</span>
+              <span>即時生成通報文字（可直接編輯或點右下角一鍵複製）：</span>
+            </span>
+            <span class="text-[11px] text-slate-500 font-mono" id="anno-text-length"></span>
+          </div>
+          <textarea id="announcement-textarea" rows="10" class="w-full p-3.5 rounded-xl border border-slate-300 font-sans text-xs text-slate-800 leading-relaxed focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-50/50 resize-y"></textarea>
+        </div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+        <div id="anno-copy-toast" class="hidden text-xs font-bold text-emerald-700 flex items-center space-x-1">
+          <span>✓</span><span>已成功複製至剪貼簿！可直接貼至 LINE 或廣播使用。</span>
+        </div>
+        <div class="flex items-center space-x-2 ml-auto">
+          <button id="btn-cancel-announcement-modal" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-200 transition">
+            關閉
+          </button>
+          <button id="btn-copy-announcement" class="px-5 py-2 rounded-lg text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-sm hover:shadow flex items-center space-x-1.5 active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+            </svg>
+            <span>一鍵複製通報文字</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1590,6 +1679,103 @@
       modal.classList.remove('flex');
     }
 
+    let announcementMode = 'broadcast';
+
+    function getGradeWinners(g) {
+      let classes = {};
+      if (currentMode === 'biweek') {
+        const bw = (currentData.biWeeklyData && currentData.biWeeklyData[selectedBiWeek]) || {};
+        classes = bw.classes || {};
+      } else if (currentMode === 'term') {
+        for (const [code, t] of Object.entries(currentData.termSummary || {})) {
+          classes[code] = { ...t, rank: t.overallRank };
+        }
+      } else {
+        const sw = (currentData.weeklyData && currentData.weeklyData[selectedSingleWeek]) || {};
+        classes = sw.classes || {};
+      }
+      const gClasses = Object.values(classes).filter(c => c.grade === g);
+      return getAwardedClasses(gClasses);
+    }
+
+    function renderAnnouncementText() {
+      const activeInfo = getActivePeriodInfo();
+      const location = (document.getElementById('anno-input-location').value || '司令台前方').trim();
+      const time = (document.getElementById('anno-input-time').value || '明日升旗朝會廣播時立即就位').trim();
+      const rep = (document.getElementById('anno-input-rep').value || '各得獎班級班長或受獎幹部').trim();
+
+      const g1Winners = getGradeWinners(1);
+      const g2Winners = getGradeWinners(2);
+      const g3Winners = getGradeWinners(3);
+
+      let text = '';
+      if (announcementMode === 'broadcast') {
+        const fmt = list => list.length ? list.map(c => getChineseRank(c.rank) + ' ' + c.classCode + ' 班').join('、') : '（無）';
+        text = '【學務處生輔組 司令台領獎現場廣播口播詞】\n' +
+               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+               '現在進行全校生活常規秩序競賽表揚廣播。\n' +
+               '恭喜以下榮獲【' + activeInfo.title + '】優勝之受獎班級：\n\n' +
+               '【一年級優勝】：' + fmt(g1Winners) + '\n' +
+               '【二年級優勝】：' + fmt(g2Winners) + '\n' +
+               '【三年級優勝】：' + fmt(g3Winners) + '\n\n' +
+               '請以上得獎班級的【' + rep + '】，聽到廣播後，請立即至【' + location + '】依年級名次集合整隊，準備接受全校公開表揚與頒獎。\n' +
+               '（重複廣播一次：請以上得獎班級代表立即至司令台集合整隊。）';
+      } else {
+        const fmt = list => list.length ? list.map(c => getChineseRank(c.rank) + ' ' + c.classCode).join('、') : '（無）';
+        text = '📢【中壢高商 115-1 生活榮譽競賽・' + activeInfo.title + ' 頒獎通報】\n' +
+               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+               '各位導師、班長及受獎幹部好：\n' +
+               '本校【' + activeInfo.title + '】生活常規秩序評比優勝班級已結算完畢，恭喜以下表現優異班級榮獲表揚：\n\n' +
+               '🏆【一年級得獎班級】：\n  ' + fmt(g1Winners) + '\n' +
+               '🏆【二年級得獎班級】：\n  ' + fmt(g2Winners) + '\n' +
+               '🏆【三年級得獎班級】：\n  ' + fmt(g3Winners) + '\n\n' +
+               '━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+               '📍 集合地點：' + location + '\n' +
+               '⏰ 集合時間：' + time + '\n' +
+               '👔 受獎代表：請各得獎班級【' + rep + '】穿著整齊校服至司令台集合整隊受獎。\n\n' +
+               '感謝各位導師的悉心督導與全體同學的共同維護！\n' +
+               '～ 學務處 生輔組 敬啟 ～';
+      }
+
+      const textarea = document.getElementById('announcement-textarea');
+      if (textarea) textarea.value = text;
+      const lenEl = document.getElementById('anno-text-length');
+      if (lenEl) lenEl.textContent = '共 ' + text.length + ' 字';
+    }
+
+    function openAnnouncementModal() {
+      const activeInfo = getActivePeriodInfo();
+      const subTitleEl = document.getElementById('announcement-modal-subtitle');
+      if (subTitleEl) subTitleEl.textContent = '當前結算：' + activeInfo.title + '・已自動擷取各年級 1~6 名優勝班級';
+      const toast = document.getElementById('anno-copy-toast');
+      if (toast) toast.classList.add('hidden');
+      renderAnnouncementText();
+      const modal = document.getElementById('announcement-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAnnouncementModal() {
+      const modal = document.getElementById('announcement-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function copyAnnouncementText() {
+      const textarea = document.getElementById('announcement-textarea');
+      if (!textarea) return;
+      textarea.select();
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        const toast = document.getElementById('anno-copy-toast');
+        if (toast) {
+          toast.classList.remove('hidden');
+          setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+        }
+      }).catch(() => {
+        alert('複製失敗，請手動全選文字進行複製。');
+      });
+    }
+
     window.resetFilters = function() {
       selectedGrade = 'all';
       selectedDept = 'all';
@@ -1731,6 +1917,44 @@
         exportHonorExcel('term');
         closeExcelModal();
       };
+
+      // Announcement Modal bindings
+      document.getElementById('btn-open-announcement-modal').onclick = openAnnouncementModal;
+      const quickAnnoBtn = document.getElementById('btn-quick-open-announcement');
+      if (quickAnnoBtn) quickAnnoBtn.onclick = openAnnouncementModal;
+      document.getElementById('btn-close-announcement-modal').onclick = closeAnnouncementModal;
+      document.getElementById('btn-cancel-announcement-modal').onclick = closeAnnouncementModal;
+      document.getElementById('announcement-modal').onclick = (e) => {
+        if (e.target.id === 'announcement-modal') closeAnnouncementModal();
+      };
+
+      const btnModeBroadcast = document.getElementById('btn-anno-mode-broadcast');
+      const btnModeLine = document.getElementById('btn-anno-mode-line');
+
+      btnModeBroadcast.onclick = () => {
+        announcementMode = 'broadcast';
+        btnModeBroadcast.classList.add('bg-white', 'text-amber-800', 'shadow-sm');
+        btnModeBroadcast.classList.remove('text-slate-600', 'hover:text-slate-900');
+        btnModeLine.classList.remove('bg-white', 'text-amber-800', 'shadow-sm');
+        btnModeLine.classList.add('text-slate-600', 'hover:text-slate-900');
+        renderAnnouncementText();
+      };
+
+      btnModeLine.onclick = () => {
+        announcementMode = 'line';
+        btnModeLine.classList.add('bg-white', 'text-amber-800', 'shadow-sm');
+        btnModeLine.classList.remove('text-slate-600', 'hover:text-slate-900');
+        btnModeBroadcast.classList.remove('bg-white', 'text-amber-800', 'shadow-sm');
+        btnModeBroadcast.classList.add('text-slate-600', 'hover:text-slate-900');
+        renderAnnouncementText();
+      };
+
+      ['anno-input-location', 'anno-input-time', 'anno-input-rep'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', renderAnnouncementText);
+      });
+
+      document.getElementById('btn-copy-announcement').onclick = copyAnnouncementText;
     }
 
     window.addEventListener('DOMContentLoaded', initUI);
