@@ -48,23 +48,26 @@
             <h1 class="text-xl font-extrabold tracking-tight text-slate-900">中壢高商 生輔組・教官室</h1>
             <span class="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">115-1 綜合平台</span>
           </div>
-          <p class="text-xs text-slate-500 font-medium">學生生活常規評比 ＆ 值星幹部紀錄管理系統</p>
+          <p class="text-xs text-slate-500 font-medium">學生生活常規評比 ＆ 缺曠預警・值星幹部紀錄管理系統</p>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="flex items-center space-x-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold">
-        <a href="/military" data-nav="home" class="px-3.5 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm flex items-center space-x-1.5">
+      <nav class="flex items-center space-x-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold overflow-x-auto max-w-full">
+        <a href="/military" data-nav="home" class="px-3.5 py-1.5 rounded-lg bg-white text-indigo-700 shadow-sm flex items-center space-x-1.5 whitespace-nowrap">
           <span>🏠</span><span>首頁總覽</span>
         </a>
-        <a href="/military/whiteboard" data-nav="whiteboard" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
+        <a href="/military/whiteboard" data-nav="whiteboard" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5 whitespace-nowrap">
           <span>📋</span><span>小白板未寫統計</span>
         </a>
-        <a href="/military/order" data-nav="order" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
+        <a href="/military/order" data-nav="order" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5 whitespace-nowrap">
           <span>🏆</span><span>秩序成績計算</span>
         </a>
-        <a href="/military/roster" data-nav="roster" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5">
+        <a href="/military/roster" data-nav="roster" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center space-x-1.5 whitespace-nowrap">
           <span>📑</span><span>班級名冊與簽領</span>
+        </a>
+        <a href="/military/warning" data-nav="warning" class="px-3.5 py-1.5 rounded-lg text-rose-700 hover:text-rose-800 transition flex items-center space-x-1.5 whitespace-nowrap">
+          <span>🚨</span><span>缺曠零分預警</span>
         </a>
       </nav>
     </div>
@@ -74,94 +77,90 @@
   <div class="bg-gradient-to-b from-indigo-900 via-indigo-950 to-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 shadow-inner">
     <div class="max-w-5xl mx-auto text-center space-y-3">
       <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 mb-1">
-        生輔業務 雙核心管理看板
+        生輔業務 四核心數位管理看板
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-        學生生活常規評比 ＆ 值星紀錄追蹤平台
+        學生生活常規評比 ＆ 缺曠預警追蹤管理平台
       </h2>
-      <p class="text-sm sm:text-base text-indigo-200 max-w-2xl mx-auto font-normal leading-relaxed">
-        本平台整合「值星幹部小白板填寫追蹤」與「生活常規秩序按週評比」，提供透明的數據分析、雙週結算 1～6 名榮譽榜及重點關懷預警名單。
+      <p class="text-sm sm:text-base text-indigo-200 max-w-3xl mx-auto font-normal leading-relaxed">
+        本平台全面整合「小白板未寫統計」、「秩序成績週計算」、「班級名冊與物資簽領」及「學生缺曠1/3零分預警分析」，提供即時試算表拖曳更換、透明數據分析與跨處室一鍵通報。
       </p>
     </div>
   </div>
 
-  <!-- Main Content: The Two Requested Blocks -->
+  <!-- Main Content: The Four Core System Cards -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 flex-1 space-y-8 pb-12">
 
-    <!-- The 2 Big Feature Block Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+    <!-- The 4 Big Feature Block Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
       <!-- ================= 區塊一：小白板未寫統計 ================= -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
         <div>
           <!-- Card Header Banner -->
-          <div class="p-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
-            <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl font-black select-none pointer-events-none">📋</div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-sm">
+          <div class="p-5 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
+            <div class="absolute -right-3 -bottom-3 opacity-10 text-7xl font-black select-none pointer-events-none">📋</div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-white/20 text-white backdrop-blur-sm">
                 值星幹部填寫追蹤
               </span>
-              <span class="text-xs text-blue-100 font-medium">每週更新</span>
+              <span class="text-[11px] text-blue-100 font-medium">每週更新</span>
             </div>
-            <div class="flex items-center space-x-3">
-              <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shadow-inner">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shadow-inner">
                 📋
               </div>
               <div>
-                <h3 class="text-2xl font-extrabold text-white tracking-tight">小白板未寫紀錄統計</h3>
-                <p class="text-xs text-blue-100 mt-0.5">生輔組・教官室・特勤隊 即時數據看板</p>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">小白板未寫紀錄統計</h3>
+                <p class="text-[11px] text-blue-100">生輔組・教官室 看板</p>
               </div>
             </div>
           </div>
 
           <!-- Card Body Description & KPIs -->
-          <div class="p-6 space-y-5">
-            <p class="text-sm text-slate-600 leading-relaxed">
-              統計全校各班值星幹部小白板未填寫、未繳交紀錄。自動追蹤連續未寫次數，標註累計 ≥ 10 次之重點關懷輔導名單，並提供導師一鍵通報文字。
+          <div class="p-5 space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed min-h-[48px]">
+              統計全校各班值星幹部小白板未填寫、未繳交紀錄。自動追蹤連續未寫次數，標註累計 ≥ 10 次之重點關懷名單。
             </p>
 
             <!-- 4 Quick Stats Badges -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div class="bg-blue-50/70 p-2.5 rounded-xl border border-blue-100 text-center">
-                <span class="text-[11px] font-semibold text-blue-600 block">統計涵蓋</span>
-                <span class="text-lg font-extrabold text-blue-900 number-font">第 2~9 週</span>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-blue-50/70 p-2 rounded-xl border border-blue-100 text-center">
+                <span class="text-[10px] font-semibold text-blue-600 block">統計週次</span>
+                <span class="text-base font-extrabold text-blue-900 number-font">第 2~9 週</span>
               </div>
-              <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-center">
-                <span class="text-[11px] font-semibold text-slate-500 block">受評班級</span>
-                <span class="text-lg font-extrabold text-slate-800 number-font">54 班</span>
+              <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 text-center">
+                <span class="text-[10px] font-semibold text-slate-500 block">受評班級</span>
+                <span class="text-base font-extrabold text-slate-800 number-font">54 班</span>
               </div>
-              <div class="bg-rose-50/80 p-2.5 rounded-xl border border-rose-100 text-center">
-                <span class="text-[11px] font-semibold text-rose-600 block">高關懷(≥10次)</span>
-                <span class="text-lg font-extrabold text-rose-700 number-font">6 班</span>
+              <div class="bg-rose-50/80 p-2 rounded-xl border border-rose-100 text-center">
+                <span class="text-[10px] font-semibold text-rose-600 block">高關懷(≥10次)</span>
+                <span class="text-base font-extrabold text-rose-700 number-font">6 班</span>
               </div>
-              <div class="bg-emerald-50/80 p-2.5 rounded-xl border border-emerald-100 text-center">
-                <span class="text-[11px] font-semibold text-emerald-600 block">全勤模範班</span>
-                <span class="text-lg font-extrabold text-emerald-700 number-font">14 班</span>
+              <div class="bg-emerald-50/80 p-2 rounded-xl border border-emerald-100 text-center">
+                <span class="text-[10px] font-semibold text-emerald-600 block">全勤模範班</span>
+                <span class="text-base font-extrabold text-emerald-700 number-font">14 班</span>
               </div>
             </div>
 
             <!-- Features Bullet Points -->
-            <div class="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
-              <div class="flex items-center space-x-2">
+            <div class="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+              <div class="flex items-center space-x-1.5">
                 <span class="text-blue-500 font-bold">✓</span>
-                <span>即時追蹤各週幹部未送、未寫、遲交紀錄</span>
+                <span>即時追蹤未寫、未送、遲交紀錄</span>
               </div>
-              <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-1.5">
                 <span class="text-blue-500 font-bold">✓</span>
-                <span>自動生成導師、教官通報專用標準文字</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-blue-500 font-bold">✓</span>
-                <span>支援 Excel 檔案拖曳即時解析與離線操作</span>
+                <span>支援 Excel 拖曳即時解析更換</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Card Footer Action -->
-        <div class="p-6 bg-slate-50 border-t border-slate-100">
-          <a href="/military/whiteboard" data-nav="whiteboard" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 transition flex items-center justify-center space-x-2 shadow-md shadow-blue-500/25 active:scale-95 group-hover:bg-blue-700">
-            <span>開啟「小白板未寫統計」看板</span>
+        <div class="p-5 bg-slate-50 border-t border-slate-100">
+          <a href="/military/whiteboard" data-nav="whiteboard" class="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-white bg-blue-600 hover:bg-blue-700 transition flex items-center justify-center space-x-1.5 shadow-md shadow-blue-500/25 active:scale-95 group-hover:bg-blue-700">
+            <span>開啟「小白板未寫統計」</span>
             <span class="transition-transform group-hover:translate-x-1">➔</span>
           </a>
         </div>
@@ -171,237 +170,313 @@
       <div class="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
         <div>
           <!-- Card Header Banner -->
-          <div class="p-6 bg-gradient-to-br from-indigo-700 to-purple-800 text-white relative overflow-hidden">
-            <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl font-black select-none pointer-events-none">🏆</div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-sm">
-                生活榮譽評比・結算系統
+          <div class="p-5 bg-gradient-to-br from-indigo-700 to-purple-800 text-white relative overflow-hidden">
+            <div class="absolute -right-3 -bottom-3 opacity-10 text-7xl font-black select-none pointer-events-none">🏆</div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-white/20 text-white backdrop-blur-sm">
+                雙週 ＆ 期末榮譽榜
               </span>
-              <span class="text-xs text-purple-200 font-medium">每兩週結算 1~6 名</span>
+              <span class="text-[11px] text-purple-200 font-medium">每兩週結算</span>
             </div>
-            <div class="flex items-center space-x-3">
-              <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shadow-inner">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shadow-inner">
                 🏆
               </div>
               <div>
-                <h3 class="text-2xl font-extrabold text-white tracking-tight">秩序成績按週計算系統</h3>
-                <p class="text-xs text-indigo-100 mt-0.5">雙週結算 1~6 名 ＆ 期末總成績榮譽榜</p>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">秩序成績按週計算</h3>
+                <p class="text-[11px] text-indigo-100">生活榮譽評比系統</p>
               </div>
             </div>
           </div>
 
           <!-- Card Body Description & KPIs -->
-          <div class="p-6 space-y-5">
-            <p class="text-sm text-slate-600 leading-relaxed">
-              按校曆週次自動統計每日早自習生活常規秩序分數（滿分 2.0 分）。<strong>每兩週結算一次各年級 1～6 名優勝榮譽榜</strong>，並累計全期 36 天評定<strong>期末總成績 1～6 名特優班級</strong>。
+          <div class="p-5 space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed min-h-[48px]">
+              按週自動統計每日早自習秩序成績，每兩週結算各年級 1～6 名優勝榜，並累積全期 40 天評定特優班級。
             </p>
 
             <!-- 4 Quick Stats Badges -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div class="bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100 text-center">
-                <span class="text-[11px] font-semibold text-indigo-600 block">雙週結算期數</span>
-                <span class="text-lg font-extrabold text-indigo-900 number-font">5 期</span>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-indigo-50/70 p-2 rounded-xl border border-indigo-100 text-center">
+                <span class="text-[10px] font-semibold text-indigo-600 block">結算期數</span>
+                <span class="text-base font-extrabold text-indigo-900 number-font">5 期</span>
               </div>
-              <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-center">
-                <span class="text-[11px] font-semibold text-slate-500 block">評比有效天數</span>
-                <span class="text-lg font-extrabold text-slate-800 number-font">36 天</span>
+              <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 text-center">
+                <span class="text-[10px] font-semibold text-slate-500 block">有效天數</span>
+                <span class="text-base font-extrabold text-slate-800 number-font">40 天</span>
               </div>
-              <div class="bg-amber-50/80 p-2.5 rounded-xl border border-amber-200 text-center">
-                <span class="text-[11px] font-semibold text-amber-700 block">期末滿分特優</span>
-                <span class="text-lg font-extrabold text-amber-800 number-font">4 班</span>
+              <div class="bg-amber-50/80 p-2 rounded-xl border border-amber-200 text-center">
+                <span class="text-[10px] font-semibold text-amber-700 block">期末滿分特優</span>
+                <span class="text-base font-extrabold text-amber-800 number-font">4 班</span>
               </div>
-              <div class="bg-purple-50/80 p-2.5 rounded-xl border border-purple-100 text-center">
-                <span class="text-[11px] font-semibold text-purple-700 block">違規代碼解析</span>
-                <span class="text-lg font-extrabold text-purple-900 number-font">w/t/p</span>
+              <div class="bg-purple-50/80 p-2 rounded-xl border border-purple-100 text-center">
+                <span class="text-[10px] font-semibold text-purple-700 block">違規代碼</span>
+                <span class="text-base font-extrabold text-purple-900 number-font">w/t/p</span>
               </div>
             </div>
 
             <!-- Features Bullet Points -->
-            <div class="space-y-2 text-xs text-slate-600 pt-2 border-t border-slate-100">
-              <div class="flex items-center space-x-2">
+            <div class="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+              <div class="flex items-center space-x-1.5">
                 <span class="text-indigo-600 font-bold">✓</span>
-                <span>每兩週結算一次各年級 1～6 名榮譽榜（第2-3、4-5、6-7、8-9週）</span>
+                <span>雙週結算 1～6 名與期末總排名</span>
               </div>
-              <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-1.5">
                 <span class="text-indigo-600 font-bold">✓</span>
-                <span>完整全學期期末總成績結算（即時追蹤各年級特優滿分榜首）</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-indigo-600 font-bold">✓</span>
-                <span>自動解析走動 (w)、說話 (t)、玩手機 (p) 與窗戶違規詳細事由流水帳</span>
+                <span>一鍵從雲端同步或 Excel 更新</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Card Footer Action -->
-        <div class="p-6 bg-slate-50 border-t border-slate-100">
-          <a href="/military/order" data-nav="order" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition flex items-center justify-center space-x-2 shadow-md shadow-indigo-500/25 active:scale-95 group-hover:bg-indigo-700">
-            <span>開啟「秩序成績計算」系統</span>
+        <div class="p-5 bg-slate-50 border-t border-slate-100">
+          <a href="/military/order" data-nav="order" class="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-white bg-indigo-600 hover:bg-indigo-700 transition flex items-center justify-center space-x-1.5 shadow-md shadow-indigo-500/25 active:scale-95 group-hover:bg-indigo-700">
+            <span>開啟「秩序成績計算」</span>
             <span class="transition-transform group-hover:translate-x-1">➔</span>
           </a>
         </div>
       </div>
 
-      <!-- ================= 區塊三：班級名冊與物資收發簽領 ================= -->
+      <!-- ================= 區塊三：班級名冊與簽領表單 ================= -->
       <div class="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
         <div>
           <!-- Card Header Banner -->
-          <div class="p-6 bg-gradient-to-br from-teal-600 to-emerald-700 text-white relative overflow-hidden">
-            <div class="absolute -right-4 -bottom-4 opacity-10 text-8xl font-black select-none pointer-events-none">📑</div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-sm">
-                行政與教務常用表單
+          <div class="p-5 bg-gradient-to-br from-teal-600 to-emerald-700 text-white relative overflow-hidden">
+            <div class="absolute -right-3 -bottom-3 opacity-10 text-7xl font-black select-none pointer-events-none">📑</div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-white/20 text-white backdrop-blur-sm">
+                常用行政表單
               </span>
-              <span class="text-xs text-teal-100 font-medium">全校 54 班・A4 完美置中</span>
+              <span class="text-[11px] text-teal-100 font-medium">A4 置中調校</span>
             </div>
-            <div class="flex items-center space-x-3">
-              <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl shadow-inner">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shadow-inner">
                 📑
               </div>
               <div>
-                <h3 class="text-2xl font-extrabold text-white tracking-tight">班級名冊與簽領表單</h3>
-                <p class="text-xs text-teal-100 mt-0.5">生輔組・教官室・學務處 萬用表單列印</p>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">班級名冊與簽領</h3>
+                <p class="text-[11px] text-teal-100">萬用表單列印系統</p>
               </div>
             </div>
           </div>
 
           <!-- Card Body Description & KPIs -->
-          <div class="p-6 space-y-5">
-            <p class="text-sm text-slate-600 leading-relaxed">
-              整合「學生個人名冊」（支援雙欄/單欄/記事欄名冊、Excel 匯入）與「各年級物資收發簽領表」（高一至高三各 18 班、一年級剛好一張 A4、可自訂物品與標題），專為 A4 紙張與印表機調校，版面極致工整。
+          <div class="p-5 space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed min-h-[48px]">
+              整合 54 班學生名冊與各年級 18 班物資收發簽領表，一班一張或一年級一張 A4 置中列印，簽收清冊首選。
             </p>
 
             <!-- 4 Quick Stats Badges -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div class="bg-teal-50/70 p-2.5 rounded-xl border border-teal-100 text-center">
-                <span class="text-[11px] font-semibold text-teal-600 block">學生名冊</span>
-                <span class="text-lg font-extrabold text-teal-900 number-font">54 班</span>
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-teal-50/70 p-2 rounded-xl border border-teal-100 text-center">
+                <span class="text-[10px] font-semibold text-teal-600 block">學生名冊</span>
+                <span class="text-base font-extrabold text-teal-900 number-font">54 班</span>
               </div>
-              <div class="bg-emerald-50/70 p-2.5 rounded-xl border border-emerald-100 text-center">
-                <span class="text-[11px] font-semibold text-emerald-600 block">年級簽領</span>
-                <span class="text-lg font-extrabold text-emerald-900 number-font">各 18 班</span>
+              <div class="bg-emerald-50/70 p-2 rounded-xl border border-emerald-100 text-center">
+                <span class="text-[10px] font-semibold text-emerald-600 block">年級簽領</span>
+                <span class="text-base font-extrabold text-emerald-900 number-font">各 18 班</span>
               </div>
-              <div class="bg-cyan-50/70 p-2.5 rounded-xl border border-cyan-100 text-center">
-                <span class="text-[11px] font-semibold text-cyan-600 block">列印規格</span>
-                <span class="text-lg font-extrabold text-cyan-900 number-font">A4 一頁</span>
+              <div class="bg-cyan-50/70 p-2 rounded-xl border border-cyan-100 text-center">
+                <span class="text-[10px] font-semibold text-cyan-600 block">列印規格</span>
+                <span class="text-base font-extrabold text-cyan-900 number-font">A4 一頁</span>
               </div>
-              <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-center">
-                <span class="text-[11px] font-semibold text-slate-600 block">名冊匯入</span>
-                <span class="text-lg font-extrabold text-slate-800 number-font">Excel/CSV</span>
+              <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 text-center">
+                <span class="text-[10px] font-semibold text-slate-600 block">名冊匯入</span>
+                <span class="text-base font-extrabold text-slate-800 number-font">Excel/CSV</span>
               </div>
             </div>
 
             <!-- Features Bullet Points -->
-            <div class="space-y-2 text-xs text-slate-600">
-              <div class="flex items-start space-x-2">
+            <div class="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+              <div class="flex items-center space-x-1.5">
                 <span class="text-teal-600 font-bold">✓</span>
-                <span>學生個人名冊：全校 54 班一班一張 A4 上下左右置中，支援男女分列與範本下載</span>
+                <span>學生個人名冊：男女分列、格式工整</span>
               </div>
-              <div class="flex items-start space-x-2">
+              <div class="flex items-center space-x-1.5">
                 <span class="text-teal-600 font-bold">✓</span>
-                <span>各年級物資簽領表：高一/二/三各 18 班剛好 3 頁，單行不換行，簽名格適中整潔</span>
-              </div>
-              <div class="flex items-start space-x-2">
-                <span class="text-teal-600 font-bold">✓</span>
-                <span>彈性標題與備註：運動會班旗繳回、物品收發自由填寫，頁尾備註可自由修改清空</span>
-              </div>
-              <div class="flex items-start space-x-2">
-                <span class="text-teal-600 font-bold">✓</span>
-                <span>嚴格科別排序：商經 ➔ 國貿 ➔ 資處 ➔ 多媒 ➔ 綜高 ➔ 綜職，各年級完全一致</span>
+                <span>物資簽領清冊：標題與欄位自由調整</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Card Footer Action -->
-        <div class="p-6 bg-slate-50 border-t border-slate-100 space-y-2">
-          <div class="grid grid-cols-2 gap-2">
-            <a href="/military/roster#roster" data-nav="roster" class="w-full py-2 px-2.5 rounded-xl bg-teal-50 text-teal-800 hover:bg-teal-100 border border-teal-200 font-bold text-xs text-center transition flex items-center justify-center space-x-1">
-              <span>🎓</span><span>名冊列印</span>
-            </a>
-            <a href="/military/roster#signoff" data-nav="roster" class="w-full py-2 px-2.5 rounded-xl bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200 font-bold text-xs text-center transition flex items-center justify-center space-x-1">
-              <span>📋</span><span>簽領表列印</span>
-            </a>
-          </div>
-          <a href="/military/roster" data-nav="roster" class="w-full py-3 px-4 rounded-xl font-bold text-sm text-white bg-teal-600 hover:bg-teal-700 transition flex items-center justify-center space-x-2 shadow-md shadow-teal-500/25 active:scale-95 group-hover:bg-teal-700">
-            <span>開啟「班級名冊與簽領」系統</span>
+        <div class="p-5 bg-slate-50 border-t border-slate-100">
+          <a href="/military/roster" data-nav="roster" class="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-white bg-teal-600 hover:bg-teal-700 transition flex items-center justify-center space-x-1.5 shadow-md shadow-teal-500/25 active:scale-95 group-hover:bg-teal-700">
+            <span>開啟「班級名冊與簽領」</span>
             <span class="transition-transform group-hover:translate-x-1">➔</span>
           </a>
         </div>
       </div>
 
+      <!-- ================= 區塊四：缺曠與零分預警分析系統 ================= -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group ring-2 ring-rose-500/20">
+        <div>
+          <!-- Card Header Banner -->
+          <div class="p-5 bg-gradient-to-br from-rose-600 to-red-700 text-white relative overflow-hidden">
+            <div class="absolute -right-3 -bottom-3 opacity-10 text-7xl font-black select-none pointer-events-none">🚨</div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-white/20 text-white backdrop-blur-sm">
+                全新第四系統・扣考預警
+              </span>
+              <span class="text-[11px] text-rose-100 font-medium">可更換 Excel</span>
+            </div>
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shadow-inner">
+                🚨
+              </div>
+              <div>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">缺曠零分預警系統</h3>
+                <p class="text-[11px] text-rose-100">1/3 門檻監控 ＆ 歷程分析</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Body Description & KPIs -->
+          <div class="p-5 space-y-4">
+            <p class="text-xs text-slate-600 leading-relaxed min-h-[48px]">
+              即時統計全校學生各科目缺曠課節數，嚴密監控曠課達授課總節次 1/3 (33.33%) 扣考名單，支援拖曳更換最新試算表。
+            </p>
+
+            <!-- 4 Quick Stats Badges -->
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-rose-50 p-2 rounded-xl border border-rose-200 text-center">
+                <span class="text-[10px] font-semibold text-rose-600 block">已達扣考(≥33%)</span>
+                <span class="text-base font-extrabold text-rose-700 number-font">327 筆</span>
+              </div>
+              <div class="bg-amber-50 p-2 rounded-xl border border-amber-200 text-center">
+                <span class="text-[10px] font-semibold text-amber-700 block">臨界預警</span>
+                <span class="text-base font-extrabold text-amber-800 number-font">153 筆</span>
+              </div>
+              <div class="bg-indigo-50 p-2 rounded-xl border border-indigo-100 text-center">
+                <span class="text-[10px] font-semibold text-indigo-600 block">高關懷學生</span>
+                <span class="text-base font-extrabold text-indigo-900 number-font">238 位</span>
+              </div>
+              <div class="bg-slate-50 p-2 rounded-xl border border-slate-200 text-center">
+                <span class="text-[10px] font-semibold text-slate-600 block">總預警筆數</span>
+                <span class="text-base font-extrabold text-slate-800 number-font">787 筆</span>
+              </div>
+            </div>
+
+            <!-- Features Bullet Points -->
+            <div class="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-rose-600 font-bold">✓</span>
+                <span>隨時拖曳上傳新 Excel 秒級重新計算</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <span class="text-rose-600 font-bold">✓</span>
+                <span>一鍵生成各班導師專用生輔通報文字</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer Action -->
+        <div class="p-5 bg-slate-50 border-t border-slate-100">
+          <a href="/military/warning" data-nav="warning" class="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-white bg-rose-600 hover:bg-rose-700 transition flex items-center justify-center space-x-1.5 shadow-md shadow-rose-500/25 active:scale-95 group-hover:bg-rose-700">
+            <span>開啟「缺曠零分預警」</span>
+            <span class="transition-transform group-hover:translate-x-1">➔</span>
+          </a>
+        </div>
+      </div>
 
     </div>
 
     <!-- Live Highlights Feed -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       <!-- Left Feed: Whiteboard Top High Care Alert -->
       <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-5 space-y-3">
         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center space-x-1.5">
-            <span class="text-rose-500">🚨</span>
-            <span>小白板看板：重點關懷輔導名單 (累計 ≥ 10 次)</span>
+            <span class="text-blue-500">📋</span>
+            <span>小白板：重點關懷輔導名單 (≥ 10 次)</span>
           </h4>
           <a href="/military/whiteboard" data-nav="whiteboard" class="text-xs text-blue-600 hover:underline font-semibold">完整名單 ➔</a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            <div class="font-bold">132 班 (高三・商經科)</div>
-            <div class="text-[11px] text-rose-600 font-mono">累計 14 次未寫</div>
+            <div class="font-bold">132 班 (商經)</div>
+            <div class="text-[11px] text-rose-600 font-mono">14 次未寫</div>
           </div>
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            <div class="font-bold">614 班 (高一・綜高)</div>
-            <div class="text-[11px] text-rose-600 font-mono">累計 12 次未寫</div>
+            <div class="font-bold">614 班 (綜高)</div>
+            <div class="text-[11px] text-rose-600 font-mono">12 次未寫</div>
           </div>
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            <div class="font-bold">213 班 (高一・國貿科)</div>
-            <div class="text-[11px] text-rose-600 font-mono">累計 11 次未寫</div>
+            <div class="font-bold">213 班 (國貿)</div>
+            <div class="text-[11px] text-rose-600 font-mono">11 次未寫</div>
           </div>
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            <div class="font-bold">211 班 (高一・國貿科)</div>
-            <div class="text-[11px] text-rose-600 font-mono">累計 11 次未寫</div>
+            <div class="font-bold">211 班 (國貿)</div>
+            <div class="text-[11px] text-rose-600 font-mono">11 次未寫</div>
           </div>
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            <div class="font-bold">634 班 (高三・綜高)</div>
-            <div class="text-[11px] text-rose-600 font-mono">累計 10 次未寫</div>
+            <div class="font-bold">634 班 (綜高)</div>
+            <div class="text-[11px] text-rose-600 font-mono">10 次未寫</div>
           </div>
           <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
-            <div class="font-bold">622 班 (高二・綜高)</div>
-            <div class="text-[11px] text-rose-600 font-mono">累計 10 次未寫</div>
+            <div class="font-bold">622 班 (綜高)</div>
+            <div class="text-[11px] text-rose-600 font-mono">10 次未寫</div>
           </div>
         </div>
       </div>
 
-      <!-- Right Feed: Order Scoring Latest Bi-week Top 3 -->
+      <!-- Center Feed: Order Scoring Latest Bi-week Top 3 -->
       <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-5 space-y-3">
         <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
           <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center space-x-1.5">
             <span class="text-amber-500">🏆</span>
             <span>秩序評比：期末總成績結算特優前三名</span>
           </h4>
-          <a href="/military/order" data-nav="order" class="text-xs text-indigo-600 hover:underline font-semibold">1~6名完整榜單 ➔</a>
+          <a href="/military/order" data-nav="order" class="text-xs text-indigo-600 hover:underline font-semibold">完整榜單 ➔</a>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-          <div class="p-2.5 rounded-lg bg-indigo-50/70 border border-indigo-100 space-y-1">
-            <div class="font-bold text-indigo-900">高一年級前三</div>
-            <div class="text-slate-700">🥇 711 班 (高一・多媒科) - 52.0分</div>
-            <div class="text-slate-700">🥈 112 班 (高一・商經科) - 51.0分</div>
-            <div class="text-slate-700">🥉 214 班 (高一・國貿科) - 50.0分</div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+          <div class="p-2 rounded-lg bg-indigo-50/70 border border-indigo-100 space-y-0.5">
+            <div class="font-bold text-indigo-900">高一前三</div>
+            <div class="text-slate-700">🥇 711 班 - 52.0分</div>
+            <div class="text-slate-700">🥈 112 班 - 51.0分</div>
+            <div class="text-slate-700">🥉 214 班 - 50.0分</div>
           </div>
-          <div class="p-2.5 rounded-lg bg-amber-50/70 border border-amber-200 space-y-1">
-            <div class="font-bold text-amber-900">高二年級前三</div>
-            <div class="text-amber-800 font-bold">🥇 222 班 (高二・國貿科) - 56.0滿分</div>
-            <div class="text-slate-700">🥈 121 班 (高二・商經科) - 52.0分</div>
-            <div class="text-slate-700">🥉 421 班 (高二・資處科) - 52.0分</div>
+          <div class="p-2 rounded-lg bg-amber-50/70 border border-amber-200 space-y-0.5">
+            <div class="font-bold text-amber-900">高二前三</div>
+            <div class="text-amber-800 font-bold">🥇 222 班 - 滿分</div>
+            <div class="text-slate-700">🥈 121 班 - 52.0分</div>
+            <div class="text-slate-700">🥉 421 班 - 52.0分</div>
           </div>
-          <div class="p-2.5 rounded-lg bg-purple-50/70 border border-purple-100 space-y-1">
-            <div class="font-bold text-purple-900">高三年級前三</div>
-            <div class="text-purple-900 font-bold">🥇 232 班 (高三・國貿科) - 56.0滿分</div>
-            <div class="text-purple-900 font-bold">🥈 233 班 (高三・國貿科) - 56.0滿分</div>
-            <div class="text-purple-900 font-bold">🥉 234 班 (高三・國貿科) - 56.0滿分</div>
+          <div class="p-2 rounded-lg bg-purple-50/70 border border-purple-100 space-y-0.5">
+            <div class="font-bold text-purple-900">高三前三</div>
+            <div class="text-purple-900 font-bold">🥇 232 班 - 滿分</div>
+            <div class="text-purple-900 font-bold">🥈 233 班 - 滿分</div>
+            <div class="text-purple-900 font-bold">🥉 234 班 - 滿分</div>
           </div>
+        </div>
+      </div>
+
+      <!-- Right Feed: Warning System Top Highlights -->
+      <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-5 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center space-x-1.5">
+            <span class="text-rose-600">🚨</span>
+            <span>缺曠預警：達 1/3 扣考警戒概況</span>
+          </h4>
+          <a href="/military/warning" data-nav="warning" class="text-xs text-rose-600 hover:underline font-semibold">分析看板 ➔</a>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-900 font-medium">
+            <div class="text-[11px] text-slate-500">已達扣考標準</div>
+            <div class="text-base font-extrabold text-rose-700 number-font">327 筆人次</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 font-medium">
+            <div class="text-[11px] text-slate-500">緊繃臨界預警</div>
+            <div class="text-base font-extrabold text-amber-800 number-font">153 筆人次</div>
+          </div>
+        </div>
+        <div class="text-[11px] text-slate-500 pt-1 flex items-center justify-between">
+          <span>共涵蓋全校 <strong>238</strong> 位需輔導學生</span>
+          <span class="text-rose-600 font-bold">可隨時更換最新 Excel</span>
         </div>
       </div>
 
@@ -426,6 +501,7 @@
           else if (target === 'whiteboard') el.href = 'whiteboard.html';
           else if (target === 'order') el.href = 'order/index.html';
           else if (target === 'roster') el.href = 'roster.html';
+          else if (target === 'warning') el.href = 'warning.html';
         });
       }
     })();
