@@ -874,6 +874,64 @@ body.mode-auto .wrap{max-width:1080px}
   box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
 }
 
+
+/* 雙欄並列版面架構 (左邊拍照解題，右邊經濟學架構圖) */
+.split-container {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.split-container.single-col {
+  grid-template-columns: 1fr !important;
+}
+
+/* 左欄：拍照解題 (桌機 Sticky 固定) */
+.solver-col {
+  min-width: 0;
+  border-top: 6px solid var(--coral);
+}
+@media (min-width: 992px) and (min-height: 650px) {
+  .solver-col {
+    position: sticky;
+    top: 76px;
+    max-height: calc(100vh - 95px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+/* 右欄：經濟學架構圖 */
+.map-col {
+  min-width: 0;
+  border-top: 6px solid var(--brand);
+}
+
+/* 桌機版面容器寬度擴展 */
+@media (min-width: 1200px) {
+  .wrap {
+    max-width: 1680px;
+    width: 97%;
+    padding: 0 16px;
+  }
+}
+
+/* 手機與窄螢幕響應式：單欄自適應 */
+@media (max-width: 991px) {
+  .split-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .solver-col {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -885,7 +943,7 @@ body.mode-auto .wrap{max-width:1080px}
     <span>🗺️ 高職經濟學全景整合網</span>
     <span style="font-size:.72rem;background:rgba(255,255,255,0.25);color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:999px;padding:2px 8px">v2026 統測全景整合版</span>
   </h1>
-    <p>首頁：高職經濟學全景整合心智架構圖（統測 19 章脈絡總覽） · 第二塊：拍照解題・互動引導關卡＋智慧錯題本</p>
+    <p>左欄：拍照解題・互動引導關卡＋智慧錯題本 ｜ 右欄：高職經濟學全景整合心智架構圖（統測 19 章脈絡總覽）</p>
   </div>
   <!-- 介面模式切換器 (手機 / 桌機 / 自動) -->
   <div class="ui-switcher-wrap">
@@ -898,14 +956,14 @@ body.mode-auto .wrap{max-width:1080px}
   </div>
 </div>
 </div>
-<div class="wrap tabs">
-  <button id="t1" class="active" onclick="showTab(1)">① 🗺️ 高職經濟學全景整合心智架構圖 (1–19章)</button>
-  <button id="t2" onclick="showTab(2)">② 📸 拍照解題・互動引導關卡</button>
+<div class="wrap tabs" id="main-tabs">
+  <button id="t-both" class="active desktop-only" onclick="showBoth()">💻 雙欄並列（左：拍照解題 ｜ 右：架構圖）</button>
+  <button id="t1" onclick="showTab(1)">📸 拍照解題</button>
+  <button id="t2" onclick="showTab(2)">🗺️ 經濟學架構圖 (1–19章)</button>
 </div>
 </header>
-<main class="wrap">
+<main class="wrap main-wrap">
 
-<!-- LINE / FB / 社群內建瀏覽器防呆提醒橫幅 -->
 <div id="inapp-alert" style="display:none;background:#fef2f2;border:1.5px solid #fecaca;border-radius:10px;color:#991b1b;padding:10px 14px;margin-bottom:12px;font-size:.85rem;line-height:1.5;box-shadow:0 2px 8px rgba(239,68,68,0.1)">
   ⚠️ <b>提醒：您目前正在使用社群 App 內建瀏覽器（如 LINE / FB）</b><br>
   社群 App 關閉視窗時可能自動清空所有紀錄！建議點擊右上方「<code>⋮</code>」或分享圖示，選擇<b>「在預設瀏覽器（Safari / Chrome）中開啟」</b>，錯題本才能永久保留在手機中。
@@ -914,10 +972,241 @@ body.mode-auto .wrap{max-width:1080px}
   </div>
 </div>
 
-<!-- Block 1 -->
-<!-- Block 1: 高職經濟學全景整合心智架構圖 -->
-<div id="block1" class="card">
-  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #fed7aa">
+<!-- 雙欄並列容器：左邊拍照解題，右邊經濟學架構圖 -->
+<div class="split-container">
+  <!-- 左欄：拍照解題 -->
+  <div id="block1" class="split-col solver-col card">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+  <h2 style="margin:0"><span class="badge" style="background:#fee2e2;color:#e11d48;border:1px solid #fecdd3">拍照解題</span>📸 統測歷屆試題拍照辨識・步驟引導闖關＋智慧錯題本</h2>
+  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+    <button type="button" class="chip-btn" onclick="showTab(2)" style="font-weight:700;color:#c2410c;border-color:#fdba74;background:#fffaf5">🗺️ 看右欄架構圖</button>
+    <a href="a3_sheet01_consumer.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#6b21a8;border-color:#d8b4fe;background:#faf5ff">📐 A3心智圖</a>
+    <select onchange="if(this.value) window.open(this.value, '_blank')" style="padding:4px 8px;border-radius:8px;border:1px solid #cbd5e1;font-size:.82rem;font-weight:600">
+      <option value="">📚 快速前往章節專頁 (CH1~CH19)...</option>
+      <option value="ch01_basics.html">CH1 經濟基本概念</option>
+      <option value="ch02_elasticity.html">CH2 需求與供給（彈性）</option>
+      <option value="ch03_consumer.html">CH3 消費行為理論</option>
+      <option value="ch04_production.html">CH4 生產理論</option>
+      <option value="ch05_cost.html">CH5 成本理論</option>
+      <option value="ch06_market_revenue.html">CH6 市場結構與廠商收益</option>
+      <option value="ch07_perfect_competition.html">CH7 完全競爭產量與價格</option>
+      <option value="ch08_monopoly.html">CH8 完全獨占產量與價格</option>
+      <option value="ch09_imperfect_competition.html">CH9 不完全競爭（寡占與獨占性競爭）</option>
+      <option value="ch10_distribution.html">CH10 分配理論</option>
+      <option value="ch11_wage_rent.html">CH11 工資與地租</option>
+      <option value="ch12_interest_profit.html">CH12 利息與利潤</option>
+      <option value="ch13_national_income.html">CH13 國民所得（GDP / GNI）</option>
+      <option value="ch14_macro_equilibrium.html">CH14 所得水準的決定</option>
+      <option value="ch15_money_banking.html">CH15 貨幣與金融</option>
+      <option value="ch16_government_fiscal.html">CH16 政府角色與財政政策</option>
+      <option value="ch17_international_trade.html">CH17 國際貿易與國際金融</option>
+      <option value="ch18_economic_fluctuations.html">CH18 經濟波動（景氣、失業、通膨）</option>
+      <option value="ch19_economic_growth.html">CH19 經濟成長與經濟發展</option>
+    </select>
+  </div>
+</div>
+<p class="muted" style="margin-top:0">流程：<b>1. 拍照/上傳題目 → 2. 點擊立即解題 ➔ 3. 循序逐步闖關、隨堂確認理解 🎯</b>（支援一鍵切換完整詳解）。</p>
+<details style="margin-bottom:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:6px 12px"><summary style="font-weight:600;color:#334155;cursor:pointer">📖 學生使用說明與解題秘訣（點開看：拍照技巧・四步驟闖關・防丟保存）</summary>
+<div style="margin-top:8px;font-size:.85rem;line-height:1.6;color:#334155">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:8px;margin-bottom:8px">
+    <div style="background:#fff;border:1px solid #fed7aa;border-radius:6px;padding:8px">
+      <b style="color:#ea580c">🎯 四步驟闖關導引</b><br>
+      ① 審題已知 ➔ ② 公式與隨堂檢核 ➔ ③ 數值代入推演 ➔ ④ 答案與選項剖析。可循序闖關，亦可點「展開全部步驟」速讀。
+    </div>
+    <div style="background:#fff;border:1px solid #bfdbfe;border-radius:6px;padding:8px">
+      <b style="color:#2563eb">🛡️ 深度二次覆核驗算</b><br>
+      若對答案有疑問，點擊詳解下方「🔄 請 AI 深度驗算重解」啟動獨立演算驗核；亦可點「📋 一鍵複製覆核 Prompt」貼給外部 AI 取得第二意見。
+    </div>
+    <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px">
+      <b style="color:#16a34a">📓 智慧錯題防丟提醒</b><br>
+      解完題目自動收錄於下方錯題本。建議使用一般瀏覽器分頁開啟，避免使用無痕視窗或社群 App 內建視窗，考前可點「📤 備份匯出」下載 JSON。
+    </div>
+  </div>
+  <ul style="margin:4px 0 6px 18px;padding:0;color:#64748b;font-size:.82rem">
+    <li>平放考卷、手機垂直拿正，字體越清晰辨識越準</li>
+    <li>若考卷字太小或有折痕，可靠近拍攝或開燈避開陰影</li>
+    <li>若照片拍到多題，可善用下方「✂️ 裁切選取本題」或「🔄 旋轉」工具</li>
+  </ul>
+  <div style="text-align:right">
+    <a href="manual.html" target="_blank" style="color:#ea580c;font-weight:700;text-decoration:underline">👉 開啟圖文並茂完整版說明手冊 ➔</a>
+  </div>
+</div>
+</details>
+
+<!-- 1. 拍照或上傳題目照片 -->
+<label><b>1. 拍照或上傳題目照片</b></label>
+<div class="upload-zone" id="drop-zone" onclick="document.getElementById('file').click()">
+  <div style="font-size:1.6rem;margin-bottom:4px">📷</div>
+  <div style="font-weight:700;color:var(--brand)">點此拍照 或 從相簿上傳題目</div>
+  <div class="muted" style="font-size:.8rem;margin-top:2px">支援手機直拍、截圖、考卷照片</div>
+</div>
+<input id="file" type="file" accept="image/*" capture="environment" style="display:none" />
+
+<div class="tool-row" style="margin-top:8px">
+  <span class="muted" style="font-size:.85rem">手邊沒考卷？試試看：</span>
+  <button type="button" class="chip-btn" onclick="loadDemo(0)">📝 範例1：需求彈性 Ed</button>
+  <button type="button" class="chip-btn" onclick="loadDemo(1)">📝 範例2：PPC 與 MRT</button>
+  <button type="button" class="chip-btn" onclick="loadDemo(2)">📝 範例3：凱因斯乘數</button>
+  <button type="button" class="chip-btn" style="border-color:#fdba74;color:#c2410c" onclick="openTextMode()">✏️ 手動純文字解題</button>
+</div>
+
+<!-- 圖片預覽與編輯工具列 -->
+<div id="preview-container" style="display:none;margin-top:10px">
+  <img id="preview" alt="題目預覽" style="display:block;max-width:100%;border-radius:12px;border:3px solid var(--line)" />
+  <div class="tool-row" id="img-toolbar">
+    <button type="button" class="chip-btn" onclick="rotateImage()">🔄 順時針轉90°</button>
+    <button type="button" class="chip-btn" onclick="startCropMode()">✂️ 裁切選取本題</button>
+    <button type="button" class="chip-btn" onclick="resetImage()" style="color:#b91c1c">❌ 清除重拍</button>
+  </div>
+</div>
+
+<!-- 簡易裁切畫布區 -->
+<div id="crop-box">
+  <div style="font-weight:700;font-size:.9rem;margin-bottom:6px">✂️ 拖曳拉桿或於畫面框選此題範圍：</div>
+  <canvas id="crop-canvas"></canvas>
+  <div class="crop-controls">
+    <div class="crop-slider-row">
+      <span>頂部位置：</span>
+      <input type="range" id="crop-top" min="0" max="90" value="0" oninput="updateCropFromSliders()" />
+    </div>
+    <div class="crop-slider-row">
+      <span>底部位置：</span>
+      <input type="range" id="crop-bot" min="10" max="100" value="100" oninput="updateCropFromSliders()" />
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button type="button" class="primary" style="flex:1;padding:9px;margin:0" onclick="applyCrop()">✅ 確認裁切並重新辨識</button>
+      <button type="button" class="ghost" style="flex:1;padding:9px;margin:0" onclick="cancelCrop()">取消</button>
+    </div>
+  </div>
+</div>
+
+<p id="finfo" class="muted" style="margin:6px 0 0"></p>
+
+<!-- 2. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選） -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:gap:4px">
+  <label style="margin:0"><b>2. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
+  <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
+</div>
+
+<div id="autoch-box" class="key" style="background:#fff8f5;border:2px solid var(--line);border-radius:12px;padding:12px;margin-top:6px">
+  <!-- 主要診斷結果顯示 -->
+  <div id="autoch-status" style="font-weight:700;color:var(--brand);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+    <span>🔍 尚未輸入題目，拍照或選上方範例後自動判斷</span>
+  </div>
+  
+  <!-- 候選章節切換膠囊 -->
+  <div id="candidate-chips" style="display:none;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)">
+    <span class="muted" style="font-size:.82rem">相關候選考點（點擊切換）：</span>
+    <span id="candidate-list"></span>
+  </div>
+
+  <!-- 手動下拉選單（100%自主權） -->
+  <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+    <span style="font-size:.85rem;font-weight:600;white-space:nowrap;color:#431407">自選章節：</span>
+    <select id="userch-select" onchange="onManualChChange()" style="flex:1;margin:0;padding:6px 10px;font-size:.9rem;background:#fff;border:1.5px solid var(--line);border-radius:8px">
+      <option value="-1">-- 自動診斷（系統推薦）--</option>
+    </select>
+  </div>
+
+  <!-- 即時核心公式預覽 -->
+  <div id="ch-preview-hint" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem">
+    <b>📖 本章必考核心公式：</b><code id="ch-preview-formula"></code>
+  </div>
+</div>
+
+<!-- 題目文字微調 / 手動打字輸入（選填・預設折疊） -->
+<details id="ocr-details" style="margin-top:12px;margin-bottom:12px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:8px 12px">
+  <summary style="font-weight:700;color:#475569;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+    <span>✏️ 題目文字微調 / 手動純文字輸入（選填，點開展開）</span>
+    <span class="badge" style="font-size:.74rem;background:#f1f5f9;color:#475569;border:1px solid #cbd5e1">救題與手打備援</span>
+  </summary>
+  <div style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px">
+      <span class="muted" style="font-size:.82rem">💡 拍照可直出詳解！若遇照片反光遮蔽數字，可在此修訂（以修改後文字為準）：</span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button type="button" class="chip-btn" style="width:auto;padding:2px 8px;font-size:.78rem;margin:0;color:#9a3412;border-color:#fdba74;background:#fffaf5" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
+        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
+        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
+        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="clearOcrText()">🗑️ 清空</button>
+      </div>
+    </div>
+
+    <div class="sym-group" style="margin-bottom:6px">
+      <span class="muted" style="font-size:.8rem;align-self:center;margin-right:2px">插入變數：</span>
+      <button type="button" class="sym-pill" onclick="insertSymbol('Ed')">Ed</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('PPC')">PPC</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MRT')">MRT</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MU')">MU</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MC')">MC</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('TR')">TR</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('GDP')">GDP</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('Ye')">Ye</button>
+      <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
+    </div>
+
+    <textarea id="ocrtext" style="min-height:80px" placeholder="拍照後系統將自動填入題幹；手邊沒考卷亦可直接在此手打或貼上題目解題…"></textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px">
+      <button type="button" class="ghost" style="width:auto;padding:3px 10px;font-size:.82rem;margin:0" onclick="runOcr()">🔄 重新辨識照片文字</button>
+      <span class="muted" style="font-size:.78rem">（修改後的文字將優先作為解題依據）</span>
+    </div>
+  </div>
+</details>
+
+<!-- 解題按鈕（步驟引導解題） -->
+<button class="primary" style="font-size:1.06rem;padding:12px;box-shadow:0 3px 12px rgba(249,115,22,0.3)" onclick="solve(true)">🚀 立即啟動步驟解題（互動關卡＋觀念檢核）</button>
+
+<!-- 詳解呈現與動作工具列（解題後直接於下方展開） -->
+<div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1);margin-top:14px;margin-bottom:14px"></div>
+<div id="ocrstat" class="muted" style="margin-bottom:10px"></div>
+
+<!-- 智慧錯題本 -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1.5px solid var(--line);flex-wrap:wrap;gap:8px">
+  <div>
+    <h3 style="margin:0;display:inline-block">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
+    <span class="badge" style="margin-left:6px;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;font-size:.72rem">🛡️ 雙核心永久保存</span>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+    <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.78rem;background:#fffaf5;border-color:#fdba74;color:#9a3412" onclick="exportHistJSON()" title="備份錯題到手機或電腦檔案">📤 備份匯出</button>
+    <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.78rem;background:#fffaf5;border-color:#fdba74;color:#9a3412" onclick="document.getElementById('hist-import-file').click()" title="從備份檔還原錯題">📥 還原匯入</button>
+    <input type="file" id="hist-import-file" accept=".json,application/json" style="display:none" onchange="importHistJSON(event)">
+  </div>
+</div>
+<div id="weak" class="key" style="margin-top:8px">尚無紀錄，解幾題後自動統計弱章與複習進度。</div>
+
+<details style="margin-top:8px;background:#fffaf5;border:1.5px dashed #fdba74;border-radius:10px;padding:8px 12px;font-size:.85rem">
+  <summary style="font-weight:700;color:#9a3412;cursor:pointer;user-select:none">
+    💡 錯題本防丟秘訣：3 個最佳使用習慣（點開看）
+  </summary>
+  <div style="margin-top:8px;line-height:1.7;color:#431407">
+    <div style="margin-bottom:6px"><b>① 使用常規瀏覽器分頁：</b>建議使用 Safari 或 Chrome 的「一般分頁」（避免「無痕／私密瀏覽」模式，否則關閉分頁時紀錄會被系統自動銷毀）。</div>
+    <div style="margin-bottom:6px"><b>② 從 LINE / 臉書收到連結時：</b>請點右上方「<code>⋮</code>」或分享，選擇<b>「在預設瀏覽器（Safari / Chrome）中開啟」</b>，紀錄才會安全存入手機，不隨 LINE 關閉而遺失。</div>
+    <div><b>③ 定期點擊「📤 備份匯出」：</b>考前或解完重點題時，點右上方「📤 備份匯出」下載備份檔，即使換手機或借用電腦都能隨時「📥 還原匯入」！</div>
+  </div>
+</details>
+
+<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px">
+  <div id="hist-status-tabs" style="display:flex;gap:6px;flex-wrap:wrap">
+    <button type="button" class="chip-btn active" data-st="all" onclick="setHistStatus('all')">全部</button>
+    <button type="button" class="chip-btn" data-st="todo" onclick="setHistStatus('todo')">📌 待複習</button>
+    <button type="button" class="chip-btn" data-st="done" onclick="setHistStatus('done')">✅ 已搞懂</button>
+  </div>
+  <select id="histfilter" style="flex:1;min-width:140px;margin:0;padding:6px 10px;font-size:.9rem"><option value="">全部章節 (CH1–CH19)</option></select>
+</div>
+
+<ul id="hist" class="hist-list"><li class="muted">尚無紀錄</li></ul>
+
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+  <button type="button" class="ghost" style="flex:1;min-width:180px;margin:0;font-size:.85rem" onclick="exportHistText()">📋 複製錯題文字總整理</button>
+  <button type="button" class="ghost" style="flex:1;min-width:130px;margin:0;font-size:.85rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」</button>
+  <button type="button" class="ghost" style="flex:1;min-width:130px;margin:0;font-size:.85rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空錯題本</button>
+</div>
+
+</div>
+  </div>
+
+  <!-- 右欄：經濟學架構圖 -->
+  <div id="block2" class="split-col map-col card">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #fed7aa">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <h2 style="margin:0;font-size:1.35rem;display:flex;align-items:center;gap:8px">
         <span class="badge" style="background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe">全景心智架構</span>
@@ -928,7 +1217,7 @@ body.mode-auto .wrap{max-width:1080px}
     <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
       <a href="master_map.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#c2410c;border-color:#fdba74;background:#fffaf5">↗️ 全螢幕架構圖專頁</a>
       <a href="a3_sheet01_consumer.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#6b21a8;border-color:#d8b4fe;background:#faf5ff">📐 A3 橫向心智圖(第1張)</a>
-      <button type="button" class="chip-btn" style="font-weight:700;color:#047857;border-color:#a7f3d0;background:#ecfdf5" onclick="showTab(2)">📸 切換至拍照解題</button>
+      <button type="button" class="chip-btn" style="font-weight:700;color:#047857;border-color:#a7f3d0;background:#ecfdf5" onclick="showTab(1)">📸 專注左欄解題</button>
     </div>
   </div>
 
@@ -1260,241 +1549,12 @@ body.mode-auto .wrap{max-width:1080px}
 </div>
 
 <!-- 側邊抽屜 (Drawer) -->
-
-
-</div>
-
-<!-- Block 2: 拍照解題・互動引導關卡＋智慧錯題本 -->
-<div id="block2" class="card hide">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
-  <h2 style="margin:0"><span class="badge" style="background:#fee2e2;color:#e11d48;border:1px solid #fecdd3">拍照解題</span>📸 統測歷屆試題拍照辨識・步驟引導闖關＋智慧錯題本</h2>
-  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-    <button type="button" class="chip-btn" onclick="showTab(1)" style="font-weight:700;color:#c2410c;border-color:#fdba74;background:#fffaf5">🗺️ 回全景架構圖</button>
-    <a href="a3_sheet01_consumer.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#6b21a8;border-color:#d8b4fe;background:#faf5ff">📐 A3心智圖</a>
-    <select onchange="if(this.value) window.open(this.value, '_blank')" style="padding:4px 8px;border-radius:8px;border:1px solid #cbd5e1;font-size:.82rem;font-weight:600">
-      <option value="">📚 快速前往章節專頁 (CH1~CH19)...</option>
-      <option value="ch01_basics.html">CH1 經濟基本概念</option>
-      <option value="ch02_elasticity.html">CH2 需求與供給（彈性）</option>
-      <option value="ch03_consumer.html">CH3 消費行為理論</option>
-      <option value="ch04_production.html">CH4 生產理論</option>
-      <option value="ch05_cost.html">CH5 成本理論</option>
-      <option value="ch06_market_revenue.html">CH6 市場結構與廠商收益</option>
-      <option value="ch07_perfect_competition.html">CH7 完全競爭產量與價格</option>
-      <option value="ch08_monopoly.html">CH8 完全獨占產量與價格</option>
-      <option value="ch09_imperfect_competition.html">CH9 不完全競爭（寡占與獨占性競爭）</option>
-      <option value="ch10_distribution.html">CH10 分配理論</option>
-      <option value="ch11_wage_rent.html">CH11 工資與地租</option>
-      <option value="ch12_interest_profit.html">CH12 利息與利潤</option>
-      <option value="ch13_national_income.html">CH13 國民所得（GDP / GNI）</option>
-      <option value="ch14_macro_equilibrium.html">CH14 所得水準的決定</option>
-      <option value="ch15_money_banking.html">CH15 貨幣與金融</option>
-      <option value="ch16_government_fiscal.html">CH16 政府角色與財政政策</option>
-      <option value="ch17_international_trade.html">CH17 國際貿易與國際金融</option>
-      <option value="ch18_economic_fluctuations.html">CH18 經濟波動（景氣、失業、通膨）</option>
-      <option value="ch19_economic_growth.html">CH19 經濟成長與經濟發展</option>
-    </select>
-  </div>
-</div>
-<p class="muted" style="margin-top:0">流程：<b>1. 拍照/上傳題目 → 2. 點擊立即解題 ➔ 3. 循序逐步闖關、隨堂確認理解 🎯</b>（支援一鍵切換完整詳解）。</p>
-<details style="margin-bottom:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:6px 12px"><summary style="font-weight:600;color:#334155;cursor:pointer">📖 學生使用說明與解題秘訣（點開看：拍照技巧・四步驟闖關・防丟保存）</summary>
-<div style="margin-top:8px;font-size:.85rem;line-height:1.6;color:#334155">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:8px;margin-bottom:8px">
-    <div style="background:#fff;border:1px solid #fed7aa;border-radius:6px;padding:8px">
-      <b style="color:#ea580c">🎯 四步驟闖關導引</b><br>
-      ① 審題已知 ➔ ② 公式與隨堂檢核 ➔ ③ 數值代入推演 ➔ ④ 答案與選項剖析。可循序闖關，亦可點「展開全部步驟」速讀。
-    </div>
-    <div style="background:#fff;border:1px solid #bfdbfe;border-radius:6px;padding:8px">
-      <b style="color:#2563eb">🛡️ 深度二次覆核驗算</b><br>
-      若對答案有疑問，點擊詳解下方「🔄 請 AI 深度驗算重解」啟動獨立演算驗核；亦可點「📋 一鍵複製覆核 Prompt」貼給外部 AI 取得第二意見。
-    </div>
-    <div style="background:#fff;border:1px solid #bbf7d0;border-radius:6px;padding:8px">
-      <b style="color:#16a34a">📓 智慧錯題防丟提醒</b><br>
-      解完題目自動收錄於下方錯題本。建議使用一般瀏覽器分頁開啟，避免使用無痕視窗或社群 App 內建視窗，考前可點「📤 備份匯出」下載 JSON。
-    </div>
-  </div>
-  <ul style="margin:4px 0 6px 18px;padding:0;color:#64748b;font-size:.82rem">
-    <li>平放考卷、手機垂直拿正，字體越清晰辨識越準</li>
-    <li>若考卷字太小或有折痕，可靠近拍攝或開燈避開陰影</li>
-    <li>若照片拍到多題，可善用下方「✂️ 裁切選取本題」或「🔄 旋轉」工具</li>
-  </ul>
-  <div style="text-align:right">
-    <a href="manual.html" target="_blank" style="color:#ea580c;font-weight:700;text-decoration:underline">👉 開啟圖文並茂完整版說明手冊 ➔</a>
-  </div>
-</div>
-</details>
-
-<!-- 1. 拍照或上傳題目照片 -->
-<label><b>1. 拍照或上傳題目照片</b></label>
-<div class="upload-zone" id="drop-zone" onclick="document.getElementById('file').click()">
-  <div style="font-size:1.6rem;margin-bottom:4px">📷</div>
-  <div style="font-weight:700;color:var(--brand)">點此拍照 或 從相簿上傳題目</div>
-  <div class="muted" style="font-size:.8rem;margin-top:2px">支援手機直拍、截圖、考卷照片</div>
-</div>
-<input id="file" type="file" accept="image/*" capture="environment" style="display:none" />
-
-<div class="tool-row" style="margin-top:8px">
-  <span class="muted" style="font-size:.85rem">手邊沒考卷？試試看：</span>
-  <button type="button" class="chip-btn" onclick="loadDemo(0)">📝 範例1：需求彈性 Ed</button>
-  <button type="button" class="chip-btn" onclick="loadDemo(1)">📝 範例2：PPC 與 MRT</button>
-  <button type="button" class="chip-btn" onclick="loadDemo(2)">📝 範例3：凱因斯乘數</button>
-  <button type="button" class="chip-btn" style="border-color:#fdba74;color:#c2410c" onclick="openTextMode()">✏️ 手動純文字解題</button>
-</div>
-
-<!-- 圖片預覽與編輯工具列 -->
-<div id="preview-container" style="display:none;margin-top:10px">
-  <img id="preview" alt="題目預覽" style="display:block;max-width:100%;border-radius:12px;border:3px solid var(--line)" />
-  <div class="tool-row" id="img-toolbar">
-    <button type="button" class="chip-btn" onclick="rotateImage()">🔄 順時針轉90°</button>
-    <button type="button" class="chip-btn" onclick="startCropMode()">✂️ 裁切選取本題</button>
-    <button type="button" class="chip-btn" onclick="resetImage()" style="color:#b91c1c">❌ 清除重拍</button>
   </div>
 </div>
 
-<!-- 簡易裁切畫布區 -->
-<div id="crop-box">
-  <div style="font-weight:700;font-size:.9rem;margin-bottom:6px">✂️ 拖曳拉桿或於畫面框選此題範圍：</div>
-  <canvas id="crop-canvas"></canvas>
-  <div class="crop-controls">
-    <div class="crop-slider-row">
-      <span>頂部位置：</span>
-      <input type="range" id="crop-top" min="0" max="90" value="0" oninput="updateCropFromSliders()" />
-    </div>
-    <div class="crop-slider-row">
-      <span>底部位置：</span>
-      <input type="range" id="crop-bot" min="10" max="100" value="100" oninput="updateCropFromSliders()" />
-    </div>
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button type="button" class="primary" style="flex:1;padding:9px;margin:0" onclick="applyCrop()">✅ 確認裁切並重新辨識</button>
-      <button type="button" class="ghost" style="flex:1;padding:9px;margin:0" onclick="cancelCrop()">取消</button>
-    </div>
-  </div>
-</div>
+</main>
 
-<p id="finfo" class="muted" style="margin:6px 0 0"></p>
-
-<!-- 2. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選） -->
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:gap:4px">
-  <label style="margin:0"><b>2. 考題章節診斷（AI精準判斷 ＋ 可隨時手動自選）</b></label>
-  <span class="muted" style="font-size:.8rem">若自動判斷不符預期，可點選候選或下拉切換</span>
-</div>
-
-<div id="autoch-box" class="key" style="background:#fff8f5;border:2px solid var(--line);border-radius:12px;padding:12px;margin-top:6px">
-  <!-- 主要診斷結果顯示 -->
-  <div id="autoch-status" style="font-weight:700;color:var(--brand);margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
-    <span>🔍 尚未輸入題目，拍照或選上方範例後自動判斷</span>
-  </div>
-  
-  <!-- 候選章節切換膠囊 -->
-  <div id="candidate-chips" style="display:none;margin-bottom:8px;padding-bottom:6px;border-bottom:1px dashed var(--line)">
-    <span class="muted" style="font-size:.82rem">相關候選考點（點擊切換）：</span>
-    <span id="candidate-list"></span>
-  </div>
-
-  <!-- 手動下拉選單（100%自主權） -->
-  <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
-    <span style="font-size:.85rem;font-weight:600;white-space:nowrap;color:#431407">自選章節：</span>
-    <select id="userch-select" onchange="onManualChChange()" style="flex:1;margin:0;padding:6px 10px;font-size:.9rem;background:#fff;border:1.5px solid var(--line);border-radius:8px">
-      <option value="-1">-- 自動診斷（系統推薦）--</option>
-    </select>
-  </div>
-
-  <!-- 即時核心公式預覽 -->
-  <div id="ch-preview-hint" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:.85rem">
-    <b>📖 本章必考核心公式：</b><code id="ch-preview-formula"></code>
-  </div>
-</div>
-
-<!-- 題目文字微調 / 手動打字輸入（選填・預設折疊） -->
-<details id="ocr-details" style="margin-top:12px;margin-bottom:12px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:8px 12px">
-  <summary style="font-weight:700;color:#475569;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
-    <span>✏️ 題目文字微調 / 手動純文字輸入（選填，點開展開）</span>
-    <span class="badge" style="font-size:.74rem;background:#f1f5f9;color:#475569;border:1px solid #cbd5e1">救題與手打備援</span>
-  </summary>
-  <div style="margin-top:10px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px">
-      <span class="muted" style="font-size:.82rem">💡 拍照可直出詳解！若遇照片反光遮蔽數字，可在此修訂（以修改後文字為準）：</span>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button type="button" class="chip-btn" style="width:auto;padding:2px 8px;font-size:.78rem;margin:0;color:#9a3412;border-color:#fdba74;background:#fffaf5" onclick="copyVerifyPrompt()">📋 一鍵複製覆核 Prompt</button>
-        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="cleanOcrText()">🧹 清理排版</button>
-        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="copyOcrText()">📋 複製</button>
-        <button type="button" class="ghost" style="width:auto;padding:2px 8px;font-size:.8rem;margin:0" onclick="clearOcrText()">🗑️ 清空</button>
-      </div>
-    </div>
-
-    <div class="sym-group" style="margin-bottom:6px">
-      <span class="muted" style="font-size:.8rem;align-self:center;margin-right:2px">插入變數：</span>
-      <button type="button" class="sym-pill" onclick="insertSymbol('Ed')">Ed</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('PPC')">PPC</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MRT')">MRT</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MU')">MU</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MC')">MC</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('TR')">TR</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('GDP')">GDP</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('Ye')">Ye</button>
-      <button type="button" class="sym-pill" onclick="insertSymbol('MPC')">MPC</button>
-    </div>
-
-    <textarea id="ocrtext" style="min-height:80px" placeholder="拍照後系統將自動填入題幹；手邊沒考卷亦可直接在此手打或貼上題目解題…"></textarea>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px">
-      <button type="button" class="ghost" style="width:auto;padding:3px 10px;font-size:.82rem;margin:0" onclick="runOcr()">🔄 重新辨識照片文字</button>
-      <span class="muted" style="font-size:.78rem">（修改後的文字將優先作為解題依據）</span>
-    </div>
-  </div>
-</details>
-
-<!-- 解題按鈕（步驟引導解題） -->
-<button class="primary" style="font-size:1.06rem;padding:12px;box-shadow:0 3px 12px rgba(249,115,22,0.3)" onclick="solve(true)">🚀 立即啟動步驟解題（互動關卡＋觀念檢核）</button>
-
-<!-- 詳解呈現與動作工具列（解題後直接於下方展開） -->
-<div id="answer" class="key hide" style="background:#fff8f5;border:2px solid var(--line);box-shadow:0 3px 12px rgba(249,115,22,0.1);margin-top:14px;margin-bottom:14px"></div>
-<div id="ocrstat" class="muted" style="margin-bottom:10px"></div>
-
-<!-- 智慧錯題本 -->
-<div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1.5px solid var(--line);flex-wrap:wrap;gap:8px">
-  <div>
-    <h3 style="margin:0;display:inline-block">📓 智慧錯題本（點擊展開詳解・考前複習）</h3>
-    <span class="badge" style="margin-left:6px;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;font-size:.72rem">🛡️ 雙核心永久保存</span>
-  </div>
-  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-    <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.78rem;background:#fffaf5;border-color:#fdba74;color:#9a3412" onclick="exportHistJSON()" title="備份錯題到手機或電腦檔案">📤 備份匯出</button>
-    <button type="button" class="chip-btn" style="padding:3px 10px;font-size:.78rem;background:#fffaf5;border-color:#fdba74;color:#9a3412" onclick="document.getElementById('hist-import-file').click()" title="從備份檔還原錯題">📥 還原匯入</button>
-    <input type="file" id="hist-import-file" accept=".json,application/json" style="display:none" onchange="importHistJSON(event)">
-  </div>
-</div>
-<div id="weak" class="key" style="margin-top:8px">尚無紀錄，解幾題後自動統計弱章與複習進度。</div>
-
-<details style="margin-top:8px;background:#fffaf5;border:1.5px dashed #fdba74;border-radius:10px;padding:8px 12px;font-size:.85rem">
-  <summary style="font-weight:700;color:#9a3412;cursor:pointer;user-select:none">
-    💡 錯題本防丟秘訣：3 個最佳使用習慣（點開看）
-  </summary>
-  <div style="margin-top:8px;line-height:1.7;color:#431407">
-    <div style="margin-bottom:6px"><b>① 使用常規瀏覽器分頁：</b>建議使用 Safari 或 Chrome 的「一般分頁」（避免「無痕／私密瀏覽」模式，否則關閉分頁時紀錄會被系統自動銷毀）。</div>
-    <div style="margin-bottom:6px"><b>② 從 LINE / 臉書收到連結時：</b>請點右上方「<code>⋮</code>」或分享，選擇<b>「在預設瀏覽器（Safari / Chrome）中開啟」</b>，紀錄才會安全存入手機，不隨 LINE 關閉而遺失。</div>
-    <div><b>③ 定期點擊「📤 備份匯出」：</b>考前或解完重點題時，點右上方「📤 備份匯出」下載備份檔，即使換手機或借用電腦都能隨時「📥 還原匯入」！</div>
-  </div>
-</details>
-
-<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px">
-  <div id="hist-status-tabs" style="display:flex;gap:6px;flex-wrap:wrap">
-    <button type="button" class="chip-btn active" data-st="all" onclick="setHistStatus('all')">全部</button>
-    <button type="button" class="chip-btn" data-st="todo" onclick="setHistStatus('todo')">📌 待複習</button>
-    <button type="button" class="chip-btn" data-st="done" onclick="setHistStatus('done')">✅ 已搞懂</button>
-  </div>
-  <select id="histfilter" style="flex:1;min-width:140px;margin:0;padding:6px 10px;font-size:.9rem"><option value="">全部章節 (CH1–CH19)</option></select>
-</div>
-
-<ul id="hist" class="hist-list"><li class="muted">尚無紀錄</li></ul>
-
-<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-  <button type="button" class="ghost" style="flex:1;min-width:180px;margin:0;font-size:.85rem" onclick="exportHistText()">📋 複製錯題文字總整理</button>
-  <button type="button" class="ghost" style="flex:1;min-width:130px;margin:0;font-size:.85rem" onclick="clearMasteredHist()">🧹 清除「已搞懂」</button>
-  <button type="button" class="ghost" style="flex:1;min-width:130px;margin:0;font-size:.85rem;color:#b91c1c" onclick="clearHist()">🗑️ 清空錯題本</button>
-</div>
-
-</div>
-
-</div>
-
+<!-- 側邊抽屜 (Drawer) -->
 <div id="overlay" onclick="closeDrawer()"></div>
 <div id="drawer">
   <div class="drawer-header">
@@ -1516,6 +1576,7 @@ body.mode-auto .wrap{max-width:1080px}
     </div>
     <div id="drawer-action" style="margin-top:20px"></div>
   </div>
+
 <footer style="margin-top:36px;padding:24px 0 48px;border-top:1px solid #e2e8f0">
   <!-- 1. 全站統計膠囊 -->
   <div style="max-width:860px;margin:0 auto 14px;background:#ffffff;border:1px solid #cbd5e1;border-radius:9999px;padding:8px 24px;box-shadow:0 1px 3px rgba(0,0,0,0.03);display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap">
@@ -1541,10 +1602,8 @@ body.mode-auto .wrap{max-width:1080px}
     <div style="font-weight:700;color:#64748b;font-size:.84rem">HSChung 經濟學教學網・個人教學研發資產 ｜ 系統版本：v2026-10-19（最新修訂）</div>
   </div>
 </footer>
-</main>
 
 <script>
-
 let currentUIMode = 'auto';
 
 function setUIMode(mode, skipSave) {
@@ -1567,6 +1626,18 @@ function setUIMode(mode, skipSave) {
       metaVp.content = 'width=1200, initial-scale=0.32, user-scalable=yes';
     } else {
       metaVp.content = 'width=device-width, initial-scale=1';
+    }
+  }
+
+  if (currentUIMode === 'desktop') {
+    showBoth();
+  } else if (currentUIMode === 'mobile') {
+    showTab(1);
+  } else {
+    if (window.innerWidth >= 992) {
+      showBoth();
+    } else {
+      showTab(1);
     }
   }
 }
@@ -1924,15 +1995,49 @@ function guessCh(s){
   if(!r.length)return null;
   return `${r[0].ch} ${r[0].name}（加權命中${r[0].score}分）`;
 }
+function showBoth(){
+  const b1=document.getElementById('block1');
+  const b2=document.getElementById('block2');
+  const t1=document.getElementById('t1');
+  const t2=document.getElementById('t2');
+  const tBoth=document.getElementById('t-both');
+  const split=document.querySelector('.split-container');
+  if(b1) b1.classList.remove('hide');
+  if(b2) b2.classList.remove('hide');
+  if(split) split.classList.remove('single-col');
+  if(t1) t1.classList.remove('active');
+  if(t2) t2.classList.remove('active');
+  if(tBoth) tBoth.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
 function showTab(n){
   const b1=document.getElementById('block1');
   const b2=document.getElementById('block2');
   const t1=document.getElementById('t1');
   const t2=document.getElementById('t2');
-  if(b1) b1.classList.toggle('hide', n!==1);
-  if(b2) b2.classList.toggle('hide', n!==2);
-  if(t1) t1.classList.toggle('active', n===1);
-  if(t2) t2.classList.toggle('active', n===2);
+  const tBoth=document.getElementById('t-both');
+  const split=document.querySelector('.split-container');
+
+  if(n==='both' || n===0){
+    showBoth();
+    return;
+  }
+  if(n===1){ // 拍照解題
+    if(b1) b1.classList.remove('hide');
+    if(b2) b2.classList.add('hide');
+    if(split) split.classList.add('single-col');
+    if(t1) t1.classList.add('active');
+    if(t2) t2.classList.remove('active');
+    if(tBoth) tBoth.classList.remove('active');
+  } else if(n===2){ // 經濟學架構圖
+    if(b1) b1.classList.add('hide');
+    if(b2) b2.classList.remove('hide');
+    if(split) split.classList.add('single-col');
+    if(t1) t1.classList.remove('active');
+    if(t2) t2.classList.add('active');
+    if(tBoth) tBoth.classList.remove('active');
+  }
   window.scrollTo({top:0, behavior:'smooth'});
 }
 const file=document.getElementById('file'),preview=document.getElementById('preview'),finfo=document.getElementById('finfo'),ocrstat=document.getElementById('ocrstat');
@@ -3808,8 +3913,16 @@ function reVerifyHist(idx){
 function chIdxOf(s){const m=(s||'').match(/CH\s?(\d{1,2})/i);if(!m)return -1;const n=+m[1];return (n>=1&&n<=19)?n-1:-1;}
 function linkCh(ans){const set=[];const re=/CH\s?(\d{1,2})/gi;let m;while((m=re.exec(ans||''))){const n=+m[1];if(n>=1&&n<=19&&!set.includes(n))set.push(n);}return set.slice(0,3).map(n=>`<button class="ghost" onclick="gotoCh(${n-1})">回看 ${CH[n-1][0]} ${CH[n-1][1]}</button>`).join(' ');}
 function gotoCh(i){
-  showTab(1);
   const chCode = 'CH' + (i + 1);
+  const isDesktop = window.innerWidth >= 992 && currentUIMode !== 'mobile';
+  if(!isDesktop){
+    showTab(2); // 手機模式切換至右欄心智圖
+  } else {
+    const b2=document.getElementById('block2');
+    if(b2 && b2.classList.contains('hide')){
+      showBoth();
+    }
+  }
   setTimeout(() => {
     openDrawer(chCode);
     const card = document.getElementById('card-' + chCode.toLowerCase());
@@ -4618,17 +4731,33 @@ function clearMindMapSearch() {
 
 // 支援從其他頁面或章節連回帶錨點直接開啟 Drawer
 window.addEventListener('DOMContentLoaded', () => {
-  if (window.location.hash === '#solver') {
+  let savedMode = 'auto';
+  try { savedMode = localStorage.getItem('eco_ui_mode') || 'auto'; } catch(e){}
+  setUIMode(savedMode, true);
+
+  if (window.location.hash === '#map') {
     showTab(2);
-  } else {
+  } else if (window.location.hash === '#solver') {
     showTab(1);
-    const hash = window.location.hash.replace('#', '').toUpperCase();
-    if (CHAPTERS_DATA[hash]) {
-      setTimeout(() => {
-        openDrawer(hash);
-        const card = document.getElementById('card-' + hash.toLowerCase());
-        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 200);
+  }
+
+  const hash = window.location.hash.replace('#', '').toUpperCase();
+  if (CHAPTERS_DATA[hash]) {
+    setTimeout(() => {
+      openDrawer(hash);
+      const card = document.getElementById('card-' + hash.toLowerCase());
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (currentUIMode === 'auto') {
+    if (window.innerWidth >= 992) {
+      const split = document.querySelector('.split-container');
+      if (split && split.classList.contains('single-col')) {
+        showBoth();
+      }
     }
   }
 });
@@ -4684,8 +4813,6 @@ async function initSiteStats(){
   }
 }
 initSiteStats();
-</script>
-
 </script>
 </body>
 </html>
