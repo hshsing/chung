@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH10 分配理論 ｜ 高職經濟學統測複習講義</title>
+<style>
+:root {
+  --brand: #0d9488;
+  --brand-light: #f0fdfa;
+  --brand-border: #99f6e4;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --line-gray: #e2e8f0;
+  --accent-green: #15803d;
+  --accent-green-bg: #f0fdf4;
+  --accent-blue: #0369a1;
+  --accent-blue-bg: #f0f9ff;
+  --accent-purple: #7e22ce;
+  --accent-purple-bg: #faf5ff;
+  --accent-amber: #b45309;
+  --accent-amber-bg: #fffbeb;
+  --accent-red: #b91c1c;
+  --accent-red-bg: #fef2f2;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* 頂部導航列 */
+header {
+  background: #ffffff;
+  border-bottom: 2px solid var(--line-gray);
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--line-gray);
+}
+.header-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.header-btn.highlight {
+  background: #ccfbf1;
+  color: #0f766e;
+  border-color: var(--brand-border);
+}
+.header-btn.highlight:hover {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* 章節副導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.subnav-btn {
+  background: #f8fafc;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.15s ease;
+}
+.subnav-btn:hover {
+  background: var(--brand-light);
+  color: var(--brand);
+  border-color: var(--brand-border);
+}
+
+/* 主容器 */
+.container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 20px;
+}
+
+/* 核心模組卡片 */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--line-gray);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+}
+.card-header {
+  border-bottom: 2px solid #ccfbf1;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #0f766e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tag {
+  background: var(--brand-light);
+  color: var(--brand);
+  border: 1px solid var(--brand-border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 860px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-wrap img:hover {
+  transform: scale(1.01);
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 解說卡片 */
+.info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--brand);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 0.94rem;
+}
+.concept-box h3 {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+.concept-box p {
+  margin: 0;
+  color: #334155;
+}
+
+/* 公式與結論強調框 */
+.formula-box {
+  background: #f0fdfa;
+  border: 1.5px dashed var(--brand-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+.formula-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #0f766e;
+  margin-bottom: 4px;
+}
+.formula-math {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #f0fdfa;
+}
+.highlight-cell {
+  background: #ccfbf1;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+}
+.quiz-btn.correct {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+.quiz-btn.wrong {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+.quiz-explain {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #166534;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* 圖片放大 Modal */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH10 分配理論 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch09_imperfect_competition.html" class="header-btn">⬅ 上一章：CH9 不完全競爭</a>
+    <a href="ch11_wage_rent.html" class="header-btn highlight">下一章：CH11 工資與地租 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本 5 大節有機展開為 7 大模組） -->
+<nav class="subnav">
+  <a href="#sec-functional-dist" class="subnav-btn">① 10-1 所得分配概念與功能性分配</a>
+  <a href="#sec-lorenz-gini" class="subnav-btn">② 10-2-1 & 10-2-2 羅倫茲曲線與吉尼係數</a>
+  <a href="#sec-ratio-welfare" class="subnav-btn">③ 10-2-3 & 10-3 所得組倍數、M型社會與重分配</a>
+  <a href="#sec-factor-demand" class="subnav-btn">④ 10-4 生產要素需求特性（引申/聯合）</a>
+  <a href="#sec-marginal-theory" class="subnav-btn">⑤ 10-5-1 & 10-5-2 邊際生產力與最適僱用量</a>
+  <a href="#sec-equal-marginal" class="subnav-btn">⑥ 10-5-3 邊際生產力均等法則（最小成本組合）</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 模組一：10-1 所得分配概念與功能性分配 ==================== -->
+  <div class="card" id="sec-functional-dist">
+    <div class="card-header">
+      <h2>💰 模組一：10-1 所得分配的意義與功能性所得分配</h2>
+      <span class="tag">課本 10-1 節 ｜ 四大生產要素與四種報酬</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 什麼是「所得分配（Income Distribution）」？</h3>
+      <p>生產活動必須結合土地、勞動、資本與企業家精神等生產要素才能進行，生產所創造的成果應由要素提供者共同分享；這種將生產成果分給生產要素提供者的經濟行為，稱為<b>所得分配</b>。</p>
+    </div>
+
+    <div class="split-view">
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3 style="color:var(--brand);">一、功能性所得分配（Functional Income Distribution）</h3>
+          <p>又稱<b>「要素所得分配」</b>，是根據各生產要素在生產過程中的<b>貢獻程度大小（邊際生產力）</b>，來決定其所獲得的相對報酬：</p>
+          <ul class="rule-list">
+            <li><b>土地（Land）：</b>提供自然資源與場所 ➔ 獲得<b>「地租（Rent）」</b>。</li>
+            <li><b>勞動（Labor）：</b>提供心力與體力 ➔ 獲得<b>「工資（Wage）」</b>。<br>
+              <span style="color:var(--accent-green);font-weight:700;">★ 統測高頻鐵律：工資占國民所得的比例最高，也是最穩定的所得來源！</span>
+            </li>
+            <li><b>資本（Capital）：</b>提供廠房、機械與資金 ➔ 獲得<b>「利息（Interest）」</b>。</li>
+            <li><b>企業家精神（Entrepreneurship）：</b>承擔風險、整合要素與創新 ➔ 獲得<b>「利潤（Profit）」</b>。<br>
+              <span style="color:var(--accent-red);font-weight:700;">★ 統測高頻鐵律：利潤最不穩定，隨景氣繁榮或蕭條劇烈波動，甚至可能為負（虧損）！</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-box" style="border-left-color:var(--accent-blue);background:var(--accent-blue-bg);">
+          <h3 style="color:#0369a1;">二、個人所得分配（Personal / Size Distribution）</h3>
+          <p>以<b>「個人」或「家庭」</b>為衡量對象，不論所得來源為何，統計一國全體個人或家庭在一定期間內所得的多寡與差距程度，用以分析<b>貧富差距與分配均度</b>。</p>
+        </div>
+      </div>
+
+      <!-- 右：圖 10-1 功能性所得分配原圖 -->
+      <div class="img-wrap">
+        <img src="images/ch10/fig10_01_functional_distribution.png" alt="圖 10-1 功能性所得分配" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 10-1 四大生產要素與對應的功能性所得分配圖解</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組二：10-2-1 & 10-2-2 羅倫茲曲線與吉尼係數 ==================== -->
+  <div class="card" id="sec-lorenz-gini">
+    <div class="card-header">
+      <h2>📈 模組二：10-2-1 羅倫茲曲線與 10-2-2 吉尼係數的幾何測量</h2>
+      <span class="tag">課本 10-2 節 ｜ 衡量貧富不均的核心利器</span>
+    </div>
+
+    <!-- 羅倫茲曲線介紹 -->
+    <div class="split-view">
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3 style="color:#0f766e;">📌 1. 羅倫茲曲線（Lorenz Curve，美國經濟學家羅倫茲提出）</h3>
+          <ul class="rule-list">
+            <li><b>正方箱型圖座標：</b>
+              <ul>
+                <li><b>橫軸：</b>全國家庭由低而高的<b>「戶數累積百分比（0%～100%）」</b>。</li>
+                <li><b>縱軸：</b>全國由低而高的<b>「所得累積百分比（0%～100%）」</b>。</li>
+              </ul>
+            </li>
+            <li><b>三大曲線型態：</b>
+              <ol style="margin-top:4px;padding-left:18px;">
+                <li><b>絕對平均線（45度對角線 <i>LC<sub>1</sub></i>）：</b>線上任一點代表戶數比例等於所得比例（如 20% 戶數擁有 20% 所得）。</li>
+                <li><b>絕對不平均線（直角折線 <i>LC<sub>2</sub></i>）：</b>99.99% 的家庭無所得，最後極少數家庭囊括 100% 所得。</li>
+                <li><b>實際羅倫茲曲線（<i>LC<sub>3</sub></i>）：</b>位於兩者之間，呈凹向右下方的弧線。<br>
+                  • <b>愈靠近 45 度線 <i>LC<sub>1</sub></i> ➔ 所得分配愈平均</b>。<br>
+                  • <b>愈靠近直角線 <i>LC<sub>2</sub></i> ➔ 所得分配愈不平均</b>。
+                </li>
+              </ol>
+            </li>
+            <li><b>羅倫茲曲線的缺點：</b>若兩國的羅倫茲曲線<b>相交（如圖 10-4）</b>，則無法直接看出哪一國較平均，必須借助<b>吉尼係數</b>！</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="img-wrap">
+        <img src="images/ch10/fig10_03_lorenz_box.png" alt="圖 10-3 羅倫茲曲線箱型圖" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 10-3 羅倫茲曲線箱型圖（絕對平均線、絕對不平均線與實際曲線）</div>
+      </div>
+    </div>
+
+    <!-- 台灣家庭所得分配表與相交圖 -->
+    <div style="margin-top:20px;" class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch10/table10_01_taiwan_lorenz_data.png" alt="表 10-1 台灣家庭所得分配表" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本表 10-1 台灣家庭所得五等分分配表（累計戶數 vs 累計所得）</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch10/fig10_04_intersecting_lorenz.png" alt="圖 10-4 相交的羅倫茲曲線" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 10-4 相交的羅倫茲曲線（無法單憑肉眼判斷均度，需計算吉尼係數）</div>
+      </div>
+    </div>
+
+    <!-- 吉尼係數詳細計算 -->
+    <div style="margin-top:24px;">
+      <div class="card-header" style="border-bottom:1px solid #99f6e4;padding-bottom:8px;margin-bottom:14px;">
+        <h3 style="margin:0;font-size:1.12rem;color:#0f766e;">📐 2. 吉尼係數（Gini Coefficient，義大利統計學家吉尼提出）</h3>
+        <span class="tag">數值化精準指標</span>
+      </div>
+
+      <div class="split-view">
+        <div class="info-wrap">
+          <div class="formula-box">
+            <div class="formula-title">⚡ 吉尼係數計算公式</div>
+            <div class="formula-math">
+              <i>g</i> ＝ <span class="frac"><span class="frac-top">半月形不平均面積 <i>A</i></span><span class="frac-bottom">絕對平均線下三角形面積 (<i>A</i> ＋ <i>B</i>)</span></span> ＝ <span class="frac"><span class="frac-top"><i>A</i></span><span class="frac-bottom">0.5</span></span> ＝ 2<i>A</i>
+            </div>
+            <ul class="rule-list" style="margin-top:8px;">
+              <li><b>係數範圍：</b>0 ≤ <i>g</i> ≤ 1。</li>
+              <li><b><i>g</i> ＝ 0：</b><i>A</i> 面積為 0，表示<b>所得分配絕對平均</b>。</li>
+              <li><b><i>g</i> ＝ 1：</b><i>A</i> 面積膨脹到整塊三角形，表示<b>所得分配絕對不平均</b>。</li>
+              <li><b>結論判斷：</b><br>
+                • <b><i>g</i> 值愈小 ➔ 所得分配愈平均</b>！<br>
+                • <b><i>g</i> 值愈大 ➔ 所得分配愈不平均（貧富差距懸殊）</b>！<br>
+                • 國際通例：吉尼係數超過 <b>0.4</b> 被視為貧富差距的<b>「警戒紅線」</b>。
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="img-wrap">
+          <img src="images/ch10/fig10_05_gini_coefficient.png" alt="圖 10-5 羅倫茲曲線與吉尼係數" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 10-5 羅倫茲曲線面積 A、B 與吉尼係數幾何圖解</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="img-wrap" style="max-width: 720px; margin: 16px auto;">
+          <img src="images/ch10/table10_02_global_gini.png" alt="表 10-2 主要國家的吉尼係數" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本表 10-2 主要國家吉尼係數比較（台灣約 0.34，相較美、英等國更為平均）</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 模組三：10-2-3 & 10-3 所得組倍數、M型社會與重分配 ==================== -->
+  <div class="card" id="sec-ratio-welfare">
+    <div class="card-header">
+      <h2>⚖️ 模組三：10-2-3 最高最低所得組倍數、M型社會與 10-3 所得重分配政策</h2>
+      <span class="tag">課本 10-2-3 & 10-3 節 ｜ 縮小貧富差距的政策手段</span>
+    </div>
+
+    <!-- 最高最低所得組倍數 -->
+    <div class="split-view">
+      <div class="info-wrap">
+        <div class="formula-box">
+          <div class="formula-title">⚡ 最高最低所得組倍數（五等分位差距倍數）</div>
+          <div class="formula-math">
+            五等分差距倍數 ＝ <span class="frac"><span class="frac-top">最高所得組（前20%）所得占比</span><span class="frac-bottom">最低所得組（後20%）所得占比</span></span>
+          </div>
+          <ul class="rule-list" style="margin-top:8px;">
+            <li><b>倍數愈大 ➔ 所得分配愈不平均</b>；倍數愈小 ➔ 所得分配愈平均。</li>
+            <li>若<b>倍數 ＝ 1</b>，代表最高組與最低組所得完全相同，<b>所得分配絕對平均</b>。</li>
+            <li>台灣近年五等分位差距倍數大約落在 <b>6.09～6.13 倍</b> 左右，貧富差距有逐漸擴大趨勢。</li>
+          </ul>
+        </div>
+
+        <div class="concept-box" style="border-left-color:var(--accent-purple);background:var(--accent-purple-bg);">
+          <h3 style="color:var(--accent-purple);">⚠️ 課後小品：大前研一的「M型社會」理論</h3>
+          <p>
+            日本趨勢大師大前研一指出：中產階級因實質薪資停滯與物價高漲而逐漸萎縮，少數人向上攀升至富人階級，多數人向下沉淪為新貧族，使社會階層兩極化，人數分布如英文字母 <b>「M」型</b>，中產階級幾近消失。
+          </p>
+        </div>
+      </div>
+
+      <div class="img-wrap">
+        <img src="images/ch10/table10_03_taiwan_ratio_trend.png" alt="表 10-3 台灣近年來家庭所得分配之趨勢" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本表 10-3 台灣家庭五等分位所得占比與倍數趨勢表</div>
+        <div style="margin-top:12px;">
+          <img src="images/ch10/fig10_06_m_shaped_society.png" alt="圖 10-6 M型社會" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 10-6 中產階級崩塌之「M型社會」結構圖</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10-3 所得重分配政策 -->
+    <div style="margin-top:24px;">
+      <h3 style="font-size:1.05rem;color:#1e293b;margin-bottom:10px;">🛡️ 政府改善貧富差距的四大重分配政策工具</h3>
+      
+      <div class="split-view">
+        <div class="info-wrap">
+          <ul class="rule-list">
+            <li><b>1. 租稅政策（最具關鍵效果）：</b>
+              採行<b>「超額累進所得稅制」</b>（所得愈高稅率愈高，如台灣最高稅率 40%），對奢侈品課徵特種貨物稅，對民生必需品免稅或低稅。
+            </li>
+            <li><b>2. 社會福利與移轉性支付：</b>
+              發放中低收入戶生活補助、老農津貼、育兒津貼、身心障礙補助、急難救助等，直接挹注弱勢底層。
+            </li>
+            <li><b>3. 社會保險制度：</b>
+              普及全民健保、勞保與國民年金，防止民眾因重大疾病或傷殘陷入貧困。
+            </li>
+            <li><b>4. 普及均等教育與就業培訓：</b>
+              縮短教育資源城鄉差距，促進社會階層垂直流動，協助勞工提升邊際生產力。
+            </li>
+          </ul>
+        </div>
+
+        <div class="img-wrap">
+          <img src="images/ch10/table10_04_progressive_tax.png" alt="表 10-4 綜合所得稅課稅級距" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本表 10-4 台灣個人綜合所得稅五級累進稅率表（5%～40%）</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組四：10-4 生產要素需求特性 ==================== -->
+  <div class="card" id="sec-factor-demand">
+    <div class="card-header">
+      <h2>🏭 模組四：10-4 生產要素需求的特性與市場雙向流向</h2>
+      <span class="tag">課本 10-4 節 ｜ 引申需求、聯合需求與競爭需求</span>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：原圖裁切 -->
+      <div class="img-wrap">
+        <img src="images/ch10/fig10_07_market_roles.png" alt="圖 10-7 廠商與家計部門的角色" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 10-7 產品市場 vs 要素市場：廠商與家計部門的買賣角色翻轉圖解</div>
+      </div>
+
+      <!-- 右：特性解說 -->
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3 style="color:#0f766e;">📌 要素市場與產品市場的角色對稱翻轉</h3>
+          <p>
+            • <b>產品市場：</b>消費者（家計部門）是買方，廠商是賣方。<br>
+            • <b>要素市場：</b>勞動者（家計部門）是賣方，廠商是買方（購買勞力投入生產）！
+          </p>
+        </div>
+
+        <div class="concept-box" style="border-left-color:var(--brand);">
+          <h3 style="color:var(--brand);">📌 生產要素需求的三大核心特性</h3>
+          <ul class="rule-list">
+            <li><b>1. 引申需求（Derived Demand，又稱間接需求）：</b><br>
+              廠商購買生產要素並非為了要素本身，而是為了生產產品銷售給顧客。因此<b>要素需求是由產品需求「引申衍生」而來</b>！<br>
+              <i>例：顧客愛喝現煮咖啡 ➔ 引申出超商對咖啡豆與咖啡師的需求；學校舉辦校外教學 ➔ 引申出對遊覽車的需求。</i>
+            </li>
+            <li><b>2. 聯合需求（Joint Demand，互補性要素）：</b><br>
+              生產過程往往需要多種要素<b>互相搭配、協同合作</b>才能完成。<br>
+              <i>例：泡咖啡需結合咖啡豆、咖啡機與店員；開公車需結合公車車輛與司機。</i>
+            </li>
+            <li><b>3. 競爭需求（Competitive Demand，替代性要素）：</b><br>
+              生產要素之間若具<b>替代性</b>，廠商會擇優選擇生產力高或成本低的要素。<br>
+              <i>例：麵包店購買自動攪拌機取代人工手揉、工廠以自動化機械臂取代裝配工人。</i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組五：10-5 邊際生產力理論與最適僱用量 ==================== -->
+  <div class="card" id="sec-marginal-theory">
+    <div class="card-header">
+      <h2>⚖️ 模組五：10-5 邊際生產力分配理論與廠商最適要素僱用量</h2>
+      <span class="tag">課本 10-5-1 & 10-5-2 節 ｜ 大克拉克理論・統測高頻計算考點</span>
+    </div>
+
+    <!-- 三大指標公式對比 -->
+    <div style="margin-bottom:20px;">
+      <h3 style="font-size:1.05rem;color:#1e293b;margin-bottom:8px;">📊 生產要素邊際生產力三大收益指標對照</h3>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>指標名稱</th>
+            <th>代號與定義</th>
+            <th>計算公式</th>
+            <th>完全競爭 vs 不完全競爭產品市場</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>邊際實物產量</b></td>
+            <td><i>MP<sub>L</sub></i>（多僱 1 單位勞動增加的實物產量）</td>
+            <td><i>MP<sub>L</sub></i> ＝ <span class="frac"><span class="frac-top">Δ<i>TP</i></span><span class="frac-bottom">Δ<i>L</i></span></span></td>
+            <td>純物理數量，與產品市場型態無關</td>
+          </tr>
+          <tr>
+            <td><b>邊際產值</b></td>
+            <td><i>VMP<sub>L</sub></i>（多僱 1 單位勞動創造的總產出<b>市價價值</b>）</td>
+            <td><i>VMP<sub>L</sub></i> ＝ <b><i>P<sub>X</sub></i> × <i>MP<sub>L</sub></i></b></td>
+            <td rowspan="2">
+              • <b>完全競爭產品市場：</b><i>P<sub>X</sub></i> ＝ <i>MR<sub>X</sub></i> ➔ <b style="color:var(--accent-green)"><i>VMP<sub>L</sub></i> ＝ <i>MRP<sub>L</sub></i></b>（圖 10-9）<br>
+              • <b>不完全競爭產品市場：</b><i>P<sub>X</sub></i> ＞ <i>MR<sub>X</sub></i> ➔ <b style="color:var(--accent-red)"><i>VMP<sub>L</sub></i> ＞ <i>MRP<sub>L</sub></i></b>
+            </td>
+          </tr>
+          <tr>
+            <td><b>邊際生產收益</b></td>
+            <td><i>MRP<sub>L</sub></i>（多僱 1 單位勞動為廠商增加的<b>實際邊際收益</b>）</td>
+            <td><i>MRP<sub>L</sub></i> ＝ <b><i>MR<sub>X</sub></i> × <i>MP<sub>L</sub></i></b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：圖 10-9 MRPL 與 VMPL 原圖 -->
+      <div class="img-wrap">
+        <img src="images/ch10/fig10_09_mrpl_vmpl_relation.png" alt="圖 10-9 MRPL 與 VMPL 的關係" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 10-9 完全競爭產品市場下：<i>P</i> ＝ <i>MR</i> ➔ <i>VMP<sub>L</sub></i> ＝ <i>MRP<sub>L</sub></i> 重合</div>
+      </div>
+
+      <!-- 右：圖 10-10 水平要素供給線 -->
+      <div class="img-wrap">
+        <img src="images/ch10/fig10_10_factor_supply_curve.png" alt="圖 10-10 完全競爭要素供給曲線" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 10-10 完全競爭要素市場：廠商為要素價格接受者，面對水平要素供給線 <i>S<sub>L</sub></i> ＝ <i>P<sub>L</sub></i></div>
+      </div>
+    </div>
+
+    <!-- 最適僱用條件判斷 -->
+    <div style="margin-top:24px;">
+      <div class="card-header" style="border-bottom:1px solid #99f6e4;padding-bottom:8px;margin-bottom:14px;">
+        <h3 style="margin:0;font-size:1.15rem;color:#0f766e;">🎯 廠商利潤極大化之最適要素僱用條件</h3>
+        <span class="tag">邊際成本等於邊際收益在要素市場的體現</span>
+      </div>
+
+      <div class="split-view">
+        <div class="info-wrap">
+          <div class="formula-box">
+            <div class="formula-title">⚡ 要素市場利潤極大黃金準則</div>
+            <div class="formula-math"><i>MRP<sub>L</sub></i> ＝ <i>P<sub>L</sub></i>（或 <i>VMP<sub>L</sub></i> ＝ <i>P<sub>L</sub></i>）</div>
+            <ul class="rule-list" style="margin-top:8px;">
+              <li><b>當 <i>MRP<sub>L</sub></i> ＞ <i>P<sub>L</sub></i> 時：</b>多僱一個勞工增加的收益大於給付的工資，總利潤增加 ➔ <b>應增加勞動僱用量（<i>L</i> ↑）</b>！</li>
+              <li><b>當 <i>MRP<sub>L</sub></i> ＜ <i>P<sub>L</sub></i> 時：</b>多僱一個勞工增加的收益小於工資成本，形成虧損 ➔ <b>應減少勞動僱用量（<i>L</i> ↓）</b>！</li>
+              <li><b>當 <i>MRP<sub>L</sub></i> ＝ <i>P<sub>L</sub></i> 時：</b>達到要素僱用均衡點 <i>E'</i>，決定最適勞動僱用量 <b><i>L*</i></b>！</li>
+              <li><b>【要素需求曲線結論】：</b>個別廠商在報酬遞減階段的 <b><i>MRP<sub>L</sub></i> 線（或 <i>VMP<sub>L</sub></i> 線），即為廠商對勞動的需求曲線 <i>D<sub>L</sub></i></b>（圖 10-12）！</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 右：表 10-5 與圖 10-11 綜合分析 -->
+        <div class="img-wrap">
+          <img src="images/ch10/table10_05_optimal_factor_employment.png" alt="表 10-5 最適要素僱用量的決定" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本表 10-5 礦場最適要素僱用量推導表（比對 <i>MRP<sub>L</sub></i> 與 <i>P<sub>L</sub></i>）</div>
+        </div>
+      </div>
+
+      <!-- 圖 10-11, 10-12, 10-13 原圖展示 -->
+      <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;">
+        <div class="img-wrap">
+          <img src="images/ch10/fig10_11_optimal_factor_decision.png" alt="圖 10-11 最適僱用量決定" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 圖 10-11 <i>MRP<sub>L</sub></i> ＝ <i>P<sub>L</sub></i> 交點 <i>E'</i></div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch10/fig10_12_factor_demand_curve.png" alt="圖 10-12 要素需求曲線" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 圖 10-12 <i>D<sub>L</sub></i> ＝ <i>MRP<sub>L</sub></i> 線</div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch10/fig10_13_dual_market_equilibrium.png" alt="圖 10-13 雙市場利潤極大條件" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 圖 10-13 要素端與產品端雙向均衡</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組六：10-5-3 邊際生產力均等法則 ==================== -->
+  <div class="card" id="sec-equal-marginal">
+    <div class="card-header">
+      <h2>⚙️ 模組六：10-5-3 邊際生產力均等法則（最小成本要素組合）</h2>
+      <span class="tag">課本 10-5-3 節 ｜ 多要素投入的最優資源調配</span>
+    </div>
+
+    <div class="split-view">
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3 style="color:#0f766e;">📌 什麼是邊際生產力均等法則？</h3>
+          <p>
+            廠商在生產特定產量時，若投入兩種以上生產要素（如勞動 <i>L</i> 與資本 <i>K</i>），為了達到<b>「總生產成本最小」</b>，每一元支出在各要素上所獲得的邊際產量必須相等：
+          </p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">⚡ 最小成本要素組合方程式</div>
+          <div class="formula-math">
+            <span class="frac"><span class="frac-top"><i>MP<sub>L</sub></i></span><span class="frac-bottom"><i>P<sub>L</sub></i></span></span> ＝ <span class="frac"><span class="frac-top"><i>MP<sub>K</sub></i></span><span class="frac-bottom"><i>P<sub>K</sub></i></span></span> ＝ … ＝ <span class="frac"><span class="frac-top"><i>MP<sub>n</sub></i></span><span class="frac-bottom"><i>P<sub>n</sub></i></span></span>
+          </div>
+          <ul class="rule-list" style="margin-top:10px;">
+            <li><b>【統測高頻動態調整題型】：</b>
+              <ul>
+                <li>若 <span class="frac"><span class="frac-top"><i>MP<sub>L</sub></i></span><span class="frac-bottom"><i>P<sub>L</sub></i></span></span> ＞ <span class="frac"><span class="frac-top"><i>MP<sub>K</sub></i></span><span class="frac-bottom"><i>P<sub>K</sub></i></span></span>：表示花在勞動上的每一塊錢生產力較高（勞動性價比高）➔ <b>應增加勞動僱用（<i>L</i> ↑），減少資本投入（<i>K</i> ↓）</b>！</li>
+                <li>若 <span class="frac"><span class="frac-top"><i>MP<sub>L</sub></i></span><span class="frac-bottom"><i>P<sub>L</sub></i></span></span> ＜ <span class="frac"><span class="frac-top"><i>MP<sub>K</sub></i></span><span class="frac-bottom"><i>P<sub>K</sub></i></span></span>：表示花在資本上的每一塊錢生產力較高 ➔ <b>應增加資本投入（<i>K</i> ↑），減少勞動僱用（<i>L</i> ↓）</b>！</li>
+              </ul>
+            </li>
+            <li><b>利潤極大化完全均衡條件：</b><br>
+              <div style="margin:6px 0;font-size:0.95rem;font-weight:700;color:var(--brand);">
+                <span class="frac"><span class="frac-top"><i>MP<sub>L</sub></i></span><span class="frac-bottom"><i>P<sub>L</sub></i></span></span> ＝ <span class="frac"><span class="frac-top"><i>MP<sub>K</sub></i></span><span class="frac-bottom"><i>P<sub>K</sub></i></span></span> ＝ <span class="frac"><span class="frac-top">1</span><span class="frac-bottom"><i>MC</i></span></span> ＝ <span class="frac"><span class="frac-top">1</span><span class="frac-bottom"><i>P</i></span></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-wrap">
+        <div class="concept-box" style="border-left-color:var(--accent-amber);background:var(--accent-amber-bg);">
+          <h4 style="margin:0 0 6px;color:#9a3412;">💡 觀念口訣記憶心法</h4>
+          <p style="font-size:0.9rem;color:#334155;">
+            這與第三章消費者均衡的「邊際效用均等法則（<i>MU<sub>X</sub>/P<sub>X</sub> ＝ MU<sub>Y</sub>/P<sub>Y</sub></i>）」在數學結構上完全對稱！<br>
+            • 消費者追求的是<b>「每一元買到的效用均等」</b>；<br>
+            • 生產者追求的是<b>「每一元買到的邊際產量均等」</b>！哪邊划算就多買哪邊，直到兩端均等為止！
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組七：課本原題測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 課本原版題庫實戰測驗（精選自課本 P.277～P.280）</h2>
+      <span class="tag">即測即評 ｜ 點擊選項立刻驗證觀念</span>
+    </div>
+
+    <!-- 題目 1 -->
+    <div class="quiz-item" id="q1">
+      <div class="quiz-q">1. 【課本 P.277 選擇第 1 題】在四種功能性所得中，何種要素報酬占國民所得的比例最高且最為穩定？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(1, 'A')">(A) 工資（Wage）</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'B')">(B) 地租（Rent）</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'C')">(C) 利息（Interest）</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'D')">(D) 利潤（Profit）</button>
+      </div>
+      <div class="quiz-explain" id="exp1">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b>根據國民所得統計，<b>工資</b>占國民所得比例最高且最為穩定；而<b>利潤</b>占國民所得比例最不穩定，常隨景氣波動而劇烈變化。
+      </div>
+    </div>
+
+    <!-- 題目 2 -->
+    <div class="quiz-item" id="q2">
+      <div class="quiz-q">2. 【課本 P.277 選擇第 4～5 題連鎖圖解】下圖中 L甲、L乙、L丙、L丁 分別代表四國的羅倫茲曲線，試問哪一國的所得分配最平均？哪一國的吉尼係數最大？</div>
+      <div style="text-align:center;margin:12px 0;">
+        <img src="images/ch10/fig10_14_q4_lorenz_curves.png" alt="羅倫茲曲線題圖" style="max-width:320px;border-radius:8px;border:1px solid #cbd5e1;cursor:zoom-in;" onclick="openModal(this.src)">
+      </div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(2, 'A')">(A) 甲國所得最平均；丁國吉尼係數最大</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'B')">(B) 丁國所得最平均；甲國吉尼係數最大</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'C')">(C) 甲國所得最平均；甲國吉尼係數最大</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'D')">(D) 乙國所得最平均；丙國吉尼係數最大</button>
+      </div>
+      <div class="quiz-explain" id="exp2">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b><br>
+        ① 羅倫茲曲線愈靠近 45 度絕對平均線，代表所得分配愈平均，圖中 <b>L甲</b> 最貼近對角線，故<b>甲國最平均</b>。<br>
+        ② 羅倫茲曲線與對角線夾成的半月形面積 A 愈大，吉尼係數愈大，貧富差距愈懸殊。圖中 <b>L丁</b> 凸向右下角最嚴重，面積 A 最大，故<b>丁國吉尼係數最大</b>。
+      </div>
+    </div>
+
+    <!-- 題目 3 -->
+    <div class="quiz-item" id="q3">
+      <div class="quiz-q">3. 【課本 P.277 選擇第 8 題】假設某國最高所得組所得占全國所得百分比為 60%，最低所得組所得占全國所得百分比為 3%，則該國之最高最低所得組倍數為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(3, 'A')">(A) 18 倍</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'B')">(B) 20 倍</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'C')">(C) 25 倍</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'D')">(D) 30 倍</button>
+      </div>
+      <div class="quiz-explain" id="exp3">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        最高最低所得組倍數 ＝ 最高所得組占比 / 最低所得組占比 ＝ 60% / 3% ＝ <b>20 倍</b>。
+      </div>
+    </div>
+
+    <!-- 題目 4 -->
+    <div class="quiz-item" id="q4">
+      <div class="quiz-q">4. 【課本 P.280 生活情境第 1 題】每年十月份許多學校舉辦校外教學畢業旅行，這段期間委辦旅行社對「遊覽車」的需求，在經濟學上屬於何種需求特性？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(4, 'A')">(A) 直接需求</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'B')">(B) 引申需求（間接需求）</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'C')">(C) 獨立需求</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'D')">(D) 固定需求</button>
+      </div>
+      <div class="quiz-explain" id="exp4">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b>廠商對生產要素的需求並非為了自身直接消費，而是為了滿足最終消費者的產品需求所衍生出來的，故稱為<b>引申需求（Derived Demand）</b>或間接需求。
+      </div>
+    </div>
+
+    <!-- 題目 5 -->
+    <div class="quiz-item" id="q5">
+      <div class="quiz-q">5. 【課本 P.279 選擇第 19 題計算】假設某廠商 <i>MP<sub>L</sub></i> ＝ 50 － 2<i>L</i>，產品市價 <i>P<sub>X</sub></i> ＝ 10 元，勞動工資率 <i>P<sub>L</sub></i> ＝ 100 元。當要素市場與產品市場均為完全競爭市場時，利潤最大時的最適勞動僱用量 <i>L*</i> 為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(5, 'A')">(A) 10 單位</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'B')">(B) 12 單位</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'C')">(C) 20 單位</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'D')">(D) 30 單位</button>
+      </div>
+      <div class="quiz-explain" id="exp5">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b><br>
+        ① 兩市場均為完全競爭，利潤最大僱用條件為：<i>VMP<sub>L</sub></i> ＝ <i>P<sub>L</sub></i>。<br>
+        ② <i>VMP<sub>L</sub></i> ＝ <i>P<sub>X</sub></i> × <i>MP<sub>L</sub></i> ＝ 10 × (50 － 2<i>L</i>) ＝ 500 － 20<i>L</i>。<br>
+        ③ 令 <i>VMP<sub>L</sub></i> ＝ <i>P<sub>L</sub></i> ➔ 500 － 20<i>L</i> ＝ 100 ➔ 20<i>L</i> ＝ 400 ➔ <b><i>L*</i> ＝ 20 單位</b>！
+      </div>
+    </div>
+
+    <!-- 題目 6 -->
+    <div class="quiz-item" id="q6">
+      <div class="quiz-q">6. 【課本 P.279 填充第 5 題】某廠商在生產時同時使用勞動（L）與資本（K），若目前出現 <span class="frac"><span class="frac-top"><i>MP<sub>L</sub></i></span><span class="frac-bottom"><i>P<sub>L</sub></i></span></span> ＞ <span class="frac"><span class="frac-top"><i>MP<sub>K</sub></i></span><span class="frac-bottom"><i>P<sub>K</sub></i></span></span> 的現象，為求成本最小化，廠商應如何調整要素使用量？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(6, 'A')">(A) 增加勞動 L，減少資本 K</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'B')">(B) 減少勞動 L，增加資本 K</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'C')">(C) 同時增加勞動與資本</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'D')">(D) 同時減少勞動與資本</button>
+      </div>
+      <div class="quiz-explain" id="exp6">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b><br>
+        <span class="frac"><span class="frac-top"><i>MP<sub>L</sub></i></span><span class="frac-bottom"><i>P<sub>L</sub></i></span></span> 代表花在勞動上的最後一元所創造的邊際產量。當勞動的每一元產出大於資本時，表示勞動效益較高，廠商為降低成本，應<b>增加僱用勞動（<i>L</i> ↑）</b>，並<b>減少使用資本（<i>K</i> ↓）</b>，直到兩者比例相等為止。
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 圖片 Modal -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大圖形">
+</div>
+
+<script>
+// 測驗檢查腳本
+const ANSWERS = {
+  1: 'A',
+  2: 'A',
+  3: 'B',
+  4: 'B',
+  5: 'C',
+  6: 'A'
+};
+
+function checkQuiz(qNum, selected) {
+  const qDiv = document.getElementById('q' + qNum);
+  const btns = qDiv.querySelectorAll('.quiz-btn');
+  const correct = ANSWERS[qNum];
+
+  btns.forEach(btn => {
+    btn.classList.remove('correct', 'wrong');
+    const opt = btn.textContent.trim().substring(1, 2);
+    if (opt === correct) {
+      btn.classList.add('correct');
+    } else if (opt === selected && selected !== correct) {
+      btn.classList.add('wrong');
+    }
+  });
+
+  document.getElementById('exp' + qNum).style.display = 'block';
+}
+
+// 圖片 Lightbox Modal
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

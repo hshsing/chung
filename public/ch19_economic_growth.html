@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH19 經濟成長與經濟發展 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組快速導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px 0;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 分數標籤排版 */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+}
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.frac > span:last-child {
+  padding-top: 1px;
+}
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📘 CH19 經濟成長與經濟發展 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch18_economic_fluctuations.html" class="header-btn">⬅ 上一章：CH18 經濟波動</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景總複習架構圖 ➔</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列 -->
+<nav class="subnav">
+  <a href="#sec-growth-basics" class="subnav-btn">① 19-1 經濟成長意義、決定因素與測定</a>
+  <a href="#sec-growth-theories" class="subnav-btn">② 19-1 經濟成長六大學派理論全解</a>
+  <a href="#sec-development-taiwan" class="subnav-btn">③ 19-2 經濟發展與台灣經濟發展歷程</a>
+  <a href="#sec-knowledge-economy" class="subnav-btn">④ 19-2 知識經濟時代與四大知識類型</a>
+  <a href="#sec-sustainability" class="subnav-btn">⑤ 19-3 經濟成長與自然生態（環境永續）</a>
+  <a href="#sec-quiz" class="subnav-btn">⑥ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-growth-basics">
+    <h2>① 19-1 經濟成長意義、決定因素與測定</h2>
+
+    <p>台灣人民在 1950 年代騎腳踏車、1970 年代騎機車、1990 年代開汽車、到 21 世紀搭高鐵，生活水準顯著躍升。1976 年以前我國平均每人 GDP 不到 1,000 美元，現今已超越 34,000 美元，這正是<strong>經濟成長（Economic Growth）</strong>所帶來的實質成果。</p>
+
+    <div class="concept-box">
+      <strong>📌 經濟成長的定義與適用對象：</strong><br>
+      • <strong>核心定義：</strong>指一國<strong>「實質總產出（實質 GDP）」</strong>或<strong>「平均每人實質 GDP」</strong>不斷增加的現象。<br>
+      • <strong>適用對象：</strong>較適用於描述<strong>「已開發國家」</strong>的經濟進步情況。因已開發國家之制度、法律、市場架構已臻完善，故政策核心著重於追求實質 GDP 的持續增加。
+    </div>
+
+    <h3>一、決定經濟成長的五大核心要素</h3>
+    <ul>
+      <li><strong>自然資源的多寡：</strong>豐富土地與天然資源（如科威特石油、澳洲礦產）奠定初期發展優勢。</li>
+      <li><strong>技術的進步與創新：</strong>生產技術進步與企業家創新，促使生產可能曲線（PPC）向外擴張，帶動總產出躍升。</li>
+      <li><strong>政府的施政效能：</strong>提供完善的基礎建設（交通、電力、水資源）、建立健全金融制度與保護智慧財產權。</li>
+      <li><strong>人力資本（Human Capital）的提升：</strong>勞動者持續累積技能、專業知識與健康水準，大幅提升勞動生產力。</li>
+      <li><strong>固定資本的累積：</strong>廠房、機器設備等實體資本持續累積，資本深化增強生產效率。</li>
+    </ul>
+
+    <div class="tip-box">
+      <strong>⚠️ 貧窮的惡性循環（Vicious Circle of Poverty，課本圖 19-1）：</strong><br>
+      經濟學者<strong>諾克斯（R. Nurkse）</strong>指出，低所得國家因戰亂、饑荒或人口暴增，常陷入雙重惡性循環：<br>
+      • <strong>供給面：</strong>所得低 ➔ 儲蓄少 ➔ 投資不足 ➔ 資本缺乏 ➔ 生產力低 ➔ 所得低。<br>
+      • <strong>需求面：</strong>所得低 ➔ 購買力低 ➔ 市場狹小 ➔ 投資誘因低 ➔ 資本缺乏 ➔ 所得低。
+    </div>
+
+    <div class="img-wrap" style="max-width: 460px; margin: 18px auto;">
+      <img src="images/ch19/fig19_01_poverty_vicious_cycle.png" alt="圖 19-1 貧窮的惡性循環" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 19-1 貧窮的惡性循環（所得低 ➔ 儲蓄量少 ➔ 投資量少 ➔ 資本不足 ➔ 生產力低 ➔ 所得低）</div>
+    </div>
+
+    <h3>二、經濟成長的測定方法與公式（統測高頻計算題）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 19-1 &amp; 19-2：經濟成長率的兩大測定方式</div>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin: 10px 0;">
+        <div>
+          • <strong>方法一：以「實質 GDP 年增率」測定（<i>G<sub>t</sub></i>）</strong><br>
+          <i>G<sub>t</sub></i> ＝ <span class="frac"><span>第 <i>t</i> 年實質 GDP（<i>Y<sub>t</sub></i>）－ 第 <i>t</i>－1 年實質 GDP（<i>Y</i><sub><i>t</i>－1</sub>）</span><span>第 <i>t</i>－1 年實質 GDP（<i>Y</i><sub><i>t</i>－1</sub>）</span></span> × 100%
+        </div>
+        <div>
+          • <strong>方法二：以「平均每人實質 GDP 年增率」測定（<i>g<sub>t</sub></i>，更適宜）</strong><br>
+          <i>g<sub>t</sub></i> ＝ <span class="frac"><span>第 <i>t</i> 年每人實質 GDP（<i>y<sub>t</sub></i>）－ 第 <i>t</i>－1 年每人實質 GDP（<i>y</i><sub><i>t</i>－1</sub>）</span><span>第 <i>t</i>－1 年每人實質 GDP（<i>y</i><sub><i>t</i>－1</sub>）</span></span> × 100%
+        </div>
+      </div>
+      <div style="font-size: 0.95rem; border-top: 1px dashed #86efac; padding-top: 8px;">
+        <strong>💡 名師叮嚀：</strong>以「平均每人實質 GDP」測定最為客觀適宜，因為此法已<strong>同時消除了「物價水準變動」與「人口總數變動」</strong>兩大干擾因素！
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-growth-theories">
+    <h2>② 19-1 經濟成長六大學派理論全解（統測必考大對照）</h2>
+
+    <p>經濟學各學派隨時代背景提出不同的經濟成長理論。課本表 19-1 與表 19-2 彙整出六大經典成長理論：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>學派與時代</th>
+            <th>代表學者</th>
+            <th>理論主軸名稱</th>
+            <th>經濟成長關鍵因素與核心假定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>古典學派</strong></td>
+            <td><strong>亞當斯密<br>（Adam Smith）</strong></td>
+            <td><strong>專業分工說</strong></td>
+            <td><strong>專業分工</strong>、市場規模擴大與資本累積。分工提高勞動生產效率，帶動總產出。</td>
+          </tr>
+          <tr>
+            <td><strong>古典學派</strong></td>
+            <td><strong>馬爾薩斯<br>（T. Malthus）</strong></td>
+            <td><strong>人口論（停滯說）</strong></td>
+            <td><strong>人口數量</strong>是關鍵。人口呈幾何級數增加，糧食呈等差級數增加，土地報酬遞減，悲觀預測經濟終將陷入生存線之停滯。</td>
+          </tr>
+          <tr>
+            <td><strong>熊彼得學派</strong></td>
+            <td><strong>熊彼得<br>（J. Schumpeter）</strong></td>
+            <td><strong>創新經濟成長理論</strong></td>
+            <td><strong>企業家「創新活動（Innovation）」</strong>與創造性破壞。企業引進新技術、新產品、新市場，獲取超額利潤，推動繁榮。</td>
+          </tr>
+          <tr>
+            <td><strong>凱因斯學派</strong></td>
+            <td><strong>哈樂德（R. Harrod）<br>多瑪（E. Domar）</strong></td>
+            <td><strong>哈樂德－多瑪模型<br>（H-D 模型）</strong></td>
+            <td>• 假定勞動與資本<strong>「不可互換」</strong>，資本產出比率<strong>「固定」</strong>。<br>
+            • 成長關鍵：<strong>高儲蓄率（<i>S</i> ↑）與低資本係數（<i>V</i> ↓，即高平均資本生產力）</strong>。<br>
+            • 經濟成長率 <i>G</i> ＝ <i>S</i> ÷ <i>V</i> ＝ <i>S</i> × 平均資本生產力。</td>
+          </tr>
+          <tr>
+            <td><strong>新古典學派</strong></td>
+            <td><strong>梭羅<br>（R. Solow）</strong></td>
+            <td><strong>新古典成長模型<br>（外生成長理論）</strong></td>
+            <td>• 假定勞動與資本<strong>「可互相替代」</strong>，資本產出比率<strong>「非固定」</strong>。<br>
+            • 長期成長唯一根本動力：<strong>「技術進步」</strong>；但技術進步由外在體制決定，故屬<strong>「外生變數」</strong>。</td>
+          </tr>
+          <tr>
+            <td><strong>當代成長理論</strong></td>
+            <td><strong>羅莫（P. Romer）<br>盧卡斯（R. Lucas）</strong></td>
+            <td><strong>內生成長理論<br>（Endogenous Growth）</strong></td>
+            <td>• 主張技術進步與<strong>「人力資本（Human Capital）」</strong>是由經濟體系內部誘因、研發投資所內生決定。<br>
+            • <strong>知識與研發具備「規模報酬遞增」</strong>，打破傳統資本報酬遞減法則！</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_02_schumpeter.png" alt="圖 19-2 熊彼得" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-2 熊彼得（強調企業家創新推動經濟成長）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_03_solow.png" alt="圖 19-3 梭羅" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-3 梭羅（諾貝爾經濟學獎得主，新古典外生成長理論）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-development-taiwan">
+    <h2>③ 19-2 經濟發展與台灣經濟發展歷程</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin: 18px 0; align-items: center;">
+      <div>
+        <h3>一、經濟成長 vs 經濟發展</h3>
+        <p><strong>經濟發展（Economic Development）</strong>除了包含實質總產出的增加（經濟成長之「量」）之外，更涵蓋了<strong>文化、政治、教育、法律、社會福利、制度與基礎建設等層面的提升與結構革新（「質」的飛躍）</strong>。</p>
+        <p style="font-size:0.95rem;color:#475569;">• <strong>集合關係：</strong><strong>經濟發展包含經濟成長（圖 19-4）</strong>。<br>• <strong>適用對象：</strong>「經濟發展」較適用於描述<strong>開發中國家（或低所得國家）</strong>擺脫貧窮、推動體制現代化的全面進展過程。</p>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_04_development_contains_growth.png" alt="圖 19-4 經濟發展包含經濟成長" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-4 經濟發展（大圓）包含經濟成長（內圓）</div>
+      </div>
+    </div>
+
+    <h3>二、世界銀行（World Bank）各國經濟發展程度四級分類</h3>
+    <p>世界銀行依據<strong>「平均每人國民所得毛額（GNI per capita）」</strong>劃分全球經濟發展等級：</p>
+    <ul>
+      <li><strong>高所得國家（High-income）：</strong>平均每人 GNI 在 13,205 美元以上（如<strong>台灣、美國、英國、日本</strong>）。</li>
+      <li><strong>中高所得國家（Upper-middle-income）：</strong>平均每人 GNI 在 4,256 ～ 13,205 美元之間（如中國大陸、巴西、馬來西亞）。</li>
+      <li><strong>中低所得國家（Lower-middle-income）：</strong>平均每人 GNI 在 1,086 ～ 4,255 美元之間（如印尼、菲律賓、烏克蘭）。</li>
+      <li><strong>低所得國家（Low-income）：</strong>平均每人 GNI 在 1,085 美元以下（如北韓、葉門、衣索比亞）。</li>
+    </ul>
+
+    <div class="concept-box" style="border-left-color: #0284c7;">
+      <strong>🌐 課後小品：聯合國人類發展指數（Human Development Index, HDI）：</strong><br>
+      聯合國開發計劃署（UNDP）從三大面向評估國家發展綜合實力：<br>
+      1. <strong>健康面向：</strong>出生時的預期壽命。<br>
+      2. <strong>教育面向：</strong>預期受教育年限與平均受教育年數。<br>
+      3. <strong>經濟生活面向：</strong>平均每人實質 GNI（購買力平價 PPP 美元）。
+    </div>
+
+    <h3>三、台灣經濟發展七大歷史演進階段（統測經典歷史考點）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>發展階段與年代</th>
+            <th>核心政策方針與施政措施</th>
+            <th>重點推動產業與重大成果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. 戰後重建階段<br>（1945 ～ 1950 年代）</strong></td>
+            <td>善用<strong>美援（物資與貸款援助）</strong>積極重建基礎建設；推行<strong>幣制改革（四萬換一塊發行新台幣）</strong>平抑惡性通膨。</td>
+            <td>修復電力、鐵路設施，穩定金融物價秩序。</td>
+          </tr>
+          <tr>
+            <td><strong>2. 第一次進口替代階段<br>（1950 ～ 1960 年代）</strong></td>
+            <td>推動<strong>土地改革（三七五減租、公地放領、耕者有其田）</strong>；嚴格限制進口，以國產民生必需品取代外國進口。</td>
+            <td>發展<strong>非耐久性消費財</strong>與民生輕工業（紡織、成衣、肥料、麵粉）。</td>
+          </tr>
+          <tr>
+            <td><strong>3. 出口擴張階段<br>（1960 ～ 1970 年代）</strong></td>
+            <td>實施《獎勵投資條例》吸引外資；<strong>設立高雄加工出口區（圖 19-5）</strong>，推動外銷導向。</td>
+            <td><strong>1963 年台灣首次出現貿易順差！</strong>年經濟成長率逾 9%，創造「台灣經濟奇蹟」。</td>
+          </tr>
+          <tr>
+            <td><strong>4. 第二次進口替代階段<br>（1970 ～ 1980 年代）</strong></td>
+            <td>推動<strong>「十大建設」</strong>（中山高速公路、中鋼、中船、台中港、核電廠等），克服全球石油危機衝擊。</td>
+            <td>發展<strong>中間投入、資本財與耐久性消費財</strong>（鋼鐵、石化原料、造船、機械）。</td>
+          </tr>
+          <tr>
+            <td><strong>5. 資訊化與自由化階段<br>（1980 ～ 1990 年代）</strong></td>
+            <td>設立<strong>新竹科學園區</strong>，實施《促進產業升級條例》；放寬外匯管制與投資限制，金融電信市場自由化。</td>
+            <td><strong>半導體積體電路（IC）、個人電腦（PC）與資訊高科技產業起飛！</strong></td>
+          </tr>
+          <tr>
+            <td><strong>6. 推動知識經濟與接軌國際<br>（2000 年代）</strong></td>
+            <td><strong>2002 年正式加入世界貿易組織（WTO）</strong>；推動「兩兆雙星」計畫，確立經貿全球化定位。</td>
+            <td>半導體、影像顯示面板、生物科技、數位內容產業。</td>
+          </tr>
+          <tr>
+            <td><strong>7. 創新驅動與結構改革<br>（2010 年代迄今）</strong></td>
+            <td>推動《產業創新條例》，全力解決<strong>「五缺問題」</strong>（缺水、缺電、缺地、缺工、缺才）；推展<strong>前瞻基礎建設計畫（圖 19-6）</strong>與新南向政策。</td>
+            <td>由工業製造轉型為研發創新的<strong>「知識經濟」</strong>；發展綠能、軌道、數位智慧與高階半導體供應鏈。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_05_kaohsiung_export_zone.png" alt="圖 19-5 高雄加工出口區" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-5 高雄加工出口區（出口擴張期吸引外資與擴大出口的旗艦基地）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_06_forward_infrastructure.png" alt="圖 19-6 前瞻基礎建設計畫" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-6 前瞻基礎建設計畫（奠定軌道、綠能、數位與水環境之國家長遠基石）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-knowledge-economy">
+    <h2>④ 19-2 知識經濟時代與四大知識類型</h2>
+
+    <p>依據經濟合作暨發展組織（OECD）的定義，<strong>知識經濟（Knowledge-based Economy）</strong>是指<strong>直接建立在「知識」的產生、擴散和應用之上的經濟型態</strong>。知識已取代傳統土地與實體資本，成為最具決定性的生產要素。</p>
+
+    <h3>一、OECD 知識四大分類（統測連連看經典必考）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>知識類型</th>
+            <th>英文名稱與核心意義</th>
+            <th>屬性特徵</th>
+            <th>生活實務範例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>① 知道是什麼<br>（know-what）</strong></td>
+            <td><strong>事實性知識（Know-What）</strong>：關於客觀事實、數據、事件與資訊的知識。</td>
+            <td>容易數據化、編碼與傳播儲存。</td>
+            <td>• 台灣便利超商家數已突破 1 萬家。<br>• Line 公司宣布全球用戶人數突破 5 億人。<br>• 台灣 2021 年經濟成長率為 6.53%。</td>
+          </tr>
+          <tr>
+            <td><strong>② 知道為什麼<br>（know-why）</strong></td>
+            <td><strong>原理性知識（Know-Why）</strong>：關於自然法則、科學原理與因果法則的知識。</td>
+            <td>多源自於大專院校、國家實驗室與學術科學研發。</td>
+            <td>• 牛頓三大運動定律。<br>• 服用胃乳片中和胃酸乃利用「酸鹼中和原理」。<br>• 平板電腦（圖 19-7）觸控螢幕利用人體電容感應原理。</td>
+          </tr>
+          <tr>
+            <td><strong>③ 知道如何做<br>（know-how）</strong></td>
+            <td><strong>技能性知識（Know-How）</strong>：執行某項工作、製造產品之實務技巧、能力與操作程序。</td>
+            <td>多為個人工作經驗積累，不易言傳的隱性知識。</td>
+            <td>• 冠軍麵包師傅掌握發酵烘焙的獨門手藝。<br>• 奧運跆拳道金牌選手精準掌握攻防得分竅門。<br>• 外科權威醫師精湛的達文西微創手術技術。</td>
+          </tr>
+          <tr>
+            <td><strong>④ 知道是誰<br>（know-who）</strong></td>
+            <td><strong>人際網絡知識（Know-Who）</strong>：知道誰具備什麼專長、掌握關鍵人脈資源與識人之明。</td>
+            <td>人際社會網絡關係，極度重視信任與協調溝通。</td>
+            <td>• 三國劉備三顧茅廬，誠邀孔明擔任軍師。<br>• 謝淑薇的網球教練一眼看出她的天賦。<br>• 賈伯斯慧眼提拔庫克（圖 19-8）接掌蘋果執行長。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_07_tablet_ipad.png" alt="圖 19-7 平板電腦" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-7 平板電腦（利用電容觸控之 know-why 原理性知識商品化成果）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_08_tim_cook.png" alt="圖 19-8 庫克" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-8 蘋果執行長庫克（展示卓越全球供應鏈運籌之 know-who 網絡管理）</div>
+      </div>
+    </div>
+
+    <h3>二、傳統經濟 vs 知識經濟全方位深度對照（課本表 19-3）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>傳統經濟（農業與工業製造經濟）</th>
+            <th>知識經濟（研發創新與數位經濟）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>主要生產要素</strong></td>
+            <td>土地、勞力、實體資本設備（有形資產）</td>
+            <td><strong>知識、智財專利、創新研發、人力資本（無形資產）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>要素報酬特性</strong></td>
+            <td><strong>報酬遞減（Diminishing Returns）</strong></td>
+            <td><strong>報酬遞增（Increasing Returns，越用越有價值）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>產品附加價值</strong></td>
+            <td>較低（毛利率低，組裝代工薄利多銷）</td>
+            <td><strong>極高（高毛利、高技術門檻與品牌溢價）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>產品生命週期</strong></td>
+            <td>較長（款式變化慢）</td>
+            <td><strong>極短（新產品不斷推陳出新、快速迭代）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>消費者資訊獲取</strong></td>
+            <td>較不易取得（資訊不對稱高）</td>
+            <td><strong>極容易取得（網路比價即時透明）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>交易與營運成本</strong></td>
+            <td>較高（門市實體物流、繁複中介層層剝削）</td>
+            <td><strong>較低（數位化、電子商務零邊際成本）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>企業競爭策略趨勢</strong></td>
+            <td>傾向單打獨鬥、零和對抗</td>
+            <td><strong>傾向團隊合作、策略聯盟、開源生態系共贏</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-sustainability">
+    <h2>⑤ 19-3 經濟成長與自然生態（環境永續發展）</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_09_qingjing_farm_b_and_b.png" alt="圖 19-9 南投清境農場民宿林立" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-9 南投清境農場過度開發民宿（引發水土流失與環境承載負擔）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch19/fig19_10_polar_bear_climate.png" alt="圖 19-10 冰山融化威脅北極熊生存" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 19-10 溫室效應冰山融化（威脅北極熊與全球低窪海岸生態安全）</div>
+      </div>
+    </div>
+
+    <h3>一、環境污染與五大經濟對策</h3>
+    <p>人類過度消耗自然資源與排放廢棄物，產生顯著的<strong>「外部成本（External Costs）」</strong>。經濟學家提出五大對策治理環境公害：</p>
+    <ol>
+      <li><strong>課徵污染稅（庇古稅 Pigouvian Tax）：</strong>對排放污染之廠商課徵相當於外部成本之稅負，使其內部化。</li>
+      <li><strong>提供改善補貼：</strong>補助研發綠能減碳與污水廢氣處理設施之廠商。</li>
+      <li><strong>出售污染權（碳權交易 Cap-and-Trade）：</strong>政府訂定排放總量上限，發放或拍賣污染配額，允許廠商在市場上自由交易污染權。</li>
+      <li><strong>直接行政法規管制：</strong>訂定嚴格環保放流水、廢氣排放標準或禁用有害物質。</li>
+      <li><strong>道德勸說：</strong>倡導企業社會責任（CSR/ESG）與大眾綠色消費。</li>
+    </ol>
+
+    <h3>二、經濟成長與環境保護的平衡：綠色 GDP 與永續發展</h3>
+    <div class="formula-box">
+      <div class="formula-title">🌱 綠色 GDP（綠色國民所得帳）計算概念</div>
+      <div style="font-size: 1.15rem; margin: 6px 0;">
+        <strong>綠色 GDP ＝ 傳統實質 GDP － 自然資源折耗 － 環境品質損耗（污染防制支出）</strong>
+      </div>
+      <div style="font-size: 0.95rem;">
+        真實反映扣除生態環境代價後的實質國家福祉！
+      </div>
+    </div>
+
+    <div class="concept-box" style="border-left-color: #10b981;">
+      <strong>🌏 永續發展（Sustainable Development）的雙贏共識：</strong><br>
+      • <strong>核心定義：</strong><strong>「既能滿足我們當代人的需求，同時又不損害後代子孫滿足其自身需求能力的發展方式。」</strong><br>
+      • <strong>雙贏境界：</strong>透過綠色循環經濟、再生能源開發（太陽能、風力發電）與節能減碳技術創新，使「經濟成長」與「環境生態保護」不再是非黑即白的對立兩難，達成世代永續共榮！
+    </div>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑥ 課本原題即測即評 (8 題精選統測必考真題)</h2>
+    <p>點擊正確選項即可查看即時判定與精準名師解析：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">1. 假設去年「仙境王國」的名目 GDP 為 400 萬美元，今年的名目 GDP 為 528 萬美元，而在這段期間物價上漲率為 10%，則該國今年的「實質經濟成長率」為多少？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 15%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 20%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 25%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 32%</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">2. 追求經濟成長是一國總體政策的重要目標，下列哪一項「不是」促進經濟成長的動力？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 實體固定資本設備持續累積</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 生產技術進步與企業家創新活動</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 人力資本素質與教育技能提升</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 國內一般物價水準不斷大幅飆漲</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">3. 古典經濟學開山鼻祖亞當斯密（Adam Smith）在《國富論》中認為，促進經濟成長與提升生產效率的最關鍵因素是：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 人口快速膨脹</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 專業化分工</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 投資雙元性</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 政府強力干預</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">4. 根據「哈樂德－多瑪模型（H-D 模型）」，若某國的平均資本生產力為 0.4，儲蓄率為 20%，則該國的經濟成長率是多少？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 2%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 5%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 8%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 50%</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">5. 關於「經濟成長」與「經濟發展」的比較，下列敘述何者「錯誤」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 經濟發展涵蓋的範圍較經濟成長大（經濟發展包含經濟成長）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 經濟發展包含文化、政治、教育、法律制度與社會結構的全面革新提升</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 「經濟發展」一詞比較適用於描述開發程度較低的國家擺脫貧窮</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 經濟發展純粹是指一國的實質 GDP 產出在數量上的擴大增長</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">6. 台灣經濟發展歷經多個重要階段，請問我國是在哪一個發展階段中，「首次出現對外貿易順差（出超）」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 戰後重建階段（1945~1950 年代）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 第一次進口替代階段（1950~1960 年代）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 第二次進口替代階段（1970~1980 年代）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 出口擴張階段（1960~1970 年代）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">7. 依據 OECD 對知識的四大分類，具備執行某項專業工作之操作技能、實務竅門與技術，是屬於哪一類型的知識？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. know-what（事實性知識）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. know-why（原理性知識）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. know-how（技能性知識）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. know-who（人際網絡知識）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">8. 在現代知識經濟時代中，相較於傳統農業與工業生產要素，下列哪一項要素具備「規模報酬遞增（Increasing Returns）」的特性？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 知識與研發創新</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 土地自然資源</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 實體廠房機器設備</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 體力勞動工人</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "去年實質 GDP ＝ 400 萬美元；今年物價上漲率 10%，故今年物價指數為 110，今年實質 GDP ＝ 528 萬 ÷ 1.1 ＝ 480 萬美元。實質經濟成長率 ＝ (480 － 400) ÷ 400 × 100% ＝ 20%。",
+  2: "實體資本累積、技術創新、人力資本提升皆為促進經濟成長之核心要素；而物價大幅飆漲（通貨膨脹）會扭曲價格機能與生產效率，並非成長動力，故 (D) 非動力。",
+  3: "古典學派亞當斯密（Adam Smith）在《國富論》中開宗明義指出，『專業分工』能提高工人熟練度、節約換工時間並促進發明，是經濟成長與增進國民財富的基石。",
+  4: "根據哈樂德－多瑪模型：經濟成長率 G ＝ 儲蓄率 S × 平均資本生產力 ＝ 20% × 0.4 ＝ 8%。（或 G ＝ S ÷ 資本係數 V ＝ 20% ÷ 2.5 ＝ 8%）。",
+  5: "純粹指一國實質總產出在『數量上的擴大』是『經濟成長』的定義；『經濟發展』除了涵蓋產出增加，更強調制度、教育、法治、生活品質之『質的提升與結構轉型』，故 (D) 敘述錯誤。",
+  6: "台灣在『出口擴張階段（1960～1970 年代）』因設立高雄加工出口區及推行獎勵投資條例，輕工業外銷大放異彩，於 1963 年首次出現貿易順差，外匯存底開始大幅累積。",
+  7: "OECD 知識分類：know-what 為客觀事實數據；know-why 為科學原理與因果法則；know-how 為執行工作之技能、秘訣與操作技術；know-who 為人際社會網絡與識人之明。",
+  8: "傳統生產要素（土地、勞動、資本）具有邊際報酬遞減法則；而在內生成長理論與知識經濟時代中，『知識』具備無實體磨損、可無限複製與外溢共享的特質，擁有『規模報酬遞增』特性。"
+};
+
+function checkQuiz(btn, selected) {
+  const item = btn.closest('.quiz-item');
+  const ans = item.getAttribute('data-answer');
+  const feedback = item.querySelector('.quiz-feedback');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(item) + 1;
+  
+  const buttons = item.querySelectorAll('.quiz-btn');
+  buttons.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (selected === ans) {
+    btn.style.backgroundColor = '#dcfce7';
+    btn.style.borderColor = '#86efac';
+    btn.style.fontWeight = '700';
+    btn.style.color = '#15803d';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = '<strong>✔ 正確！</strong> ' + EXPLANATIONS[qNum];
+  } else {
+    btn.style.backgroundColor = '#fee2e2';
+    btn.style.borderColor = '#fca5a5';
+    btn.style.color = '#b91c1c';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = '<strong>✘ 答錯了！</strong> 正確答案為 (' + ans + ')。<br>' + EXPLANATIONS[qNum];
+    
+    buttons.forEach(b => {
+      if (b.innerText.trim().startsWith(ans)) {
+        b.style.backgroundColor = '#dcfce7';
+        b.style.borderColor = '#86efac';
+        b.style.fontWeight = '700';
+        b.style.color = '#15803d';
+      }
+    });
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

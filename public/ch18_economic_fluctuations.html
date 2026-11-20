@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH18 經濟波動（景氣循環、失業與通膨） ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組快速導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px 0;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 分數標籤排版 */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+}
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.frac > span:last-child {
+  padding-top: 1px;
+}
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📘 CH18 經濟波動（景氣、失業與通膨） ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch17_international_trade.html" class="header-btn">⬅ 上一章：CH17 國際貿易與金融</a>
+    <a href="ch19_economic_growth.html" class="header-btn highlight">下一章：CH19 經濟成長與發展 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列 -->
+<nav class="subnav">
+  <a href="#sec-fluctuation-types" class="subnav-btn">① 18-1 經濟波動與四種變動型態</a>
+  <a href="#sec-business-cycle" class="subnav-btn">② 18-2 景氣循環過程、指標與理論</a>
+  <a href="#sec-unemployment" class="subnav-btn">③ 18-3 失業型態、自然失業與失業率</a>
+  <a href="#sec-inflation" class="subnav-btn">④ 18-4 物價膨脹成因與菲力普曲線</a>
+  <a href="#sec-inflation-effects-policy" class="subnav-btn">⑤ 18-4 通膨衝擊、通貨緊縮與總體對策</a>
+  <a href="#sec-quiz" class="subnav-btn">⑥ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-fluctuation-types">
+    <h2>① 18-1 經濟波動的概念與四種變動型態</h2>
+
+    <p>經濟活動並非永遠維持穩定不變，而是在不同時期呈現擴張與收縮的交替起伏。經濟學中將實質 GDP 或總體經濟變數隨時間波動的現象，統稱為<strong>經濟波動（Economic Fluctuations）</strong>。統計學與經濟學常將時間序列波動拆解為四大成分：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>波動類型</th>
+            <th>英文代號與意義</th>
+            <th>期間與規律性</th>
+            <th>生活實務範例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. 長期趨勢變動<br>（Long-term Trend）</strong></td>
+            <td><strong><i>T</i></strong>：總體經濟變數（如 GDP、人口、技術）在長達數十年甚至百年的期間內，所呈現持續向上或向下的長期方向。</td>
+            <td>數十年以上，代表經濟體系長期的潛在產出成長路徑。</td>
+            <td>台灣過去半世紀由農業社會轉型為高科技半導體王國，實質 GDP 呈長期向上成長趨勢（如圖 18-1）。</td>
+          </tr>
+          <tr>
+            <td><strong>2. 季節變動<br>（Seasonal Movement）</strong></td>
+            <td><strong><i>S</i></strong>：受到一年四季氣候變化、自然條件或傳統民俗節慶影響，在<strong>一年以內</strong>呈現固定且具規則性的起伏變動。</td>
+            <td>一年以內，年年重覆發生且可被預期。</td>
+            <td>• 中秋節前文旦柚與月餅需求大增。<br>• 春節過年前年貨採買與大掃除商機。<br>• 澎湖觀光冬天受強烈東北季風影響暫時歇業。<br>• 夏季高溫帶動冷氣、冰品與手搖飲料大賣。</td>
+          </tr>
+          <tr>
+            <td><strong>3. 循環變動<br>（Cyclical Movement）</strong></td>
+            <td><strong><i>C</i></strong>：在<strong>一年以上</strong>的期間內，經濟活動由谷底復甦、繁榮擴張，再轉為衰退、蕭條收縮的波浪式循環變動。</td>
+            <td>一年以上，非定期且長度不等，但方向具交替性。</td>
+            <td>一般所稱的<strong>「景氣循環」</strong>（如 2008 金融海嘯、後疫情經濟起伏），實質產出圍繞著長期趨勢線上下波動。</td>
+          </tr>
+          <tr>
+            <td><strong>4. 不規則變動<br>（Irregular Movement）</strong></td>
+            <td><strong><i>I</i></strong>：因突發性、非預期、非人為或天災人禍等外生隨機衝擊所引起的劇烈波動。</td>
+            <td>無規律性、無法預期且往往影響深遠。</td>
+            <td>• 台灣九二一大地震造成電力中斷與產業停工。<br>• 2020 年嚴重特殊傳染性肺炎（COVID-19）全球大流行。<br>• 俄烏戰爭爆發導致國際原油與小麥暴漲。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch18/fig18_01_long_term_trend.png" alt="圖 18-1 長期趨勢線" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-1 長期趨勢線（實質 GDP 隨時間呈現長期平穩上升走勢）</div>
+    </div>
+
+    <h3>二、統測必考焦點：週期性循環變動的五種類型比較</h3>
+    <p>經濟學家依據循環週期的長短與成因，歸納出五種經典的經濟循環週期：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>循環名稱</th>
+            <th>提出學者</th>
+            <th>循環週期長度</th>
+            <th>循環起因與核心驅動力</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>① 小循環<br>（姬青循環 Kitchin Cycles）</strong></td>
+            <td>姬青（J. Kitchin）</td>
+            <td><strong>3 ～ 4 年</strong></td>
+            <td><strong>存貨投資循環（Inventory Cycle）</strong>：廠商存貨去化與回補庫存之調整過程。</td>
+          </tr>
+          <tr>
+            <td><strong>② 大循環<br>（朱格拉循環 Juglar Cycles）</strong></td>
+            <td><strong>朱格拉（C. Juglar）<br>（經濟循環之父）</strong></td>
+            <td><strong>7 ～ 11 年</strong></td>
+            <td><strong>設備投資循環（Major Cycle）</strong>：廠房與機器設備折舊更新與重置投資。<strong>一般所指的「景氣循環」即是指此大循環！</strong></td>
+          </tr>
+          <tr>
+            <td><strong>③ 建築循環<br>（顧志耐循環 Kuznets Cycles）</strong></td>
+            <td>顧志耐（S. Kuznets）</td>
+            <td><strong>17 ～ 18 年</strong></td>
+            <td><strong>建築業景氣與人口流動循環（Building Cycle）</strong>：房屋耐用使用年限與住宅人口增長。</td>
+          </tr>
+          <tr>
+            <td><strong>④ 長波循環<br>（康德拉提夫循環 Kondratiev）</strong></td>
+            <td>康德拉提夫（N. Kondratiev）</td>
+            <td><strong>50 ～ 60 年</strong></td>
+            <td><strong>重大技術革命與資源開採</strong>：如蒸汽機發明、鐵路修築、電力普及、汽車普及、電腦資訊革命。</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ 創新循環<br>（熊彼得循環 Schumpeter）</strong></td>
+            <td>熊彼得（J. Schumpeter）</td>
+            <td>綜合長中短週期</td>
+            <td><strong>企業家「創新（Innovation）」</strong>（創造性破壞）：新產品、新製程、新市場或新組織形成群聚效應。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="img-wrap" style="max-width: 600px; margin: 18px auto;">
+      <img src="images/ch18/fig18_02_cycle_types_comparison.png" alt="圖 18-2 週期性變動五種類型之循環期間比較" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-2 週期性變動五種類型之循環期間軸線比較（姬青 3~4年 ➔ 朱格拉 7~11年 ➔ 顧志耐 17~18年 ➔ 康德拉提夫 50~60年）</div>
+    </div>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-business-cycle">
+    <h2>② 18-2 景氣循環過程、景氣指標與理論</h2>
+
+    <h3>一、景氣循環的意義與四階段過程（熊彼得劃分法）</h3>
+    <p>景氣循環（Business Cycle）是指<strong>實質 GDP 沿著長期趨勢線，呈現非定期且週而復始上下循環變動的現象</strong>。一個完整的景氣循環週期包含一個<strong>擴張期</strong>與一個<strong>收縮期</strong>：</p>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch18/fig18_03_business_cycle.png" alt="圖 18-3 景氣循環圖" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-3 景氣循環圖（橫座標：時間；縱座標：實質 GDP；四階段：復甦 ➔ 繁榮 ➔ 衰退 ➔ 蕭條）</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>復甦期（A ➔ B）<br><span style="font-weight:normal;font-size:0.85rem">長期趨勢線「下方」上升</span></th>
+            <th>繁榮期（B ➔ C）<br><span style="font-weight:normal;font-size:0.85rem">長期趨勢線「上方」上升至高峰</span></th>
+            <th>衰退期（C ➔ D）<br><span style="font-weight:normal;font-size:0.85rem">長期趨勢線「上方」下降</span></th>
+            <th>蕭條期（D ➔ E）<br><span style="font-weight:normal;font-size:0.85rem">長期趨勢線「下方」下降至谷底</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>未來預期心理</strong></td>
+            <td>較樂觀（信心回溫）</td>
+            <td><strong>最樂觀</strong>（群情激昂）</td>
+            <td>較悲觀（信心鬆動）</td>
+            <td><strong>最悲觀</strong>（恐慌低迷）</td>
+          </tr>
+          <tr>
+            <td><strong>廠商投資與產出</strong></td>
+            <td>漸多（添購設備）</td>
+            <td><strong>最多</strong>（產能滿載）</td>
+            <td>漸少（減產去庫存）</td>
+            <td><strong>最少</strong>（停工關廠）</td>
+          </tr>
+          <tr>
+            <td><strong>就業率與失業率</strong></td>
+            <td>就業漸高、失業漸低</td>
+            <td><strong>就業最高、失業最低</strong></td>
+            <td>就業漸低、失業漸高</td>
+            <td><strong>就業最低、失業最高</strong></td>
+          </tr>
+          <tr>
+            <td><strong>物價水準與利率</strong></td>
+            <td>漸升（需求回溫）</td>
+            <td><strong>最高</strong>（通膨壓力大、升息）</td>
+            <td>漸跌（買氣下滑）</td>
+            <td><strong>最低</strong>（通縮壓力、降息）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>二、景氣指標（行政院國家發展委員會國發會編製）</h3>
+    <p>國發會每月公布兩大景氣衡量工具：<strong>「景氣動向指標」</strong>與<strong>「景氣對策信號」</strong>。</p>
+
+    <h4>1. 景氣動向指標（三大類別對照）：</h4>
+    <ul>
+      <li><strong>領先指標（7 項）：</strong>反映<strong>「未來 3 ～ 6 個月」</strong>的景氣走向。構成項目：外銷訂單動向指數、實質貨幣總計數 M1B、股價指數、工業及服務業受僱員工淨進入率、建築物開工樓地板面積、實質半導體設備進口值、製造業營業氣候測驗點。</li>
+      <li><strong>同時指標（7 項）：</strong>反映<strong>「當前（當時）」</strong>的景氣實況。構成項目：工業生產指數、電力（企業）總用電量、製造業銷售量指數、批發零售及餐飲業營業額、非農業部門就業人數、實質海關出口值、實質機械及電機設備進口值。</li>
+      <li><strong>落後指標（5 項）：</strong>用來<strong>「驗證與確認過去」</strong>的景氣波動。構成項目：失業率、製造業單位產出勞動成本指數、金融業隔夜拆款利率、全體金融機構放款和投資、製造業存貨價值。</li>
+    </ul>
+
+    <h4>2. 景氣對策信號（景氣五色燈號，統測必考）：</h4>
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch18/fig18_04_monitoring_indicators.png" alt="圖 18-4 景氣對策信號五色燈號" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-4 景氣對策信號五色燈號判定矩陣（紅燈 45~38、黃紅燈 37~32、綠燈 31~23、黃藍燈 22~17、藍燈 16~9）</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>燈號名稱</th>
+            <th>個別項目得分</th>
+            <th>綜合判斷分數</th>
+            <th>當前景氣狀況判定</th>
+            <th>政府景氣因應對策與操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#fff1f2;">
+            <td>🔴 <strong>紅燈</strong></td>
+            <td>5 分</td>
+            <td><strong>45 ～ 38 分</strong></td>
+            <td><strong>景氣過熱（Overheating）</strong></td>
+            <td><strong>踩煞車！</strong>採取緊縮性貨幣與財政政策，防止物價飆漲。</td>
+          </tr>
+          <tr style="background:#fffbeb;">
+            <td>🟠 <strong>黃紅燈</strong></td>
+            <td>4 分</td>
+            <td><strong>37 ～ 32 分</strong></td>
+            <td><strong>景氣轉向熱絡（活絡）</strong></td>
+            <td>密切注意景氣是否過熱，隨時準備因應。</td>
+          </tr>
+          <tr style="background:#f0fdf4;">
+            <td>🟢 <strong>綠燈</strong></td>
+            <td>3 分</td>
+            <td><strong>31 ～ 23 分</strong></td>
+            <td><strong>景氣穩定（Stable）</strong></td>
+            <td><strong>最健康健全之理想狀態！</strong>維持既有政策。</td>
+          </tr>
+          <tr style="background:#fefce8;">
+            <td>🟡 <strong>黃藍燈</strong></td>
+            <td>2 分</td>
+            <td><strong>22 ～ 17 分</strong></td>
+            <td><strong>景氣轉向欠佳（欠佳）</strong></td>
+            <td>密切注意景氣是否下滑，隨時準備因應刺激。</td>
+          </tr>
+          <tr style="background:#eff6ff;">
+            <td>🔵 <strong>藍燈</strong></td>
+            <td>1 分</td>
+            <td><strong>16 ～ 9 分</strong></td>
+            <td><strong>景氣低迷／蕭條（Slump）</strong></td>
+            <td><strong>踩油門！</strong>採取擴張性貨幣與財政政策，刺激投資就業。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>三、景氣循環理論：外生說 vs 內生說</h3>
+    <ul>
+      <li><strong>外生說（外部因素衝擊引起）：</strong>
+        <ul>
+          <li><strong>太陽黑子說（Jevons 傑逢斯）：</strong>太陽黑子活動影響氣候與農作物收成，進而牽動工業原料與總體景氣。</li>
+          <li><strong>創新說（Schumpeter 熊彼得）：</strong>企業家重大發明與創新帶動投資熱潮，刺激景氣擴張；創新趨緩時景氣收縮。</li>
+          <li><strong>政治景氣循環說（Nordhaus 諾德豪斯）：</strong>執政黨在選舉前採擴張政策討好選民刺激景氣，選後則採緊縮對抗通膨。</li>
+        </ul>
+      </li>
+      <li><strong>內生說（經濟體制內部自我循環機制）：</strong>
+        <ul>
+          <li><strong>純貨幣說（Hawtrey 郝特禮）：</strong>銀行體系信用過度擴張與緊縮引起。</li>
+          <li><strong>貨幣過度投資說（Hayek 海耶克）：</strong>央行壓低利率使得市場利率低於自然利率，誘發過度投資與產能過剩。</li>
+          <li><strong>消費不足說（Hobson 霍布森）：</strong>貧富差距懸殊，富人儲蓄過多而一般民眾消費力不足，導致商品滯銷。</li>
+          <li><strong>心理說（Keynes 凱因斯、Pigou 皮古）：</strong>企業家與投資大眾對未來「預期樂觀與悲觀」之集體心理波動。</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-unemployment">
+    <h2>③ 18-3 失業型態、自然失業與失業率計算</h2>
+
+    <h3>一、失業的種類（實際失業三大核心型態）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📌 公式 18-1：實際失業構成要素</div>
+      <div style="font-size: 1.12rem;">
+        <strong>實際失業 ＝ 摩擦性失業 ＋ 結構性失業 ＋ 循環性失業</strong>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>失業型態</th>
+            <th>意義與成因</th>
+            <th>自願／非自願</th>
+            <th>課本實務範例</th>
+            <th>政府因應對策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. 摩擦性失業<br>（Frictional）</strong></td>
+            <td>由於勞動市場資訊不完全，求職者與雇主在媒合尋職過程中，因<strong>轉換工作或初入職場產生的短暫待業</strong>。</td>
+            <td><strong>自願性失業</strong><br><span style="font-size:0.82rem;color:#64748b">（可選擇立即就業但想找更好的）</span></td>
+            <td>• 大學畢業生或役男退伍剛出社會找工作。<br>• 農曆春節後想轉換更好跑道而離職跳槽。</td>
+            <td>建立完善的就業資訊網絡、公立就業服務站媒合。</td>
+          </tr>
+          <tr>
+            <td><strong>2. 結構性失業<br>（Structural）</strong></td>
+            <td>因<strong>產業結構轉型或技術進步</strong>，導致勞工擁有的技術與市場職缺需求不符合（技能落差）。</td>
+            <td><strong>非自願性失業</strong><br><span style="font-size:0.82rem;color:#64748b">（想工作但技能不符被淘汰）</span></td>
+            <td>• 電腦文書興起導致傳統中文打字員失業。<br>• 紡織傳產工廠外移，工人無法勝任半導體工程師。</td>
+            <td>推動<strong>在職訓練與第二專長轉業培訓</strong>（如圖 18-5 勞動部計畫）。</td>
+          </tr>
+          <tr>
+            <td><strong>3. 循環性失業<br>（Cyclical）</strong></td>
+            <td>因<strong>景氣衰退或蕭條、總需求不足</strong>，導致企業虧損、訂單縮減而裁員減薪。最受經濟學家重視！</td>
+            <td><strong>非自願性失業</strong><br><span style="font-size:0.82rem;color:#64748b">（景氣差被公司裁員）</span></td>
+            <td>• 2008 年金融海嘯來襲，全台工廠關廠裁員高達 35 萬人。</td>
+            <td><strong>擴張性財政與貨幣政策</strong>（降息、減稅、擴大公共建設振興經濟）。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch18/fig18_05_mol_subsidy_plan.png" alt="圖 18-5 行政院勞動部的輔助計畫" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-5 行政院勞動部推動就業輔導、台灣就業通與職業訓練計畫（解決結構性與摩擦性失業）</div>
+    </div>
+
+    <div class="concept-box" style="border-left-color: #10b981;">
+      <strong>🌟 統測黃金考點：自然失業率 vs 充分就業：</strong><br>
+      • <strong>自然失業（Natural Unemployment）：</strong>由摩擦性失業與結構性失業組成（任何健全社會都不可避免）。<br>
+      • <strong>自然失業率公式：</strong>
+      <div style="margin: 8px 0; font-size: 1.05rem;">
+        <i>自然失業率</i> ＝ <span class="frac"><span>摩擦性失業人口 ＋ 結構性失業人口</span><span>勞動力</span></span> × 100%
+      </div>
+      • <strong>「充分就業（Full Employment）」的真諦：</strong><br>
+      <strong>充分就業絕不等於失業率為 0！</strong>當經濟體系的<strong>「循環性失業 ＝ 0」</strong>，亦即實際失業率等於自然失業率時，社會資源已達充分利用，即稱為充分就業！
+    </div>
+
+    <h3>二、特殊的失業型態（統計分類上的陷阱）</h3>
+    <ul>
+      <li><strong>季節性失業（Seasonal Unemployment）：</strong>工作受季節性限制（如農夫農閒、澎湖民宿冬天停業）。<strong>在我國勞動力統計標準中，仍列為「就業人口」！</strong></li>
+      <li><strong>隱藏性失業（Disguised Unemployment）：</strong>表面有工作，但才能未發揮、學非所用或工時被迫縮減，邊際產量 \(MP_L = 0\)（如博士跑去開計程車掃街、受疫情衝擊企業協商實施<strong>「無薪假／減班休息」</strong>）。</li>
+    </ul>
+
+    <h3>三、人口分類架構與三大指標公式（統測高頻計算題）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>指標名稱</th>
+            <th>標準數學計算公式</th>
+            <th>母體與分母陷阱</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>勞動力<br>（Labor Force）</strong></td>
+            <td><strong>勞動力 ＝ 就業人口 ＋ 失業人口</strong></td>
+            <td><strong>排除非勞動力！</strong>（非勞動力：在學學生、料理家務、退休高齡、身心障礙、想工作但未找工作的「怯志工作者」）。</td>
+          </tr>
+          <tr>
+            <td><strong>失業率<br>（Unemployment Rate）</strong></td>
+            <td><strong>失業率 ＝ <span class="frac"><span>失業人口</span><span>勞動力</span></span> × 100%</strong></td>
+            <td><strong>分母是「勞動力」，絕對不是總人口或 15 歲以上民間人口！</strong></td>
+          </tr>
+          <tr>
+            <td><strong>就業率<br>（Employment Rate）</strong></td>
+            <td><strong>就業率 ＝ <span class="frac"><span>就業人口</span><span>勞動力</span></span> × 100%</strong></td>
+            <td><strong>就業率 ＋ 失業率 ＝ 100%（或 ＝ 1）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>勞動參與率<br>（Labor Force Participation）</strong></td>
+            <td><strong>勞動參與率 ＝ <span class="frac"><span>勞動力</span><span>15 歲以上民間人口</span></span> × 100%</strong></td>
+            <td>衡量一國潛在民間勞動力願意投入勞動市場的意願比例。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-inflation">
+    <h2>④ 18-4 物價膨脹成因與菲力普曲線</h2>
+
+    <p><strong>物價膨脹（Inflation，通貨膨脹）</strong>是指一段期間內，社會上的<strong>一般物價水準呈現「全面性且持續性上漲」</strong>的現象。單一商品漲價或短暫漲價後回跌，皆不算物價膨脹。</p>
+
+    <h3>一、物價膨脹的類型</h3>
+    <ul>
+      <li><strong>依物價上漲速度區分：</strong>
+        <ul>
+          <li><strong>爬升型（Creeping Inflation，溫和）：</strong>年增率在 5% 以下，提供廠商溫和利潤誘因，促進投資就業，有利經濟成長（台灣長期即屬此型態）。</li>
+          <li><strong>急遽型（Galloping Inflation，奔馳）：</strong>年增率達兩位數（10% 以上）。</li>
+          <li><strong>惡性物價膨脹（Hyperinflation）：</strong>物價以極其驚人的速度暴漲，紙幣實質購買力形同廢紙，造成幣制崩潰（如非洲辛巴威發行 100 兆大鈔買不起半條吐司，圖 18-6；民國 38 年台灣四萬換一塊發行新台幣改革）。</li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="img-wrap" style="max-width: 650px; margin: 18px auto;">
+      <img src="images/ch18/fig18_06_zimbabwe_100trillion.png" alt="辛巴威 100 兆大鈔與惡性通膨" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-6 辛巴威發行之 100 兆面額紙鈔（惡性物價膨脹讓貨幣喪失價值儲藏與交易媒介功能）</div>
+    </div>
+
+    <h3>二、物價膨脹成因與 AS-AD 模型圖解（統測必考大對照）</h3>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch18/fig18_07_demand_pull_inflation.png" alt="圖 18-6 需求拉動型物價膨脹" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 18-7 需求拉動型：AD 右移推升物價</div>
+        </div>
+        <h4>1. 需求拉動型（Demand-Pull）：</h4>
+        <p style="font-size:0.92rem;">• <strong>成因：</strong>「太多的貨幣追逐太少的商品」，消費、投資或政府支出過度擴張，使<strong>總需求曲線 AD 右移</strong>。<br>
+        • <strong>衝擊效果：</strong>在未充分就業時，物價 P 漲且產出 Y 增加；一旦達到<strong>充分就業（AS 為垂直線）</strong>，產出無法再增加，<strong>物價呈垂直飆漲！</strong></p>
+      </div>
+
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch18/fig18_08_cost_push_inflation.png" alt="圖 18-7 成本推動型物價膨脹" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 18-8 成本推動型：AS 左移釀停滯性通膨</div>
+        </div>
+        <h4>2. 成本推動型（Cost-Push）：</h4>
+        <p style="font-size:0.92rem;">• <strong>成因：</strong>工資暴漲、國際石油或原料價格飆升，導致生產成本大幅提高，<strong>總供給曲線 AS 向左上方移動</strong>。<br>
+        • <strong>致命危機：</strong>引發<strong>「停滯性物價膨脹（Stagflation）」</strong>——<strong>物價 P 持續上漲，但實質產出 Y 萎縮、失業率攀升</strong>，最難以用傳統單一政策收拾！</p>
+      </div>
+    </div>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch18/fig18_10_ad_as_inflation_comparison.png" alt="需求拉動型 vs 成本推動型物價膨脹比較圖" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-10 需求拉動型（左圖：AD 右移 P 漲 Y 增）與成本推動型（右圖：AS 左移 P 漲 Y 跌）總體對照</div>
+    </div>
+
+    <h3>三、菲力普曲線與痛苦指數</h3>
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch18/fig18_09_phillips_curve.png" alt="圖 18-8 菲力普曲線" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-9 短期菲力普曲線（負斜率：失業率與物價上漲率呈反向交替替代關係）</div>
+    </div>
+
+    <div class="concept-box">
+      <strong>📌 菲力普曲線（Phillips Curve）的核心經濟意涵：</strong><br>
+      • <strong>短期菲力普曲線（負斜率）：</strong>說明短期內<strong>「失業率」與「物價上漲率」存在反向抵換（Trade-off）關係</strong>。政府若想降低失業率，必須容忍較高的物價上漲率；反之，若想抑制物價，就必須承受較高的失業率。<br>
+      • <strong>停滯性通膨的衝擊：</strong>當發生停滯性物價膨脹（高失業率 ＋ 高通膨率）時，傳統抵換關係破滅，<strong>菲力普曲線整條向右上方平行位移！</strong>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-title">📐 痛苦指數（Misery Index）計算公式</div>
+      <div style="font-size: 1.15rem; margin: 6px 0;">
+        <strong>痛苦指數 ＝ 失業率 ＋ 物價膨脹率（通膨率）</strong>
+      </div>
+      <div style="font-size: 0.95rem;">
+        數值愈高，代表社會大眾因生活成本飆漲與求職困難所承受的痛苦感受愈深！
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-inflation-effects-policy">
+    <h2>⑤ 18-4 通膨衝擊、通貨緊縮與總體對策</h2>
+
+    <h3>一、物價膨脹的不利影響與交易成本增加</h3>
+    <ol>
+      <li><strong>菜單成本（Menu Cost）：</strong>商品價格快速變動，餐廳必須頻繁重印菜單、超市頻繁更新價格條碼所衍生的實體成本。</li>
+      <li><strong>皮鞋成本（Shoe-leather Cost）：</strong>手持現鈔實質購買力天天縮水，民眾被迫頻繁跑銀行提款或搶購保值物資，導致皮鞋磨損所比喻的交易成本。</li>
+      <li><strong>資訊成本（Information Cost）：</strong>物價混亂難以掌握，消費者與廠商須花費大量時間心力到處訪價比價。</li>
+    </ol>
+
+    <h3>二、統測金牌必考：物價膨脹引起的所得與財富重分配</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>經濟主體角色與資產型態</th>
+            <th>物價膨脹期間之利害得失</th>
+            <th>經濟原因剖析</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>債權人（放款者、借錢給別人者）</strong></td>
+            <td><strong style="color:#b91c1c;">受損（不利 ✘）</strong></td>
+            <td>收回的本金與利息實質購買力大幅縮水，被通膨侵蝕。</td>
+          </tr>
+          <tr>
+            <td><strong>債務人（借款者、背負房貸者）</strong></td>
+            <td><strong style="color:#15803d;">獲利（有利 ✔）</strong></td>
+            <td>以貶值的便宜貨幣償還固定面額債務，實質還款負擔減輕。</td>
+          </tr>
+          <tr>
+            <td><strong>固定所得者（公教、勞工固定薪、退休年金）</strong></td>
+            <td><strong style="color:#b91c1c;">受損（不利 ✘）</strong></td>
+            <td>薪資調整追不上物價漲幅，實質所得嚴重縮水。</td>
+          </tr>
+          <tr>
+            <td><strong>非固定所得者（企業家、獨資資本家、股東）</strong></td>
+            <td><strong style="color:#15803d;">獲利（有利 ✔）</strong></td>
+            <td>產品售價可隨物價調高，銷貨營收暴增，獲利擴大。</td>
+          </tr>
+          <tr>
+            <td><strong>貨幣性資產持有者（現金、銀行活期定存）</strong></td>
+            <td><strong style="color:#b91c1c;">受損（不利 ✘）</strong></td>
+            <td>名目存款利息追不上通膨，實質利率轉為負值。</td>
+          </tr>
+          <tr>
+            <td><strong>實體資產持有者（土地、黃金、不動產房市）</strong></td>
+            <td><strong style="color:#15803d;">獲利（有利 ✔）</strong></td>
+            <td>不動產與貴重金屬具抗通膨保值特質，資產價格水漲船高。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>三、通貨緊縮（Deflation）的危機</h3>
+    <p><strong>通貨緊縮</strong>是指社會上<strong>一般物價水準「持續下跌」</strong>，且伴隨<strong>經濟成長衰退、生產萎縮與失業攀升</strong>的惡性循環（通貨緊縮螺旋）。消費者預期未來物價會更便宜而延後消費，廠商產品賣不出去被迫減產裁員，造成比通膨更難治癒的長期蕭條。</p>
+
+    <h3>四、解決物價膨脹與通貨緊縮的總體對策大彙整（圖 18-9）</h3>
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch18/fig18_11_policy_matrix_inflation_deflation.png" alt="圖 18-9 解決物價膨脹與通貨緊縮的對策" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 18-11 總體經濟對策矩陣：物價膨脹（踩煞車採緊縮）vs 通貨緊縮（踩油門採擴張）</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>政策工具類別</th>
+            <th>面臨「物價膨脹」之對策（抑制需求）</th>
+            <th>面臨「通貨緊縮／蕭條」之對策（刺激需求）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>財政政策<br>（Fiscal Policy）</strong></td>
+            <td><strong>緊縮性財政政策：</strong><br>• <strong>減少政府公共支出（<i>G</i> ↓）</strong><br>• <strong>增加稅收／提高稅率（<i>T</i> ↑）</strong></td>
+            <td><strong>擴張性財政政策：</strong><br>• <strong>增加政府公共投資（<i>G</i> ↑）</strong><br>• <strong>減少稅收／降稅補貼（<i>T</i> ↓）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>貨幣政策<br>（Monetary Policy）</strong></td>
+            <td><strong>緊縮性貨幣政策：</strong><br>• <strong>調高法定存款準備率</strong><br>• <strong>調高重貼現率（升息）</strong><br>• <strong>在公開市場「賣出」公債有價證券</strong>（收回游資）</td>
+            <td><strong>擴張性貨幣政策：</strong><br>• <strong>調低法定存款準備率</strong><br>• <strong>調低重貼現率（降息）</strong><br>• <strong>在公開市場「買入」公債有價證券</strong>（釋出資金）</td>
+          </tr>
+          <tr>
+            <td><strong>其他行政手段</strong></td>
+            <td>• 實施所得政策（薪資與物價管制上限）<br>• 打擊囤積居奇與聯合壟斷壟價</td>
+            <td>• 發放振興消費券、補貼就業與觀光產業</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑥ 課本原題即測即評 (8 題精選統測必考真題)</h2>
+    <p>點擊正確選項即可查看即時判定與精準名師解析：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">1. 景氣循環週期約在 7～11 年的大循環，是由哪一位學者提出？該學者更被譽為「經濟循環之父」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 姬青（J. Kitchin）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 朱格拉（C. Juglar）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 顧志耐（S. Kuznets）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 康德拉提夫（N. Kondratiev）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">2. 行政院國發會發布的景氣對策信號中，當燈號亮出「紅燈（綜合判斷分數 38～45 分）」時，代表目前總體景氣狀況為何？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 景氣穩定</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 景氣欠佳</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 景氣蕭條</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 景氣過熱</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">3. 認為景氣循環是因為企業家從事「創新活動」，帶動投資增加與產出擴張，形成景氣繁榮的經濟學者是：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 凱因斯（J. M. Keynes）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 亞當斯密（Adam Smith）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 熊彼得（J. Schumpeter）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 薩穆遜（P. Samuelson）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">4. 農曆春節過後許多上班族領完年終獎金想轉換跑道，因辭職找尋新工作的空檔所產生的暫時性失業，屬於何種失業型態？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 摩擦性失業</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 結構性失業</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 循環性失業</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 隱藏性失業</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">5. 當勞動市場達到「充分就業（Full Employment）」狀態時，下列敘述何者「錯誤」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 社會實際的失業率必定等於零（完全沒有人失業）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 實際失業率等於自然失業率</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 經濟體系中的「循環性失業人口」為零</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 社會中依然存在著摩擦性失業與結構性失業</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">6. 假設某國 15 歲以上民間人口數為 1,000 萬人，非勞動力人口為 200 萬人，失業人口為 40 萬人，則該國的「失業率」為多少？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 4.0%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 4.5%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 5.0%</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 20.0%</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">7. 當社會發生非預期的一般物價膨脹（通貨膨脹）時，下列哪一組對象「最容易蒙受損失（不利）」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 債權人、領取固定退休年金者</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 債務人、背負房貸者</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 黃金與不動產持有者</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 企業家與自營商股東</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">8. 經濟學上著名的「短期菲力普曲線（Phillips Curve）」，是用來說明哪兩個總體經濟變數之間的抵換交替關係？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 經濟成長率與實質利率</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 實質所得與租稅負擔率</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 貨幣供給成長率與匯率變動率</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 物價膨脹率與失業率</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "朱格拉（C. Juglar）提出週期 7～11 年的設備投資大循環，被尊稱為『經濟循環之父』；姬青為 3~4 年小循環，顧志耐為 17~18 年建築循環，康德拉提夫為 50~60 年長波循環。",
+  2: "國發會景氣對策信號：紅燈（45~38 分）表示『景氣過熱』，黃紅燈（37~32 分）為活絡，綠燈（31~23 分）為穩定，黃藍燈（22~17 分）為欠佳，藍燈（16~9 分）為低迷蕭條。",
+  3: "熊彼得（J. Schumpeter）在景氣循環理論中特別強調企業家的『創新（Innovation）』與創造性破壞，帶動新投資群聚，推動景氣由蕭條走向復甦與繁榮。",
+  4: "因找工作、換工作、求職與雇主資訊不對等過程中的過渡待業狀態，稱為『摩擦性失業』；此種失業屬於自願性失業，任何健全動態社會中均必然存在。",
+  5: "充分就業『絕非失業率為零』！而是指『循環性失業為零』，此時實際失業率等於自然失業率（仍包含不可避免的摩擦性失業與結構性失業），故 (A) 敘述錯誤。",
+  6: "勞動力 ＝ 15 歲以上民間人口 － 非勞動力 ＝ 1,000 － 200 ＝ 800 萬人。失業率 ＝ 失業人口 ÷ 勞動力 × 100% ＝ 40 ÷ 800 × 100% ＝ 5.0%。（注意：分母切勿誤用 1,000 萬人）。",
+  7: "通膨發生時，貨幣實質購買力縮水。債權人收回的債務本息實質價值降低，固定所得者所得無法隨通膨同步調高，故『債權人與固定所得者』最不利；反之，債務人實質負擔減輕，實體資產與非固定收入者相對有利。",
+  8: "菲力普曲線（Phillips Curve）描述短期內『失業率』與『物價上漲率（通膨率）』呈反向變動的抵換替代關係（負斜率）；但發生停滯性通膨時此曲線會整條向右上方移動。"
+};
+
+function checkQuiz(btn, selected) {
+  const item = btn.closest('.quiz-item');
+  const ans = item.getAttribute('data-answer');
+  const feedback = item.querySelector('.quiz-feedback');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(item) + 1;
+  
+  const buttons = item.querySelectorAll('.quiz-btn');
+  buttons.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (selected === ans) {
+    btn.style.backgroundColor = '#dcfce7';
+    btn.style.borderColor = '#86efac';
+    btn.style.fontWeight = '700';
+    btn.style.color = '#15803d';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = '<strong>✔ 正確！</strong> ' + EXPLANATIONS[qNum];
+  } else {
+    btn.style.backgroundColor = '#fee2e2';
+    btn.style.borderColor = '#fca5a5';
+    btn.style.color = '#b91c1c';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = '<strong>✘ 答錯了！</strong> 正確答案為 (' + ans + ')。<br>' + EXPLANATIONS[qNum];
+    
+    buttons.forEach(b => {
+      if (b.innerText.trim().startsWith(ans)) {
+        b.style.backgroundColor = '#dcfce7';
+        b.style.borderColor = '#86efac';
+        b.style.fontWeight = '700';
+        b.style.color = '#15803d';
+      }
+    });
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

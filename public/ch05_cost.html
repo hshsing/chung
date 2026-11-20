@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH5 成本理論 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #d97706;
+  --brand-light: #fef3c7;
+  --line-amber: #fde68a;
+  --line-gray: #e2e8f0;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+}
+
+/* 頂部固定 Header */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.header-btn:hover {
+  background: #e2e8f0;
+}
+.header-btn.highlight {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+/* 模組快速導覽次導航列 */
+.subnav {
+  background: #fff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  position: sticky;
+  top: 59px;
+  z-index: 90;
+}
+.subnav-btn {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.subnav-btn:hover {
+  color: var(--brand);
+  border-color: var(--line-amber);
+  background: var(--brand-light);
+}
+
+.container {
+  max-width: 1060px;
+  margin: 28px auto 80px;
+  padding: 0 20px;
+}
+
+/* 核心大卡片模組 */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--line-gray);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 重點公式 / 鐵則方框 */
+.formula-box {
+  background: #fffbeb;
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.math-formula {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #fffbeb;
+}
+.highlight-cell {
+  background: #fef3c7;
+  font-weight: 700;
+  color: #92400e;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-ans {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH5 成本理論 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch04_production.html" class="header-btn">⬅ CH4 生產理論</a>
+    <a href="ch06_market_revenue.html" class="header-btn" style="background:#0284c7;color:#fff;border-color:#0284c7">前往 CH6 市場與收益 ➔</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本 5 大主題自然展開） -->
+<nav class="subnav">
+  <a href="#sec-profit" class="subnav-btn">① 成本與利潤定義</a>
+  <a href="#sec-short-cost" class="subnav-btn">② 短期成本結構與指標</a>
+  <a href="#sec-curves" class="subnav-btn">③ 短期曲線幾何與倒數鏡像</a>
+  <a href="#sec-long-run" class="subnav-btn">④ 長期成本與包絡線</a>
+  <a href="#sec-economies" class="subnav-btn">⑤ 規模報酬與外部經濟</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 重點一：成本與利潤的觀念 ==================== -->
+  <div class="card" id="sec-profit">
+    <div class="card-header">
+      <h2>💰 重點一：成本與利潤的經濟學定義</h2>
+      <span class="tag">課本 5-1 節 ｜ 會計與經濟的關鍵分水嶺</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 經濟成本的組成（機會成本視角）：</h4>
+        <div class="formula-box">
+          📐 <b>經濟成本（機會成本）公式：</b>
+          <div class="math-formula">
+            經濟成本 ＝ 外顯成本（會計成本） ＋ 內含成本（隱含成本）
+          </div>
+        </div>
+        <ul class="rule-list">
+          <li><b>外顯成本（Explicit Cost / 會計成本）：</b> 廠商購買他人要素所<b>實際掏錢支付</b>的代價（如員工薪水、水電房租、採購原料）。會計師帳本上只記錄此項。</li>
+          <li><b>內含成本（Implicit Cost / 隱含成本）：</b> 廠商<b>使用自有要素轉作他用可得之最高代價</b>，雖未實際掏錢但確實存在（如自有店面租金損失、自行投入經營的薪水損失、自有存款利息損失）。<b>內含成本即是「正常利潤」！</b></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">2. 三大利潤之層次關係（統測經典陷阱）：</h4>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>利潤名稱</th>
+              <th>計算公式</th>
+              <th>經濟意涵</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="highlight-cell">會計利潤</td>
+              <td>總收益 (<i>TR</i>) － 會計成本</td>
+              <td>帳面上賺到的錢。</td>
+            </tr>
+            <tr>
+              <td class="highlight-cell">正常利潤</td>
+              <td>等於內含成本（隱含成本）</td>
+              <td>企業家留在該產業所要求的<b>最低報酬門檻</b>。</td>
+            </tr>
+            <tr>
+              <td class="highlight-cell">經濟利潤 (π)<br>（超額利潤）</td>
+              <td>總收益 (<i>TR</i>) － 經濟成本<br>＝ 會計利潤 － 正常利潤</td>
+              <td>超出所有機會成本後的真實淨利益。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="img-wrap" style="margin-top:14px">
+          <img src="images/ch05/fig5_01_profit_relationships.png" alt="三種利潤關係" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.152 圖 5-1 ＆ 表 5-1：會計利潤、正常利潤與經濟利潤對照圖</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- π值三情境 -->
+    <div class="formula-box" style="margin-top:18px">
+      💡 <b>經濟利潤（π）三種情境判斷：</b><br>
+      • <b>π ＞ 0（超額利潤）：</b> 會計利潤 ＞ 正常利潤，廠商賺大錢，將吸引新競爭者加入。<br>
+      • <b>π ＝ 0（正常利潤）：</b> 會計利潤 ＝ 正常利潤，剛好賺得留在本業的最低報酬，無超額利潤，其他廠商不進不出（長期均衡狀態）！<br>
+      • <b>π ＜ 0（經濟虧損）：</b> 會計利潤 ＜ 正常利潤，不如把自有要素轉作他用，長期廠商將退出市場。
+    </div>
+  </div>
+
+  <!-- ==================== 重點二：短期成本結構與指標 ==================== -->
+  <div class="card" id="sec-short-cost">
+    <div class="card-header">
+      <h2>📊 重點二：短期成本結構與 7 大指標計算</h2>
+      <span class="tag">課本 5-2-1 節 ｜ 統測高頻計算題庫</span>
+    </div>
+
+    <p style="font-size:0.95rem;color:#334155;margin-top:0">
+      短期內由於存在<b>固定要素（廠房設備固定）</b>，故短期成本嚴格劃分為「固定成本」與「變動成本」：
+    </p>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>成本指標</th>
+          <th>英文縮寫</th>
+          <th>計算公式</th>
+          <th>停工時（Q ＝ 0）狀態與曲線形狀</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>總固定成本</b></td>
+          <td><i>TFC</i> (Fixed)</td>
+          <td><i>TFC</i> ＝ <i>TC</i> － <i>TVC</i> ＝ <i>AFC</i> × <i>Q</i></td>
+          <td><b>Q ＝ 0 時仍存在（TFC ＞ 0）</b>。水平直線，不隨產量 Q 增減而改變（廠房折舊、地租貸款利息）。</td>
+        </tr>
+        <tr>
+          <td><b>總變動成本</b></td>
+          <td><i>TVC</i> (Variable)</td>
+          <td><i>TVC</i> ＝ <i>TC</i> － <i>TFC</i> ＝ <i>AVC</i> × <i>Q</i></td>
+          <td><b>Q ＝ 0 時 TVC ＝ 0</b>。從原點出發，隨 Q 增加而先凹向下後凹向上（逆S形）。</td>
+        </tr>
+        <tr class="highlight-cell">
+          <td><b>總成本</b></td>
+          <td><i>TC</i> (Total)</td>
+          <td><i>TC</i> ＝ <i>TFC</i> ＋ <i>TVC</i> ＝ <i>AC</i> × <i>Q</i></td>
+          <td><b>Q ＝ 0 時 TC ＝ TFC</b>。縱軸截距為 TFC，形狀與 TVC 完全平行，垂直距離恆為 TFC！</td>
+        </tr>
+        <tr>
+          <td><b>平均固定成本</b></td>
+          <td><i>AFC</i></td>
+          <td><i>AFC</i> ＝ <i>TFC</i> / <i>Q</i></td>
+          <td><b>等軸雙曲線</b>。隨產量 Q 增加而持續遞減，無限接近兩軸但絕不相交！</td>
+        </tr>
+        <tr>
+          <td><b>平均變動成本</b></td>
+          <td><i>AVC</i></td>
+          <td><i>AVC</i> ＝ <i>TVC</i> / <i>Q</i></td>
+          <td><b>U 字形</b>。隨產量增加先遞減後遞增（受邊際報酬遞減法則影響）。</td>
+        </tr>
+        <tr class="highlight-cell">
+          <td><b>平均成本</b></td>
+          <td><i>AC</i> (Average)</td>
+          <td><i>AC</i> ＝ <i>TC</i> / <i>Q</i> ＝ <i>AFC</i> ＋ <i>AVC</i></td>
+          <td><b>U 字形</b>。隨 Q 增加，AC 與 AVC 的垂直距離（AFC）愈來愈小，兩線無限接近但永不相交！</td>
+        </tr>
+        <tr class="highlight-cell">
+          <td><b>邊際成本</b></td>
+          <td><i>MC</i> (Marginal)</td>
+          <td><i>MC</i> ＝ Δ<i>TC</i> / Δ<i>Q</i> ＝ Δ<i>TVC</i> / Δ<i>Q</i></td>
+          <td><b>U 字形（勾形）</b>。每增產 1 單位所引起的總成本變動量。<b>注意：MC 與 TFC 完全無關！</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 重點三：短期成本曲線幾何與倒數鏡像 ==================== -->
+  <div class="card" id="sec-curves">
+    <div class="card-header">
+      <h2>📈 重點三：短期成本曲線幾何連動 ＆ 生產成本倒數鏡像</h2>
+      <span class="tag">課本 5-2-2 節 ｜ 統測圖形題必殺技</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch05/fig5_09_short_run_cost_curves.png" alt="短期成本曲線群對照" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.161 圖 5-9：總量曲線（TC/TVC/TFC）與平均邊際曲線對照圖</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch05/fig5_10_mc_avc_ac_relationships.png" alt="MC/AVC/AC關鍵連動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.161 圖 5-10：MC 貫穿 AVC 與 AC 最低點之幾何關係</div>
+      </div>
+    </div>
+
+    <!-- 三大貫穿最低點鐵律 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">1. 邊際成本（MC）貫穿最低點的兩大鐵則：</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>關係曲線</th>
+          <th>交點位置（MC 由下方穿過）</th>
+          <th>左右兩側關係與走勢</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>MC 與 AVC</b></td>
+          <td class="highlight-cell"><b><i>MC</i> ＝ <i>AVC</i> 時，AVC 達到最低點！</b></td>
+          <td>• <i>MC</i> ＜ <i>AVC</i> ➔ <i>AVC</i> 下降。<br>• <i>MC</i> ＞ <i>AVC</i> ➔ <i>AVC</i> 上升。</td>
+        </tr>
+        <tr>
+          <td><b>MC 與 AC</b></td>
+          <td class="highlight-cell"><b><i>MC</i> ＝ <i>AC</i> 時，AC 達到最低點（產能最適規模）！</b></td>
+          <td>• <i>MC</i> ＜ <i>AC</i> ➔ <i>AC</i> 下降。<br>• <i>MC</i> ＞ <i>AC</i> ➔ <i>AC</i> 上升。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.9rem;color:#475569;margin-top:6px">
+      💡 <b>先後順序提醒：</b> 隨產量增加，<b>MC 最先達到最低點 ➔ 接著 AVC 達到最低點 ➔ 最後 AC 才達到最低點</b>！（最低點出現順序：<i>MC</i> ➔ <i>AVC</i> ➔ <i>AC</i>）
+    </p>
+
+    <!-- 生產與成本的倒數鏡像 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">2. 【跨章整合】實體產量（CH4）與貨幣成本（CH5）的「上下倒數鏡像」</h3>
+    <div class="formula-box">
+      🪞 <b>要素價格固定（工資 W 固定）下的倒數關係：</b>
+      <div class="math-formula">
+        <i>MC</i> ＝ <span class="frac"><span class="frac-top"><i>W</i></span><span class="frac-bottom"><i>MP<sub>L</sub></i></span></span> ； 
+        <i>AVC</i> ＝ <span class="frac"><span class="frac-top"><i>W</i></span><span class="frac-bottom"><i>AP<sub>L</sub></i></span></span>
+      </div>
+    </div>
+    <ul class="rule-list">
+      <li>當邊際產量 <b><i>MP</i> 遞增</b> ➔ 邊際成本 <b><i>MC</i> 遞減</b>。</li>
+      <li>當邊際產量 <b><i>MP</i> 達到最高點（反曲點）</b> ➔ 邊際成本 <b><i>MC</i> 降到最低點</b>！</li>
+      <li>當邊際產量 <b><i>MP</i> 遞減（邊際報酬遞減法則）</b> ➔ 邊際成本 <b><i>MC</i> 呈現遞增</b>！</li>
+      <li>當平均產量 <b><i>AP</i> 達到最高點</b> ➔ 平均變動成本 <b><i>AVC</i> 達到最低點</b>！</li>
+    </ul>
+  </div>
+
+  <!-- ==================== 重點四：長期成本分析與包絡線 ==================== -->
+  <div class="card" id="sec-long-run">
+    <div class="card-header">
+      <h2>⏳ 重點四：長期成本結構、包絡線（Envelope Curve）與 LMC</h2>
+      <span class="tag">課本 5-3-1 & 5-3-2 節 ｜ 規模擴充軌跡</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch05/fig5_12_lac_envelope.png" alt="LAC包絡線形成" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.165 圖 5-12：長期平均成本 LAC 是各短期 SAC 的下包絡線</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 長期平均成本曲線（LAC）的形成與特徵：</h4>
+        <ul class="rule-list">
+          <li><b>長期無固定成本：</b> 所有要素皆可自由調整，廠商可根據預期產量選擇「最適工廠規模（SAC）」。</li>
+          <li><b>下包絡線（Envelope Curve）：</b> LAC 是由無數條短期平均成本 SAC 曲線的<b>下半部相切點連成的平滑曲線</b>。</li>
+          <li><b>重要切點特性：</b>
+            <br>• 在 LAC 下降階段：相切於各 SAC 最低點的<b>左側（下降段）</b>。
+            <br>• 在 LAC 最低點處：剛好相切於該最佳規模 SAC 的<b>最低點</b>！
+            <br>• 在 LAC 上升階段：相切於各 SAC 最低點的<b>右側（上升段）</b>。
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LMC 與四線合一 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">2. 長期邊際成本（LMC）與「四線合一」黃金點</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch05/fig5_13_lmc_formation.png" alt="LMC線的形成" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.166 圖 5-13：LMC 線的形成 ＆ 課本註明「LMC 不是 SMC 的包絡線」！</div>
+      </div>
+
+      <div>
+        <div class="formula-box" style="background:#f0fdf4;border-left-color:#10b981">
+          🌟 <b>LAC 最低點的「四線合一」終極考點：</b><br>
+          在長期平均成本 LAC 的最低點（產能最適點，b 點）：
+          <div class="math-formula" style="color:#065f46">
+            <i>SAC</i> ＝ <i>LAC</i> ＝ <i>SMC</i> ＝ <i>LMC</i>
+          </div>
+        </div>
+        <ul class="rule-list">
+          <li><b>考題高頻陷阱：</b> LAC 是 SAC 的包絡線；<b>但長期邊際成本 LMC「絕對不是」短期 SMC 的包絡線</b>（LMC 是由各相切產量下對應的 SMC 點連線而成）！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點五：規模報酬與外部經濟 ==================== -->
+  <div class="card" id="sec-economies">
+    <div class="card-header">
+      <h2>🏭 重點五：規模報酬（內部） ＆ 外部經濟（線動 vs 線移）</h2>
+      <span class="tag">課本 5-3-3 & 5-3-4 節 ｜ 統測觀念辨析核心</span>
+    </div>
+
+    <!-- 內部規模報酬 -->
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch05/fig5_14_returns_to_scale.png" alt="LAC規模報酬" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.168 圖 5-14：LAC 曲線的三大階段與規模報酬</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 長期規模報酬三階段（內部規模經濟）：</h4>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>階段名稱</th>
+              <th>LAC 走勢</th>
+              <th>成因與說明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="highlight-cell">規模報酬遞增<br>（規模經濟）</td>
+              <td><b><i>LAC</i> 呈現遞減<br>（下降段）</b></td>
+              <td>擴大生產規模能實行精細分工、引進大型高效率機具、大宗採購原料享折扣、副產品充分利用。</td>
+            </tr>
+            <tr>
+              <td>規模報酬固定</td>
+              <td><b><i>LAC</i> 維持水平<br>（最低點）</b></td>
+              <td>產量增加比例恰好等於要素增加比例，成本效益達到平衡。</td>
+            </tr>
+            <tr>
+              <td class="highlight-cell">規模報酬遞減<br>（規模不經濟）</td>
+              <td><b><i>LAC</i> 呈現遞增<br>（上升段）</b></td>
+              <td>工廠規模過大，內部組織臃腫龐雜、溝通協調困難、官僚管理效率低落。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 外部經濟 vs 外部不經濟 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">2. 外部經濟 vs 外部不經濟（整條曲線平移）：</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch05/fig5_15_external_economies.png" alt="外部經濟與不經濟" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.171 圖 5-15：外部經濟使 LAC 整條下移；外部不經濟使 LAC 整條上移</div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          ⚡ <b>動線大解密（內部 vs 外部）：</b><br>
+          • <b>內部規模經濟：</b> 廠商<b>自身產量擴大</b> ➔ <b>沿著 LAC 線上的點移動</b>！<br>
+          • <b>外部經濟/不經濟：</b> 外在整體產業擴展、政府基建通車 ➔ <b>LAC 整條線向上或向下平移</b>！
+        </div>
+
+        <ul class="rule-list">
+          <li><b>外部經濟（LAC 整條下移）：</b> 國道六號通車降低埔里花農運輸成本；周邊衛星協同廠商進駐；政府對該產業全面租稅減免；同業公會培育充沛專業人才。</li>
+          <li><b>外部不經濟（LAC 整條上移）：</b> 交通嚴重壅塞增加運輸時間；同業爭相設廠造成工業地價飆漲；政府加徵污染防治費；蘇花公路崩塌造成運費上漲。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組六：課本精選實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組六：CH5 課本精選 5 大經典實戰測驗</h2>
+      <span class="tag">課本 P.174～176 原題驗證</span>
+    </div>
+
+    <!-- 題 1：超額利潤 -->
+    <div class="quiz-item">
+      <div class="quiz-q">1. 【課本 P.174 第 2 題】當廠商享有「超額利潤（經濟利潤大於 0）」時，表示該廠商的利潤狀態為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(A) 會計利潤 ＜ 正常利潤</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, true)">(B) 會計利潤 ＞ 正常利潤</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(C) 會計利潤 ＝ 正常利潤</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(D) 會計利潤 ＝ 0</button>
+      </div>
+      <div class="quiz-ans" id="ans-1">
+        🎉 <b>答對了！選 (B)</b><br>
+        因為：<b>經濟利潤（超額利潤） ＝ 會計利潤 － 正常利潤</b>。<br>
+        當享有超額利潤（經濟利潤 ＞ 0）時，移項可得：<b>會計利潤 ＞ 正常利潤</b>！
+      </div>
+    </div>
+
+    <!-- 題 2：邊際成本計算 -->
+    <div class="quiz-item">
+      <div class="quiz-q">2. 【課本 P.174 第 5 題】已知產量為 10 單位時，總成本為 100 元；若增用一單位生產要素後，產量變為 12 單位，總成本變為 130 元，則邊際成本（MC）為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(A) 30 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(B) 20 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, true)">(C) 15 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(D) 10 元</button>
+      </div>
+      <div class="quiz-ans" id="ans-2">
+        🎉 <b>答對了！選 (C)</b><br>
+        邊際成本 <i>MC</i> ＝ Δ<i>TC</i> / Δ<i>Q</i> ＝ (130 － 100) / (12 － 10) ＝ 30 / 2 ＝ <b>15 元</b>！<br>
+        <i>（注意：很多同學會直接拿 30 元除以 1 單位要素，一定要除以「產量的變動量 ΔQ ＝ 2」！）</i>
+      </div>
+    </div>
+
+    <!-- 題 3：MC大於AC時AC走勢 -->
+    <div class="quiz-item">
+      <div class="quiz-q">3. 【課本 P.174 第 7 題】就短期成本結構而言，當邊際成本（MC）大於平均成本（AC）時，下列何項敘述完全正確？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(A) AC 在遞減</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(B) AC 剛好是最低點</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, true)">(C) AC 在遞增</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(D) MC 剛好是最低點</button>
+      </div>
+      <div class="quiz-ans" id="ans-3">
+        🎉 <b>答對了！選 (C)</b><br>
+        MC 是拉動 AC 的力量。當新增一單位的邊際成本 <i>MC</i> 高於先前的平均成本 <i>AC</i> 時，會將平均成本往上拉，因此 <b>AC 必然處於遞增（上升）階段</b>！
+      </div>
+    </div>
+
+    <!-- 題 4：包絡線性質 -->
+    <div class="quiz-item">
+      <div class="quiz-q">4. 【課本 P.175 第 10 題】在長期成本分析中，長期平均成本曲線（LAC）是下列何者之「下包絡線」？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(A) 短期總成本線（STC）</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, true)">(B) 短期平均成本線（SAC）</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(C) 短期邊際成本線（SMC）</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(D) 長期邊際成本線（LMC）</button>
+      </div>
+      <div class="quiz-ans" id="ans-4">
+        🎉 <b>答對了！選 (B)</b><br>
+        長期平均成本線 <b>LAC 是各個短期平均成本線 SAC 的下包絡線</b>！<br>
+        <i>（特別提醒：長期邊際成本線 LMC 不是 SMC 的包絡線！）</i>
+      </div>
+    </div>
+
+    <!-- 題 5：外部經濟情境題 -->
+    <div class="quiz-item">
+      <div class="quiz-q">5. 【課本 P.175 生活情境第 2 題】國道六號「水沙連高速公路」通車，大幅縮短了埔里花農配送花卉的時間與運輸成本，使得全體埔里花農的長期平均成本（LAC）曲線整條向下移動，此種現象在經濟學上稱為：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 5, true)">(A) 外部經濟</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(B) 內部經濟</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(C) 規模經濟</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(D) 規模報酬遞增</button>
+      </div>
+      <div class="quiz-ans" id="ans-5">
+        🎉 <b>答對了！選 (A)</b><br>
+        因為高速公路是外在公共建設，非單一花農自行擴廠所致，使全體花農成本降低、<b>LAC 曲線整條向下移動</b>，故屬於<b>外部經濟（External Economies）</b>！
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 燈箱視窗 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大原圖" />
+</div>
+
+<script>
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const img = document.getElementById('modal-img');
+  img.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+function checkAns(btn, qId, isCorrect) {
+  const ansBox = document.getElementById('ans-' + qId);
+  ansBox.style.display = 'block';
+  if (isCorrect) {
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#059669';
+  } else {
+    btn.style.background = '#f87171';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#dc2626';
+    alert('觀念有點混淆囉！請看下方綠色即時解析～');
+  }
+}
+</script>
+
+</body>
+</html>

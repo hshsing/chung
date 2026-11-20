@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH2 需求與供給 ｜ 統測旗艦全方位精華講義 ｜ 全景整合地圖</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #f97316;
+  --coral: #f43f5e;
+  --line: #fed7aa;
+  --line-gray: #e2e8f0;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --shadow: 0 4px 18px rgba(234, 88, 12, 0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.65;
+  padding-bottom: 80px;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, #f43f5e 0%, #f97316 70%, #fb923c 100%);
+  color: #fff;
+  padding: 14px 24px;
+  box-shadow: 0 4px 16px rgba(244, 63, 94, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+header h1 {
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+header .badge {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.header-btn {
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.header-btn:hover {
+  background: #fff;
+  color: var(--coral);
+}
+.header-btn.highlight {
+  background: #fff;
+  color: #ea580c;
+  font-weight: 700;
+}
+
+/* 模組快速跳轉選單 (Sticky Subnav) */
+.subnav {
+  position: sticky;
+  top: 61px;
+  z-index: 90;
+  background: #ffffff;
+  border-bottom: 2px solid #fed7aa;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.subnav-btn {
+  background: #fffaf5;
+  border: 1px solid #fed7aa;
+  color: #c2410c;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+.subnav-btn:hover {
+  background: #f97316;
+  color: #fff;
+  border-color: #f97316;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line-gray);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  border-bottom: 2px solid #fff7ed;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.card-header h2 {
+  font-size: 1.28rem;
+  color: #9a3412;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  background: #ffedd5;
+  color: #c2410c;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.tip-box {
+  background: #fff7ed;
+  border-left: 4px solid var(--brand);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin: 14px 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+.formula-box {
+  background: #f0fdf4;
+  border: 1.5px dashed var(--green);
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin: 14px 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.split-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 14px 0;
+  align-items: start;
+}
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+
+/* 彈性五大形態水平卡片網格 */
+.elasticity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.elasticity-grid .img-wrap {
+  padding: 8px;
+}
+.elasticity-grid .img-wrap img {
+  max-height: 150px;
+}
+.elasticity-grid .img-caption {
+  font-size: 0.82rem;
+  margin-top: 6px;
+  font-weight: 700;
+  color: #334155;
+}
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+.img-caption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 8px;
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 0.92rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f1f5f9;
+  color: #1e293b;
+  font-weight: 700;
+}
+.comp-table tr:hover {
+  background: #f8fafc;
+}
+.highlight-cell {
+  background: #fff7ed;
+  font-weight: 700;
+  color: #c2410c;
+}
+
+.rule-list {
+  list-style: none;
+  padding: 0;
+}
+.rule-list li {
+  padding: 6px 0 6px 24px;
+  position: relative;
+  font-size: 0.93rem;
+}
+.rule-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--brand);
+  font-weight: 800;
+}
+
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.96rem;
+  margin: 0 2px;
+}
+.frac-top {
+  border-bottom: 2px solid currentColor;
+  padding: 0 4px 2px;
+  line-height: 1.2;
+}
+.frac-bottom {
+  padding: 2px 4px 0;
+  line-height: 1.2;
+}
+
+/* 隨堂檢核測驗 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.quiz-q {
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 0.96rem;
+  color: #0f172a;
+}
+.quiz-opts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.quiz-btn {
+  background: #fff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quiz-btn:hover {
+  background: #fed7aa;
+  border-color: #f97316;
+}
+.quiz-ans {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 0.9rem;
+  display: none;
+  line-height: 1.6;
+}
+
+/* 燈箱視窗 */
+#modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+#modal img {
+  max-width: 95%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 6px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📘 CH2 需求與供給 ｜ 統測旗艦全方位講義 <span class="badge">課本 100% 完整擴充版</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch01_basics.html" class="header-btn">⬅ 上一章：CH1 基本概念</a>
+    <a href="ch03_consumer.html" class="header-btn highlight">下一章：CH3 消費行為理論 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列 -->
+<nav class="subnav">
+  <a href="#sec-demand-basics" class="subnav-btn">① 需求法則與三大例外</a>
+  <a href="#sec-demand-types" class="subnav-btn">② 需求種類與水平加總</a>
+  <a href="#sec-shift" class="subnav-btn">③ 需求量變 vs 需求線移</a>
+  <a href="#sec-elasticity" class="subnav-btn">④ 供需價格彈性 ＆ TR連動</a>
+  <a href="#sec-supply-basics" class="subnav-btn">⑤ 供給法則與三大例外</a>
+  <a href="#sec-supply-shift" class="subnav-btn">⑥ 供給量變 ＆ 供給彈性判定</a>
+  <a href="#sec-equil" class="subnav-btn">⑦ 市場均衡 ＆ 供需同時變動</a>
+  <a href="#sec-control" class="subnav-btn">⑧ 政府干預 (上限/下限/課稅補貼)</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本精選實戰測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 重點一：需求法則與成立原因、三大例外 ==================== -->
+  <div class="card" id="sec-demand-basics">
+    <div class="card-header">
+      <h2>📌 重點一：需求本質、需求法則 ＆ 三大成立原因與例外（課本 2-1-1 & 2-1-2 節）</h2>
+      <span class="tag">課本 P.2～P.6 ｜ 統測基礎概念命題熱點</span>
+    </div>
+
+    <div class="tip-box">
+      🔥 <b>需求（Demand）的定義：</b> 指在特定時間內，其他條件不變下，消費者在<b>各種不同價格下，願意而且有能力購買</b>該財貨的數量組合（必須同時具備「購買慾望」與「支付能力」，即有效需求）。<br>
+      • <b>需求的表示方式：</b> 需求表（Demand Schedule）、需求曲線（Demand Curve）、需求函數（Demand Function：<i>Q<sub>d</sub></i> ＝ <i>f(P)</i>）。<br>
+      • <b>需求法則（Law of Demand）：</b> 在其他條件不變下，財貨本身價格上漲，需求量減少（<i>P</i> ↑ ➔ <i>Q<sub>d</sub></i> ↓）；價格下跌，需求量增加（<i>P</i> ↓ ➔ <i>Q<sub>d</sub></i> ↑），兩者呈<b>反向變動（反比）</b>，因此需求曲線呈<b>負斜率</b>。
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h3 style="color:#0f172a;margin-bottom:8px;font-size:1.05rem">1. 需求法則成立的三大根本原因（課本 P.5）</h3>
+        <ul class="rule-list">
+          <li><b>① 替代效果（Substitution Effect）：</b> 當某財貨價格上漲，相對於其他財貨變貴，消費者會減少購買該財貨，轉而購買其他相對便宜的替代財（如牛肉漲價改吃豬肉）。</li>
+          <li><b>② 所得效果（Income Effect）：</b> 在名目所得不變下，當某財貨價格上漲，消費者的實質所得（實質購買力）實質下降，因而減少對該財貨的購買數量。</li>
+          <li><b>③ 邊際效用遞減法則（Law of Diminishing Marginal Utility）：</b> 消費者連續消費某財貨時，每增加一單位財貨所獲得的邊際滿足感（<i>MU</i>）持續遞減，因此消費者只願意在價格更低時才多購買。</li>
+        </ul>
+      </div>
+
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_03_veblen_giffen.png" alt="炫耀財與季芬財的需求曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.6 圖 2-3：炫耀財與季芬財的需求曲線（正斜率，違反需求法則）</div>
+      </div>
+    </div>
+
+    <h3 style="color:#0f172a;margin:20px 0 8px;font-size:1.05rem">2. 需求法則的「三大例外」（課本 P.6 統測必考陷阱）</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>例外類型</th>
+          <th>提出學者與背景</th>
+          <th>經濟本質與行為特徵</th>
+          <th>需求曲線特徵</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">炫耀財<br>（Veblen Goods）</td>
+          <td>19 世紀末美國學者<b>韋伯倫（Thorstein Veblen）</b>研究提出，又稱<b>韋伯倫財</b>。</td>
+          <td>具有顯著的炫耀財富與身分地位象徵，<b>價格愈昂貴（P↑），愈能彰顯尊榮身分，富人反而買愈多（Q<sub>d</sub>↑）</b>。如百萬名表、限量珠寶、超跑、名牌包。</td>
+          <td rowspan="3" style="font-weight:700;color:#dc2626;background:#fef2f2">呈<b>正斜率</b><br>（由左下向右上延伸，如圖 2-3）</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">季芬財<br>（Giffen Goods）</td>
+          <td>19 世紀英國學者<b>季芬（Robert Giffen）</b>於 1845 年愛爾蘭大饑荒時發現。</td>
+          <td><b>季芬財必為劣等財</b>的一種，其支出占窮人所得比例極高。當饑荒發生馬鈴薯大漲時，人民實質所得劇降，買不起肉類與麵包，只好將省下的錢全部轉買相對便宜的馬鈴薯，導致<b>價格漲需求量反而大增（P↑, Q<sub>d</sub>↑）</b>。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">投機心理財</td>
+          <td>金融期貨、股票市場或房地產飆漲期。</td>
+          <td>市場大眾抱持「買漲不買跌」預期，價格愈飆買氣愈旺；價格下跌反而乏人問津。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 重點二：需求的種類與市場需求水平加總 ==================== -->
+  <div class="card" id="sec-demand-types">
+    <div class="card-header">
+      <h2>📌 重點二：需求的種類 ＆ 個別需求水平加總為市場需求（課本 2-1-3 節）</h2>
+      <span class="tag">課本 P.7～P.8 ｜ 幾何圖解加總題</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h3 style="color:#0f172a;margin-bottom:8px;font-size:1.05rem">1. 需求的三大維度分類（課本 P.7）</h3>
+        <ul class="rule-list">
+          <li><b>依使用用途區分：</b>
+            <br>• <b>直接需求：</b> 消費者為直接滿足自身慾望對最終消費財的需求（如麵包、飲料）。
+            <br>• <b>引申需求（間接需求）：</b> 廠商為了生產產品，對生產要素（土地、勞動、資本）的需求（如麵包店對麵粉與麵包師傅的需求）。
+          </li>
+          <li><b>依財貨性質（所得變動）區分：</b>
+            <br>• <b>正常財（Normal Goods）：</b> 消費者所得增加，對該財貨需求增加（需求曲線右移）。
+            <br>• <b>劣等財（Inferior Goods）：</b> 消費者所得增加，對該財貨需求反而減少（需求曲線左移，如泡麵、廉價中古衣）。
+            <br>• <b>中性財（Neutral Goods）：</b> 所得增減，對該財貨需求維持不變（如食鹽）。
+          </li>
+          <li><b>依消費人數區分：</b> <b>個別需求</b>（單一買者） vs <b>市場需求</b>（市場全體買者）。</li>
+        </ul>
+      </div>
+
+      <div class="img-wrap">
+        <img src="images/ch02/table2_02_market_demand.png" alt="熊大兔兔市場需求加總表" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.8 表 2-2：特定價格下個別需求量相加求市場需求量</div>
+      </div>
+    </div>
+
+    <div class="img-wrap" style="max-width:680px; margin:16px auto;">
+      <img src="images/ch02/fig2_04_market_demand_sum.png" alt="市場需求曲線之水平加總" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 教科書 P.8 圖 2-4：市場需求曲線是由所有個別需求曲線「水平相加（Horizontal Summation）」而成！在同一價格下，將熊大與兔兔的購買量橫向疊加。</div>
+    </div>
+
+    <div class="tip-box" style="margin-top:16px">
+      ⚡ <b>統測計算鐵律：</b> 若市場只有甲、乙兩人，需求函數分別為 <i>q</i><sub>甲</sub> ＝ 10 － <i>P</i>，<i>q</i><sub>乙</sub> ＝ 15 － <i>P</i>，求市場需求函數：
+      <br>➔ 必須以「數量 <i>Q</i>」為主體相加：<i>Q<sub>d</sub></i> ＝ <i>q</i><sub>甲</sub> ＋ <i>q</i><sub>乙</sub> ＝ (10 － <i>P</i>) ＋ (15 － <i>P</i>) ＝ <b>25 － 2P</b>（切忌將 P 直接相加！）。
+    </div>
+  </div>
+
+  <!-- ==================== 重點三：需求量變動 vs 需求變動 ==================== -->
+  <div class="card" id="sec-shift">
+    <div class="card-header">
+      <h2>📌 重點三：需求量變動 ＆「點的移動 vs 整條線移動」（課本 2-1-4 節）</h2>
+      <span class="tag">統測觀念題第 1 題常客</span>
+    </div>
+
+    <div class="tip-box">
+      🔥 <b>統測秒殺口訣：</b>「<b>量變線上爬，變動整條拉</b>」！只有「該財貨本身價格」改變才是線上點的移動；其他任何外在因素改變，一律是整條曲線平移（右移＝增加、左移＝減少）。
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_06_demand_quantity_change.png" alt="需求量的變動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.11 圖 2-6：需求量變動（只有 P 跌促成 A➔B 點在線上爬）</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_08_demand_curve_shift.png" alt="需求的變動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.12 圖 2-8：需求變動（外在因素使整條 D 線右移 D2 或左移 D3）</div>
+      </div>
+    </div>
+
+    <!-- 需求影響因素對照表 -->
+    <table class="comp-table" style="margin-top:16px">
+      <thead>
+        <tr>
+          <th>變動類型</th>
+          <th>發生原因</th>
+          <th>圖形特徵</th>
+          <th>統測常考實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">需求量變動<br>(Change in Qd)</td>
+          <td><b>只有該財貨「本身的價格 P」</b>改變</td>
+          <td><b>點在同一條需求線上移動</b></td>
+          <td>冰品打折降價（P↓），買的人多買 2 支（點在線上往右下移）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">需求的變動<br>(Change in Demand)</td>
+          <td>價格以外的「五大外在因素」改變</td>
+          <td><b>整條需求線平移</b><br>(右移增加 / 左移減少)</td>
+          <td>天氣炎熱（偏好增）、人口增加、所得增加使買氣暴增（整條右移）。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="formula-box" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af">
+      💡 <b>需求整條移動的「五大考點」：</b><br>
+      1. <b>消費者所得：</b> 正常財（所得增，需求右移）；劣等財（所得增，需求左移）。<br>
+      2. <b>相關財價格：</b><br>
+      &nbsp;&nbsp;• <b>替代財（同向變動）：</b> 牛肉漲價 ➔ 豬肉需求增加（右移）。<br>
+      &nbsp;&nbsp;• <b>互補財（反向變動）：</b> 咖啡漲價 ➔ 奶精需求減少（左移）。<br>
+      3. <b>預期心理：</b> 預期未來會漲價 ➔ 目前搶購，當期需求右移。<br>
+      4. <b>消費者偏好與買者人數：</b> 偏好增強或人口增加 ➔ 需求右移。
+    </div>
+  </div>
+
+  <!-- ==================== 重點四：供需價格彈性 ＆ TR連動 ==================== -->
+  <div class="card" id="sec-elasticity">
+    <div class="card-header">
+      <h2>🎯 重點四：供需價格彈性 ＆ 廠商總收益 TR 連動（課本 2-2 & 2-4 節）</h2>
+      <span class="tag">統測每年必出 1～2 題計算</span>
+    </div>
+
+    <h3 style="color:#0f172a;margin-bottom:8px;font-size:1.05rem">1. 需求彈性測量方法：點彈性 vs 弧彈性中點法（課本 P.16）</h3>
+    <div class="split-view">
+      <div class="formula-box">
+        📐 <b>① 弧彈性中點法公式（Midpoint Formula，課本 P.16）：</b><br>
+        求兩價格與數量之間的平均彈性，不受漲跌方向影響：<br>
+        <i>E<sub>d</sub></i> ＝ 
+        <span class="frac"><span class="frac-top">ΔQ</span><span class="frac-bottom">(Q<sub>1</sub> ＋ Q<sub>2</sub>) / 2</span></span>
+        ÷
+        <span class="frac"><span class="frac-top">ΔP</span><span class="frac-bottom">(P<sub>1</sub> ＋ P<sub>2</sub>) / 2</span></span>
+        ＝
+        <span class="frac"><span class="frac-top">|Q<sub>2</sub> － Q<sub>1</sub>|</span><span class="frac-bottom">Q<sub>1</sub> ＋ Q<sub>2</sub></span></span>
+        ×
+        <span class="frac"><span class="frac-top">P<sub>1</sub> ＋ P<sub>2</sub></span><span class="frac-bottom">|P<sub>2</sub> － P<sub>1</sub>|</span></span>
+        <br><br>
+        • <b>課本範例：</b> 當價格由 100 元降至 80 元，購買量由 20 增至 30：<br>
+        <i>E<sub>d</sub></i> ＝ 
+        <span class="frac"><span class="frac-top">10</span><span class="frac-bottom">50</span></span>
+        ×
+        <span class="frac"><span class="frac-top">180</span><span class="frac-bottom">20</span></span>
+        ＝ 0.2 × 9 ＝ <b>1.8 ＞ 1</b>（富有彈性）。
+      </div>
+
+      <div class="formula-box" style="background:#fff7ed;border-color:#fdba74">
+        ⚡ <b>② 統測直線點彈性（線段比秒殺公式，課本 P.18）：</b><br>
+        直線需求線上任一點 A 之彈性：<br>
+        <i>E<sub>d</sub></i> ＝ <b>下段長 / 上段長</b> ＝ 
+        <span class="frac"><span class="frac-top">P</span><span class="frac-bottom">P<sub>max</sub> － P</span></span>
+        <br><br>
+        • <b>三等分速算法：</b><br>
+        - 縱軸交點最高價：<i>E<sub>d</sub></i> ＝ ∞（完全彈性）<br>
+        - 線段中點（橫縱中點）：<i>E<sub>d</sub></i> ＝ 1（單一彈性）<br>
+        - 中點以上：<i>E<sub>d</sub></i> ＞ 1（富有彈性）<br>
+        - 中點以下：<i>E<sub>d</sub></i> ＜ 1（缺乏彈性）<br>
+        - 橫軸交點數量最大處：<i>E<sub>d</sub></i> ＝ 0（完全無彈性）
+      </div>
+    </div>
+
+    <!-- 需求彈性五大圖形（精巧五欄並列排版） -->
+    <h3 style="color:#0f172a;margin:20px 0 8px;font-size:1.05rem">2. 需求彈性五大形態圖解（課本 P.20～P.21，點擊任一圖放大）</h3>
+    <div class="elasticity-grid">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_10_demand_perfect_elastic.png" alt="完全彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">① 完全彈性<br>(<i>E<sub>d</sub></i> ＝ ∞)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_11_demand_elastic.png" alt="富有彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">② 富有彈性<br>(<i>E<sub>d</sub></i> ＞ 1)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_12_demand_unit_elastic.png" alt="單一彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">③ 單一彈性<br>(<i>E<sub>d</sub></i> ＝ 1)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_13_demand_inelastic.png" alt="缺乏彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">④ 缺乏彈性<br>(<i>E<sub>d</sub></i> ＜ 1)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_14_demand_perfect_inelastic.png" alt="完全無彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">⑤ 完全無彈性<br>(<i>E<sub>d</sub></i> ＝ 0)</div>
+      </div>
+    </div>
+
+    <div class="img-wrap" style="max-width:680px; margin:16px auto;">
+      <img src="images/ch02/table2_04_tr_elasticity.png" alt="需求彈性與總收益關係表" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 教科書 P.24 表 2-4：需求彈性與廠商總收益 TR 連動矩陣</div>
+    </div>
+
+    <!-- 彈性與總收益連動核心表 -->
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.05rem">3. 需求價格彈性與廠商總收益（TR ＝ P × Q）經典對照</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>彈性數值大小</th>
+          <th>曲線形狀特徵</th>
+          <th>價格變動 (P ↑)</th>
+          <th>價格變動 (P ↓)</th>
+          <th>統測經典結論與名言</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">富有彈性 (Ed ＞ 1)</td>
+          <td>平坦傾斜</td>
+          <td>TR 減少 (損失大於收益)</td>
+          <td style="color:#16a34a;font-weight:700">TR 增加 (顧客增幅大)</td>
+          <td><b>「薄利多銷」</b>（降價才能賺更多，如非必需精品）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">單一彈性 (Ed ＝ 1)</td>
+          <td>正等軸雙曲線</td>
+          <td>TR 不變</td>
+          <td>TR 不變</td>
+          <td>價格與數量增減比例剛好相抵，<b>TR 達到最大值</b>。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">缺乏彈性 (Ed ＜ 1)</td>
+          <td>陡峭傾斜</td>
+          <td style="color:#16a34a;font-weight:700">TR 增加 (漲價不跑客)</td>
+          <td>TR 減少 (降價顧客不增)</td>
+          <td><b>「穀賤傷農」</b>（農產品盛產價暴跌，農民總收益大減！）。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+      <!-- 決定供需彈性大小的因素 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.05rem">4. 決定需求彈性大小的四大關鍵因素（課本 2-2-4 節 P.25）</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>決定因素</th>
+          <th>富有彈性（Ed 較大）的情形</th>
+          <th>缺乏彈性（Ed 較小）的情形</th>
+          <th>統測實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">① 替代品的多寡</td>
+          <td><b>替代品眾多</b>（買者隨時可轉向）</td>
+          <td>替代品極少甚至無可替代</td>
+          <td>手搖飲料（替代多，彈性大）；胰島素、水電（替代少，彈性小）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">② 支出占所得比例</td>
+          <td><b>支出占所得比例愈高</b>（價格稍漲負擔沉重）</td>
+          <td>支出占所得比例極微小</td>
+          <td>汽車、房價（占比高，彈性大）；牙籤、食鹽、火柴（占比低，彈性小）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">③ 財貨的消費性質</td>
+          <td><b>奢侈品</b>（非生存必需，可買可不買）</td>
+          <td><b>必需品</b>（維持生存所必需）</td>
+          <td>出國度假、珠寶名牌（奢侈品彈性大）；米、油、食鹽、自來水（必需品彈性小）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">④ 考慮時間的長短</td>
+          <td><b>考慮時間愈長</b>（買者有充裕時間尋找替代）</td>
+          <td>考慮時間極短暫（短期應變不及）</td>
+          <td>汽油長期彈性大（可換電車、搭捷運）；汽油短期彈性小（明早仍需開車上班）。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 重點五：供給法則與三大例外 ==================== -->
+  <div class="card" id="sec-supply-basics">
+    <div class="card-header">
+      <h2>📌 重點五：供給本質、供給法則 ＆ 三大重要例外（課本 2-3-1 ～ 2-3-3 節）</h2>
+      <span class="tag">課本 P.28～P.34 ｜ 統測觀念題常客</span>
+    </div>
+
+    <div class="tip-box">
+      🔥 <b>供給（Supply）的定義：</b> 指生產者在特定時間內，在其他條件不變下，在<b>各種不同價格下，願意而且有能力提供</b>市場銷售的數量組合（同時具備「供給意願」與「供給能力」）。<br>
+      • <b>供給的表示方式：</b> 供給表（Supply Schedule）、供給曲線（Supply Curve）、供給函數（Supply Function：<i>Q<sub>s</sub></i> ＝ <i>f(P)</i>）。<br>
+      • <b>供給法則（Law of Supply）：</b> 在其他條件不變下，財貨價格上漲，供給量增加（<i>P</i> ↑ ➔ <i>Q<sub>s</sub></i> ↑）；價格下跌，供給量減少（<i>P</i> ↓ ➔ <i>Q<sub>s</sub></i> ↓），兩者呈<b>同向變動（正比）</b>，供給曲線呈<b>正斜率</b>。
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h3 style="color:#0f172a;margin-bottom:8px;font-size:1.05rem">1. 供給法則的「三大例外」（課本 P.31）</h3>
+        <ul class="rule-list">
+          <li><b>① 固定供給（垂直供給線）：</b> 無論價格多高，供給量絕對固定無法增加（<i>E<sub>s</sub></i> ＝ 0），供給曲線呈<b>垂直於橫軸的直線</b>（如古董、名畫、土地、球場固定座位）。</li>
+          <li><b>② 後折的勞動供給曲線（Backward-Bending Labor Supply）：</b>
+            <br>• 工資初期上漲（a➔b 段）：工資提高吸引勞工加班賺錢，替代效果 ＞ 所得效果，呈正斜率。
+            <br>• 工資漲過門檻（b➔c 段）：勞工所得豐厚，渴望更多休閒時光，反而減少工時，所得效果 ＞ 替代效果，呈<b>負斜率向後彎折</b>！
+          </li>
+          <li><b>③ 成本遞減產業（負斜率）：</b> 具有顯著規模經濟，產量擴大反而使平均成本大幅下降（如新興高科技通訊）。</li>
+        </ul>
+      </div>
+
+      <div class="split-view">
+        <div class="img-wrap">
+          <img src="images/ch02/fig2_21_fixed_supply.png" alt="固定供給" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.31 圖 2-21：固定供給（垂直線，Es＝0）</div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch02/fig2_22_backward_bending_labor.png" alt="後折個別勞動供給曲線" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.31 圖 2-22：個別勞動供給曲線（高工資下負斜率後折）</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="color:#0f172a;margin:20px 0 8px;font-size:1.05rem">2. 供給的種類（課本 P.32～33）</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>分類標準</th>
+          <th>供給種類</th>
+          <th>定義特徵與實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2" style="font-weight:700;background:#f8fafc">依供給彈性/彈性</td>
+          <td class="highlight-cell">固定供給 vs 變動供給</td>
+          <td><b>固定供給：</b> 供給量不可變動（垂直線，如土地）。<br><b>變動供給：</b> 供給量隨價格變動而增減（如一般工廠產品）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">短期供給 vs 長期供給</td>
+          <td><b>短期供給：</b> 廠商設備固定，僅能增減勞動原料，供給彈性較小。<br><b>長期供給：</b> 廠房設備可完全擴建或退出，供給彈性較大。</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="font-weight:700;background:#f8fafc">依關聯性</td>
+          <td class="highlight-cell">獨立供給 vs 聯合供給</td>
+          <td><b>獨立供給：</b> 生產某產品不影響其他產品供給（如單獨生產腳踏車）。<br><b>聯合供給（副產品）：</b> 生產主產品同時必然伴隨產出副產品！<b>主產品增產，副產品供給必然跟著增加</b>（如<b>牛肉與牛皮、石油與瀝青</b>）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">個別供給 vs 市場供給</td>
+          <td>市場供給是由市場內所有個別廠商之供給曲線<b>水平相加（Horizontal Summation）</b>而成。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 重點六：供給量變動 ＆ 供給價格彈性判定 ==================== -->
+  <div class="card" id="sec-supply-shift">
+    <div class="card-header">
+      <h2>📌 重點六：供給量變動 vs 供給變動 ＆ 供給彈性幾何判定（課本 2-3-4 & 2-4 節）</h2>
+      <span class="tag">統測必出幾何射線判定</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_25_supply_quantity_change.png" alt="供給量變動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.35 圖 2-25：供給量變動（只有產品本身價格 P 漲，點在線上爬）</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_27_supply_curve_shift.png" alt="供給變動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.36 圖 2-27：供給變動（成本降或技術進步，整條 S 線右移 S2）</div>
+      </div>
+    </div>
+
+    <!-- 供給彈性五大圖形 -->
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.05rem">直線型供給價格彈性之「射線幾何判定法」（課本 P.40）</h3>
+    <div class="formula-box">
+      💡 <b>統測秒殺口訣：延長供給線切於座標軸：</b><br>
+      • <b>交於縱軸（P 軸）：</b> <i>E<sub>s</sub></i> <b>＞ 1</b>（富有彈性，截距在縱軸正向）<br>
+      • <b>通過原點（0 點）：</b> <i>E<sub>s</sub></i> <b>＝ 1</b>（單一彈性，不論斜率多陡多平，只要過原點彈性必為 1！）<br>
+      • <b>交於橫軸（Q 軸）：</b> <i>E<sub>s</sub></i> <b>＜ 1</b>（缺乏彈性，截距在橫軸正向）<br>
+      • <b>水平直線：</b> <i>E<sub>s</sub></i> ＝ <b>∞</b>（完全彈性）<br>
+      • <b>垂直直線：</b> <i>E<sub>s</sub></i> ＝ <b>0</b>（完全無彈性）
+    </div>
+
+    <!-- 供給彈性五大幾何形態（精巧五欄並列排版） -->
+    <div class="elasticity-grid">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_28_supply_perfect_elastic.png" alt="完全彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">① 完全彈性<br>(<i>E<sub>s</sub></i> ＝ ∞，水平線)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_29_supply_elastic.png" alt="富有彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">② 富有彈性<br>(<i>E<sub>s</sub></i> ＞ 1，交於縱軸)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_30_supply_unit_elastic.png" alt="單一彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">③ 單一彈性<br>(<i>E<sub>s</sub></i> ＝ 1，通過原點)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_31_supply_inelastic.png" alt="缺乏彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">④ 缺乏彈性<br>(<i>E<sub>s</sub></i> ＜ 1，交於橫軸)</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_32_supply_perfect_inelastic.png" alt="完全無彈性" onclick="openModal(this.src)" />
+        <div class="img-caption">⑤ 完全無彈性<br>(<i>E<sub>s</sub></i> ＝ 0，垂直線)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點七：市場均衡與供需同時變動 ==================== -->
+  <div class="card" id="sec-equil">
+    <div class="card-header">
+      <h2>⚖️ 重點七：市場均衡 ＆「供需雙方同時變動」四象限推演（課本 2-5 節）</h2>
+      <span class="tag">統測壓軸推理題</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_34_market_equilibrium.png" alt="市場均衡之決定" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.44 圖 2-34：供求相交於 E 點（超額需求造成漲價，超額供給造成跌價）</div>
+      </div>
+      <div>
+        <h3 style="color:#0f172a;margin-bottom:8px">市場均衡的核心法則：</h3>
+        <ul class="rule-list">
+          <li><b>均衡點（E）：</b> 需求曲線與供給曲線相交處，此時 <i>Q<sub>d</sub></i> ＝ <i>Q<sub>s</sub></i>，決定市場均衡價格 <i>P</i><sup>*</sup> 與均衡數量 <i>Q</i><sup>*</sup>。此過程由亞當斯密所謂<b>「看不見的手（Invisible Hand）」</b>即市場價格機能自主調節，解決供需變動帶來的不平衡。</li>
+          <li><b>價格高於均衡價（P ＞ P*）：</b> 供給量大於需求量（<i>Q<sub>s</sub></i> ＞ <i>Q<sub>d</sub></i>），產生<b>超額供給（市場過剩）</b>，廠商存貨堆積降價求售，促使價格下跌回歸均衡。</li>
+          <li><b>價格低於均衡價（P ＜ P*）：</b> 需求量大於供給量（<i>Q<sub>d</sub></i> ＞ <i>Q<sub>s</sub></i>），產生<b>超額需求（市場短缺）</b>，買方競價爭購，促使價格回升至均衡。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.05rem">供需「雙方同時變動」之四象限不確定性鐵則（課本 P.46～49）</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>變動情況</th>
+          <th>均衡價格 (P*)</th>
+          <th>均衡數量 (Q*)</th>
+          <th>秒殺推導心法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">D ↑ 且 S ↑</td>
+          <td style="color:#c2410c;font-weight:700">無法確定（看誰變動大）</td>
+          <td style="color:#16a34a;font-weight:700">必定增加 (Q* ↑)</td>
+          <td>D↑促價漲、S↑促價跌（互相抵銷看幅度）；但兩者皆促使數量大增！</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">D ↓ 且 S ↓</td>
+          <td style="color:#c2410c;font-weight:700">無法確定（看誰變動大）</td>
+          <td style="color:#dc2626;font-weight:700">必定減少 (Q* ↓)</td>
+          <td>兩者皆使交易冷清，數量必然縮水；價格走勢需看幅度。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">D ↑ 且 S ↓</td>
+          <td style="color:#16a34a;font-weight:700">必定上漲 (P* ↑)</td>
+          <td style="color:#c2410c;font-weight:700">無法確定（看誰變動大）</td>
+          <td>買方搶購、賣方減產，雙雙推升價格！數量因一增一減而無法確定。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">D ↓ 且 S ↑</td>
+          <td style="color:#dc2626;font-weight:700">必定下跌 (P* ↓)</td>
+          <td style="color:#c2410c;font-weight:700">無法確定（看誰變動大）</td>
+          <td>買方縮手、廠商大量拋售，價格崩跌！數量則看增減幅度而定。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 重點八：政府市場干預管制與課稅補貼 ==================== -->
+  <div class="card" id="sec-control">
+    <div class="card-header">
+      <h2>🏛️ 重點八：政府市場干預 —— 價格管制（上限／下限）與課稅補貼（課本 2-6 節）</h2>
+      <span class="tag">統測時事政策題必考</span>
+    </div>
+
+    <!-- 上限下限對照 -->
+    <h3 style="color:#0f172a;margin-bottom:8px;font-size:1.05rem">1. 價格上限 vs 價格下限完整圖解</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_35_price_ceiling.png" alt="價格上限" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.50 圖 2-35：價格上限（有效上限必在均衡價下方，導致排隊與黑市）</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_36_price_floor.png" alt="價格下限" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.51 圖 2-36：價格下限（有效下限必在均衡價上方，如最低工資導致過剩）</div>
+      </div>
+    </div>
+
+    <table class="comp-table" style="margin-top:16px">
+      <thead>
+        <tr>
+          <th>政策項目</th>
+          <th>價格上限（Price Ceiling）</th>
+          <th>價格下限（Price Floor）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">實施目的</td>
+          <td><b>保護消費者</b>（防止物價飆漲負擔過重）</td>
+          <td><b>保護生產者或勞工</b>（保障基本生計與收益）</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">有效實施條件</td>
+          <td>管制價格必須<b>「低於市場均衡價（Pc ＜ P*）」</b></td>
+          <td>管制價格必須<b>「高於市場均衡價（Pf ＞ P*）」</b></td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">造成的後果</td>
+          <td>
+            • 出現<b>超額需求（供不應求／市場短缺）</b>。<br>
+            • 排隊搶購、配給制、<b>黑市交易（地下抬價）</b>。<br>
+            • 廠商偷工減料，商品品質實質惡化。
+          </td>
+          <td>
+            • 出現<b>超額供給（市場過剩）</b>。<br>
+            • 產品滯銷堆積，需政府出資保證收購。<br>
+            • 若為勞動市場（最低工資），則引發<b>非自願性失業</b>。
+          </td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">課本經典案例</td>
+          <td>戰時民生物資管制、平價房租管制、油電凍漲。</td>
+          <td>農產品保證收購價格、法定最低工資法規。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 課稅與補貼 -->
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.05rem">2. 課稅、補貼 ＆ 租稅負擔轉嫁鐵律（課本 P.52）</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_37_tax_shift.png" alt="課稅的影響" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.52 圖 2-37：向廠商課稅使供給曲線垂直上移稅額 T</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch02/fig2_38_subsidy_shift.png" alt="補貼的影響" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.52 圖 2-38：政府補貼使供給曲線垂直下移補貼額 S</div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      ⚡ <b>租稅負擔轉嫁鐵則：</b>「<b>彈性愈小，負擔愈大；彈性為零，全部承擔！</b>」<br>
+      • 政府向廠商課徵每單位定額稅 <i>T</i> 時，廠商會試圖將稅負轉嫁給消費者：<br>
+      &nbsp;&nbsp;1. 當 <i>E<sub>d</sub></i> ＝ 0（買方完全無彈性）：消費者完全無法抗拒，<b>買方負擔 100% 全部稅額</b>！<br>
+      &nbsp;&nbsp;2. 當 <i>E<sub>d</sub></i> ＝ ∞（買方完全彈性）：買方稍漲即跑，<b>賣方承擔 100% 全部稅額</b>，完全無法轉嫁！<br>
+      &nbsp;&nbsp;3. <i>E<sub>d</sub></i> ＞ <i>E<sub>s</sub></i>：消費者相對富有彈性，<b>賣方承擔較多稅額</b>。<br>
+      &nbsp;&nbsp;4. <i>E<sub>d</sub></i> ＜ <i>E<sub>s</sub></i>：消費者缺乏彈性，<b>買方承擔較多稅額</b>。
+    </div>
+  </div>
+
+  <!-- ==================== 模組九：課本精選經典實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組九：CH2 課本精選 5 大經典實戰測驗（選自課本 P.55～P.58 自我評量）</h2>
+      <span class="tag">點擊立即檢驗</span>
+    </div>
+
+    <!-- 題 1：點動 vs 線動 -->
+    <div class="quiz-item">
+      <div class="quiz-q">1. 【課本 P.55 觀念題】下列哪一項情況會造成「咖啡的需求量變動」，而非「咖啡的需求變動」？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(A) 醫學報告證實喝咖啡能顯著延緩老化</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(B) 奶精與方糖價格大幅飆漲</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, true)">(C) 連鎖超商祭出「咖啡第二杯半價」促銷活動</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(D) 國民所得普遍大幅提升</button>
+      </div>
+      <div class="quiz-ans" id="ans-1">
+        🎉 <b>答對了！選 (C)</b><br>
+        「咖啡第二杯半價」是<b>咖啡本身價格下跌（P↓）</b>，只會引起線上點的移動，屬於<b>「需求量變動」</b>！<br>
+        (A) 是偏好改變、(B) 是互補品價格改變、(D) 是所得改變，這三者都屬於外在因素，會造成整條曲線移動（需求的變動）。
+      </div>
+    </div>
+
+    <!-- 題 2：課本 P.55 第 3 題（需求互補品判定） -->
+    <div class="quiz-item">
+      <div class="quiz-q">2. 【課本 P.55 經典題】下列哪一組財貨在經濟學需求分析中屬於「互補品」？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(A) 電子書與紙本書</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(B) 沐浴乳與香皂</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, true)">(C) 數位相機與記憶卡</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(D) 豬肉與牛肉</button>
+      </div>
+      <div class="quiz-ans" id="ans-2">
+        🎉 <b>答對了！選 (C)</b><br>
+        <b>互補品（互補財）：</b> 兩財貨必須互相配合使用才能滿足慾望（如相機與記憶卡、手機與充電線）。當其中一種財貨漲價，會連帶使得另一種財貨的需求減少。<br>
+        (A) 電子書與紙本書、(B) 沐浴乳與香皂、(D) 豬肉與牛肉，皆可互相替代，屬於<b>替代品（替代財）</b>。
+      </div>
+    </div>
+
+    <!-- 題 3：點彈性計算 -->
+    <div class="quiz-item">
+      <div class="quiz-q">3. 【秒殺幾何計算】已知某商品需求函數為 Qd ＝ 200 － 4P。當市場價格 P ＝ 30 時，此點之需求價格點彈性 Ed 為何？若廠商想增加營業額，該漲價或降價？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(A) Ed ＝ 0.5，應降價促銷</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, true)">(B) Ed ＝ 1.5，應降價薄利多銷</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(C) Ed ＝ 1.5，應漲價提高利潤</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(D) Ed ＝ 1，價格不需變動</button>
+      </div>
+      <div class="quiz-ans" id="ans-3">
+        🎉 <b>答對了！選 (B)</b><br>
+        1. 當 <i>Q<sub>d</sub></i> ＝ 0 時，最高價格 <i>P</i><sub>max</sub> ＝ 200 / 4 ＝ 50。<br>
+        2. 代入線段比公式：<i>E<sub>d</sub></i> ＝ <i>P</i> / (<i>P</i><sub>max</sub> － <i>P</i>) ＝ 30 / (50 － 30) ＝ 30 / 20 ＝ <b>1.5 ＞ 1</b>（富有彈性）。<br>
+        3. 富有彈性時消費者敏感，採取<b>降價（薄利多銷）</b>才能增加總收益 TR！
+      </div>
+    </div>
+
+    <!-- 題 4：供需雙方同時變動 -->
+    <div class="quiz-item">
+      <div class="quiz-q">4. 【供需同時變動】若政府宣布調降進口原油關稅（供給成本大幅降低），同時全球電動車技術大突破導致燃油車購買偏好急劇冷卻（燃油車需求暴跌）。在未註明變動幅度大小的情況下，燃油車市場之均衡價格與數量將會如何變動？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(A) 價格必定上漲，數量不確定</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, true)">(B) 價格必定下跌，數量不確定</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(C) 數量必定減少，價格不確定</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(D) 價格與數量皆無法確定</button>
+      </div>
+      <div class="quiz-ans" id="ans-4">
+        🎉 <b>答對了！選 (B)</b><br>
+        分析：成本降 ➔ 供給增加（<i>S</i> ↑，促使價跌量增）；偏好冷卻 ➔ 需求減少（<i>D</i> ↓，促使價跌量縮）。<br>
+        兩者皆促使價格下跌，因此<b>價格必定下跌（P ↓）</b>！但一者促使量增、一者促使量縮，因此<b>數量 Q 不確定</b>（看誰變動幅度大）。
+      </div>
+    </div>
+
+    <!-- 題 5：價格管制上限下限 -->
+    <div class="quiz-item">
+      <div class="quiz-q">5. 【價格管制政策】立法院為保障社會新鮮人租屋權益，立法設定「學生雅房每月租金不得超過 3,000 元」。若目前自由市場的均衡租金為每月 5,000 元，則此項政策將在租屋市場產生何種影響？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(A) 屬於價格下限，造成房屋過剩閒置</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(B) 房東競相裝潢修繕，居住品質大幅提升</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, true)">(C) 屬於價格上限，造成市場供不應求、排隊與黑市轉租</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(D) 因低於市場均衡價，此政策不具任何實質效力</button>
+      </div>
+      <div class="quiz-ans" id="ans-5">
+        🎉 <b>答對了！選 (C)</b><br>
+        政府規定「不得超過某價格」為<b>價格上限（Price Ceiling）</b>。由於上限 3,000 低於均衡價 5,000，政策<b>具實質拘束力</b>！<br>
+        後果是房東不願出租或改做他用（供給量縮），租客排隊搶租（需求量增），造成嚴重的<b>超額需求（短缺排隊）</b>與地下黑市（如收取高額押金、私下抬價）。
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 燈箱視窗 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大原圖" />
+</div>
+
+<script>
+function openModal(src) {
+  document.getElementById('modal-img').src = src;
+  document.getElementById('modal').style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+function checkAns(btn, qId, isCorrect) {
+  const ansBox = document.getElementById('ans-' + qId);
+  ansBox.style.display = 'block';
+  if (isCorrect) {
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#059669';
+  } else {
+    btn.style.background = '#f87171';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#dc2626';
+    alert('觀念有點混淆囉！請看下方綠色即時解析～');
+  }
+}
+</script>
+
+</body>
+</html>

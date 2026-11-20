@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH13 國民所得 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組導覽列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 階梯式推導圖卡 */
+.step-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.step-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.step-card.major {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  font-weight: 700;
+}
+
+.step-op {
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.step-op.plus { background: #dcfce7; color: #15803d; }
+.step-op.minus { background: #fee2e2; color: #b91c1c; }
+.step-op.equal { background: #e0e7ff; color: #4338ca; }
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH13 國民所得 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch12_interest_profit.html" class="header-btn">⬅ 上一章：CH12 利息與利潤</a>
+    <a href="ch14_macro_equilibrium.html" class="header-btn highlight">下一章：CH14 總體經濟與所得水準 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然展開為 7 大模組） -->
+<nav class="subnav">
+  <a href="#sec-gdp-gni" class="subnav-btn">① 13-1-1 國民所得概念與 GDP vs GNI</a>
+  <a href="#sec-gdp-features" class="subnav-btn">② 13-1-1 GDP 四大特性與計入排雷表</a>
+  <a href="#sec-three-approaches" class="subnav-btn">③ 13-1-2 三面等價與三大估算方法</a>
+  <a href="#sec-ladder-system" class="subnav-btn">④ 13-2 五大指標階梯遞減體系</a>
+  <a href="#sec-real-deflator" class="subnav-btn">⑤ 13-3 名目 vs 實質 GDP 與平減指數</a>
+  <a href="#sec-limitations-welfare" class="subnav-btn">⑥ 13-4 & 13-5 GDP 缺失與福祉指標</a>
+  <a href="#sec-quiz" class="subnav-btn">⑦ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-gdp-gni">
+    <h2>① 13-1-1 國民所得概念與 GDP vs GNI 核心辨析</h2>
+    
+    <div class="concept-box">
+      <strong>📌 國民所得歷史淵源與「國民所得之父」：</strong><br>
+      1929 年紐約股市崩盤引發全球「經濟大恐慌」，造成連續數年嚴重的失業與蕭條，當時各國政府束手無策，亦缺乏客觀總體數據得知民間疾苦。1937 年，美國經濟學家<strong>顧志耐（Simon Kuznets）</strong>發表了人類歷史上第一個「國民所得會計帳」，以具體量化數據呈現一國總產出與經濟景氣變動，顧志耐因而被尊稱為<strong>「國民所得之父」</strong>。<br>
+      我國於 1953 年由<strong>行政院主計總處</strong>開始彙整編製國民所得帳，並按年發表《國民所得統計年報》。
+    </div>
+
+    <h3>一、國內生產毛額（GDP）與國民所得毛額（GNI）的定義</h3>
+    <ul>
+      <li><strong>國內生產毛額（Gross Domestic Product, GDP）：</strong>指一國「國境之內」，在一定期間內（通常為一年）所生產之最終產品與勞務的市場價值總和。<br>
+      👉 <strong>屬地主義（重視在地生產）：</strong>只要在台灣境內（包含大使館、代表處等治外法權機構）所從事的生產，不論國籍（例如外籍移工、外商企業在台利潤），一律計入台灣的 GDP。</li>
+      <li><strong>國民所得毛額（Gross National Income, GNI，早期稱為國民生產毛額 GNP）：</strong>指一國的「常住居民」，在一定期間內所生產之最終產品與勞務的市場價值總和。<br>
+      👉 <strong>屬人主義（重視常住居民）：</strong>以在該國境內居住或從事主要經濟活動滿「一年以上」之個人與企業為衡量對象。</li>
+    </ul>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch13/fig13_01_gdp_vs_gni.png" alt="圖 13-1 GDP 與 GNI 的差別" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 13-1 GDP（屬地原則）與 GNI（常住居民屬人原則）範圍對照圖</div>
+    </div>
+
+    <h3>二、GDP 與 GNI 的換算公式（公式 13-1）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 13-1：GDP 與 GNI 之精準轉換</div>
+      <p style="margin-bottom: 6px;"><strong>GNI ＝ GDP ＋ (本國「常住居民」在外國的所得 － 非「常住居民」在本國的所得)</strong></p>
+      <p style="margin-bottom: 0;"><strong>GNI ＝ GDP ＋ 國外要素所得淨額</strong></p>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測觀念一點通：</strong><br>
+      1. <strong>國外要素所得淨額</strong>＝本國常住居民在國外賺取的要素所得 － 外國居民在國內賺取的要素所得。<br>
+      2. <strong>國際貿易與實例：</strong>
+      <ul>
+        <li>韓星 BLACKPINK 來台灣開演唱會取得之唱酬 ➔ 計入台灣 GDP，不計入台灣 GNI（屬於非常住居民在台所得）。</li>
+        <li>在台灣工作超過一年之外籍移工取得之工資 ➔ 計入台灣 GDP，亦計入台灣 GNI（因已成為常住居民）。</li>
+        <li>台灣台積電派駐美國廠短於一年工程師之薪資 ➔ 計入台灣 GNI（屬於本國常住居民在國外所得）。</li>
+      </ul>
+      3. 台灣近十年來「國外要素所得淨額」占 GNI 比例均在 3% 以下，因此我國 GDP 與 GNI 數值非常接近。
+    </div>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-gdp-features">
+    <h2>② 13-1-1 GDP 四大黃金特性與「計入 vs 不計入」終極排雷表</h2>
+    
+    <p>課本明定 GDP 具有四大不可分割的本質特性，是統測判斷題的最核心基礎：</p>
+
+    <div class="step-grid">
+      <div class="step-card">
+        <div><strong>1. 一國國境之內（屬地原則）</strong></div>
+        <div style="font-size:0.9rem;color:#475569">在境內及外館治外法權內之生產；旅居國外華僑及台商之海外利潤不計入。</div>
+      </div>
+      <div class="step-card">
+        <div><strong>2. 特定期間內（流量概念，Flow）</strong></div>
+        <div style="font-size:0.9rem;color:#475569">指「特定一段期間」所累積的產出（如一年、一季）。存量變數（如財富、貨幣量）不計入。</div>
+      </div>
+      <div class="step-card">
+        <div><strong>3. 最終產品與勞務（剔除中間產品）</strong></div>
+        <div style="font-size:0.9rem;color:#475569">僅計算供最終消費之財貨，剔除麵粉、糖等原物料中間投入，避免重複累計。</div>
+      </div>
+      <div class="step-card">
+        <div><strong>4. 當期市場價格衡量（市價原則）</strong></div>
+        <div style="font-size:0.9rem;color:#475569">以當期市場實際交易價格為準；未透過市場交易或地下經濟原則上不計入。</div>
+      </div>
+    </div>
+
+    <h3>一、存量（Stock）與流量（Flow）深層辨析</h3>
+    <div class="table-wrap" style="max-width: 720px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>類別</th>
+            <th>經濟意義</th>
+            <th>課本涵蓋代表指標</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>流量（Flow）</strong></td>
+            <td>需設定「一段特定時間長度」（如年、季、月）才能衡量之經濟變動量</td>
+            <td>國內生產毛額（GDP）、國民所得（NI）、民間消費（C）、投資（I）、進出口（X, M）、折舊、政府稅收</td>
+          </tr>
+          <tr>
+            <td><strong>存量（Stock）</strong></td>
+            <td>在「某一個特定時點」（如年底、月底）所累積的現存總量</td>
+            <td>資本存量（廠房機器總額）、貨幣供給量（M1B, M2）、國家總財富、外匯存底、國債餘額、全國總人口數</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>二、附加價值法：麵包生產鏈與產值計算</h3>
+    <p>計算 GDP 時，若採「各階段總產值加總」，將會嚴重<strong>「重複計算中間產品」</strong>；因此可採<strong>附加價值法（Value-Added Approach）</strong>：</p>
+    
+    <div class="formula-box">
+      <div class="formula-title">📐 附加價值公式</div>
+      <strong>某階段附加價值 ＝ 該階段產品產值 － 中間投入成本</strong><br>
+      <strong>GDP ＝ Σ(各生產階段之附加價值) ＝ 最終產品市價</strong>
+    </div>
+
+    <div class="img-wrap" style="max-width: 700px; margin: 18px auto;">
+      <img src="images/ch13/fig13_03_value_added_chain.png" alt="麵包生產附加價值鏈流程圖" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 課本範例：小麥（12元）➔ 麵粉廠（20元）➔ 麵包店（35元售予消費者），最終產品法（35元）＝ 附加價值法（12＋8＋15＝35元）</div>
+    </div>
+
+    <h3>三、統測終極排雷：「應計入 vs 不計入 GDP」完整對照表</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>項目類別</th>
+            <th>應計入 GDP（✔ 計入）</th>
+            <th>不應計入 GDP（✘ 排除）</th>
+            <th>統測名師避坑指引</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>市場交易與例外</strong></td>
+            <td>
+              • 受僱保母、管家或清潔工之薪資<br>
+              • 水電工受僱修理水電之工資<br>
+              <span style="color:#059669;font-weight:700">★ 兩大法定例外（非市場但計入）：</span><br>
+              ① <strong>自用住宅設算租金</strong>（有市場行情可參照）<br>
+              ② <strong>農民留供自用的農產品</strong>（生產成果可客觀計價）
+            </td>
+            <td>
+              • 家庭主婦料理家務、父母育兒<br>
+              • 自己粉刷自家房屋、修理自家水管<br>
+              • <strong>地下經濟：</strong>流動夜市未開立發票、走私、販毒、黑市槍械交易
+            </td>
+            <td>「家事無償勞動」與「地下經濟」不計入 GDP 是課本重點；但「自住設算租金」與「自耕自食」依法必須計入！</td>
+          </tr>
+          <tr>
+            <td><strong>生產時間與二手資產</strong></td>
+            <td>
+              • 本期新生產之產品（無論是否售出）<br>
+              • <strong>本期新增存貨</strong>（產出未賣視為存貨投資）<br>
+              • 二手中古車、中古屋買賣之<strong>「仲介佣金或手續費」</strong>
+            </td>
+            <td>
+              • 往年舊貨、中古二手車交易<strong>總價</strong><br>
+              • 骨董、古畫、歷代珍品拍賣價款<br>
+              • <strong>土地買賣總價款</strong>（土地為自然稟賦，非當期人造勞動成果）
+            </td>
+            <td>舊貨買賣只是所有權移轉，不代表本期新產出；但房仲與車商提供的「媒介勞務（佣金）」屬於本期新勞務，要計入！</td>
+          </tr>
+          <tr>
+            <td><strong>政府收支與移轉</strong></td>
+            <td>
+              • 政府文具採購、採購巡邏車<br>
+              • 軍公教人員之公務薪資（政府購買公務勞務）<br>
+              • 政府以實物形式補助家戶（健保醫療給付、老人免費假牙補助、乘車補助）
+            </td>
+            <td>
+              • <strong>政府移轉性支付：</strong>低收入生活津貼、失業救濟金、災民撫卹金、獎學金、敬老津貼<br>
+              • <strong>政府公債利息</strong>（視為移轉性支出，非實質生產要素報酬）
+            </td>
+            <td>移轉性支付沒有對應的實質財貨或勞務回饋，屬於所得重新分配，絕對不能計入 GDP！</td>
+          </tr>
+          <tr>
+            <td><strong>金融與證券投資</strong></td>
+            <td>
+              • 購買全新實體機器設備、建造新廠房<br>
+              • 新創公司 IPO 募資後<strong>「實際購置廠房設備」</strong><br>
+              • 證券經紀商收取的<strong>「股票交易手續費」</strong>
+            </td>
+            <td>
+              • 在集中市場買賣現有已上市股票之<strong>成交金額與資本利得（價差）</strong><br>
+              • 購買公司債、彩券、樂透彩金
+            </td>
+            <td>買賣既有股票只是金融資產所有權轉移，不計入 GDP；只有券商收取的「服務手續費」才是本期新生產之勞務！</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-three-approaches">
+    <h2>③ 13-1-2 國民所得三面等價與三大估算方法全景</h2>
+
+    <p>在一封閉經濟體系中，廠商生產最終產品供消費者購買（<strong>生產面</strong>）；消費者支付貨款購買財貨（<strong>支出面</strong>）；廠商將收入扣除成本後分派給勞動、土地、資本與企業家（<strong>所得面</strong>）。因此理論上三者統計結果必然完全相同，稱為<strong>「國民所得三面等價」</strong>。</p>
+
+    <div class="img-wrap" style="max-width: 650px; margin: 18px auto;">
+      <img src="images/ch13/fig13_02_three_sided_equivalence.png" alt="圖 13-2 國民所得三面等價" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 13-2 國民所得三面等價：生產面 (GDP) ＝ 支出面 (GDE) ＝ 所得面 (GDI)</div>
+    </div>
+
+    <h3>一、三大估算方法精解</h3>
+    
+    <h4>1. 生產面法（供給面法）</h4>
+    <p>從各產業生產端統計，可採<strong>「最終產品法」</strong>或<strong>「附加價值法」</strong>。可清楚掌握農、工、服務業三大產業結構。</p>
+
+    <h4>2. 支出面法（需求面法，統測計算最熱門題型）</h4>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 13-2：支出面國內生產毛額</div>
+      <strong>GDP ＝ C ＋ I ＋ G ＋ (X － M)</strong>
+    </div>
+    <ul>
+      <li><strong>民間消費支出（<i>C</i>）：</strong>耐久財（汽車、家電）、非耐久財（食品、衣物）及勞務服務（醫療、旅遊、理髮）。</li>
+      <li><strong>國內投資毛額（<i>I</i>）：</strong>包含<strong>固定資本形成</strong>（商用廠房設備、住宅建築）與<strong>存貨變動</strong>（期末存貨 － 期初存貨）。若存貨增加則投資增加。</li>
+      <li><strong>政府消費支出（<i>G</i>）：</strong>政府公務消費與資本形成（如建公路、買文具、發薪餉），<strong>排除移轉性支付</strong>。</li>
+      <li><strong>淨輸出（<i>X － M</i>）：</strong>出口（<i>X</i>）減進口（<i>M</i>）。若 <i>X &gt; M</i> 為出超（貿易順差），使 GDP 增加；若 <i>X &lt; M</i> 為入超（貿易逆差），使 GDP 減少。</li>
+    </ul>
+
+    <h4>3. 所得面法（分配面法）</h4>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 13-3：所得面國內所得毛額</div>
+      <strong>GDP ＝ 要素報酬（工資 <i>w</i> ＋ 地租 <i>r</i> ＋ 利息 <i>i</i> ＋ 利潤 <i>π</i>）＋ 生產及進口稅淨額 ＋ 折舊（固定資本消耗）</strong>
+    </div>
+    <ul>
+      <li><strong>要素報酬：</strong>受僱人員報酬（工資）＋ 營業盈餘（地租、利息、利潤）。</li>
+      <li><strong>生產及進口稅淨額：</strong>政府課徵之間接稅扣除政府對企業之補貼（生產及進口稅 － 補貼）。</li>
+      <li><strong>折舊（固定資本消耗）：</strong>投資毛額（<i>I<sub>g</sub></i>）減投資淨額（<i>I<sub>n</sub></i>）。</li>
+    </ul>
+
+    <h3>二、採行三種估算方法之經濟政策目的（課本圖 13-3 ~ 13-5 現實對照）</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch13/fig13_04_industry_share.png" alt="圖 13-3 我國各級產業占比" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 13-3 生產面法：反映產業結構（我國 2020 年服務業高達 61.3%、工業 37.1%、農業 1.6%）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch13/fig13_05_expenditure_share.png" alt="圖 13-4 我國各部門支出占比" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 13-4 支出面法：反映總需求來源（民間消費占 48.5%、投資 24.2%、政府 14.0%、淨輸出 13.3%）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch13/fig13_06_factor_share.png" alt="圖 13-5 我國要素報酬占比" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 13-5 所得面法：反映所得分配（勞動報酬工資占 45%、營業盈餘占 34.5%、折舊 16.0%）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-ladder-system">
+    <h2>④ 13-2 國民所得五大指標階梯遞減體系（GNI → NNI → NI → PI → DI）</h2>
+
+    <p>國民所得會計帳由「宏觀產出」推導至「家庭真正能支配之荷包」，共形成五大核心指標階梯。此乃統測各型大題、連環計算題的必出之作：</p>
+
+    <div class="img-wrap" style="max-width: 650px; margin: 18px auto;">
+      <img src="images/ch13/table13_01_national_income_summary.png" alt="表 13-1 國民所得統計彙整表" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 表 13-1 課本原版：五大國民所得指標完整推導梯級表</div>
+    </div>
+
+    <h3>一、五大指標精確定義與扣減公式</h3>
+    <div class="step-grid">
+      <div class="step-card major">
+        <div><strong>1. 國內生產毛額（GDP）</strong></div>
+        <div>國境內總產出市價</div>
+      </div>
+      <div class="step-card">
+        <span class="step-op plus">＋ 國外要素所得淨額</span>
+        <div>常住居民在國外所得 － 非常住居民在本國所得</div>
+      </div>
+      <div class="step-card major">
+        <div><strong>2. 國民所得毛額（GNI）</strong></div>
+        <div>全體常住居民創造之總產出毛額</div>
+      </div>
+      <div class="step-card">
+        <span class="step-op minus">－ 折舊（固定資本消耗）</span>
+        <div>投資毛額（<i>I<sub>g</sub></i>）－ 投資淨額（<i>I<sub>n</sub></i>）</div>
+      </div>
+      <div class="step-card major">
+        <div><strong>3. 國民所得淨額（NNI）</strong></div>
+        <div>扣除耗損設備後的淨產值（市價計價）</div>
+      </div>
+      <div class="step-card">
+        <span class="step-op minus">－ 生產及進口稅淨額</span>
+        <div>生產及進口稅（間接稅）－ 政府對企業補貼</div>
+      </div>
+      <div class="step-card major">
+        <div><strong>4. 國民所得（NI，要素成本計價）</strong></div>
+        <div>＝ 工資 <i>w</i> ＋ 地租 <i>r</i> ＋ 利息 <i>i</i> ＋ 利潤 <i>π</i>（全體要素報酬）</div>
+      </div>
+      <div class="step-card">
+        <span class="step-op minus">－ 勞而不獲</span>
+        <div>公司未分配盈餘、公司營利事業所得稅、政府財產及企業所得</div>
+      </div>
+      <div class="step-card">
+        <span class="step-op plus">＋ 不勞而獲</span>
+        <div>政府對家庭移轉支出、企業對個人移轉支出、個人公債利息</div>
+      </div>
+      <div class="step-card major">
+        <div><strong>5. 個人所得（PI）</strong></div>
+        <div>家計部門實際收到的所得總額</div>
+      </div>
+      <div class="step-card">
+        <span class="step-op minus">－ 非消費性支出</span>
+        <div>個人直接稅（綜合所得稅）、社會保險費、捐款、罰款</div>
+      </div>
+      <div class="step-card major" style="background:#dcfce7;border-color:#86efac;">
+        <div><strong>6. 可支配所得（DI）</strong></div>
+        <div style="color:#166534;font-weight:700">＝ 民間消費（<i>C</i>）＋ 儲蓄（<i>S</i>）</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測口訣速記法：</strong><br>
+      • <strong>「毛額到淨額」：</strong>扣<strong>折舊</strong>（GNI － 折舊 ＝ NNI）。<br>
+      • <strong>「市價到要素成本」：</strong>扣<strong>間接稅淨額</strong>（NNI － 間接稅淨額 ＝ NI）。<br>
+      • <strong>「NI 到 PI」：</strong><strong>勞而不獲要扣掉，不勞而獲要加進去！</strong><br>
+      • <strong>「PI 到 DI」：</strong>扣除<strong>個人直接稅</strong>與社保非消費支出；剩下的錢要嘛<strong>消費（<i>C</i>）</strong>、要嘛<strong>儲蓄（<i>S</i>）</strong>！
+    </div>
+
+    <h3>二、課本原創經典題推演（吉卜力王國連鎖推導）</h3>
+    <div class="concept-box">
+      <strong>【課本情境題數據】</strong>進口 102、出口 154、政府支出 32、民間消費 104、投資毛額 72、投資淨額 54、常住國外所得 6、外國人本國所得 2、生產及進口稅 28、政府補貼 2、未分配盈餘 9、公司所得稅 11、政府移轉 7、個人直接稅 1、捐款 3。<br>
+      <strong>【連鎖詳解】</strong>
+      <ol>
+        <li><strong>GDP</strong> ＝ <i>C</i> ＋ <i>I</i> ＋ <i>G</i> ＋ (<i>X － M</i>) ＝ 104 ＋ 72 ＋ 32 ＋ (154 － 102) ＝ <strong>260 億元</strong></li>
+        <li><strong>GNI</strong> ＝ GDP ＋ (6 － 2) ＝ 260 ＋ 4 ＝ <strong>264 億元</strong></li>
+        <li><strong>NNI</strong> ＝ GNI － 折舊(72 － 54) ＝ 264 － 18 ＝ <strong>246 億元</strong></li>
+        <li><strong>NI</strong> ＝ NNI － 間接稅淨額(28 － 2) ＝ 246 － 26 ＝ <strong>220 億元</strong></li>
+        <li><strong>PI</strong> ＝ NI － 勞而不獲(9 ＋ 11) ＋ 不勞而獲(7) ＝ 220 － 20 ＋ 7 ＝ <strong>207 億元</strong></li>
+        <li><strong>DI</strong> ＝ PI － 非消費支出(1 ＋ 3) ＝ 207 － 4 ＝ <strong>203 億元</strong></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-real-deflator">
+    <h2>⑤ 13-3 GDP 應用限制：物價變動（名目 vs 實質 GDP）、GDP 平減指數與人口變動</h2>
+
+    <p>單純看 GDP 金額增加，可能只是因為「物價上漲」引發的虛胖，而非實質產量增加。因此必須區分名目與實質 GDP：</p>
+
+    <h3>一、名目 GDP、實質 GDP 與基期觀念</h3>
+    <div class="table-wrap" style="max-width: 760px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>指標名稱</th>
+            <th>計價基礎與數學公式</th>
+            <th>經濟涵義與特性</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>名目 GDP（Nominal GDP）</strong></td>
+            <td><strong>Σ(<i>P</i><sub>當期</sub> × <i>Q</i><sub>當期</sub>)</strong><br>以當期（現期）市場價格計算</td>
+            <td>包含「產量變動」與「物價變動」之雙重影響，無法真實反映國民生活水準變化。</td>
+          </tr>
+          <tr>
+            <td><strong>實質 GDP（Real GDP）</strong></td>
+            <td><strong>Σ(<i>P</i><sub>基期</sub> × <i>Q</i><sub>當期</sub>)</strong><br>以選定之基期價格計算</td>
+            <td><strong>已剔除物價變動的影響</strong>，純粹衡量實質產出與貨幣實質購買力。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>★ 黃金考點：</strong>在「基期年份」，基期物價等於當期物價，故：<br>
+      <strong>基期的名目 GDP ＝ 基期的實質 GDP</strong>！
+    </div>
+
+    <h3>二、GDP 平減指數（GDP Deflator，公式 13-13）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 13-13：GDP 平減指數</div>
+      <p style="margin-bottom: 6px;"><strong>GDP 平減指數 ＝ <span class="frac"><span>名目 GDP</span><span class="bottom">實質 GDP</span></span> × 100</strong></p>
+      <p style="margin-bottom: 0;"><strong>實質 GDP ＝ <span class="frac"><span>名目 GDP</span><span class="bottom">GDP 平減指數</span></span> × 100</strong></p>
+    </div>
+
+    <h3>三、課本表 13-2 電腦與手機推導演練</h3>
+    <div class="table-wrap" style="max-width: 680px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">產品種類</th>
+            <th colspan="2">去年（選定為基期）</th>
+            <th colspan="2">今年（當期）</th>
+          </tr>
+          <tr>
+            <th>價格（萬元）</th>
+            <th>產量（萬台）</th>
+            <th>價格（萬元）</th>
+            <th>產量（萬台）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>電腦</td>
+            <td>3</td>
+            <td>20</td>
+            <td>5</td>
+            <td>40</td>
+          </tr>
+          <tr>
+            <td>手機</td>
+            <td>1</td>
+            <td>50</td>
+            <td>2</td>
+            <td>60</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="concept-box">
+      <strong>【課本推導結果剖析】</strong>
+      <ul>
+        <li><strong>去年（基期）：</strong>名目 GDP ＝ 實質 GDP ＝ 3×20 ＋ 1×50 ＝ <strong>110 萬元</strong>。基期平減指數 ＝ 100。</li>
+        <li><strong>今年（當期）：</strong><br>
+          • <strong>名目 GDP</strong> ＝ 5×40 ＋ 2×60 ＝ <strong>320 萬元</strong>（包含物價大漲之影響）。<br>
+          • <strong>實質 GDP</strong> ＝ 3×40 ＋ 1×60 ＝ <strong>180 萬元</strong>（純粹反映今年產量）。<br>
+          • <strong>今年平減指數</strong> ＝ (320 / 180) × 100 ＝ <strong>177.78</strong>，表示物價上漲了 77.78%。
+        </li>
+      </ul>
+    </div>
+
+    <h3>四、人口變動與「平均每人實質 GDP」（公式 13-14）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 13-14：平均每人實質 GDP</div>
+      <strong>平均每人實質 GDP ＝ <span class="frac"><span>實質 GDP</span><span class="bottom">全國總人口數</span></span></strong>
+    </div>
+    <p>總產出高的國家（如人口大國），若除以龐大人口，每人所得可能很低。因此<strong>「平均每人實質 GDP」同時剔除了物價膨脹與人口規模干擾</strong>，是國際間比較經濟福利水準最客觀公認的指標。</p>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-limitations-welfare">
+    <h2>⑥ 13-4 & 13-5 GDP 衡量缺失、經濟福利指標（NEW、綠色 GDP）與社會福利指標</h2>
+
+    <p>GDP 雖然是總體產出的重要體檢表，但因以「市場交易」為基礎，存在許多盲點與失真：</p>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch13/fig13_07_gdp_limitations.png" alt="GDP 衡量缺失情境圖" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 課本圖示：家事無償沒錢領、地下經濟擺攤免稅、電腦品質躍進無法完全呈現、犧牲休閒換取過勞死</div>
+    </div>
+
+    <h3>一、以 GDP 衡量生產總值之六大缺失</h3>
+    <ol>
+      <li><strong>未透過市場交易之經濟活動（低估）：</strong>家庭主婦無償操持家務、父母育兒、自己修理水電，創造極大福祉卻未計入 GDP。</li>
+      <li><strong>地下經濟活動（低估）：</strong>攤販未開發票逃漏稅、現金私下交易、地下黑市，導致政府統計資料失真。</li>
+      <li><strong>無法反映財貨品質提升與科技進步（低估）：</strong>現在一萬元的手機性能遠勝三十年前十萬元的笨重電腦，但 GDP 僅反映市價，無法衡量品質與效能之躍進。</li>
+      <li><strong>未計入休閒的價值（高估或失真）：</strong>若高 GDP 是靠勞工每天加班、犧牲休閒換來過勞死，人民福利其實下降。</li>
+      <li><strong>忽視負產品與外部成本（高估）：</strong>工廠排煙排廢水污染河川、交通擁擠引發車禍，GDP 不但未扣除污染損害，反而將治污設備與醫療修車費用計入 GDP！</li>
+      <li><strong>未反映所得分配之貧富差距：</strong>GDP 無法呈現社會財富集中程度（如少數富豪壟斷全國半數所得，平民依然赤貧）。</li>
+    </ol>
+
+    <h3>二、經濟福利指標（NEW 與綠色 GDP）</h3>
+    
+    <h4>1. 經濟福利淨額（Net Economic Welfare, NEW / MEW）</h4>
+    <p>由經濟學家<strong>諾德豪斯（W. Nordhaus）</strong>、<strong>杜賓（J. Tobin）</strong>與<strong>薩穆遜（P. Samuelson）</strong>提出，修正 NNI 的缺失：</p>
+    
+    <div class="formula-box">
+      <div class="formula-title">📐 經濟福利淨額（NEW）推導架構</div>
+      <strong>NEW ＝ 國民所得淨額（NNI）<br>
+      ＋ 未上市產品之價值（家庭主婦家務設算、DIY修理）<br>
+      ＋ 休閒的價值<br>
+      ＋ 地下經濟活動產值<br>
+      － 負產品（環境污染等外部成本、菸酒毒品危害）<br>
+      － 無益防禦性支出（國防武力、警察、消防等僅為維持安全之支出）</strong>
+    </div>
+
+    <h4>2. 綠色國民所得帳（綠色 GDP，Green GDP）</h4>
+    <div class="formula-box">
+      <div class="formula-title">📐 綠色國民所得公式</div>
+      <strong>綠色 GDP ＝ GDP － 自然資源折耗 － 環境品質質損（環境折耗）</strong>
+    </div>
+    <p>我國行政院主計總處建構綠色國民所得帳，從「環境生產力、自然資源基礎、環境品質、政策回應」四大面向評估永續發展。</p>
+
+    <h3>三、社會福利指標</h3>
+    <p>社會福利範疇更廣，涵蓋經濟、政治自由、社會安全與文化。國際常用<strong>聯合國人類發展指數（HDI：所得、預期壽命、教育程度）</strong>、OECD 幸福指數，以及行政院主計總處選定 43 項指標發布之「福祉衡量指標統計表」。</p>
+  </section>
+
+  <!-- 模組七 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑦ 課本原題即測即評 (8 題精選互動測驗)</h2>
+    <p>嚴選課本課後習題與綜合情境題，點擊選項立即獲得即時評分、詳盡解析與統測避坑提示：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">1. 依據經濟學定義，下列何者「應計入」本國當年的國內生產毛額（GDP）？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 外國知名天團來台舉辦售票演唱會之門票收入</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 某車主在中古車商買賣二手汽車之交易總金額</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 家庭主婦全職在家照顧幼兒與料理一日三餐</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 個人投資政府發行之公債所獲得的公債利息</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">2. 國民所得毛額（GNI）與國內生產毛額（GDP）之精確關係式為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. GNI ＝ GDP ＋ 國外要素所得淨額</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. GNI ＝ GDP － 國外要素所得淨額</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. GNI ＝ GDP － 固定資本折舊</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. GNI ＝ GDP ＋ 生產及進口稅淨額</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">3. 關於總體經濟變數中「流量（Flow）」與「存量（Stock）」之分類，下列配對何者完全正確？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 流量：國民所得、民間消費、投資支出；存量：資本存量、貨幣供給量、國家財富</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 流量：資本存量、貨幣供給量；存量：國民所得、民間消費</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 流量：國債累積餘額、人口總數；存量：出入口淨額、年度折舊</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 流量與存量皆表示某特定時間點之數值，兩者無本質差異</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">4. 牧場主人以 5,000 元賣羊毛給紡織廠，紡織廠製成毛線以 10,000 元賣給成衣廠，成衣廠製成毛衣以 15,000 元批售店家，店家最終以 20,000 元售予消費者。依附加價值法與最終產品法計算，該國 GDP 分別為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 20,000 元與 20,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 50,000 元與 20,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 15,000 元與 20,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 20,000 元與 50,000 元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">5. 某國經濟數據：民間消費 200 億、投資 140 億、政府支出 40 億、出口 100 億、進口 80 億、國外要素所得淨額 20 億。若該國國民所得淨額（NNI）為 360 億，則當年度「折舊」為多少？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 60 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 40 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 80 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 20 億元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">6. 在國民所得五大指標體系中，由國民所得（NI）計算至個人所得（PI）時，必須遵守之原則為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 扣除「勞而不獲」（公司未分配盈餘、公司所得稅），加上「不勞而獲」（政府移轉支出、公債利息）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 加上「勞而不獲」，扣除「不勞而獲」</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 扣除資本設備折舊與生產及進口稅淨額</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 扣除個人綜合所得稅與各項社會保險費</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">7. 「乙太國」去年名目 GDP 為 800 億元（為基期），若今年名目 GDP 為 954 億元，且今年物價指數為 106，則該國今年的「實質 GDP」為多少？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 900 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 848 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 1,000 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 800 億元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">8. 關於綠色國民所得帳（綠色 GDP）與經濟福利淨額（NEW），下列敘述何者「錯誤」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 綠色 GDP ＝ GDP ＋ 環境折耗 ＋ 自然資源耗損</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 經濟福利淨額（NEW）是由諾德豪斯、杜賓與薩穆遜等經濟學家提倡</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 計算 NEW 時，應將家務勞動設算價值與休閒價值「加入」NNI 中</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 計算 NEW 時，應將環境污染等外部成本與國防警察等無益防禦支出「扣除」</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "外國樂團在台灣境內演出所獲門票收益符合「國境之內屬地原則」，應計入台灣 GDP；中古車買賣金額為往年舊產物不計入；家務無償未經市場交易不計入；公債利息為移轉性收支不計入。",
+  2: "GNI（屬人主義常住居民）＝ GDP（屬地主義國境內）＋ 國外要素所得淨額。國外要素所得淨額＝常住居民在國外所得 － 非常住居民在本國所得。",
+  3: "流量衡量一段特定時間發生的變動量（所得、消費、投資、進出口）；存量衡量某一時點累積的現存量（資本存量、貨幣量、國家總財富、人口數）。",
+  4: "附加價值法 ＝ 5,000 ＋ (10,000-5,000) ＋ (15,000-10,000) ＋ (20,000-15,000) ＝ 20,000 元；最終產品法直接取最終售價 20,000 元。兩法必然相等。加總各階段產值 50,000 元屬重複計算錯誤。",
+  5: "GDP ＝ C＋I＋G＋(X－M) ＝ 200＋140＋40＋(100－80) ＝ 400 億。GNI ＝ GDP＋國外要素所得 ＝ 400＋20 ＝ 420 億。NNI ＝ GNI－折舊 ➔ 360 ＝ 420－折舊 ➔ 折舊 ＝ 60 億元。",
+  6: "NI 代表全體要素報酬，轉換至個人實收 PI 時，必須扣除「賺了卻沒拿走」的勞而不獲（未分配盈餘、公司所得稅），並加上「沒從事生產卻領到」的不勞而獲（移轉支付、公債利息）。",
+  7: "GDP 平減指數 ＝ (名目 GDP / 實質 GDP) × 100。故 106 ＝ (954 / 實質 GDP) × 100 ➔ 實質 GDP ＝ 954 / 1.06 ＝ 900 億元。",
+  8: "A 選項錯誤，故為正確答案。綠色國民所得反映經濟成長所付出的生態代價，公式為：綠色 GDP ＝ GDP － 自然資源耗損 － 環境折耗（環境品質質損）。"
+};
+
+function checkQuiz(btn, chosen) {
+  const parent = btn.closest('.quiz-item');
+  const answer = parent.getAttribute('data-answer');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(parent) + 1;
+  const feedback = parent.querySelector('.quiz-feedback');
+  const allBtns = parent.querySelectorAll('.quiz-btn');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (chosen === answer) {
+    btn.style.borderColor = '#10b981';
+    btn.style.background = '#ecfdf5';
+    btn.style.color = '#065f46';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = `<strong>✔ 正確！</strong> ${EXPLANATIONS[qNum]}`;
+  } else {
+    btn.style.borderColor = '#ef4444';
+    btn.style.background = '#fef2f2';
+    btn.style.color = '#991b1b';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = `<strong>✘ 答錯了！</strong> 正確答案為 (${answer})。<br>${EXPLANATIONS[qNum]}`;
+    
+    // 高亮正確選項
+    const correctIndex = answer.charCodeAt(0) - 65;
+    const correctBtn = allBtns[correctIndex];
+    if (correctBtn) {
+      correctBtn.style.borderColor = '#10b981';
+      correctBtn.style.background = '#ecfdf5';
+      correctBtn.style.color = '#065f46';
+    }
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

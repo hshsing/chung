@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH11 工資與地租 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #2563eb;
+  --brand-light: #eff6ff;
+  --accent-amber: #d97706;
+  --accent-amber-bg: #fffbeb;
+  --accent-green: #059669;
+  --accent-green-bg: #ecfdf5;
+  --accent-purple: #7c3aed;
+  --accent-purple-bg: #f5f3ff;
+  --accent-red: #dc2626;
+  --accent-red-bg: #fef2f2;
+  --line-gray: #e2e8f0;
+  --line-brand: #bfdbfe;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+/* 頂部固定導覽列 */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge {
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  color: #334155;
+  background: #fff;
+  transition: all 0.2s;
+}
+.header-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.header-btn.highlight {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.header-btn.highlight:hover {
+  opacity: 0.92;
+}
+
+/* 錨點導覽列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 10px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.subnav-btn {
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: var(--bg);
+  color: #334155;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s;
+}
+.subnav-btn:hover {
+  background: var(--brand-light);
+  border-color: var(--line-brand);
+  color: var(--brand);
+}
+
+/* 主容器 */
+.container {
+  max-width: 1140px;
+  margin: 24px auto;
+  padding: 0 20px 80px;
+}
+
+/* 卡片通用樣式 */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line-gray);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* 公式與重點方框 */
+.formula-box {
+  background: var(--brand-light);
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.formula-title {
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #1e40af;
+}
+.math-formula {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+  vertical-align: middle;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.92rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+  line-height: 1.2;
+}
+.frac-bottom {
+  padding-top: 2px;
+  line-height: 1.2;
+}
+
+/* 觀念重點卡 */
+.concept-box {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-left: 4px solid #64748b;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+.concept-box h3, .concept-box h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.93rem;
+  color: #334155;
+  line-height: 1.7;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #f0f9ff;
+}
+.highlight-cell {
+  background: var(--brand-light);
+  font-weight: 700;
+  color: #0369a1;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-explain {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH11 工資與地租 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch10_distribution.html" class="header-btn">⬅ 上一章：CH10 分配理論</a>
+    <a href="ch12_interest_profit.html" class="header-btn highlight">下一章：CH12 利息與利潤 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然開展為 7 大模組） -->
+<nav class="subnav">
+  <a href="#sec-labor-basics" class="subnav-btn">① 11-1-1 & 11-1-2 勞動特性與人口結構</a>
+  <a href="#sec-labor-supply-demand" class="subnav-btn">② 11-1-3 後彎勞動供給與市場供需</a>
+  <a href="#sec-wage-types" class="subnav-btn">③ 11-1-4 工資種類與名目/實質工資</a>
+  <a href="#sec-wage-diff-unions" class="subnav-btn">④ 11-1-5 工資差異成因與工會三大策略</a>
+  <a href="#sec-rent-theories" class="subnav-btn">⑤ 11-2-1 & 11-2-2 土地特性、稀少與差額地租</a>
+  <a href="#sec-land-price-quasi" class="subnav-btn">⑥ 11-2-3 & 11-2-4 地價折現、準租與經濟租</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 模組一：11-1-1 & 11-1-2 勞動本質、人口結構與勞動力指標 ==================== -->
+  <div class="card" id="sec-labor-basics">
+    <div class="card-header">
+      <h2>👥 模組一：11-1-1 & 11-1-2 勞動本質、人口結構與勞動力指標</h2>
+      <span class="tag">課本 11-1-1 & 11-1-2 節 ｜ 量的衡量 vs 質的衡量</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 勞動（Labor）的定義與兩大本質特性</h3>
+      <p>
+        勞動是指人類為了<b>「賺取報酬」</b>，在生產過程中所付出的各種勞心（耗精神：如教師教書、醫師看病、設計師製圖）與勞力（耗體力：農夫耕作、工人蓋房）。<br>
+        <span style="color:#dc2626;font-weight:700">★ 課本重要考點：</span>若付出心力的目的<b>不是為了賺取報酬</b>（如出國旅遊休閒、醫師出隊義診、志工打掃），在經濟學上<b>不屬於勞動</b>！
+      </p>
+      <ul class="rule-list">
+        <li><b>1. 無法儲藏：</b> 勞動無法如商品一般打包儲存待日後再用；勞動者一天不工作，當天就沒有任何產出！</li>
+        <li><b>2. 與人體不可分離：</b> 勞動必須依附於人體才能存在，無法與勞動者肉身脫離獨立買賣（土地、資本等生產要素則可與所有權人分離）。</li>
+      </ul>
+    </div>
+
+    <!-- 總人口與勞動力人口結構圖（課本圖 11-1 核心大圖） -->
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.1rem">🏛️ 總人口與勞動力人口結構關係圖（課本圖 11-1）</h3>
+    <div class="img-wrap" style="max-width:760px;margin:16px auto 20px;">
+      <img src="images/ch11/fig11_01_population_structure.png" alt="圖 11-1 總人口與勞動力人口的結構" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 課本圖 11-1 總人口與勞動力人口之樹狀階層結構圖（點擊可放大檢視）</div>
+    </div>
+
+    <!-- 結構名詞精要速查 -->
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>人口類別</th>
+          <th>定義特徵與法規標準</th>
+          <th>課本典型實例與考點提醒</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">15歲以上民間人口</td>
+          <td>滿 15 歲以上總人口中，扣除<b>「現役軍人」</b>與<b>「監管人口（受刑人、收容人）」</b>後之一般社會大眾。</td>
+          <td><b>公式母數：</b> 計算勞動參與率時的<b>分母</b>！切忌直接代入「總人口」或「15歲以上總人口」。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">勞動力<br>（Labor Force）</td>
+          <td><b>【量的衡量】</b>年滿 15 歲以上，<b>可以工作（兼具工作能力與工作意願）</b>的民間人口。<br>
+          <b>勞動力 ＝ 就業人口 ＋ 失業人口</b></td>
+          <td>在學無工作意願的學生、家庭主婦、退休長者<b>不計入勞動力</b>！</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">就業人口</td>
+          <td>滿 15 歲以上之民間人口，且符合以下兩類之一：<br>
+          ① 從事<b>有酬工作</b>者（領有固定薪資或營業收入者）。<br>
+          ② 一週內從事 <b>15 小時以上之「無酬家屬工作者」</b>！</td>
+          <td>
+            • 教師、律師、行員、外送員。<br>
+            • <b>統測高頻題：</b> 在自家開設的小吃店或工廠幫忙，雖未領薪水但一週超過 15 小時，屬於<b>就業人口</b>！
+          </td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">失業人口</td>
+          <td>年滿 15 歲以上，<b>同時具備以下三項條件者</b>：<br>
+          ① 目前無工作；<br>
+          ② 隨時可以工作；<br>
+          ③ 正在找工作或已找工作在等待結果。</td>
+          <td>
+            • 剛踏出校園正積極面試投履歷的大學畢業生。<br>
+            • 等待恢復工作者、已錄取但尚未正式上班且無報酬者。
+          </td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">非勞動力</td>
+          <td>滿 15 歲以上民間人口中，<b>無工作意願或無工作能力</b>者。</td>
+          <td>就學者（無打工學生）、料理家務者（全職家庭主婦）、高齡退休者、身心障礙者、<b>想工作但未積極找工作者（怯志工作者）</b>。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 兩大核心指標計算公式 -->
+    <div class="split-view" style="margin-top:20px;">
+      <div class="formula-box">
+        <div class="formula-title">⚡ 勞動參與率（Labor Force Participation Rate，公式 11-1）</div>
+        <div class="math-formula">
+          勞動參與率 ＝ 
+          <span class="frac">
+            <span class="frac-top">勞動力人口（就業 ＋ 失業）</span>
+            <span class="frac-bottom">15 歲以上民間人口</span>
+          </span> × 100%
+        </div>
+        <p style="margin:6px 0 0;font-size:0.88rem;color:#1e3a8a;">
+          <b>範例：</b> 某國 15 歲以上民間人口 500 萬人，勞動力人口 400 萬人（非勞動力 100 萬人）。<br>
+          ➔ 勞動參與率 ＝ (400 萬 / 500 萬) × 100% ＝ <b>80%</b>。
+        </p>
+      </div>
+
+      <div class="formula-box" style="background:#f0fdf4;border-left-color:#059669;">
+        <div class="formula-title" style="color:#065f46;">⚡ 勞動生產力（Labor Productivity，公式 11-2）</div>
+        <div class="math-formula" style="color:#065f46;">
+          勞動生產力 ＝ 
+          <span class="frac">
+            <span class="frac-top">總產量（<i>TP<sub>L</sub></i>）</span>
+            <span class="frac-bottom">勞動投入量（<i>L</i>）</span>
+          </span> ＝ 平均產量（<i>AP<sub>L</sub></i>）
+        </div>
+        <p style="margin:6px 0 0;font-size:0.88rem;color:#064e3b;">
+          <b>【質的衡量】：</b> 衡量勞動生產效率之關鍵指標！<br>
+          <b>範例：</b> 蘋果公司 1,000 名員工年生產 2,000,000 支手機。<br>
+          ➔ 勞動生產力 ＝ 2,000,000 / 1,000 ＝ <b>2,000 支／人</b>。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組二：11-1-3 後彎勞動供給曲線與勞動市場供需 ==================== -->
+  <div class="card" id="sec-labor-supply-demand">
+    <div class="card-header">
+      <h2>📈 模組二：11-1-3 個別勞動供給「後彎曲線」與市場供需均衡</h2>
+      <span class="tag">課本 11-1-3 節 ｜ 替代效果 vs 所得效果</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 時間配置兩難與休閒的機會成本</h3>
+      <p>
+        人一天時間固定只有 24 小時，必須在<b>「工作（賺取工資）」</b>與<b>「休閒（享受生活）」</b>之間進行取捨：<br>
+        • 多工作一小時，就必須犧牲一小時的休閒；多享受一小時休閒，就必須放棄一小時的工資收入！<br>
+        • <b>休閒的機會成本 ＝ 工資率（<i>W</i>）</b>！當工資率提高時，會同時誘發兩種方向相反的經濟效果：
+      </p>
+      <ul class="rule-list">
+        <li><b>替代效果（<i>W</i> ↑ ➔ <i>L</i> ↑）：</b> 工資提高表示「休閒的機會成本變貴了」，勞動者會少休閒、多工作，以工作替代休閒（工資率與工時<b>正向變動</b>）。</li>
+        <li><b>所得效果（<i>W</i> ↑ ➔ <i>L</i> ↓）：</b> 工資提高使勞動者實質財富增加，由於<b>休閒是正常財</b>，所得增加會刺激對休閒的需求增加，因而少工作、多休閒（工資率與工時<b>反向變動</b>）。</li>
+      </ul>
+    </div>
+
+    <!-- 圖 11-2 後彎曲線原圖對照 -->
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch11/fig11_02_backward_bending_supply.png" alt="圖 11-2 個別的勞動供給曲線後彎" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 課本圖 11-2 個別的勞動供給曲線（高工資下呈現向後彎折的負斜率）</div>
+      </div>
+
+      <div>
+        <h3 style="color:#0f172a;margin-top:0;font-size:1.05rem;">後彎曲線兩大階段關鍵判定表：</h3>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>曲線階段</th>
+              <th>效果相對大小</th>
+              <th>工資率與工時關係</th>
+              <th>幾何斜率與實例說明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="highlight-cell">低工資階段<br>（ab 段）</td>
+              <td><b>替代效果 ＞ 所得效果</b></td>
+              <td><b><i>W</i> ↑ ➔ <i>L</i> ↑</b><br>工資上升，勞工願意加班賺錢！</td>
+              <td><b>正斜率</b>（向右上方延伸）。<br><i>例：小天年輕剛入行，為累積第一桶金，加薪便自願多加班拼收入。</i></td>
+            </tr>
+            <tr style="background:#fef2f2;">
+              <td class="highlight-cell" style="background:#fee2e2;color:#991b1b;">高工資階段<br>（bc 段）</td>
+              <td><b>所得效果 ＞ 替代效果</b></td>
+              <td><b><i>W</i> ↑ ➔ <i>L</i> ↓</b><br>工資再漲，勞工寧要休閒減少加班！</td>
+              <td><b>負斜率（向後彎折）！</b><br><i>例：小天職位高所得豐厚，追求生活品質，加薪反而請假陪家人出國渡假。</i></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="formula-box" style="margin-top:14px;">
+          💡 <b>統測必考口訣：</b><br>
+          • <b>替代效果大於所得效果 ➔ 正斜率（想賺錢）</b><br>
+          • <b>所得效果大於替代效果 ➔ 後彎負斜率（想休閒）</b>
+        </div>
+      </div>
+    </div>
+
+    <!-- 市場勞動供給、需求與均衡（三圖自適應網格） -->
+    <h3 style="color:#0f172a;margin:28px 0 10px;font-size:1.1rem">📊 市場勞動供給、勞動需求與市場供需均衡（圖 11-3、11-4、11-5）</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;">
+      
+      <!-- 圖 11-3 市場勞動供給 -->
+      <div class="img-wrap">
+        <img src="images/ch11/fig11_03_market_labor_supply.png" alt="圖 11-3 市場的勞動供給曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 11-3 市場勞動供給曲線 <i>S<sub>L</sub></i><br><b style="color:#2563eb;">呈正斜率</b>（多數人為五斗米折腰，加薪吸引新勞工加入）</div>
+      </div>
+
+      <!-- 圖 11-4 市場勞動需求 -->
+      <div class="img-wrap">
+        <img src="images/ch11/fig11_04_market_labor_demand.png" alt="圖 11-4 市場的勞動需求曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 11-4 市場勞動需求曲線 <i>D<sub>L</sub></i><br><b style="color:#dc2626;">呈負斜率</b>（即廠商之 <i>MRP<sub>L</sub></i> 線，工資率愈高僱用量愈少）</div>
+      </div>
+
+      <!-- 圖 11-5 供需均衡 -->
+      <div class="img-wrap">
+        <img src="images/ch11/fig11_05_market_equilibrium.png" alt="圖 11-5 勞動市場的供需均衡" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 11-5 勞動供需相交於均衡點<br><b style="color:#059669;">決定均衡工資率 <i>W*</i> 與僱用量 <i>L*</i></b></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組三：11-1-4 工資種類與名目 vs 實質工資計算 ==================== -->
+  <div class="card" id="sec-wage-types">
+    <div class="card-header">
+      <h2>💵 模組三：11-1-4 工資的四大維度分類 ＆ 名目 vs 實質工資計算</h2>
+      <span class="tag">課本 11-1-4 節 ｜ 統測高頻計算考點</span>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>劃分維度</th>
+          <th>工資種類</th>
+          <th>定義說明與特性</th>
+          <th>課本典型實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2" style="font-weight:700;background:#f8fafc;">1. 依「形成方式」區分</td>
+          <td class="highlight-cell">經濟工資</td>
+          <td>以勞動者在生產過程中的<b>實際貢獻度／績效</b>高低決定的工資。</td>
+          <td>房仲人員按成交戶數提領的銷售佣金、業績分紅獎金。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">契約工資</td>
+          <td>以僱主與勞動者雙方<b>事前簽訂的勞動契約條款</b>所約定的工資。</td>
+          <td>職棒球星彭政閔與中信兄弟隊簽下 4 年 1,440 萬元的合約薪水。</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="font-weight:700;background:#f8fafc;">2. 依「支付方式」區分</td>
+          <td class="highlight-cell">貨幣工資</td>
+          <td>以法定貨幣形式發放的薪水（一般金融帳戶匯款入帳）。</td>
+          <td>銀行行員每月固定匯入帳戶之月薪 40,000 元。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">實物工資</td>
+          <td>以具體有形物品作為折抵發放之代價。<br>
+          <b>【通膨利弊】：</b> 當<b>物價膨脹（貨幣貶值）</b>時，領取<b>實物工資較有利</b>！當物價平穩時，領取貨幣工資較有利（選擇多元）。</td>
+          <td>公務員配給米油麵粉、公司主管配車、油票補助、提供免費員工宿舍與午餐。</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="font-weight:700;background:#f8fafc;">3. 依「購買力」區分</td>
+          <td class="highlight-cell">名目工資<br>（貨幣工資）</td>
+          <td>以<b>貨幣數量金額</b>所表示的工資數字（即薪資單上的面額）。</td>
+          <td>恩尚在餐廳當洗碗工領取的面額月薪 30,000 元。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">實質工資<br>（購買力工資）</td>
+          <td>以貨幣<b>實質購買力</b>所表示的工資，即領取名目工資後實際上能買到的財貨與勞務數量。<br>
+          <b>公式 11-3：實質工資 ＝ (名目工資 / 物價指數) × 100</b></td>
+          <td>恩尚原薪 30,000 元可買一台 iPad；通膨後 iPad 漲價買不起，表示<b>實質工資縮水</b>！</td>
+        </tr>
+        <tr>
+          <td rowspan="2" style="font-weight:700;background:#f8fafc;">4. 依「計算方式」區分</td>
+          <td class="highlight-cell">計時工資</td>
+          <td>以<b>工作時間長短</b>（小時、日、月）為計算基準的工資。</td>
+          <td>手搖飲店工讀生時薪 180 元。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">計件工資</td>
+          <td>以<b>生產件數／完成量</b>為計算基準的工資。</td>
+          <td>插畫家畫一張插圖領 500 元、工廠代工按件計酬。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 實質工資核心考點解析 -->
+    <div class="formula-box" style="margin-top:20px;">
+      <div class="formula-title">⚡ 實質工資計算公式與統測連鎖題解題指南（公式 11-3）</div>
+      <div class="math-formula">
+        實質工資 ＝ <span class="frac"><span class="frac-top">名目工資</span><span class="frac-bottom">物價指數</span></span> × 100
+      </div>
+      <p style="margin:6px 0;font-size:0.92rem;color:#1e3a8a;">
+        <b>範例：</b> 娜美今年名目工資為 480,000 元，去年基期物價指數為 100，今年物價指數漲至 120。<br>
+        ➔ 娜美今年的實質工資 ＝ (480,000 / 120) × 100 ＝ <b>400,000 元</b>（名目賺 48 萬，但實質購買力僅相當於基期的 40 萬元！）。
+      </p>
+      <div style="background:#fff;border:1px dashed #93c5fd;border-radius:6px;padding:8px 12px;margin-top:6px;font-size:0.88rem;color:#1e40af;">
+        ★ <b>統測觀念鐵律：</b> 只有在<b>「物價水準不變」</b>的前提下，名目工資增加才能真正代表實質工資增加！若調薪幅度小於物價上漲率，勞工實質工資反而下降！
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組四：11-1-5 工資差異成因與工會三大策略 ==================== -->
+  <div class="card" id="sec-wage-diff-unions">
+    <div class="card-header">
+      <h2>🛡️ 模組四：11-1-5 工資差異成因 ＆ 工會提高工資的三大策略手段</h2>
+      <span class="tag">課本 11-1-5 節 ｜ 統測高頻圖形題</span>
+    </div>
+
+    <!-- 工資差異四大成因 -->
+    <div class="concept-box">
+      <h3>📌 造成工資差異的四大主要成因</h3>
+      <ul class="rule-list">
+        <li><b>1. 勞動者本身生產力的差異：</b> 受教育程度、技能證照、工作經驗與才智不同（如大學畢業生與碩士起薪差異）。</li>
+        <li><b>2. 補償性的工資差異（統測最常考名詞）：</b><br>
+          原本相同的勞動，因<b>工作環境險惡、工時特殊或承擔高風險</b>造成實質的「不同工」，而額外發給較高工資作為補償！<br>
+          <i>實例：高空外牆清洗工人日薪高於一般清潔工；空姐面臨飛行事故風險月薪（60,000元）高於一般餐廳服務生（26,000元）；夜間大夜班津貼。</i>
+        </li>
+        <li><b>3. 勞動市場競爭程度與移動性受限：</b> 勞動市場若為不完全競爭，勞工議價力薄弱；或因性別、種族刻板印象、國際外勞引進限制等造成差異。</li>
+        <li><b>4. 勞動市場供需的動態變動：</b> 國內碩士人數暴增導致碩士供給曲線 <i>S<sub>L</sub></i> 右移，在需求不變下造成碩士起薪下修。</li>
+      </ul>
+    </div>
+
+    <!-- 工會提高工資的三大手段 -->
+    <h3 style="color:#0f172a;margin:28px 0 10px;font-size:1.1rem">⚔️ 工會（Labor Union）要求提高工資的三大策略全對比</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;">
+      
+      <!-- 策略一：限制最低工資 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch11/fig11_06_minimum_wage_unemployment.png" alt="圖 11-6 工會要求限制最低工資" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 11-6 策略一：限制最低工資 <i>W<sub>1</sub></i></div>
+        </div>
+        <div class="formula-box" style="margin-top:8px;background:#fef2f2;border-left-color:#dc2626;">
+          <div class="formula-title" style="color:#991b1b;">1. 限制最低工資（有效價格下限）</div>
+          <p style="margin:4px 0;font-size:0.86rem;color:#334155;">
+            • <b>做法：</b> 代表勞工向僱主強制訂定高於均衡市價之最低工資 <i>W<sub>1</sub></i> ＞ <i>W<sub>0</sub></i>。<br>
+            • <b>後果：</b> 供給量 <i>L<sub>2</sub></i> 大於需求量 <i>L<sub>1</sub></i>，市場產生超額供給，<b>造成失業（失業量 ＝ <i>L<sub>1</sub>L<sub>2</sub></i>）</b>！
+          </p>
+        </div>
+      </div>
+
+      <!-- 策略二：減少勞動供給 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch11/fig11_07_decrease_labor_supply.png" alt="圖 11-7 工會要求減少勞動供給" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 11-7 策略二：減少勞動供給（<i>S<sub>L</sub></i> 左移）</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px;background:#fffbeb;border-left-color:#d97706;">
+          <div class="formula-title" style="color:#9a3412;">2. 減少勞動供給（限制進入）</div>
+          <p style="margin:4px 0;font-size:0.86rem;color:#334155;">
+            • <b>做法：</b> 要求縮短工時、推動<b>證照制度</b>拉高從業門檻。<br>
+            • <b>後果：</b> 供給線左移使工資提高（<i>W<sub>0</sub> ➔ W<sub>1</sub></i>），但代價是<b>勞動僱用量減少（<i>L<sub>0</sub> ➔ L<sub>1</sub></i>）</b>！
+          </p>
+        </div>
+      </div>
+
+      <!-- 策略三：增加勞動需求 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch11/fig11_08_increase_labor_demand.png" alt="圖 11-8 工會要求增加勞動需求" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 11-8 策略三：增加勞動需求（<i>D<sub>L</sub></i> 右移）</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px;background:#ecfdf5;border-left-color:#059669;">
+          <div class="formula-title" style="color:#065f46;">3. 增加勞動需求（最理想雙贏策略）</div>
+          <p style="margin:4px 0;font-size:0.86rem;color:#334155;">
+            • <b>做法：</b> 辦理在職職訓提高勞動生產力；協助廠商推廣產品創造引申需求。<br>
+            • <b>後果：</b> <b>🌟 唯一既能提高工資（<i>W</i> ↑）又能增加僱用量（<i>L</i> ↑）的最佳方法！</b>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組五：11-2-1 & 11-2-2 土地特性、稀少與差額地租 ==================== -->
+  <div class="card" id="sec-rent-theories">
+    <div class="card-header">
+      <h2>🌾 模組五：11-2-1 & 11-2-2 土地特性、稀少地租說 ＆ 李嘉圖差額地租說</h2>
+      <span class="tag">課本 11-2-1 & 11-2-2 節 ｜ 地租是使用價格</span>
+    </div>
+
+    <!-- 土地意義與三大特性 -->
+    <div class="split-view">
+      <div>
+        <div class="concept-box">
+          <h3>📌 土地的意義與三大特性</h3>
+          <p>
+            • <b>廣義土地：</b> 一切天然自然資源（陸地、森林、礦產、水利、地熱、風力）。<br>
+            • <b>狹義土地：</b> 僅指陸地面積。經濟學地租分析多以狹義陸地為對象。
+          </p>
+          <ul class="rule-list">
+            <li><b>1. 面積數量不變（不增性）：</b> 自然生成無法人工製造，土地供給固定，<b>供給彈性 <i>E<sub>s</sub></i> ＝ 0（一條垂直於橫軸的直線）</b>！</li>
+            <li><b>2. 位置固定（不移性）：</b> 土地無法像資本與勞動任意搬動轉移。</li>
+            <li><b>3. 永續使用但生產力有限（有限性）：</b> 適度休耕可永續利用，但連續投入勞動會產生<b>邊際報酬遞減現象</b>。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 圖 11-9 土地垂直供給線 -->
+      <div class="img-wrap">
+        <img src="images/ch11/fig11_09_land_supply_curve.png" alt="圖 11-9 土地的供給線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 課本圖 11-9 土地供給固定：供給曲線為完全無彈性（<i>E<sub>s</sub></i> ＝ 0）之垂直線</div>
+      </div>
+    </div>
+
+    <!-- 地租兩大學說：稀少地租 vs 差額地租 -->
+    <h3 style="color:#0f172a;margin:28px 0 10px;font-size:1.1rem">⚖️ 兩大地租學說全解析</h3>
+    <div class="split-view">
+      
+      <!-- 稀少地租說 -->
+      <div>
+        <div class="formula-box">
+          <div class="formula-title">一、稀少地租說（古典學派提出）</div>
+          <p style="margin:4px 0;font-size:0.9rem;color:#1e3a8a;">
+            • <b>成因：</b> 土地供給絕對固定（垂直線），相對於大眾需求具有稀少性，故產生稀少地租。<br>
+            • <b>決定關鍵：</b> <b>地租的高低完全取決於「土地需求的強弱」！</b><br>
+            需求愈強（<i>D<sub>2</sub></i>），地租愈高（<i>R<sub>2</sub></i>）；需求疲軟（<i>D<sub>1</sub></i>），地租愈低（<i>R<sub>1</sub></i>）；當需求為 <i>D<sub>0</sub></i> 時，地租為 0。
+          </p>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch11/fig11_10_scarcity_rent.png" alt="圖 11-10 稀少地租說" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 課本圖 11-10 稀少地租說：地租完全由土地需求強弱決定</div>
+        </div>
+      </div>
+
+      <!-- 差額地租說 -->
+      <div>
+        <div class="formula-box" style="background:#fffbeb;border-left-color:#d97706;">
+          <div class="formula-title" style="color:#9a3412;">二、差額地租說（李嘉圖 David Ricardo 提出）</div>
+          <p style="margin:4px 0;font-size:0.9rem;color:#78350f;">
+            • <b>成因：</b> 土地的<b>「肥沃程度不同」或「地理位置不同」</b>，導致各級土地的收益不同而產生差額。<br>
+            • <b>邊際土地（Marginal Land）：</b> 最後那塊最貧瘠、收益剛好僅夠支付生產成本的土地。<b>邊際土地的地租恆為 0</b>！<br>
+            • <b>差額地租公式：</b><br>
+            <b>差額地租 ＝ 該級土地總收益 － 邊際土地收益（生產成本）</b>
+          </p>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch11/fig11_11_differential_rent_bars.png" alt="圖 11-11 差額地租直條圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 課本圖 11-11 小麥漲價後甲、乙、丙地的差額地租長條圖</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 課本 P.16 表 11-1 & 11-2 經典數值對照表 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">📊 李嘉圖差額地租推導過程（重現課本表 11-1 ＆ 表 11-2）</h3>
+    <p style="font-size:0.92rem;color:#475569;margin-top:0;">
+      假設甲（最肥沃）、乙（次肥沃）、丙（最貧瘠）三塊土地面積相同，生產成本皆為 10,000 元，產量分別為 600 斤、500 斤、400 斤：
+    </p>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>小麥價格水準</th>
+          <th>土地項目</th>
+          <th>小麥產量</th>
+          <th>總收益（<i>P × Q</i>）</th>
+          <th>生產成本</th>
+          <th>差額地租（總收益 － 成本）</th>
+          <th>土地角色定位</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="3" style="font-weight:700;background:#f8fafc;">每斤 20 元時<br>（表 11-1）</td>
+          <td>甲地（最肥沃）</td>
+          <td>600 斤</td>
+          <td>20 × 600 ＝ 12,000 元</td>
+          <td>10,000 元</td>
+          <td class="highlight-cell"><b>2,000 元</b></td>
+          <td>優等土地（享有差額地租）</td>
+        </tr>
+        <tr>
+          <td>乙地（次肥沃）</td>
+          <td>500 斤</td>
+          <td>20 × 500 ＝ 10,000 元</td>
+          <td>10,000 元</td>
+          <td style="color:#059669;font-weight:700;"><b>0 元</b></td>
+          <td><b>🌟 邊際土地（收益剛好抵平生產成本）</b></td>
+        </tr>
+        <tr>
+          <td>丙地（最貧瘠）</td>
+          <td>400 斤</td>
+          <td>20 × 400 ＝ 8,000 元</td>
+          <td>10,000 元</td>
+          <td style="color:#dc2626;font-weight:700;">－2,000 元</td>
+          <td>入不敷出（閒置，不投入生產）</td>
+        </tr>
+        <tr style="background:#f0fdf4;">
+          <td rowspan="3" style="font-weight:700;background:#dcfce7;color:#166534;">漲至每斤 25 元後<br>（表 11-2）</td>
+          <td>甲地（最肥沃）</td>
+          <td>600 斤</td>
+          <td>25 × 600 ＝ 15,000 元</td>
+          <td>10,000 元</td>
+          <td class="highlight-cell"><b>5,000 元（地租激增 3,000 元）</b></td>
+          <td>超特等土地</td>
+        </tr>
+        <tr style="background:#f0fdf4;">
+          <td>乙地（次肥沃）</td>
+          <td>500 斤</td>
+          <td>25 × 500 ＝ 12,500 元</td>
+          <td>10,000 元</td>
+          <td class="highlight-cell"><b>2,500 元（晉升享有地租）</b></td>
+          <td>優等土地</td>
+        </tr>
+        <tr style="background:#f0fdf4;">
+          <td>丙地（最貧瘠）</td>
+          <td>400 斤</td>
+          <td>25 × 400 ＝ 10,000 元</td>
+          <td>10,000 元</td>
+          <td style="color:#059669;font-weight:700;"><b>0 元</b></td>
+          <td><b>🌟 新的邊際土地（加入生產行列）</b></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 糧價與地租因果爭論 + 成本 vs 剩餘觀點 -->
+    <div class="split-view" style="margin-top:20px;">
+      <div class="formula-box">
+        <div class="formula-title">🌾 李嘉圖世紀因果定論：究竟是糧價漲還是地租漲？</div>
+        <div class="math-formula" style="color:#c2410c;">
+          人口增加 / 糧荒 ➔ <b>【糧價上漲（因）】</b> ➔ 農民搶租土地 ➔ <b>【地租上漲（果）】</b>
+        </div>
+        <p style="margin:6px 0 0;font-size:0.88rem;color:#78350f;">
+          ★ <b>統測陷阱提防：</b> 絕非地主貪婪漲租導致糧價飆漲！而是先有產品價格（糧價）上漲，引申帶動要素價格（地租）上漲！
+        </p>
+      </div>
+
+      <div class="formula-box" style="background:#f5f3ff;border-left-color:#7c3aed;">
+        <div class="formula-title" style="color:#5b21b6;">👥 地租是「成本」還是「剩餘」？（視觀察角度而定）</div>
+        <ul class="rule-list" style="margin-top:4px;">
+          <li><b>個別生產者角度 ➔ 地租是一種「成本」：</b> 農民必須實際掏出真金白銀付給地主才能使用土地，肥沃土地租金更高，故為生產成本。</li>
+          <li><b>整個社會角度 ➔ 地租是一種「剩餘」：</b> 土地是大自然恩賜且總量固定，閒置時價值為零（機會成本為零），故對整個社會而言不是成本，純屬剩餘！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組六：11-2-3 & 11-2-4 地價折現、準租與經濟租 ==================== -->
+  <div class="card" id="sec-land-price-quasi">
+    <div class="card-header">
+      <h2>🏷️ 模組六：11-2-3 & 11-2-4 地價折現計算 ＆ 廣義地租（馬歇爾準租 vs 經濟租）</h2>
+      <span class="tag">課本 11-2-3 & 11-2-4 節 ｜ 統測高頻計算題庫</span>
+    </div>
+
+    <!-- 地租與地價關係公式 -->
+    <div class="formula-box">
+      <div class="formula-title">⚡ 地租與地價折現換算公式（公式 11-4）</div>
+      <div class="math-formula">
+        地價 ＝ <span class="frac"><span class="frac-top">年地租收入（<i>R</i>）</span><span class="frac-bottom">市場年利率（<i>r</i>）</span></span>
+      </div>
+      <ul class="rule-list" style="margin-top:8px;">
+        <li><b>地價與年地租收入成「正比」</b>：每年收租能力愈高，土地買賣身價愈高。</li>
+        <li><b>地價與市場年利率成「反比」</b>：央行升息（利率 <i>r</i> ↑）➔ 地價下跌；央行降息（利率 <i>r</i> ↓）➔ 地價水漲船高！</li>
+        <li><span style="color:#dc2626;font-weight:700">⚠️ 統測超級計算陷阱：</span> 題目若給<b>「每月租金」</b>，必須先<b>乘以 12 個月</b>換算成<b>「年地租」</b>才能代入公式！<br>
+        <i>例：每月租金 3 萬元，年利率 3% ➔ 年地租 ＝ 3 萬 × 12 ＝ 36 萬元 ➔ 地價 ＝ 36 萬 / 3% ＝ <b>1,200 萬元</b>（切忌直接用 3萬/3%＝100萬！）。</i></li>
+      </ul>
+    </div>
+
+    <!-- 準租 vs 經濟租 -->
+    <div class="split-view" style="margin-top:20px;">
+      
+      <!-- 馬歇爾準租 -->
+      <div class="concept-box" style="border-left-color:#0284c7;background:#f0f9ff;">
+        <h3 style="color:#0369a1;">🏭 一、馬歇爾「準租（Quasi-Rent）」</h3>
+        <ul class="rule-list">
+          <li><b>提出者：</b> 英國經濟學家<b>馬歇爾（Alfred Marshall）</b>。</li>
+          <li><b>定義：</b> 廠商在<b>「短期」</b>內使用<b>「人造固定資本財（廠房、重型機具設備）」</b>所能獲得的超額報酬。</li>
+          <li><b>為什麼叫「準」租？</b><br>
+            因為短期內固定設備無法立即增建擴充，供給彈性為零（<i>E<sub>s</sub></i> ＝ 0），此項特徵與大自然供給固定的土地完全相同，故稱為「準」租。</li>
+          <li><b>🌟 統測必考鐵律：</b><br>
+            <b>準租只存在於「短期」！在「長期」由於所有資本財皆可自由調整，故準租在長期完全不存在！</b>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 經濟租 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch11/fig11_12_economic_rent.png" alt="圖 11-12 經濟租" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 課本圖 11-12 經濟租幾何圖解（類似產品市場的生產者剩餘 PS）</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 經濟租與移轉性賺額詳細拆解 -->
+    <div class="formula-box" style="margin-top:20px;background:#fdf4ff;border-left-color:#c026d3;">
+      <div class="formula-title" style="color:#86198f;">💎 二、經濟租（Economic Rent）與移轉性賺額（Transfer Earnings）</div>
+      <p style="margin:4px 0;font-size:0.92rem;color:#334155;">
+        要素投入生產時，要素所有人心中皆有一筆<b>「最低要求的保留價格」</b>（即轉作其他用途所能得到的最高代價，也就是<b>機會成本</b>）：
+      </p>
+      <div class="math-formula" style="color:#701a75;">
+        經濟租 ＝ 要素實際獲得的總報酬 － 要求之最低報酬（移轉性賺額 / 機會成本）
+      </div>
+      <table class="comp-table" style="margin-top:10px;">
+        <thead>
+          <tr>
+            <th>指標項目</th>
+            <th>經濟意義</th>
+            <th>圖 11-12 對應幾何區塊</th>
+            <th>敏鎬代言按摩椅課本實例（P.20）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>實際獲得報酬</b></td>
+            <td>市場協商成交總金額（<i>P* × Q*</i>）</td>
+            <td>矩形 <i>P*EQ*0</i></td>
+            <td>最終簽約代言費 <b>1,000 萬元</b></td>
+          </tr>
+          <tr>
+            <td><b>移轉性賺額<br>（機會成本）</b></td>
+            <td>要素所有人願投入生產所要求的<b>最低報酬門檻</b>（低於此數就跳槽）。</td>
+            <td>梯形 <i>AEQ*0</i>（供給線下方、橫軸上方）</td>
+            <td>敏鎬心裡最低可接受的 <b>700 萬元</b></td>
+          </tr>
+          <tr class="highlight-cell" style="background:#fce7f3;color:#9d174d;">
+            <td><b>經濟租<br>（要素純剩餘）</b></td>
+            <td>實際報酬超出最低要求的差額（類似生產者剩餘 PS）。</td>
+            <td><b>三角形 <i>P*EA</i></b>（市價線下方、供給線上方）</td>
+            <td>1,000 萬 － 700 萬 ＝ <b>300 萬元</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== 模組七：課本精選實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組七：課本原版題庫實戰測驗（精選自課本 P.22～P.25）</h2>
+      <span class="tag">即測即評 ｜ 點擊選項立刻驗證觀念</span>
+    </div>
+
+    <!-- 題目 1 -->
+    <div class="quiz-item" id="q1">
+      <div class="quiz-q">1. 【課本 P.22 選擇第 1 題】永道目前為在學高職學生，平日專心讀書沒有打工兼差，在經濟學人口結構分類上他屬於：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(1, 'A')">(A) 勞動力人口</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'B')">(B) 非勞動力人口</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'C')">(C) 就業人口</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'D')">(D) 失業人口</button>
+      </div>
+      <div class="quiz-explain" id="exp1">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b>年滿 15 歲以上民間人口中，「在學就學者（無兼差意願）」屬於<b>非勞動力人口</b>。勞動力人口必須同時兼具「工作能力」與「工作意願」（包括就業與積極找工作的失業者）。
+      </div>
+    </div>
+
+    <!-- 題目 2 -->
+    <div class="quiz-item" id="q2">
+      <div class="quiz-q">2. 【課本 P.22 選擇第 3 題計算】已知某國 15 歲以上民間人口為 1,000 萬人，就業人口為 750 萬人，失業人口為 50 萬人。請問該國的「勞動力」及「勞動參與率」分別為多少？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(2, 'A')">(A) 700 萬人、70%</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'B')">(B) 750 萬人、75%</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'C')">(C) 800 萬人、80%</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'D')">(D) 950 萬人、95%</button>
+      </div>
+      <div class="quiz-explain" id="exp2">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b><br>
+        ① 勞動力 ＝ 就業人口 ＋ 失業人口 ＝ 750 萬 ＋ 50 萬 ＝ <b>800 萬人</b>。<br>
+        ② 勞動參與率 ＝ (勞動力 / 15歲以上民間人口) × 100% ＝ (800 萬 / 1,000 萬) × 100% ＝ <b>80%</b>。
+      </div>
+    </div>
+
+    <!-- 題目 3 -->
+    <div class="quiz-item" id="q3">
+      <div class="quiz-q">3. 【課本 P.22 選擇第 7 題】小綜在腳踏車店打工，表現優異獲得老闆加薪。但小綜在加薪後，反而主動減少打工時數、增加與朋友出遊的休閒時間；這是因為小綜的：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(3, 'A')">(A) 名目工資大於實質工資</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'B')">(B) 所得效果大於替代效果</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'C')">(C) 實質工資大於名目工資</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'D')">(D) 替代效果大於所得效果</button>
+      </div>
+      <div class="quiz-explain" id="exp3">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b>工資率提高時，替代效果使勞動時數增加（多工作），所得效果使勞動時數減少（多休閒）。當<b>所得效果 ＞ 替代效果</b>時，勞動時數淨減少，個別勞動供給曲線呈現<b>向後彎折（負斜率）</b>！
+      </div>
+    </div>
+
+    <!-- 題目 4 -->
+    <div class="quiz-item" id="q4">
+      <div class="quiz-q">4. 【課本 P.23 選擇第 9 題】航空公司空姐因面臨較高的飛行事故風險與時差壓力，其起薪顯著高於一般地勤或餐廳服務生，這種工資差距在經濟學上屬於：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(4, 'A')">(A) 勞動供需不均引起的差異</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'B')">(B) 勞動者學歷高低引起的差異</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'C')">(C) 補償性的工資差異</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'D')">(D) 獨占力量引起的差異</button>
+      </div>
+      <div class="quiz-explain" id="exp4">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b>補償性工資差異（Compensating Wage Differentials）是指工作本身條件不同（如高危險、環境惡劣、大夜班、需輪班等），廠商必須支付較高的薪資來補償勞工所承擔的代價。
+      </div>
+    </div>
+
+    <!-- 題目 5 -->
+    <div class="quiz-item" id="q5">
+      <div class="quiz-q">5. 【課本 P.13 單元練習第 3 題】工會要求提高工資的各種策略中，何種策略「既能提高工資，又能同時增加勞動僱用量」？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(5, 'A')">(A) 限制最低工資</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'B')">(B) 減少勞動供給（如證照門檻）</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'C')">(C) 增加勞動需求（如職業培訓推廣產品）</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'D')">(D) 限制僱用外籍移工</button>
+      </div>
+      <div class="quiz-explain" id="exp5">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b><br>
+        • 限制最低工資 ➔ 產生失業（僱用量減少）；<br>
+        • 減少勞動供給 ➔ 工資上升但僱用量減少；<br>
+        • <b>增加勞動需求（<i>D<sub>L</sub></i> 右移）</b> ➔ 均衡點往右上方移動，<b>工資率上升（<i>W</i> ↑）且僱用量增加（<i>L</i> ↑）</b>，為唯一的雙贏手段！
+      </div>
+    </div>
+
+    <!-- 題目 6 -->
+    <div class="quiz-item" id="q6">
+      <div class="quiz-q">6. 【課本 P.18 單元練習第 3 題計算】已知有 X、Y、Z 三塊土地種植金桔，Z 地為邊際土地（其生產成本為 50,000 元）。若 X 地種植金桔的總收益為 200,000 元，根據李嘉圖差額地租學說，X 地的差額地租應為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(6, 'A')">(A) 250,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'B')">(B) 150,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'C')">(C) 50,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'D')">(D) 200,000 元</button>
+      </div>
+      <div class="quiz-explain" id="exp6">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        差額地租 ＝ 該級土地總收益 － 邊際土地收益（生產成本）<br>
+        ＝ 200,000 元 － 50,000 元 ＝ <b>150,000 元</b>。
+      </div>
+    </div>
+
+    <!-- 題目 7 -->
+    <div class="quiz-item" id="q7">
+      <div class="quiz-q">7. 【課本 P.23 選擇第 15 題計算】假設南投鹿谷某茶園農地「每月」地租收入為 5,000 元，市場年利率為 6%，請問該農地的地價應為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(7, 'A')">(A) 36 萬元</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'B')">(B) 100 萬元</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'C')">(C) 360 萬元</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'D')">(D) 1,000 萬元</button>
+      </div>
+      <div class="quiz-explain" id="exp7">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        ① 先將月租金換算為「年地租收入」：5,000 元 × 12 個月 ＝ 60,000 元。<br>
+        ② 地價 ＝ 年地租收入 / 年利率 ＝ 60,000 / 6% ＝ <b>1,000,000 元（100 萬元）</b>！
+      </div>
+    </div>
+
+    <!-- 題目 8 -->
+    <div class="quiz-item" id="q8">
+      <div class="quiz-q">8. 【課本 P.24 選擇第 19 題連鎖題】演員國毅原本認為電視節目的通告費一集 3,000 元就願意接演；但在榮獲金鐘獎最佳新人獎後，經紀人成功為其爭取到一集 30,000 元的通告合約。請問國毅的「經濟租」與「移轉性賺額」分別為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(8, 'A')">(A) 經濟租 27,000 元、移轉性賺額 3,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(8, 'B')">(B) 經濟租 33,000 元、移轉性賺額 30,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(8, 'C')">(C) 經濟租 30,000 元、移轉性賺額 3,000 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(8, 'D')">(D) 經濟租 3,000 元、移轉性賺額 27,000 元</button>
+      </div>
+      <div class="quiz-explain" id="exp8">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b><br>
+        ① 移轉性賺額（要求的最低報酬／機會成本）＝ <b>3,000 元</b>。<br>
+        ② 經濟租 ＝ 實際獲得總報酬 － 最低要求報酬 ＝ 30,000 元 － 3,000 元 ＝ <b>27,000 元</b>。
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大圖形">
+</div>
+
+<script>
+// 測驗答案對照表
+const ANSWERS = {
+  1: 'B',
+  2: 'C',
+  3: 'B',
+  4: 'C',
+  5: 'C',
+  6: 'B',
+  7: 'B',
+  8: 'A'
+};
+
+function checkQuiz(qNum, selectedOpt) {
+  const correct = ANSWERS[qNum];
+  const explainDiv = document.getElementById('exp' + qNum);
+  explainDiv.style.display = 'block';
+  
+  const qItem = document.getElementById('q' + qNum);
+  const buttons = qItem.querySelectorAll('.quiz-btn');
+  buttons.forEach(btn => {
+    btn.style.borderColor = '#cbd5e1';
+    btn.style.background = '#fff';
+    btn.style.color = '#334155';
+  });
+
+  const selectedBtn = Array.from(buttons).find(btn => btn.innerText.includes('(' + selectedOpt + ')'));
+  if (selectedOpt === correct) {
+    if (selectedBtn) {
+      selectedBtn.style.borderColor = '#10b981';
+      selectedBtn.style.background = '#ecfdf5';
+      selectedBtn.style.color = '#065f46';
+    }
+  } else {
+    if (selectedBtn) {
+      selectedBtn.style.borderColor = '#ef4444';
+      selectedBtn.style.background = '#fef2f2';
+      selectedBtn.style.color = '#991b1b';
+    }
+    const correctBtn = Array.from(buttons).find(btn => btn.innerText.includes('(' + correct + ')'));
+    if (correctBtn) {
+      correctBtn.style.borderColor = '#10b981';
+      correctBtn.style.background = '#ecfdf5';
+      correctBtn.style.color = '#065f46';
+    }
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

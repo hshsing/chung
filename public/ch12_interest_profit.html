@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH12 利息與利潤 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #4f46e5;
+  --brand-light: #eef2ff;
+  --accent-amber: #d97706;
+  --accent-amber-bg: #fffbeb;
+  --accent-green: #059669;
+  --accent-green-bg: #ecfdf5;
+  --accent-purple: #7c3aed;
+  --accent-purple-bg: #f5f3ff;
+  --accent-red: #dc2626;
+  --accent-red-bg: #fef2f2;
+  --line-gray: #e2e8f0;
+  --line-brand: #c7d2fe;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.65;
+  font-size: 1rem;
+}
+
+/* 頂部固定導覽列 */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  color: #334155;
+  background: #fff;
+  transition: all 0.2s;
+}
+.header-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+.header-btn.highlight {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.header-btn.highlight:hover {
+  opacity: 0.92;
+}
+
+/* 錨點導覽列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 10px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.subnav-btn {
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: var(--bg);
+  color: #334155;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s;
+}
+.subnav-btn:hover {
+  background: var(--brand-light);
+  border-color: var(--line-brand);
+  color: var(--brand);
+}
+
+/* 主容器 */
+.container {
+  max-width: 1140px;
+  margin: 24px auto;
+  padding: 0 20px 80px;
+}
+
+/* 卡片通用樣式 */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line-gray);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* 公式與重點方框 */
+.formula-box {
+  background: var(--brand-light);
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.formula-title {
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #3730a3;
+}
+.math-formula {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+  vertical-align: middle;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.92rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+  line-height: 1.2;
+}
+.frac-bottom {
+  padding-top: 2px;
+  line-height: 1.2;
+}
+
+/* 觀念重點卡 */
+.concept-box {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-left: 4px solid #64748b;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+}
+.concept-box h3, .concept-box h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.93rem;
+  color: #334155;
+  line-height: 1.7;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #f0f9ff;
+}
+.highlight-cell {
+  background: var(--brand-light);
+  font-weight: 700;
+  color: #3730a3;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-explain {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH12 利息與利潤 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch11_wage_rent.html" class="header-btn">⬅ 上一章：CH11 工資與地租</a>
+    <a href="ch13_national_income.html" class="header-btn highlight">下一章：CH13 國民所得 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然展開為 6 大模組） -->
+<nav class="subnav">
+  <a href="#sec-capital-theories" class="subnav-btn">① 12-1-1 & 12-1-2 資本特性與四大利息學說</a>
+  <a href="#sec-interest-fisher" class="subnav-btn">② 12-1-3 利率種類、費雪方程式與牌告</a>
+  <a href="#sec-interest-equilibrium" class="subnav-btn">③ 12-1-4 三大均衡利率學說全景對照</a>
+  <a href="#sec-profit-concepts" class="subnav-btn">④ 12-2-1 & 12-2-2 企業家才能與利潤四大特性</a>
+  <a href="#sec-profit-schumpeter" class="subnav-btn">⑤ 12-2-3 & 12-2-4 利潤四大學說與熊彼得五大創新</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 模組一：12-1-1 & 12-1-2 資本特性與四大利息學說 ==================== -->
+  <div class="card" id="sec-capital-theories">
+    <div class="card-header">
+      <h2>🏭 模組一：12-1-1 & 12-1-2 資本的意義、特性與四大利息學說</h2>
+      <span class="tag">課本 12-1-1 & 12-1-2 節 ｜ 資本循環與利息成因</span>
+    </div>
+
+    <!-- 資本意義：一般 vs 經濟學觀點 -->
+    <div class="split-view">
+      <div>
+        <div class="concept-box">
+          <h3>📌 資本（Capital）的兩大觀察視角</h3>
+          <ul class="rule-list">
+            <li><b>1. 一般觀點（貨幣資本 / 資金）：</b><br>
+              廠商以<b>貨幣資本</b>購置廠房設備（<b>生產資本</b>），投入生產製造出商品（<b>商品資本</b>），銷售後換取更多貨幣資本，持續循環運作，形成<b>「資本循環」</b>！
+            </li>
+            <li><b>2. 經濟學觀點（實體資本 / 生產財）：</b><br>
+              生產過程中所投入的一切<b>「人造生產工具」</b>，包括廠房建築、機器設備與存貨。<br>
+              <span style="color:#d97706;font-weight:700">★ 課本一點就通：</span> 土地是自然資源；<b>資本則是生產過程中所使用的「非自然資源」</b>！股票、債券純屬金融憑證，非經濟學實體資本！
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-box" style="margin-top:12px;border-left-color:var(--brand);background:var(--brand-light);">
+          <h4 style="color:#3730a3;">⚙️ 資本的三大核心特性</h4>
+          <ul class="rule-list">
+            <li><b>① 人造的生產工具：</b> 人類運用勞動、土地製造而成，非天然產物。</li>
+            <li><b>② 迂迴生產的工具：</b> 先生產機具（資本財），再以機具生產消費財（如微熱山丘添購自動揉麵機與包裝機生產鳳梨酥）。</li>
+            <li><b>③ 運用以營利為目的：</b> 資本投入迂迴生產之最終目的在於賺取商業利潤。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 圖 12-1 資本循環圖 -->
+      <div class="img-wrap">
+        <img src="images/ch12/fig12_01_capital_circulation.png" alt="圖 12-1 資本循環圖" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 課本圖 12-1 資本循環圖：貨幣資本 ➔ 生產資本 ➔ 商品資本 ➔ 換取更多貨幣資本</div>
+      </div>
+    </div>
+
+    <!-- 利息的意義與四大學說 -->
+    <h3 style="color:#0f172a;margin:28px 0 10px;font-size:1.1rem">💰 利息發生的原因：四大學說全方位對照（課本 12-1-2 節）</h3>
+    <div class="formula-box">
+      <div class="formula-title">💡 利息（Interest）的經濟學定義：</div>
+      在一定期間內，借貸雙方於融通資金過程中，<b>借用資金所必須支付的代價</b>；也是貨幣資本投入生產所應得之報酬。
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>學說名稱</th>
+          <th>代表倡導學者</th>
+          <th>核心論點與利息成因</th>
+          <th>統測直觀速記口訣</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">忍慾說<br>（等待說）</td>
+          <td><b>辛尼爾</b><br>（N. Senior）</td>
+          <td>為累積資本而<b>克制當前的消費慾望</b>會產生痛苦，利息是對「克制消費慾望與等待」所給予的補償。痛苦愈大，利息補償應愈高。</td>
+          <td><b>克制慾望的報酬</b><br>（忍受痛苦等待補償）</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">時間偏好說<br>（時差說）</td>
+          <td><b>龐巴衛克</b><br>（Böhm-Bawerk）</td>
+          <td>人們傾向<b>「目前持有商品（確定狀態）」</b>，而非「未來才持有（不確定性）」，此即時間偏好。要人們放棄現貨改持期貨，必須給予利息補償。</td>
+          <td><b>放棄現貨的補償</b><br>（現在確定 ＞ 未來期貨）</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">邊際生產力說</td>
+          <td><b>大克拉克</b><br>（J. B. Clark）</td>
+          <td>資本與勞動、土地相同具備實質生產力。利息大小取決於資本的邊際生產力（<i>MP<sub>K</sub></i>）。若 <b><i>MP<sub>K</sub></i> ＞ <i>i</i></b> 投資有利，應多借資金擴大投資。</td>
+          <td><b>資本增產的貢獻</b><br>（<i>MP<sub>K</sub></i> ＞ <i>i</i> 值得借）</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">迂迴生產說</td>
+          <td><b>龐巴衛克</b><br>（Böhm-Bawerk）</td>
+          <td>先生產資本財再產消費財之迂迴生產可大幅提升效率。<b>生產過程愈迂迴，所需資本愈多、產出愈大</b>，資本財生產力愈高，廠商願付較高利率借款。</td>
+          <td><b>迂迴生產提升生產力</b><br>（愈迂迴願付利息愈高）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 模組二：12-1-3 利率種類、費雪方程式與牌告 ==================== -->
+  <div class="card" id="sec-interest-fisher">
+    <div class="card-header">
+      <h2>📈 模組二：12-1-3 利率的計算、費雪方程式 ＆ 銀行牌告種類</h2>
+      <span class="tag">課本 12-1-3 節 ｜ 統測高頻計算考點</span>
+    </div>
+
+    <!-- 利率定義與單位換算 -->
+    <div class="formula-box">
+      <div class="formula-title">⚡ 利率計算公式（公式 12-1）與四大常用利率單位換算</div>
+      <div class="math-formula">
+        利率（<i>i</i>） ＝ <span class="frac"><span class="frac-top">利息總額</span><span class="frac-bottom">借貸資金總額</span></span> × 100%
+      </div>
+      <p style="margin:8px 0 4px;font-size:0.92rem;color:#3730a3;">
+        <b>統測金融實務術語換算（課本 P.31 階梯圖）：</b>
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px;">
+        <span style="background:#fff;border:1.5px solid #818cf8;border-radius:6px;padding:4px 12px;font-weight:700;color:#312e81;">1 分 ＝ 10%</span>
+        <span style="background:#fff;border:1.5px solid #818cf8;border-radius:6px;padding:4px 12px;font-weight:700;color:#312e81;">1 厘 ＝ 1%</span>
+        <span style="background:#fff;border:1.5px solid #818cf8;border-radius:6px;padding:4px 12px;font-weight:700;color:#312e81;">1 碼 ＝ 0.25%</span>
+        <span style="background:#fff;border:1.5px solid #818cf8;border-radius:6px;padding:4px 12px;font-weight:700;color:#312e81;">半碼 ＝ 0.125%</span>
+      </div>
+      <p style="margin:6px 0 0;font-size:0.86rem;color:#475569;">
+        <i>例：年利率原本 7%，若央行調高半碼，則新利率 ＝ 7% ＋ 0.125% ＝ <b>7.125%</b>；若調降 2 碼 ＝ 7% － 0.5% ＝ <b>6.5%</b>。</i>
+      </p>
+    </div>
+
+    <!-- 費雪方程式與牌告利率對照 -->
+    <div class="split-view" style="margin-top:20px;">
+      
+      <!-- 費雪方程式 -->
+      <div>
+        <div class="concept-box" style="border-left-color:#059669;background:#ecfdf5;">
+          <h3 style="color:#065f46;">📐 費雪方程式（Fisher Equation，公式 12-2）</h3>
+          <p style="font-size:0.92rem;color:#334155;margin:4px 0;">
+            以<b>「是否考慮物價膨脹」</b>劃分名目利率與實質利率：
+          </p>
+          <div class="math-formula" style="color:#065f46;margin:8px 0;">
+            名目利率 ＝ 實質利率 ＋ 預期物價上漲率
+          </div>
+          <ul class="rule-list">
+            <li><b>名目利率（市場利率）：</b> 銀行存摺或借貸合約上白紙黑字寫明的票面貨幣利率。</li>
+            <li><b>實質利率：</b> 扣除預期物價上漲率後，所換算能買到實際商品的<b>實質購買力利率</b>！</li>
+            <li><b>負實質利率現象（通膨吃掉利息）：</b><br>
+              若名目利率為 1.5%，但預期通膨率高達 3.5%：<br>
+              ➔ 實質利率 ＝ 1.5% － 3.5% ＝ <b>－2%</b>！存錢愈存購買力愈薄！
+            </li>
+          </ul>
+        </div>
+
+        <div class="concept-box" style="margin-top:12px;">
+          <h4>📋 銀行牌告利率：固定利率 vs 機動利率</h4>
+          <ul class="rule-list">
+            <li><b>固定利率：</b> 存借款期間不受外界影響，年息恆定不變。</li>
+            <li><b>機動利率：</b> 隨<b>中央銀行升降息政策</b>隨時機動調升或調降。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 圖 12-2 牌告利率看板 -->
+      <div class="img-wrap">
+        <img src="images/ch12/fig12_02_bank_interest_board.png" alt="圖 12-2 銀行牌告利率看板" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 課本圖 12-2 商業銀行牌告定期存款利率表（固定利率 vs 機動利率）</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組三：12-1-4 三大均衡利率學說全景對照 ==================== -->
+  <div class="card" id="sec-interest-equilibrium">
+    <div class="card-header">
+      <h2>⚖️ 模組三：12-1-4 三大均衡利率學說全景對照 ＆ 利率三大功能</h2>
+      <span class="tag">課本 12-1-4 & 12-1-5 節 ｜ 古典 vs 新古典 vs 凱因斯</span>
+    </div>
+
+    <p style="margin-top:0;font-size:0.94rem;color:#475569;">
+      經濟學對「市場均衡利率如何決定」歷經百年辯論，形成三大主流學說，統測常考三者之模型幾何架構與變數關聯：
+    </p>
+
+    <!-- 三大均衡利率學說自適應並列網格 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;">
+      
+      <!-- 1. 投資儲蓄說 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_03_classical_saving_investment.png" alt="圖 12-3 投資儲蓄說" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-3 古典學派：投資儲蓄說（<i>I ＝ S</i>）</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px;">
+          <div class="formula-title">一、古典學派：投資儲蓄說</div>
+          <ul class="rule-list" style="padding-left:14px;font-size:0.86rem;">
+            <li><b>利息本質：</b> 投資的成本、儲蓄的報酬。</li>
+            <li><b>投資 <i>I</i>（負斜率）：</b> 利率愈高利息成本愈重，投資愈少（利率的<b>減函數</b>）。</li>
+            <li><b>儲蓄 <i>S</i>（正斜率）：</b> 利率愈高利息報酬愈豐厚，儲蓄愈多（利率的<b>增函數</b>）。</li>
+            <li><b>均衡條件：</b> <b><i>I</i> ＝ <i>S</i> 決定均衡利率 <i>i*</i></b>。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. 可貸資金說 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_04_loanable_funds.png" alt="圖 12-4 可貸資金說" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-4 新古典學派：可貸資金說（<i>F<sub>S</sub> ＝ F<sub>d</sub></i>）</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px;background:#fffbeb;border-left-color:#d97706;">
+          <div class="formula-title" style="color:#9a3412;">二、新古典學派：可貸資金說</div>
+          <ul class="rule-list" style="padding-left:14px;font-size:0.86rem;">
+            <li><b>利息本質：</b> 使用可貸資金（<i>F</i>）支付的代價。</li>
+            <li><b>供給 <i>F<sub>S</sub></i>（正斜率）：</b> 來自家計儲蓄、企業未分配盈餘與折舊公積金、政府預算盈餘。</li>
+            <li><b>需求 <i>F<sub>d</sub></i>（負斜率）：</b> 來自家計消費貸款、企業資本投資、政府預算赤字借款。</li>
+            <li><b>均衡條件：</b> <b><i>F<sub>S</sub></i> ＝ <i>F<sub>d</sub></i> 決定均衡利率 <i>i*</i></b>。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. 流動性偏好說 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_05_keynes_liquidity_preference.png" alt="圖 12-5 流動性偏好說" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-5 凱因斯：流動性偏好說（<i>M<sub>S</sub> ＝ M<sub>d</sub></i>）</div>
+        </div>
+        <div class="formula-box" style="margin-top:8px;background:#f5f3ff;border-left-color:#7c3aed;">
+          <div class="formula-title" style="color:#5b21b6;">三、凱因斯：流動性偏好說</div>
+          <ul class="rule-list" style="padding-left:14px;font-size:0.86rem;">
+            <li><b>利息本質：</b> 放棄貨幣高流動性的報酬。</li>
+            <li><b>貨幣需求 <i>M<sub>d</sub></i>（負斜率）：</b> 交易＋預防＋投機動機。</li>
+            <li><b>貨幣供給 <i>M<sub>S</sub></i>（垂直線）：</b> 由中央銀行政策獨立決定，不受所得與利率影響。</li>
+            <li><b>均衡條件：</b> <b><i>M<sub>S</sub></i> ＝ <i>M<sub>d</sub></i> 決定均衡利率 <i>i*</i></b>。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 凱因斯三大動機深入解析 -->
+    <div class="concept-box" style="margin-top:20px;border-left-color:#7c3aed;background:#fdf4ff;">
+      <h3 style="color:#6b21a8;">🎯 凱因斯貨幣需求三大動機深入辨析（統測每年必出題！）</h3>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>持有貨幣動機</th>
+            <th>動機目的與實例</th>
+            <th>所屬餘額分類</th>
+            <th>關鍵影響變數與連動函數關係</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="highlight-cell" style="background:#f3e8ff;color:#6b21a8;">1. 交易動機</td>
+            <td>應付日常生活或交易所需開支（買菜、付水電、搭公車捷運）。</td>
+            <td rowspan="2"><b>活動餘額</b><br>（Active Balance）</td>
+            <td rowspan="2"><b>受「國民所得（<i>Y</i>）」影響！</b><br>所得愈高，交易量愈大，預防突發事件能力愈強，貨幣需求愈多（<b>所得的增函數：<i>Y</i> ↑ ➔ <i>M<sub>d</sub></i> ↑</b>）。與利率無關！</td>
+          </tr>
+          <tr>
+            <td class="highlight-cell" style="background:#f3e8ff;color:#6b21a8;">2. 預防動機</td>
+            <td>預防生病急診、車禍意外、失業等不時之需的緊急預備金。</td>
+          </tr>
+          <tr>
+            <td class="highlight-cell" style="background:#fae8ff;color:#86198f;">3. 投機動機</td>
+            <td>隨時把握股匯市或資產市場上有利投資機會而保有的現金。</td>
+            <td><b>閒置餘額</b><br>（Idle Balance）</td>
+            <td><b>🌟 唯一受「市場利率（<i>i</i>）」影響！</b><br>利率愈低（<i>i</i> ↓），存銀行利息極微薄，大眾寧願抱緊現金伺機進場抄底，故投機貨幣需求增加（<b>利率的減函數：<i>i</i> ↓ ➔ <i>M<sub>d</sub></i> ↑</b>）！</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 利率的三大功能 -->
+    <div class="formula-box" style="margin-top:18px;">
+      <div class="formula-title">🛡️ 利率的三大宏觀經濟功能（課本 12-1-5 節）</div>
+      <ul class="rule-list">
+        <li><b>1. 誘導儲蓄，促進經濟成長：</b> 提高利息誘引民眾將閒置資金存入銀行融通給企業擴大投資，避免資金「窖藏」浪費。</li>
+        <li><b>2. 引導經濟資源適當配置：</b> 政府對策略性產業（半導體高科技、節能綠能產業）提供<b>低利貸款</b>扶植；對高耗能高污染產業提高貸款利率抑制擴張。</li>
+        <li><b>3. 調節景氣，維持物價穩定：</b> 景氣過熱房價飆漲時，央行<b>升息</b>抑制通膨與投機；景氣衰退蕭條時，央行<b>降息</b>鼓勵借款消費與投資振興經濟。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== 模組四：12-2-1 & 12-2-2 企業家才能與利潤四大特性 ==================== -->
+  <div class="card" id="sec-profit-concepts">
+    <div class="card-header">
+      <h2>👔 模組四：12-2-1 & 12-2-2 企業家才能 ＆ 利潤與其他要素之四大特性對比</h2>
+      <span class="tag">課本 12-2-1 & 12-2-2 節 ｜ 第四生產要素</span>
+    </div>
+
+    <!-- 企業家精神與歷史演進 -->
+    <div class="concept-box">
+      <h3>📌 企業家才能（Entrepreneurship）的確立與角色分工</h3>
+      <p>
+        在生產過程中，土地、勞動、資本是<b>「被動」</b>的要素，不會自發組織生產；必須仰賴具有前瞻視野的「企業家」主動整合三者、承擔風險！<br>
+        • <b>馬歇爾 1890 年歷史性劃分：</b> 在《經濟學原理》中將企業家才能列為<b>第四個生產要素</b>，確立「資本家擁有所有權，賺取<b>利息</b>；企業家擁有經營管理權，賺取<b>利潤</b>」！<br>
+        • <b>利潤的本質：</b> 此處所指的利潤為<b>「經濟利潤／超額利潤」</b>，而非會計利潤。
+      </p>
+    </div>
+
+    <!-- 利潤與工資、地租、利息之全方位比較大表（課本核心表） -->
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.1rem">📋 利潤 vs 其他三種要素報酬（工資、地租、利息）全方位特性對比表</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>比較項目</th>
+          <th>利潤（Profit，企業家才能之報酬）</th>
+          <th>工資、地租、利息（勞動、土地、資本之報酬）</th>
+          <th>統測重要考點與理由</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">1. 所得性質</td>
+          <td><b>剩餘所得</b>（Residual Income）</td>
+          <td><b>契約性所得</b>（Contractual Income）</td>
+          <td>工資地租利息依合約規定優先支付；利潤則是總營收扣除一切要素成本後的「最後剩餘」。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">2. 確定性與正負值</td>
+          <td><b>不確定所得（其值可正、可負、可為零）</b></td>
+          <td><b>確定所得（其值恆為正數 ＞ 0）</b></td>
+          <td>工人工資不能欠，地主租金不能賴；但企業盈虧自負，經營不善利潤即為<b>負數（虧損）</b>！</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">3. 決定時間點</td>
+          <td><b>在生產之後決定</b></td>
+          <td><b>在生產之前決定</b></td>
+          <td>勞工時薪、廠房租金在動工前由契約敲定；真實利潤必須等商品全部賣光結帳後才能計算！</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">4. 是否適用邊際生產力</td>
+          <td><b>🌟 不適用邊際生產力說！</b></td>
+          <td><b>適用邊際生產力說</b>（<i>MRP ＝ P<sub>要素</sub></i>）</td>
+          <td>才智相同的企業家在不同市場景氣下獲利大相逕庭，利潤受動態創新與市場結構影響，無法單憑邊際產量衡量！</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">5. 承擔風險性</td>
+          <td><b>必須全面承擔經營風險</b></td>
+          <td><b>原則上不承擔經營虧損風險</b></td>
+          <td>只要企業不倒閉，勞工與地主均穩領合約報酬；唯獨企業家承擔最終賠本風險。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 模組五：12-2-3 & 12-2-4 利潤四大學說與熊彼得五大創新 ==================== -->
+  <div class="card" id="sec-profit-schumpeter">
+    <div class="card-header">
+      <h2>💡 模組五：12-2-3 & 12-2-4 利潤成因四大學說 ＆ 熊彼得五大創新</h2>
+      <span class="tag">課本 12-2-3 & 12-2-4 節 ｜ 統測超高頻出題熱點</span>
+    </div>
+
+    <!-- 四大利潤學說 -->
+    <div class="concept-box" style="margin-bottom:18px;">
+      <h3>📌 利潤發生的原因：四大學說全對比</h3>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>學說名稱</th>
+            <th>代表倡導學者</th>
+            <th>學說核心論點</th>
+            <th>對利潤功能之評價</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="highlight-cell">1. 獨占說</td>
+            <td><b>羅賓遜夫人</b><br><b>秦伯霖</b></td>
+            <td>完全競爭市場長期超額利潤為 0；<b>唯有在「獨占」或高進入障礙保護下</b>，廠商長期方能穩享超額利潤。</td>
+            <td>中性，反映市場進入障礙。</td>
+          </tr>
+          <tr>
+            <td class="highlight-cell">2. 風險說</td>
+            <td><b>奈特</b><br>（F. Knight）</td>
+            <td>利潤是企業家在生產經營過程中，承擔那些<b>無法計算、不可預測的真實不確定性與風險</b>所應得的報酬。</td>
+            <td>肯定，鼓勵冒險精神。</td>
+          </tr>
+          <tr>
+            <td class="highlight-cell">3. 剝削說</td>
+            <td><b>馬克斯</b><br>（K. Marx）</td>
+            <td>商品的全部價值均由勞動創造，企業家未付出體力勞動卻奪取<b>「勞工剩餘價值」</b>轉化為利潤。</td>
+            <td><b>全面否定！</b>視利潤為剝削勞工之不當所得。</td>
+          </tr>
+          <tr style="background:#fdf4ff;">
+            <td class="highlight-cell" style="background:#fae8ff;color:#701a75;">4. 創新說<br>（統測必考第一名）</td>
+            <td><b>熊彼得</b><br>（J. Schumpeter）</td>
+            <td>利潤是企業家在<b>「動態社會」中從事「創新活動（Innovation）」</b>所獲取的超額報酬！在靜態社會中，大家盲目跟進模仿，長期超額利潤必然歸零。</td>
+            <td><b>極度推崇！</b>將企業家創新視為資本主義經濟成長的靈魂發動機！</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 熊彼得五大創新案例（課本圖 12-7～12-10 原版實例並列） -->
+    <h3 style="color:#0f172a;margin:28px 0 10px;font-size:1.1rem">🚀 熊彼得五大創新活動（課本實例圖文全對照）</h3>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;">
+      
+      <!-- 創新 1：新產品 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_07_robot_product_innovation.png" alt="圖 12-7 AI機器人" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-7 產品創新：AI 輔助學習機器人</div>
+        </div>
+        <div class="concept-box" style="margin-top:8px;">
+          <h4 style="color:#4338ca;">① 生產「新產品」</h4>
+          <p style="font-size:0.86rem;color:#334155;margin:2px 0;">
+            <b>【產品創新】：</b> 開發市面上前所未見的全新財貨。<i>實例：AI 智能陪伴學習機器人、賈伯斯推出初代 iPhone。</i>
+          </p>
+        </div>
+      </div>
+
+      <!-- 創新 2：新生產方法 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_08_3d_print_process_innovation.png" alt="圖 12-8 3D列印技術" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-8 工藝創新：3D 列印製作模型齒模</div>
+        </div>
+        <div class="concept-box" style="margin-top:8px;">
+          <h4 style="color:#4338ca;">② 採用「新生產方法」</h4>
+          <p style="font-size:0.86rem;color:#334155;margin:2px 0;">
+            <b>【工藝創新】：</b> 引進革命性生產製程降本增效。<i>實例：以 3D 列印技術製作模具、台積電引進 EUV 5奈米製程。</i>
+          </p>
+        </div>
+      </div>
+
+      <!-- 創新 3：新市場 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_09_ott_market_innovation.png" alt="圖 12-9 線上影音市場" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-9 市場創新：開發 OTT 線上串流影音</div>
+        </div>
+        <div class="concept-box" style="margin-top:8px;">
+          <h4 style="color:#4338ca;">③ 開發「新市場」</h4>
+          <p style="font-size:0.86rem;color:#334155;margin:2px 0;">
+            <b>【市場創新】：</b> 開拓尚未涉足的新客群或新通路。<i>實例：Netflix 開創網路線上影音串流訂閱市場、跨國跨境電商。</i>
+          </p>
+        </div>
+      </div>
+
+      <!-- 創新 4：新原料 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch12/fig12_10_smart_clothing_material_innovation.png" alt="圖 12-10 智慧衣原料" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 12-10 資源創新：不鏽鋼金屬纖維智慧衣</div>
+        </div>
+        <div class="concept-box" style="margin-top:8px;">
+          <h4 style="color:#4338ca;">④ 採用「新原料」</h4>
+          <p style="font-size:0.86rem;color:#334155;margin:2px 0;">
+            <b>【資源開發創新】：</b> 發掘新型原材料取代傳統物資。<i>實例：以不鏽鋼金屬纖維研發智慧感測衣、以廢棄寶特瓶製造環保機能球衣。</i>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 創新 5：新組織 -->
+    <div class="formula-box" style="margin-top:18px;background:#f0fdf4;border-left-color:#059669;">
+      <div class="formula-title" style="color:#065f46;">⑤ 形成「新產業組織」（組織管理創新）</div>
+      <p style="margin:4px 0;font-size:0.92rem;color:#334155;">
+        打破傳統企業經營型態，建立全新營運模式與組織架構。<br>
+        • <b>課本最新實例：</b> <b>「純網路銀行（Internet-Only Bank）」</b>！全無實體分行據點，所有開戶、存匯借款業務皆 100% 在雲端 App 上完成（台灣已有 LINE Bank、將來銀行、樂天國際商業銀行三大純網銀上路執業）。
+      </p>
+    </div>
+
+    <!-- 利潤的四大功能 -->
+    <div class="concept-box" style="margin-top:14px;">
+      <h4>🏆 利潤的四大經濟功能（課本 12-2-4 節總結）</h4>
+      <ul class="rule-list">
+        <li><b>1. 刺激生產活動的誘因：</b> 俗諺「賠本生意沒人做」，追求經濟利潤是企業家投入生產的原動力。</li>
+        <li><b>2. 經濟成長的推動力：</b> 創造利潤愈多，擴大資本投資意願愈高，加速國家經濟繁榮。</li>
+        <li><b>3. 誘發企業創新的動機：</b> 唯有持續創新才能在動態競爭中維持超額利潤，促使資金積極投入研發。</li>
+        <li><b>4. 促進資源有效配置的指標：</b> 有超額利潤的產業吸引新資金與人才湧入，虧損產業則自然退場，引導社會有限資源流向最有效益之處。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== 模組六：課本原版題庫實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組六：課本原版題庫實戰測驗（精選自課本 P.21～P.24）</h2>
+      <span class="tag">即測即評 ｜ 點擊選項立刻驗證觀念</span>
+    </div>
+
+    <!-- 題目 1 -->
+    <div class="quiz-item" id="q1">
+      <div class="quiz-q">1. 【課本 P.21 選擇第 2 題】在經濟學上，下列哪一項「不屬於」實體資本（生產資本）的範疇？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(1, 'A')">(A) 企業公開發行的股票</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'B')">(B) 倉庫內尚未售出的存貨</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'C')">(C) 工廠的廠房建築</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'D')">(D) 生產線上的精密機器設備</button>
+      </div>
+      <div class="quiz-explain" id="exp1">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b>經濟學所稱的實體資本（生產財）是指生產過程中所投入的<b>「人造生產工具」</b>，包括廠房、機器設備與存貨；<b>股票與債券屬於金融證券／所有權憑證</b>，並非實體生產資本。
+      </div>
+    </div>
+
+    <!-- 題目 2 -->
+    <div class="quiz-item" id="q2">
+      <div class="quiz-q">2. 【課本 P.21 選擇第 3 題】認為「利息是克制當前消費慾望所感受痛苦的補償」之利息學說為「忍慾說（等待說）」，請問該學說是由哪一位經濟學家提出？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(2, 'A')">(A) 凱因斯（J. M. Keynes）</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'B')">(B) 大克拉克（J. B. Clark）</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'C')">(C) 龐巴衛克（Böhm-Bawerk）</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'D')">(D) 辛尼爾（N. Senior）</button>
+      </div>
+      <div class="quiz-explain" id="exp2">
+        <b>✅ 正確答案：(D)</b><br>
+        <b>解析：</b><br>
+        • 忍慾說（等待說）：辛尼爾（Senior）；<br>
+        • 時間偏好說與迂迴生產說：龐巴衛克（Böhm-Bawerk）；<br>
+        • 邊際生產力說：大克拉克（Clark）；<br>
+        • 流動性偏好說：凱因斯（Keynes）。
+      </div>
+    </div>
+
+    <!-- 題目 3 -->
+    <div class="quiz-item" id="q3">
+      <div class="quiz-q">3. 【課本 P.21 選擇第 5 題觀念】以下有關利率的觀念與名詞換算，何者「錯誤」？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(3, 'A')">(A) 名目利率又稱為市場利率或貨幣利率</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'B')">(B) 利率是指使用每單位資金的價格</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'C')">(C) 年利率一厘表示年利率為 0.1%</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'D')">(D) 若名目利率為 2.8%，預期物價上漲率為 1.5%，則實質利率為 1.3%</button>
+      </div>
+      <div class="quiz-explain" id="exp3">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b><b>年利率 1 厘表示 1%</b>（1 分 ＝ 10%、1 厘 ＝ 1%、1 碼 ＝ 0.25%、半碼 ＝ 0.125%），故 (C) 寫 0.1% 為錯誤！
+      </div>
+    </div>
+
+    <!-- 題目 4 -->
+    <div class="quiz-item" id="q4">
+      <div class="quiz-q">4. 【課本 P.39 填充第 4 題計算】若某經濟體目前銀行牌告名目利率為 1.5%，而實質利率為 －2.0%，請問市場對該年的預期物價上漲率為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(4, 'A')">(A) 0.5%</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'B')">(B) 3.5%</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'C')">(C) －0.5%</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'D')">(D) －3.5%</button>
+      </div>
+      <div class="quiz-explain" id="exp4">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        根據費雪方程式：名目利率 ＝ 實質利率 ＋ 預期物價上漲率<br>
+        ➔ 1.5% ＝ －2.0% ＋ 預期物價上漲率<br>
+        ➔ 預期物價上漲率 ＝ 1.5% － (－2.0%) ＝ <b>3.5%</b>。
+      </div>
+    </div>
+
+    <!-- 題目 5 -->
+    <div class="quiz-item" id="q5">
+      <div class="quiz-q">5. 【課本 P.21 選擇第 9 題】依據凱因斯的「流動性偏好學說」，當市場利率水準愈高時，社會大眾對「投機動機」的貨幣需求量會：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(5, 'A')">(A) 愈多</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'B')">(B) 愈少</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'C')">(C) 維持不變</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'D')">(D) 先升後降</button>
+      </div>
+      <div class="quiz-explain" id="exp5">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b>投機動機所保有的現金稱為閒置餘額，其機會成本即為存款利率。當市場利率愈高（<i>i</i> ↑），將錢存在銀行所能獲取的利息愈豐厚，手中抱緊現金的代價太高，故大眾會減少投機性貨幣持有（<b><i>M<sub>d</sub></i> 愈少，呈反向減函數關係</b>）。
+      </div>
+    </div>
+
+    <!-- 題目 6 -->
+    <div class="quiz-item" id="q6">
+      <div class="quiz-q">6. 【課本 P.22 選擇第 12 題】在四大生產要素中，下列哪一項要素所獲取的報酬，「不能」以傳統邊際生產力學說（MRP）來加以解釋？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(6, 'A')">(A) 勞動的工資</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'B')">(B) 土地的地租</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'C')">(C) 資本的利息</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'D')">(D) 企業家才能的利潤</button>
+      </div>
+      <div class="quiz-explain" id="exp6">
+        <b>✅ 正確答案：(D)</b><br>
+        <b>解析：</b>工資、地租、利息的大小皆由各生產要素的邊際生產力（<i>MRP</i>）決定；然而<b>利潤是剩餘所得與不確定所得，受市場競爭結構、經營風險與動態創新等多重因素影響，無法以邊際生產力學說決定</b>！
+      </div>
+    </div>
+
+    <!-- 題目 7 -->
+    <div class="quiz-item" id="q7">
+      <div class="quiz-q">7. 【課本 P.22 選擇第 14 題】有關企業家「利潤」的特性，下列敘述何者「錯誤」？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(7, 'A')">(A) 利潤不是由邊際生產力所決定</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'B')">(B) 利潤是在生產活動完成之後才能結算決定</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'C')">(C) 利潤屬於總收益扣除成本後的剩餘所得</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'D')">(D) 利潤金額一定恆為正值</button>
+      </div>
+      <div class="quiz-explain" id="exp7">
+        <b>✅ 正確答案：(D)</b><br>
+        <b>解析：</b>工資、地租、利息依合約規定支付且恆為正數；而企業經營面對不可測之風險，總收益若不足以涵蓋生產費用，利潤即為<b>負數（經濟虧損）</b>，故<b>利潤可正、可負、亦可為零</b>，選 (D)。
+      </div>
+    </div>
+
+    <!-- 題目 8 -->
+    <div class="quiz-item" id="q8">
+      <div class="quiz-q">8. 【課本 P.24 生活情境題第 2 題】台積電領先全球同業，首度採用「5奈米極紫外光（EUV）製程技術」大批量產晶片，這在熊彼得的創新理論中屬於何種創新活動？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(8, 'A')">(A) 採用新生產方法（工藝創新）</button>
+        <button class="quiz-btn" onclick="checkQuiz(8, 'B')">(B) 生產新產品（產品創新）</button>
+        <button class="quiz-btn" onclick="checkQuiz(8, 'C')">(C) 開發新市場（市場創新）</button>
+        <button class="quiz-btn" onclick="checkQuiz(8, 'D')">(D) 形成新產業組織（組織創新）</button>
+      </div>
+      <div class="quiz-explain" id="exp8">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b>以新型 5 奈米製程代替舊有 7 奈米製程製造半導體元件，改變的是生產製造過程與工法，屬於<b>「採用新生產方法（工藝創新）」</b>。
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大圖形">
+</div>
+
+<script>
+// 測驗答案對照表
+const ANSWERS = {
+  1: 'A',
+  2: 'D',
+  3: 'C',
+  4: 'B',
+  5: 'B',
+  6: 'D',
+  7: 'D',
+  8: 'A'
+};
+
+function checkQuiz(qNum, selectedOpt) {
+  const correct = ANSWERS[qNum];
+  const explainDiv = document.getElementById('exp' + qNum);
+  explainDiv.style.display = 'block';
+  
+  const qItem = document.getElementById('q' + qNum);
+  const buttons = qItem.querySelectorAll('.quiz-btn');
+  buttons.forEach(btn => {
+    btn.style.borderColor = '#cbd5e1';
+    btn.style.background = '#fff';
+    btn.style.color = '#334155';
+  });
+
+  const selectedBtn = Array.from(buttons).find(btn => btn.innerText.includes('(' + selectedOpt + ')'));
+  if (selectedOpt === correct) {
+    if (selectedBtn) {
+      selectedBtn.style.borderColor = '#10b981';
+      selectedBtn.style.background = '#ecfdf5';
+      selectedBtn.style.color = '#065f46';
+    }
+  } else {
+    if (selectedBtn) {
+      selectedBtn.style.borderColor = '#ef4444';
+      selectedBtn.style.background = '#fef2f2';
+      selectedBtn.style.color = '#991b1b';
+    }
+    const correctBtn = Array.from(buttons).find(btn => btn.innerText.includes('(' + correct + ')'));
+    if (correctBtn) {
+      correctBtn.style.borderColor = '#10b981';
+      correctBtn.style.background = '#ecfdf5';
+      correctBtn.style.color = '#065f46';
+    }
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

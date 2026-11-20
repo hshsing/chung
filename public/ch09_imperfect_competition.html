@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH9 不完全競爭市場產量與價格的決定 ｜ 高職經濟學統測複習講義</title>
+<style>
+:root {
+  --brand: #2563eb;
+  --brand-light: #eff6ff;
+  --brand-border: #bfdbfe;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --line-gray: #e2e8f0;
+  --accent-green: #15803d;
+  --accent-green-bg: #f0fdf4;
+  --accent-amber: #b45309;
+  --accent-amber-bg: #fffbeb;
+  --accent-purple: #7e22ce;
+  --accent-purple-bg: #faf5ff;
+  --accent-red: #b91c1c;
+  --accent-red-bg: #fef2f2;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* 頂部導航列 */
+header {
+  background: #ffffff;
+  border-bottom: 2px solid var(--line-gray);
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--line-gray);
+}
+.header-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.header-btn.highlight {
+  background: #dbeafe;
+  color: var(--brand);
+  border-color: var(--brand-border);
+}
+.header-btn.highlight:hover {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* 章節副導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.subnav-btn {
+  background: #f8fafc;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.15s ease;
+}
+.subnav-btn:hover {
+  background: var(--brand-light);
+  color: var(--brand);
+  border-color: var(--brand-border);
+}
+
+/* 主容器 */
+.container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 20px;
+}
+
+/* 核心模組卡片 */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--line-gray);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+}
+.card-header {
+  border-bottom: 2px solid #dbeafe;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1e40af;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tag {
+  background: var(--brand-light);
+  color: var(--brand);
+  border: 1px solid var(--brand-border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 860px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-wrap img:hover {
+  transform: scale(1.01);
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 解說卡片 */
+.info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--brand);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 0.94rem;
+}
+.concept-box h3 {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+.concept-box p {
+  margin: 0;
+  color: #334155;
+}
+
+/* 公式與結論強調框 */
+.formula-box {
+  background: #f0f7ff;
+  border: 1.5px dashed var(--brand-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+.formula-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 4px;
+}
+.formula-math {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #eff6ff;
+}
+.highlight-cell {
+  background: #dbeafe;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+}
+.quiz-btn.correct {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+.quiz-btn.wrong {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+.quiz-explain {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #166534;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* 圖片放大 Modal */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH9 不完全競爭市場產量與價格的決定 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch08_monopoly.html" class="header-btn">⬅ 上一章：CH8 完全獨占</a>
+    <a href="ch10_distribution.html" class="header-btn highlight">下一章：CH10 分配理論 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然展開為 6 大模組） -->
+<nav class="subnav">
+  <a href="#sec-monopolistic-basics" class="subnav-btn">① 9-1 獨占性競爭特徵與短期三大損益</a>
+  <a href="#sec-monopolistic-longrun" class="subnav-btn">② 9-1-3 長期切點均衡與超額產能</a>
+  <a href="#sec-oligopoly-sweezy" class="subnav-btn">③ 9-2-1 史威吉（Sweezy）拗折需求線與缺口</a>
+  <a href="#sec-oligopoly-pricing" class="subnav-btn">④ 9-2-2 & 9-2-3 寡占訂價、競爭與勾結</a>
+  <a href="#sec-four-markets" class="subnav-btn">⑤ 9-3 評論與四大市場結構終極總表</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 模組一：9-1 獨占性競爭市場特徵與短期均衡 ==================== -->
+  <div class="card" id="sec-monopolistic-basics">
+    <div class="card-header">
+      <h2>☕ 模組一：9-1 獨占性競爭市場特徵與短期三大損益情境</h2>
+      <span class="tag">課本 9-1-1 & 9-1-2 節 ｜ 秦伯霖與羅賓遜夫人理論</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 理論源起與市場定義</h3>
+      <p>
+        不完全競爭市場理論由英國<b>羅賓遜夫人（Joan Robinson）</b>與美國<b>秦伯霖（Edward Chamberlin）</b>於 1930 年代分別獨立提出。<br>
+        <b>獨占性競爭市場（Monopolistic Competition）：</b>廠商家數眾多、進出容易，但各廠商產品具<b>差異性（異質性）</b>，兼具完全競爭與獨占之特徵（如手搖飲料店、早餐店、火鍋店、理髮美髮業）。
+      </p>
+    </div>
+
+    <!-- 需求曲線特性對照 -->
+    <div class="split-view">
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3 style="color:var(--brand);">📐 需求曲線斜率與獨占力之關係（圖 9-1）</h3>
+          <ul class="rule-list">
+            <li><b>負斜率需求線：</b>因產品具異質性，廠商對價格具些許控制力，故面對<b>負斜率</b>需求線（<i>AR</i> 線）。</li>
+            <li><b>需求線陡直（<i>D<sub>1</sub></i>）：</b>消費者對該品牌忠誠度高、對價格較不敏感（需求彈性小），廠商的<b>獨占力較大</b>。</li>
+            <li><b>需求線平坦（<i>D<sub>2</sub></i>）：</b>市場替代品眾多、消費者敏感度高（需求彈性大），廠商的<b>獨占力較小</b>。</li>
+            <li><b>【統測重要結論】：</b><br>
+              獨占性競爭廠商的需求曲線<b>比完全競爭廠商的水平線陡直</b>，但<b>比純粹獨占廠商的需求曲線平坦</b>！
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="img-wrap">
+        <img src="images/ch09/fig9_01_monopolistic_demand_slope.png" alt="圖 9-1 獨占力大與獨占力小的比較" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 9-1 獨占力大（<i>D<sub>1</sub></i> 較陡）與獨占力小（<i>D<sub>2</sub></i> 較平坦）之比較</div>
+      </div>
+    </div>
+
+    <!-- 短期三大損益對照 -->
+    <div style="margin-top:24px;">
+      <h3 style="font-size:1.05rem;color:#1e293b;margin-bottom:10px;">📊 獨占性競爭廠商短期均衡的三種情況（<i>MR</i> ＝ <i>MC</i> 決定 <i>Q*</i>）</h3>
+      <p style="font-size:0.92rem;color:#475569;margin-top:0;">與獨占廠商完全相同，廠商依 <i>MR</i> ＝ <i>MC</i> 決定產量後對應 <i>AR</i> 定價，盈虧視 <b><i>P</i>（<i>AR</i>）與平均成本 <i>AC</i> 的相對大小</b>：</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;margin:14px 0;">
+        
+        <!-- 超額利潤 -->
+        <div>
+          <div class="img-wrap">
+            <img src="images/ch09/fig9_02_short_run_supernormal.png" alt="圖 9-2 獨占性競爭短期有超額利潤" onclick="openModal(this.src)">
+            <div class="img-caption">▲ 圖 9-2 超額利潤（<i>P</i> ＞ <i>AC</i>）<br><b style="color:var(--accent-green)"><i>AR</i> 與 <i>AC</i> 相交</b></div>
+          </div>
+          <div class="formula-box" style="margin-top:8px;">
+            <div class="formula-title">條件：<i>P</i> ＝ <i>AR</i> ＞ <i>AC</i></div>
+            <p style="margin:2px 0;font-size:0.82rem;">• <i>Q*</i> 大多對應在 <i>AC</i> 遞減處<br>• 利潤 <i>π</i> ＝ 矩形 <i>P*ABC</i> ＞ 0</p>
+          </div>
+        </div>
+
+        <!-- 正常利潤 -->
+        <div>
+          <div class="img-wrap">
+            <img src="images/ch09/fig9_03_short_run_normal.png" alt="圖 9-3 獨占性競爭短期有正常利潤" onclick="openModal(this.src)">
+            <div class="img-caption">▲ 圖 9-3 正常利潤（<i>P</i> ＝ <i>AC</i>）<br><b style="color:var(--brand)"><i>AR</i> 與 <i>AC</i> 相切</b></div>
+          </div>
+          <div class="formula-box" style="margin-top:8px;">
+            <div class="formula-title">條件：<i>P</i> ＝ <i>AR</i> ＝ <i>AC</i></div>
+            <p style="margin:2px 0;font-size:0.82rem;">• 切點對應在 <i>AC</i> 遞減處<br>• 經濟利潤 <i>π</i> ＝ 0（賺正常利潤）</p>
+          </div>
+        </div>
+
+        <!-- 經濟損失 -->
+        <div>
+          <div class="img-wrap">
+            <img src="images/ch09/fig9_04_short_run_economic_loss.png" alt="圖 9-4 獨占性競爭短期有經濟損失" onclick="openModal(this.src)">
+            <div class="img-caption">▲ 圖 9-4 經濟損失（<i>P</i> ＜ <i>AC</i>）<br><b style="color:var(--accent-red)"><i>AR</i> 與 <i>AC</i> 相離</b></div>
+          </div>
+          <div class="formula-box" style="margin-top:8px;">
+            <div class="formula-title">條件：<i>P</i> ＝ <i>AR</i> ＜ <i>AC</i></div>
+            <p style="margin:2px 0;font-size:0.82rem;">• 虧損金額 ＝ 矩形 <i>CBAP*</i><br>• 去留決策同樣看 <i>P</i> 與 <i>AVC</i></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組二：9-1-3 獨占性競爭長期切點均衡與超額產能 ==================== -->
+  <div class="card" id="sec-monopolistic-longrun">
+    <div class="card-header">
+      <h2>🔄 模組二：9-1-3 獨占性競爭長期切點均衡與超額產能分析</h2>
+      <span class="tag">課本 9-1-3 節 ｜ 自由進出導致超額利潤消失</span>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：原圖裁切 -->
+      <div class="img-wrap">
+        <img src="images/ch09/fig9_05_long_run_tangency.png" alt="圖 9-5 獨占性競爭廠商長期均衡只有正常利潤" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 9-5 獨占性競爭長期均衡：<i>AR</i> 與 <i>LAC</i> 相切於遞減處（<i>A</i> 點）</div>
+      </div>
+
+      <!-- 右：解說與長短期對比 -->
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3>📌 自由進出下的長期動態調整</h3>
+          <ul class="rule-list">
+            <li><b>市場無進出障礙：</b>短期有超額利潤時，吸引新廠商湧入設立新品牌；新廠商加入瓜分客源，使原廠商的需求線 <i>AR</i> 向左下方平移，直到<b>超額利潤完全消失</b>為止。</li>
+            <li><b>長期均衡結果：廠商只有正常利潤（<i>π</i> ＝ 0）！</b></li>
+            <li><b>長期均衡三大聯立條件：</b>
+              <ol style="margin-top:4px;padding-left:18px;">
+                <li><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i>（不完全競爭特徵）</li>
+                <li><i>MR</i> ＝ <i>SMC</i> ＝ <i>LMC</i>（最適產量 <i>Q*</i>，決定在 <i>LAC</i> 遞減處）</li>
+                <li><b><i>P</i> ＝ <i>AR</i> ＝ <i>SAC</i> ＝ <i>LAC</i></b>（<i>AR</i> 線與 <i>LAC</i> 線相切於 <i>A</i> 點）</li>
+              </ol>
+            </li>
+          </ul>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">⚡ 統測必考！完全競爭 vs 獨占性競爭 長期均衡同異點</div>
+          <table class="comp-table" style="margin-top:6px;font-size:0.86rem;">
+            <thead>
+              <tr>
+                <th>比較項目</th>
+                <th>完全競爭市場</th>
+                <th>獨占性競爭市場</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>長期利潤</b></td>
+                <td class="highlight-cell">相同：<i>π</i> ＝ 0（只有正常利潤）</td>
+                <td class="highlight-cell">相同：<i>π</i> ＝ 0（只有正常利潤）</td>
+              </tr>
+              <tr>
+                <td><b>生產點位置</b></td>
+                <td>相切於 <b><i>LAC</i> 最低點</b>（谷底）</td>
+                <td>相切於 <b><i>LAC</i> 遞減處</b>（谷底左側）</td>
+              </tr>
+              <tr>
+                <td><b>產能利用</b></td>
+                <td>充分利用、生產效率最高</td>
+                <td>未達最適規模，存在<b>超額產能</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組三：9-2-1 寡占市場與史威吉拗折需求線 ==================== -->
+  <div class="card" id="sec-oligopoly-sweezy">
+    <div class="card-header">
+      <h2>🚗 模組三：9-2-1 寡占市場與史威吉（Sweezy）拗折需求曲線模型</h2>
+      <span class="tag">課本 9-2-1 節 ｜ 寡占價格僵固性的經典圖解</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 寡占市場（Oligopoly）的本質特徵：彼此牽制與高度依存</h3>
+      <p>廠商家數極少（如汽車業、電信三雄、水泥鋼鐵、油品市場），任一家廠商的價格或產量變動，都會劇烈牽動其他競爭對手的利益。因此廠商行為呈現<b>「相互牽制、相互猜忌」</b>的高敏感度反應！</p>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：解說卡片 -->
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3 style="color:#1e40af;">📌 史威吉（P. M. Sweezy）拗折需求曲線的核心假設</h3>
+          <p>1930 年代史威吉提出拗折需求線（Kinked Demand Curve）解釋寡占市場的<b>價格僵固（Sticky Prices）</b>現象：</p>
+          <ul class="rule-list">
+            <li><b>假設原市價 <i>P<sub>0</sub></i> 已知。</b></li>
+            <li><b>寡占廠商心理預期：【跟跌不跟漲】！</b>
+              <ul>
+                <li><b>不跟漲（<i>AK</i> 段）：</b>某廠商漲價（<i>P</i> ＞ <i>P<sub>0</sub></i>），其他廠商坐享其成<b>不跟隨漲價</b>，漲價廠商銷量大減，故面對<b>需求彈性大、較平坦</b>的 <i>D<sub>1</sub></i> 之 <i>AK</i> 段。</li>
+                <li><b>跟跌（<i>KD<sub>2</sub></i> 段）：</b>某廠商降價（<i>P</i> ＜ <i>P<sub>0</sub></i>），其他廠商深怕顧客被奪而<b>立刻跟進降價</b>，爆發價格戰，降價廠商銷量增加極微，故面對<b>需求彈性小、較陡直</b>的 <i>D<sub>2</sub></i> 之 <i>KD<sub>2</sub></i> 段。</li>
+              </ul>
+            </li>
+            <li><b>形成拗折點：</b>兩段需求線在現行價格 <i>P<sub>0</sub></i> 處交會於 <b><i>K</i> 點（拗折點）</b>。</li>
+          </ul>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">⚡ 邊際收益缺口（BC 段）與價格僵固性</div>
+          <p style="margin:4px 0;font-size:0.9rem;color:#334155;">
+            因為需求線在 <i>K</i> 點發生斜率驟變，對應的邊際收益線出現<b>垂直中斷不連續的垂直斷層（缺口 <i>BC</i> 段）</b>！<br>
+            <b>價格僵固性結論：</b>只要邊際成本曲線 <i>MC</i> 在此垂直缺口 <i>BC</i> 範圍內上下波動（例如要素價格微幅上漲 <i>MC<sub>1</sub> ➔ MC<sub>2</sub></i>），廠商依 <i>MR＝MC</i> 決定的最適產量 <i>Q<sub>0</sub></i> 與售價 <i>P<sub>0</sub></i> <b>完全維持不變</b>！
+          </p>
+        </div>
+
+        <div class="concept-box" style="border-left-color:var(--accent-red);background:var(--accent-red-bg);">
+          <h4 style="margin:0 0 4px;color:#991b1b;">⚠️ 史威吉模型的最大缺失</h4>
+          <p style="font-size:0.88rem;color:#334155;">史威吉模型成功解釋了為何既有價格 <i>P<sub>0</sub></i> 具有僵固性，但<b>事前預先假設了 <i>P<sub>0</sub></i> 已經存在</b>，未能解釋最初的 <i>P<sub>0</sub></i> 究竟是如何決定的，這是該模型最主要的理論限制。</p>
+        </div>
+      </div>
+
+      <!-- 右：原圖裁切 -->
+      <div class="img-wrap">
+        <img src="images/ch09/fig9_06_kinked_demand_curve.png" alt="圖 9-6 拗折需求曲線" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 9-6 史威吉拗折需求曲線（<i>AKD<sub>2</sub></i>）與邊際收益垂直缺口（<i>BC</i> 段）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組四：9-2-2 & 9-2-3 寡占訂價、競爭與勾結 ==================== -->
+  <div class="card" id="sec-oligopoly-pricing">
+    <div class="card-header">
+      <h2>🤝 模組四：9-2-2 & 9-2-3 寡占市場的訂價方法、競爭型態與勾結組織</h2>
+      <span class="tag">課本 9-2-2 & 9-2-3 節 ｜ 卡特爾與非價格競爭</span>
+    </div>
+
+    <!-- 訂價方法二大類 -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      
+      <!-- 加成訂價法 -->
+      <div class="formula-box">
+        <div class="formula-title">一、平均成本加成訂價法（Cost-Plus Pricing）</div>
+        <div class="formula-math"><i>P</i> ＝ <i>AC</i>(1 ＋ <i>r</i>)</div>
+        <p style="margin:4px 0;font-size:0.88rem;color:#334155;">
+          • <i>AC</i>：平均成本；<i>r</i>：加成百分比（利潤率）。<br>
+          • <b>【課本實例】：</b>摩斯漢堡海洋珍珠堡 <i>AC</i> ＝ 50 元，加成率 <i>r</i> ＝ 30%，則售價 <i>P</i> ＝ 50 × (1 ＋ 30%) ＝ <b>65 元</b>。
+        </p>
+      </div>
+
+      <!-- 價格領導制 -->
+      <div class="concept-box" style="border-left-color:var(--brand);">
+        <h3 style="color:var(--brand);">二、價格領導制（Price Leadership）</h3>
+        <p style="font-size:0.9rem;color:#334155;">
+          由產業內市場占有率最高、規模最大（如 Apple iPhone）或歷史最悠久的寡占大廠擔任<b>價格領導者（Price Leader）</b>定價，其餘小廠充當<b>價格跟隨者（Price Follower）</b>照單跟進，避免引起同業惡性反彈。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 三種競爭與互動方式 -->
+    <div style="margin-top:24px;">
+      <h3 style="font-size:1.05rem;color:#1e293b;margin-bottom:12px;">⚔️ 寡占廠商的三大競爭與互動方式</h3>
+
+      <div class="split-view">
+        <div class="info-wrap">
+          
+          <div class="concept-box" style="border-left-color:var(--accent-red);background:var(--accent-red-bg);">
+            <h4 style="margin:0 0 4px;color:#991b1b;">1. 價格競爭：割頸式價格競爭（Cut-throat Price Competition）</h4>
+            <p style="font-size:0.88rem;color:#334155;">
+              降價引發連鎖跟跌，廠商相互廝殺使價格跌破平均成本（<i>P</i> ＜ <i>AC</i>），兩敗俱傷。例如早年國道客運台北到台中 200元➔100元➔99元➔88元流血削價大戰。理性廠商不會長期採用此策略！
+            </p>
+          </div>
+
+          <div class="concept-box" style="border-left-color:var(--accent-green);background:var(--accent-green-bg);">
+            <h4 style="margin:0 0 4px;color:#166534;">2. 非價格競爭（主流競爭手段）</h4>
+            <p style="font-size:0.88rem;color:#334155;">
+              寡占廠商為避免兩敗俱傷，普遍改採<b>廣告行銷、產品差異化、延長保固、售後服務、會員集點兌換贈品</b>等非價格手段（如超商集點送、星宇航空全機免費無線 Wi-Fi）。
+            </p>
+          </div>
+
+          <div class="concept-box" style="border-left-color:var(--accent-amber);background:var(--accent-amber-bg);">
+            <h4 style="margin:0 0 4px;color:#9a3412;">3. 勾結（Collusion）與卡特爾組織（Cartel）</h4>
+            <ul class="rule-list" style="margin-top:4px;">
+              <li><b>公開有形勾結（卡特爾 Cartel）：</b>廠商公開聯合達成數量分配與統一價格協議，追求<b>聯合利潤極大化</b>（如 1960 年成立之 OPEC 石油輸出國組織）。</li>
+              <li><b>卡特爾瓦解的根源：【廠商存在欺騙誘因】！</b>廠商只要私下偷偷增產降價就能謀取暴利，導致相互背叛，勾結易於瓦解（如台灣四面板廠遭歐盟指控托拉斯壟斷，三星招供當「抓耙子」獲免罰）。各國均立法嚴禁（我國公平交易法、美國反托拉斯法）。</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- 右：課本 7-11 集點圖 -->
+        <div class="img-wrap">
+          <img src="images/ch09/fig9_07_non_price_competition.png" alt="圖 9-7 7-11推出集點活動" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 9-7 寡占廠商非價格競爭之經典案例：連鎖便利商店消費滿額集點送贈品活動</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組五：9-3 評論與四大市場結構終極總表 ==================== -->
+  <div class="card" id="sec-four-markets">
+    <div class="card-header">
+      <h2>🏛️ 模組五：9-3 不完全競爭市場評論與四大市場結構終極全景總表</h2>
+      <span class="tag">課本 9-3 節 & P.253 總結 ｜ 統測微觀經濟學最高精華表</span>
+    </div>
+
+    <!-- 原版課本四市場大表 -->
+    <div class="img-wrap" style="max-width: 720px; margin: 16px auto 20px;">
+      <img src="images/ch09/table9_01_four_markets_comparison.png" alt="表：四種產品市場廠商的比較" onclick="openModal(this.src)">
+      <div class="img-caption">▲ 課本 P.253 四大市場結構（完全競爭、獨占性競爭、寡占、獨占）全方位特徵重點總結表</div>
+    </div>
+
+    <!-- 核心考點速查文字表 -->
+    <h3 style="font-size:1.05rem;color:#1e293b;margin-bottom:8px;">⚡ 統測跨章總複習：四大市場結構必考指標矩陣</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>市場結構</th>
+          <th>廠商需求線（AR）</th>
+          <th>短期均衡條件</th>
+          <th>長期均衡條件與利潤</th>
+          <th>生產與配置效率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>完全競爭</b></td>
+          <td>水平線（<i>P</i> ＝ <i>AR</i> ＝ <i>MR</i>）</td>
+          <td><i>P</i> ＝ <i>MR</i> ＝ <i>MC</i></td>
+          <td><i>P</i> ＝ <i>MR</i> ＝ <i>MC</i> ＝ <b>min <i>LAC</i></b><br><b>利潤 <i>π</i> ＝ 0</b></td>
+          <td>效率最高（<i>P</i> ＝ min <i>LAC</i>，<i>P</i> ＝ <i>MC</i>，無無謂損失）</td>
+        </tr>
+        <tr>
+          <td><b>獨占性競爭</b></td>
+          <td>負斜率直線（較平坦，<i>AR</i> ＞ <i>MR</i>）</td>
+          <td><i>MR</i> ＝ <i>MC</i></td>
+          <td><i>MR</i> ＝ <i>LMC</i>，<i>P</i> ＝ <b><i>LAC</i> 遞減處</b><br><b>利潤 <i>π</i> ＝ 0</b></td>
+          <td>效率較差（有超額產能，<i>P</i> ＞ <i>MC</i> 有無謂損失）</td>
+        </tr>
+        <tr>
+          <td><b>寡占</b></td>
+          <td><b>拗折需求線</b>（跟跌不跟漲，MR缺口）</td>
+          <td><i>MR</i> ＝ <i>MC</i>（缺口內價格僵固）</td>
+          <td>進入障礙高<br><b>利潤 <i>π</i> ≥ 0</b></td>
+          <td>效率較差（過度投入非價格競爭與廣告浪費）</td>
+        </tr>
+        <tr>
+          <td><b>獨占</b></td>
+          <td>負斜率直線（較陡直，<i>AR</i> ＞ <i>MR</i>）</td>
+          <td><i>MR</i> ＝ <i>MC</i></td>
+          <td><i>MR</i> ＝ <i>LMC</i>，<i>P</i> ≥ <i>LAC</i><br><b>利潤 <i>π</i> ≥ 0</b></td>
+          <td>效率最差（超額產能、無謂損失最大、X-無效率、尋租）</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <!-- ==================== 模組六：課本原題測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 課本原版題庫實戰測驗（精選自課本 P.254～P.256）</h2>
+      <span class="tag">即測即評 ｜ 點擊選項立刻驗證觀念</span>
+    </div>
+
+    <!-- 題目 1 -->
+    <div class="quiz-item" id="q1">
+      <div class="quiz-q">1. 【課本 P.254 選擇第 1 題】不完全競爭市場理論是由羅賓遜夫人（Joan Robinson）與下列哪一位經濟學者所共同提出？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(1, 'A')">(A) 秦伯霖（Chamberlin）</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'B')">(B) 皮古（Pigou）</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'C')">(C) 史威吉（Sweezy）</button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'D')">(D) 李嘉圖（Ricardo）</button>
+      </div>
+      <div class="quiz-explain" id="exp1">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b>不完全競爭市場理論是由英國的羅賓遜夫人與美國的秦伯霖於 1933 年分別提出；史威吉（Sweezy）提出的是寡占市場的「拗折需求曲線模型」。
+      </div>
+    </div>
+
+    <!-- 題目 2 -->
+    <div class="quiz-item" id="q2">
+      <div class="quiz-q">2. 【課本 P.254 選擇第 8 題】在獨占性競爭市場中，廠商的長期均衡是當 <i>MR</i> ＝ <i>SMC</i> ＝ <i>LMC</i> 時，且滿足下列何種關係？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(2, 'A')">(A) <i>P</i> ＞ <i>LAC</i> 之最低點</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'B')">(B) <i>P</i> ＝ <i>LAC</i> 之最低點</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'C')">(C) <i>P</i> ＜ <i>LAC</i> 之最低點</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'D')">(D) <i>P</i> ＝ <i>LAC</i> 遞減處</button>
+      </div>
+      <div class="quiz-explain" id="exp2">
+        <b>✅ 正確答案：(D)</b><br>
+        <b>解析：</b>獨占性競爭廠商在長期由於自由進出，超額利潤為 0（<i>P</i> ＝ <i>LAC</i>）。但因面對負斜率需求線，相切點必然落在 <b><i>LAC</i> 曲線的遞減階段</b>，而非 <i>LAC</i> 的最低點（此即超額產能的由來）。選項 B 為完全競爭市場的長期均衡。
+      </div>
+    </div>
+
+    <!-- 題目 3 -->
+    <div class="quiz-item" id="q3">
+      <div class="quiz-q">3. 【課本 P.254 選擇第 10 題】史威吉的拗折需求曲線模型係假設寡占市場中，某一廠商若變動價格時，其他廠商的反應為：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(3, 'A')">(A) 完全跟進</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'B')">(B) 完全不跟進</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'C')">(C) 跟漲不跟跌</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'D')">(D) 跟跌不跟漲</button>
+      </div>
+      <div class="quiz-explain" id="exp3">
+        <b>✅ 正確答案：(D)</b><br>
+        <b>解析：</b>史威吉拗折需求線鐵律為<b>「跟跌不跟漲」</b>：廠商漲價對手不跟進（彈性大較平坦）；廠商降價對手立刻跟進（彈性小較陡直），因而形成轉折點與邊際收益垂直斷層。
+      </div>
+    </div>
+
+    <!-- 題目 4 -->
+    <div class="quiz-item" id="q4">
+      <div class="quiz-q">4. 【課本 P.256 生活情境第 2 題】摩斯漢堡推出「海洋珍珠堡」，已知每個漢堡的平均成本為 50 元，加成百分比為 30%，則其預估的可能售價為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(4, 'A')">(A) 55 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'B')">(B) 65 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'C')">(C) 80 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'D')">(D) 95 元</button>
+      </div>
+      <div class="quiz-explain" id="exp4">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        由平均成本加成訂價法公式：<br>
+        <i>P</i> ＝ <i>AC</i>(1 ＋ <i>r</i>) ＝ 50 × (1 ＋ 30%) ＝ 50 × 1.3 ＝ <b>65 元</b>。
+      </div>
+    </div>
+
+    <!-- 題目 5 -->
+    <div class="quiz-item" id="q5">
+      <div class="quiz-q">5. 【課本 P.255 選擇第 17 題】寡占廠商組成的卡特爾（Cartel）公開勾結組織，在實務上往往無法長期持續維持，最主要的原因為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(5, 'A')">(A) 沒有廠商有欺騙的誘因</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'B')">(B) 消費者集體抵制卡特爾</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'C')">(C) 成員廠商普遍存在私下增產欺騙的誘因</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'D')">(D) 其他新廠商無法加入卡特爾組織</button>
+      </div>
+      <div class="quiz-explain" id="exp5">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b>卡特爾協議中，只要其他成員遵守配額限產，個別成員廠商私下偷跑超額增產便能賺取鉅額暴利，因此<b>「成員廠商普遍存在欺騙的誘因」</b>。一旦發生欺騙行為，信任破裂價格戰再起，勾結同盟便迅速瓦解。
+      </div>
+    </div>
+
+    <!-- 題目 6 -->
+    <div class="quiz-item" id="q6">
+      <div class="quiz-q">6. 【課本 P.249 單元練習 9-2 圖解題】下圖為某寡占廠商所面對的拗折需求曲線與邊際收益線，試問廠商應將價格訂為多少，才能賺取最大利潤？且哪一段代表對手「跟跌」時所面對的需求曲線？</div>
+      <div style="text-align:center;margin:12px 0;">
+        <img src="images/ch09/fig9_08_kinked_exercise.png" alt="寡占拗折需求曲線題圖" style="max-width:320px;border-radius:8px;border:1px solid #cbd5e1;cursor:zoom-in;" onclick="openModal(this.src)">
+      </div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(6, 'A')">(A) 價格訂為 32 元；跟跌段為 AK 段</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'B')">(B) 價格訂為 28 元；跟跌段為 KF 段</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'C')">(C) 價格訂為 26 元；跟跌段為 AG 段</button>
+        <button class="quiz-btn" onclick="checkQuiz(6, 'D')">(D) 價格訂為 24 元；跟跌段為 GH 段</button>
+      </div>
+      <div class="quiz-explain" id="exp6">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        ① 邊際成本曲線 <i>MC</i> 通過 <i>MR</i> 垂直斷層缺口處，對應的最適產量為轉折點 <i>K</i> 點產量，售價由需求線決定為 <b>28 元</b>。<br>
+        ② 廠商降價時對手跟進降價（跟跌），使得銷量增加有限，面對需求彈性小（較陡直）的需求線，即 <i>K</i> 點下方的 <b><i>KF</i> 段</b>（<i>AK</i> 段則為不跟漲段）。
+      </div>
+    </div>
+
+    <!-- 題目 7 -->
+    <div class="quiz-item" id="q7">
+      <div class="quiz-q">7. 【課本 P.256 應用題第 1 題】下圖為某一獨占性競爭廠商的成本收益圖，求利潤最大時的最適產量 <i>Q*</i>、最適售價 <i>P*</i> 與利潤 <i>π</i> 分別為多少？</div>
+      <div style="text-align:center;margin:12px 0;">
+        <img src="images/ch09/fig9_09_monopolistic_exercise.png" alt="獨占性競爭成本收益圖" style="max-width:320px;border-radius:8px;border:1px solid #cbd5e1;cursor:zoom-in;" onclick="openModal(this.src)">
+      </div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(7, 'A')">(A) <i>Q*</i> ＝ 30，<i>P*</i> ＝ 10 元，<i>π</i> ＝ 90 元（超額利潤）</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'B')">(B) <i>Q*</i> ＝ 30，<i>P*</i> ＝ 6 元，<i>π</i> ＝ 0 元（正常利潤）</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'C')">(C) <i>Q*</i> ＝ 45，<i>P*</i> ＝ 10 元，<i>π</i> ＝ 135 元（超額利潤）</button>
+        <button class="quiz-btn" onclick="checkQuiz(7, 'D')">(D) <i>Q*</i> ＝ 30，<i>P*</i> ＝ 7 元，<i>π</i> ＝ －30 元（經濟損失）</button>
+      </div>
+      <div class="quiz-explain" id="exp7">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b><br>
+        ① 最適產量：由 <i>MR</i> ＝ <i>MC</i> 交點向下對應橫軸，得 <b><i>Q*</i> ＝ 30</b>。<br>
+        ② 最適價格：由 <i>Q*</i> ＝ 30 垂直向上對應到需求線 <i>AR</i>，得 <b><i>P*</i> ＝ 10 元</b>。<br>
+        ③ 利潤計算：在 <i>Q*</i> ＝ 30 處平均成本 <i>AC</i> ＝ 7 元。故利潤 <b><i>π</i> ＝ (<i>P*</i> － <i>AC</i>) × <i>Q*</i> ＝ (10 － 7) × 30 ＝ 90 元 ＞ 0</b>，廠商享有超額利潤！
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 圖片 Modal -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大圖形">
+</div>
+
+<script>
+// 測驗檢查腳本
+const ANSWERS = {
+  1: 'A',
+  2: 'D',
+  3: 'D',
+  4: 'B',
+  5: 'C',
+  6: 'B',
+  7: 'A'
+};
+
+function checkQuiz(qNum, selected) {
+  const qDiv = document.getElementById('q' + qNum);
+  const btns = qDiv.querySelectorAll('.quiz-btn');
+  const correct = ANSWERS[qNum];
+
+  btns.forEach(btn => {
+    btn.classList.remove('correct', 'wrong');
+    const opt = btn.textContent.trim().substring(1, 2);
+    if (opt === correct) {
+      btn.classList.add('correct');
+    } else if (opt === selected && selected !== correct) {
+      btn.classList.add('wrong');
+    }
+  });
+
+  document.getElementById('exp' + qNum).style.display = 'block';
+}
+
+// 圖片 Lightbox Modal
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

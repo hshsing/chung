@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH7 完全競爭市場產量與價格的決定 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #16a34a;
+  --brand-light: #dcfce7;
+  --line-green: #bbf7d0;
+  --line-gray: #e2e8f0;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+}
+
+/* 頂部固定 Header */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.header-btn:hover {
+  background: #e2e8f0;
+}
+.header-btn.highlight {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+/* 模組快速導覽次導航列 */
+.subnav {
+  background: #fff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  position: sticky;
+  top: 59px;
+  z-index: 90;
+}
+.subnav-btn {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.subnav-btn:hover {
+  color: var(--brand);
+  border-color: var(--line-green);
+  background: var(--brand-light);
+}
+
+.container {
+  max-width: 1060px;
+  margin: 28px auto 80px;
+  padding: 0 20px;
+}
+
+/* 核心大卡片模組 */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--line-gray);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 重點公式 / 鐵則方框 */
+.formula-box {
+  background: #f0fdf4;
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.math-formula {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #f0fdf4;
+}
+.highlight-cell {
+  background: #dcfce7;
+  font-weight: 700;
+  color: #15803d;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-ans {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH7 完全競爭市場產量與價格 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch06_market_revenue.html" class="header-btn">⬅ 上一章：CH6 市場與收益</a>
+    <a href="ch08_monopoly.html" class="header-btn">下一章：CH8 獨占市場 ➔</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本 6 大主題自然展開） -->
+<nav class="subnav">
+  <a href="#sec-equilibrium-rule" class="subnav-btn">① 廠商均衡條件 MR=MC</a>
+  <a href="#sec-three-profit" class="subnav-btn">② 短期三大損益情境</a>
+  <a href="#sec-shutdown" class="subnav-btn">③ 虧損去留與歇業點</a>
+  <a href="#sec-supply-curve" class="subnav-btn">④ 短期供給曲線導出</a>
+  <a href="#sec-long-run" class="subnav-btn">⑤ 長期均衡與七位一體</a>
+  <a href="#sec-comment" class="subnav-btn">⑥ 完全競爭評論與福利</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 重點一：廠商均衡條件與邊際分析法 ==================== -->
+  <div class="card" id="sec-equilibrium-rule">
+    <div class="card-header">
+      <h2>⚖️ 重點一：廠商短期均衡條件與邊際分析法</h2>
+      <span class="tag">課本 7-1-1 節 ｜ 利潤極大化黃金法則</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 最適產量決策 —— 邊際分析法（Marginal Analysis）：</h4>
+        <ul class="rule-list">
+          <li>若 <b><i>MR</i> ＞ <i>MC</i></b>：每多賣一單位所增加的收益大於增加的成本，增產有利可圖 ➔ <b>廠商應擴大生產（增加 Q）</b>！</li>
+          <li>若 <b><i>MR</i> ＜ <i>MC</i></b>：每多賣一單位所增加的成本超過增加的收益，增產造成損失 ➔ <b>廠商應縮減生產（減少 Q）</b>！</li>
+          <li>若 <b><i>MR</i> ＝ <i>MC</i></b>：多生產既不增加利益也不增加損失，<b>廠商利潤達到最大（或虧損最小）！</b></li>
+        </ul>
+
+        <div class="formula-box">
+          🌟 <b>完全競爭廠商短期均衡條件：</b><br>
+          因完全競爭個別廠商為價格接受者（<i>P ＝ MR</i>），故利潤極大均衡條件為：
+          <div class="math-formula">
+            <b><i>P</i> ＝ <i>MR</i> ＝ <i>MC</i></b> ； 且 <b><i>MC</i> 線處於上升階段</b>！
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch07/fig7_01_profit_maximizing_q.png" alt="利潤最大產量" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.199 圖 7-1：邊際分析法決定最適產量 Q*（P = MR = MC）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點二：完全競爭廠商短期均衡的三種損益情境 ==================== -->
+  <div class="card" id="sec-three-profit">
+    <div class="card-header">
+      <h2>📊 重點二：短期均衡的三種損益情形（超額利潤、正常利潤、經濟損失）</h2>
+      <span class="tag">課本 7-1-2 節 ｜ 比較 P 與 AC</span>
+    </div>
+
+    <div class="formula-box">
+      🔍 <b>賺錢或虧錢的判定鐵則：比較「價格 P」與「平均成本 AC」！</b><br>
+      每單位利潤 ＝ <i>P</i> － <i>AC</i> ； 總經濟利潤 π ＝ (<i>P</i> － <i>AC</i>) × <i>Q*</i>
+    </div>
+
+    <!-- 三大情境原圖對照 -->
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_02_supernormal_profit.png" alt="超額利潤" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 7-2：超額利潤（P ＝ AR ＞ AC，π ＞ 0）</div>
+      </div>
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">情境一：享有超額利潤（<i>P ＞ AC</i>，π ＞ 0）</h4>
+        <ul class="rule-list">
+          <li><b>條件：</b> 市場價格 <i>P</i> 高於均衡產量時的平均成本 <i>AC</i>。</li>
+          <li><b>利潤幾何面積：</b> 矩形面積 (<i>P*</i> － <i>AC</i>) × <i>Q*</i> ＞ 0。</li>
+          <li><b>經濟意義：</b> 廠商賺取超出所有機會成本的超額利潤，長期將吸引新廠商加入市場！</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split-view" style="margin-top:20px">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_03_normal_profit.png" alt="正常利潤" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 7-3：正常利潤（P ＝ AR ＝ AC 最低點，π ＝ 0）</div>
+      </div>
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">情境二：只有正常利潤（<i>P ＝ AC</i>，π ＝ 0）</h4>
+        <ul class="rule-list">
+          <li><b>條件：</b> 水平價格線剛好相切於 <b><i>AC</i> 曲線的最低點</b>！</li>
+          <li><b>別稱：</b> <span class="highlight-cell">收支平衡點（損益兩平點 Break-even Point）</span>。</li>
+          <li><b>經濟意義：</b> 經濟利潤 π ＝ 0，廠商剛好賺得留在本業的最低報酬（內含成本），無人想進也無人想出。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="split-view" style="margin-top:20px">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_04_economic_loss.png" alt="經濟損失" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 7-4：經濟損失（P ＝ AR ＜ AC，π ＜ 0）</div>
+      </div>
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">情境三：發生經濟損失（<i>P ＜ AC</i>，π ＜ 0）</h4>
+        <ul class="rule-list">
+          <li><b>條件：</b> 市場價格 <i>P</i> 低於均衡產量時的平均成本 <i>AC</i>。</li>
+          <li><b>虧損幾何面積：</b> 矩形面積 (<i>AC</i> － <i>P*</i>) × <i>Q*</i>。</li>
+          <li><b>經濟意義：</b> 廠商發生虧損，此時面臨<b>「究竟該繼續營業還是立即停工」</b>的關鍵抉擇！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點三：完全競爭廠商發生虧損時的決策 ==================== -->
+  <div class="card" id="sec-shutdown">
+    <div class="card-header">
+      <h2>🛑 重點三：虧損時的去留決策 ＆ 短期歇業點（關廠點）</h2>
+      <span class="tag">課本 7-1-3 節 ｜ 比較 P 與 AVC</span>
+    </div>
+
+    <div class="formula-box">
+      ⚡ <b>虧損時「停工 vs 繼續生產」的決定鐵則：比較「價格 P」與「平均變動成本 AVC」！</b><br>
+      • 若立即停工（<i>Q ＝ 0</i>）：廠商仍必須全額負擔<b>總固定成本 TFC</b>（如廠房折舊、租金）。<br>
+      • 若繼續生產：只要收入除了付變動成本（材料人工）之外，<b>還能多少補貼一點固定成本</b>，就應繼續生產！
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>價格（P）與成本關係</th>
+          <th>營業虧損 vs 固定成本（TFC）</th>
+          <th>廠商決策</th>
+          <th>代表意義與實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell"><b><i>AVC</i> ＜ <i>P</i> ＜ <i>AC</i></b></td>
+          <td><b>營業虧損 ＜ <i>TFC</i></b></td>
+          <td><b>繼續生產！</b></td>
+          <td>收入能支付全部變動成本，還能補貼一部分房租，比關門停工虧得少！</td>
+        </tr>
+        <tr style="background:#fef2f2">
+          <td class="highlight-cell" style="background:#fee2e2;color:#991b1b"><b><i>P</i> ＝ <i>AVC</i> 最低點</b></td>
+          <td><b>營業虧損 ＝ <i>TFC</i></b></td>
+          <td><b>繼續生產或停工皆可！</b></td>
+          <td><b>🌟 短期歇業點（關廠點 Shutdown Point）！</b>收入剛好只夠付變動成本，生不生產都虧固定成本。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell"><b><i>P</i> ＜ <i>AVC</i></b></td>
+          <td><b>營業虧損 ＞ <i>TFC</i></b></td>
+          <td><b>立即停工（歇業）！</b></td>
+          <td>賣一杯賠一杯，連買原料發工資都不夠，多生產虧更多，<b>理智廠商立即關門（Q＝0）</b>！</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="split-view" style="margin-top:20px">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_06_shutdown_point.png" alt="短期歇業點" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.204 圖 7-6：P ＝ AVC 最低點（A 點為短期歇業點）</div>
+      </div>
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">兩大重要臨界點統測對照：</h4>
+        <ul class="rule-list">
+          <li><b>收支平衡點（損益兩平點）：</b> <i>P</i> ＝ <b><i>AC</i> 最低點</b>（經濟利潤 π ＝ 0）。</li>
+          <li><b>短期歇業點（關閉點/停工點）：</b> <i>P</i> ＝ <b><i>AVC</i> 最低點</b>（生產虧損 ＝ 固定成本 TFC）。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點四：完全競爭廠商的短期供給曲線 ==================== -->
+  <div class="card" id="sec-supply-curve">
+    <div class="card-header">
+      <h2>📈 重點四：完全競爭廠商之短期供給曲線導出</h2>
+      <span class="tag">課本 7-1-4 節 ｜ MC 與供給線之幾何本質</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_08_short_run_supply_curve.png" alt="完全競爭短期供給曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.207 圖 7-8：完全競爭廠商短期供給曲線（歇業點以上之 MC 曲線段）</div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          📐 <b>完全競爭廠商短期供給曲線定義：</b><br>
+          廠商在追求利潤最大（<i>P ＝ MC</i>）原則下，不同價格所對應的最佳供給量軌跡：
+          <div class="math-formula">
+            個別廠商短期供給線 ＝ <b>大於或等於最低 <i>AVC</i> 的 <i>MC</i> 曲線段</b>！
+          </div>
+        </div>
+
+        <ul class="rule-list">
+          <li><b>當 <i>P</i> ≧ <i>AVC</i> 最低點時：</b> 廠商依 <i>P ＝ MC</i> 進行生產，供給曲線即為 <b><i>MC</i> 線高於歇業點的上升段</b>！</li>
+          <li><b>當 <i>P</i> ＜ <i>AVC</i> 最低點時：</b> 廠商選擇歇業停工，產量 <i>Q</i> ＝ 0（垂直於縱軸之原點線段）。</li>
+          <li><b>產業市場供給線：</b> 將市場上所有個別廠商的短期供給曲線<b>「水平加總（ΣQ）」</b>而成！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點五：完全競爭廠商的長期均衡 ==================== -->
+  <div class="card" id="sec-long-run">
+    <div class="card-header">
+      <h2>⏳ 重點五：長期均衡的調整過程與「七位一體」條件</h2>
+      <span class="tag">課本 7-2 節 ｜ 自由進退機制的終極均衡</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_09_long_run_adjustment.png" alt="長期均衡調整過程" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.208 圖 7-9：自由進退使市場供需調整，直到超額利潤與虧損全數消失</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 長期動態調整機制（完全自由進退）：</h4>
+        <ul class="rule-list">
+          <li><b>若短期有超額利潤（π ＞ 0）：</b> 吸引新廠商爭相湧入 ➔ 市場總供給增加（S 線右移） ➔ <b>市場價格下跌</b> ➔ 直到超額利潤全數消失（π ＝ 0）為止！</li>
+          <li><b>若短期有經濟虧損（π ＜ 0）：</b> 體質不良廠商陸續停業退出 ➔ 市場總供給減少（S 線左移） ➔ <b>市場價格回升</b> ➔ 直到所有虧損全數消除（π ＝ 0）為止！</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 七位一體公式 -->
+    <div class="split-view" style="margin-top:20px">
+      <div class="img-wrap">
+        <img src="images/ch07/fig7_10_long_run_equilibrium.png" alt="長期均衡圖" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.209 圖 7-10：完全競爭廠商之長期均衡（七位一體與 LAC 最低點）</div>
+      </div>
+
+      <div>
+        <div class="formula-box" style="background:#eff6ff;border-left-color:#2563eb">
+          🌟 <b>【統測終極考點】完全競爭長期均衡「七位一體」條件：</b>
+          <div class="math-formula" style="color:#1d4ed8;font-size:1rem">
+            <b><i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>SMC</i> ＝ <i>SAC</i> ＝ <i>LMC</i> ＝ <i>LAC</i> 最低點</b>
+          </div>
+        </div>
+
+        <ul class="rule-list">
+          <li><b>長期利潤狀態：</b> 廠商<b>只能賺取「正常利潤」（經濟利潤 π ＝ 0）</b>！</li>
+          <li><b>最高生產效率：</b> 生產點恰好落在<b>長期平均成本 LAC 曲線的最低點</b>，無產能過剩或浪費！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點六：完全競爭市場之評論與福利意涵 ==================== -->
+  <div class="card" id="sec-comment">
+    <div class="card-header">
+      <h2>🏆 重點六：完全競爭市場之評價與經濟福利</h2>
+      <span class="tag">課本 7-3 節 ｜ 福利經濟學典範</span>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>評價面向</th>
+          <th>主要特徵與優缺點</th>
+          <th>經濟學學理原因</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">優點一：生產效率最高</td>
+          <td>長期均衡在 <b><i>LAC</i> 最低點</b>生產。</td>
+          <td>以全社會最低的生產成本提供產品，毫無資源閒置浪費。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">優點二：配置效率最高</td>
+          <td>實現 <b><i>P</i> ＝ <i>MC</i></b>。</td>
+          <td>消費者支付的價格等於生產者多產一單位的機會成本，<b>無無謂損失（Deadweight Loss）</b>！</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">優點三：社會福利最大</td>
+          <td><b>社會總福利（<i>CS</i> ＋ <i>PS</i>）達到歷史最高峰</b>。</td>
+          <td>消費者以最低價格購買最多商品，消費者剩餘與生產者剩餘總和極大。</td>
+        </tr>
+        <tr>
+          <td style="background:#fff1f2;color:#be123c">缺點一：產品缺乏多樣性</td>
+          <td>產品完全同質無差異。</td>
+          <td>無法滿足消費者追求個性化、多樣化的生活偏好。</td>
+        </tr>
+        <tr>
+          <td style="background:#fff1f2;color:#be123c">缺點二：缺乏研發創新動力</td>
+          <td>長期經濟利潤為 0，且技術易被模仿。</td>
+          <td>個別廠商規模小、無超額利潤，難以投入大型研發創新。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 模組七：課本精選實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組七：CH7 課本精選 5 大經典實戰測驗</h2>
+      <span class="tag">課本 P.212～215 原題驗證</span>
+    </div>
+
+    <!-- 題 1：短期均衡條件 -->
+    <div class="quiz-item">
+      <div class="quiz-q">1. 【課本 P.212 第 3 題】完全競爭廠商追求短期利潤極大化或虧損最小化的均衡條件為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(A) P ＝ AVC</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(B) P ＝ AC</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, true)">(C) P ＝ MC</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(D) AC 達到最低點</button>
+      </div>
+      <div class="quiz-ans" id="ans-1">
+        🎉 <b>答對了！選 (C)</b><br>
+        所有廠商追求利潤極大的通則是 <i>MR ＝ MC</i>。因完全競爭廠商面對水平需求線，<i>P ＝ MR</i>，因此短期均衡條件簡化為 <b><i>P ＝ MC</i></b>！
+      </div>
+    </div>
+
+    <!-- 題 2：短期歇業點判斷 -->
+    <div class="quiz-item">
+      <div class="quiz-q">2. 【課本 P.212 第 7 題】完全競爭廠商的「短期歇業點（關廠點）」，是指市場價格 P 剛好等於下列何者之最低點？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(A) AC 最低點</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, true)">(B) AVC 最低點</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(C) MC 最低點</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(D) AFC 最低點</button>
+      </div>
+      <div class="quiz-ans" id="ans-2">
+        🎉 <b>答對了！選 (B)</b><br>
+        當市價 <b><i>P ＝ AVC</i> 最低點</b>時，廠商營業收入剛好只夠付變動成本，營業虧損恰好等於總固定成本 TFC，繼續生產或歇業停工皆可，此點稱為<b>短期歇業點（關廠點）</b>！
+      </div>
+    </div>
+
+    <!-- 題 3：虧損時若 P > AVC -->
+    <div class="quiz-item">
+      <div class="quiz-q">3. 【課本 P.212 第 8 題】完全競爭廠商若在短期面臨經濟虧損（P ＜ AC），則在下列何種情況下，廠商「仍應繼續營業生產」較為有利？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(A) 只要虧損就應立即結束營業</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(B) 若 P ＞ AFC，仍應繼續營業</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, true)">(C) 若 P ＞ AVC，仍應繼續營業</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(D) 必須等到 P ＞ AC 才能營業</button>
+      </div>
+      <div class="quiz-ans" id="ans-3">
+        🎉 <b>答對了！選 (C)</b><br>
+        只要 <b><i>P ＞ AVC</i></b>，表示營業收入除了全數支付變動成本外，還能彌補部分固定成本，此時「營業虧損 ＜ 固定成本 TFC」，比直接關廠停工（虧全額 TFC）損失更少，故<b>應繼續營業</b>！
+      </div>
+    </div>
+
+    <!-- 題 4：長期均衡只有正常利潤之成因 -->
+    <div class="quiz-item">
+      <div class="quiz-q">4. 【課本 P.213 第 9 題】在完全競爭市場下，廠商達到長期均衡時最終「只能獲得正常利潤（無超額利潤）」，其最關鍵的決定因素為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 4, true)">(A) 廠商可完全自由進出市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(B) 市場存在強大進入障礙</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(C) 邊際收益等於邊際成本</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(D) 價格等於平均收益</button>
+      </div>
+      <div class="quiz-ans" id="ans-4">
+        🎉 <b>答對了！選 (A)</b><br>
+        因為完全競爭市場<b>「進出完全自由、無任何障礙」</b>。有超額利潤時新廠商會不斷湧入促使價格下跌；有虧損時廠商會退出促使價格回升，最後價格必降至 LAC 最低點，所有廠商剛好只賺得<b>正常利潤（π ＝ 0）</b>！
+      </div>
+    </div>
+
+    <!-- 題 5：生活情境題 紅茶店歇業決策 -->
+    <div class="quiz-item">
+      <div class="quiz-q">5. 【課本 P.214 生活情境第 2 題】小康經營紅茶店，每月固定房租 1 萬元，變動成本為 3 萬元（原料 5 千 ＋ 員工薪水 2.5 萬），每月產銷 1,000 杯紅茶（平均變動成本 AVC ＝ 30 元，平均成本 AC ＝ 40 元）。若目前紅茶市價跌至每杯 35 元，請幫小康判斷短期應如何決策？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(A) 立即停業關廠，以免虧損擴大</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, true)">(B) 繼續營業生產，因為 P ＞ AVC（虧損小於固定成本）</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(C) 繼續生產或停工虧損完全相同</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(D) 提高售價至 50 元</button>
+      </div>
+      <div class="quiz-ans" id="ans-5">
+        🎉 <b>答對了！選 (B)</b><br>
+        • 市價 <i>P</i> ＝ 35 元，低於 <i>AC</i> (40 元) 但高於 <i>AVC</i> (30 元)。<br>
+        • 若繼續營業：每月總收入 35,000 元，總成本 40,000 元，<b>虧損 5,000 元</b>。<br>
+        • 若直接關廠停業：必須全額負擔房租固定成本，<b>虧損 10,000 元</b>！<br>
+        ➔ 繼續營業比關廠少賠 5,000 元，故<b>應選擇繼續營業生產</b>！
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 燈箱視窗 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大原圖" />
+</div>
+
+<script>
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const img = document.getElementById('modal-img');
+  img.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+function checkAns(btn, qId, isCorrect) {
+  const ansBox = document.getElementById('ans-' + qId);
+  ansBox.style.display = 'block';
+  if (isCorrect) {
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#059669';
+  } else {
+    btn.style.background = '#f87171';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#dc2626';
+    alert('觀念有點混淆囉！請看下方綠色即時解析～');
+  }
+}
+</script>
+
+</body>
+</html>

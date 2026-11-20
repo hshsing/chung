@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH3 消費行為理論 ｜ 統測旗艦複習講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #e11d48;
+  --brand-light: #ffe4e6;
+  --line-rose: #fecdd3;
+  --line-gray: #e2e8f0;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+}
+
+/* 頂部固定 Header */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.header-btn:hover {
+  background: #e2e8f0;
+}
+.header-btn.highlight {
+  background: #fff1f2;
+  color: #be123c;
+  border-color: #fecdd3;
+}
+
+/* 模組快速導覽次導航列 */
+.subnav {
+  background: #fff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  position: sticky;
+  top: 59px;
+  z-index: 90;
+}
+.subnav-btn {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.subnav-btn:hover {
+  color: var(--brand);
+  border-color: var(--line-rose);
+  background: var(--brand-light);
+}
+
+.container {
+  max-width: 1060px;
+  margin: 28px auto 80px;
+  padding: 0 20px;
+}
+
+/* 核心大卡片模組 */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--line-gray);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖（圖片 ＋ 重點解說） */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 重點公式 / 鐵則方框 */
+.formula-box {
+  background: #fff1f2;
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.math-formula {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #fdf2f8;
+}
+.highlight-cell {
+  background: #fff1f2;
+  font-weight: 700;
+  color: #be123c;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-ans {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH3 消費行為理論 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch02_elasticity.html" class="header-btn">⬅ CH2 供需彈性</a>
+    <a href="ch04_production.html" class="header-btn" style="background:#2563eb;color:#fff;border-color:#2563eb">前往 CH4 生產理論 ➔</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列 -->
+<nav class="subnav">
+  <a href="#sec-wants" class="subnav-btn">① 慾望與消費</a>
+  <a href="#sec-utility" class="subnav-btn">② 效用與邊際效用遞減</a>
+  <a href="#sec-equil" class="subnav-btn">③ 消費者均衡與需求線推導</a>
+  <a href="#sec-surplus" class="subnav-btn">④ 消費者剩餘 ＆ 恩格爾法則</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 模組一：慾望與消費 ==================== -->
+  <div class="card" id="sec-wants">
+    <div class="card-header">
+      <h2>🍎 模組一：慾望的意義、特性與消費種類</h2>
+      <span class="tag">課本 3-1 節 ｜ 一切經濟活動的起源</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <div class="formula-box">
+          ✨ <b>慾望（Wants）的本質：</b><br>
+          人類因生理或心理感到<b>「欠缺的感覺」</b>，進而產生<b>「想要的意願」</b>。慾望是心理現象，也是一切經濟活動與消費行為的源頭！
+        </div>
+
+        <h4 style="color:#0f172a;margin:16px 0 6px">1. 慾望的七大特性（課本 3-1-1 節 P.2～3 統測高頻考點）：</h4>
+        <ul class="rule-list">
+          <li><b>① 種類無限性：</b> 舊慾望滿足後，新慾望又不斷產生，人心無止境（買了名牌包又想買鑽石）。</li>
+          <li><b>② 強度遞減性：</b> 在一定時間內連續消費某財貨，慾望強度隨滿足程度增加而遞減（連吃幾碗魯肉飯，第4碗就飽了）。<b>此特性提醒我們何時該停止消費！</b></li>
+          <li><b>③ 原發性與續發性：</b>
+            <br>• <b>原發性慾望：</b> 維持生命生存最根本的生理慾望（如渴了要喝水、飢餓要吃飯、冷了要穿衣）。
+            <br>• <b>續發性慾望：</b> 隨社會文明演進或心理刺激而衍生的次生慾望（如喝水要喝氣泡水、吃飯要吃米其林大餐、穿衣要穿名牌時尚款）。
+          </li>
+          <li><b>④ 再生性（習慣性）：</b> 慾望滿足後，隔了一段時間又會重複週而復始產生（一日三餐、每日喝咖啡、早起讀報）。</li>
+          <li><b>⑤ 多樣性：</b> 慾望種類繁多，各人生理、心理、年齡不同，所產生的慾望亦多元歧異。</li>
+          <li><b>⑥ 替代性（競爭性）：</b> 滿足某種慾望可以用不同財貨相互替代（口渴沒茶喝改喝礦泉水；返鄉高鐵替代客運；牛肉替代豬肉）。</li>
+          <li><b>⑦ 互補性（連帶性）：</b> 滿足某種慾望必須兩種或兩種以上財貨相互搭配（膠囊咖啡機＋咖啡膠囊；紅茶＋方糖；相機＋記憶卡）。</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch03/fig3_01_wants_diminishing.png" alt="慾望強度遞減" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.2 圖 3-1：慾望具有強度遞減性（魯肉飯第4碗停止消費）</div>
+        </div>
+
+        <div class="img-wrap" style="margin-top:14px">
+          <img src="images/ch03/fig3_03_wants_to_utility.png" alt="慾望到效用四部曲" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.5 圖 3-3：欠缺感 ➔ 慾望 ➔ 需求 ➔ 消費 ➔ 效用</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 消費種類與消費財分類 -->
+    <h4 style="color:#0f172a;margin:24px 0 8px">2. 消費的種類（課本 P.3～4 直接消費 vs 生產消費）：</h4>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>消費類型</th>
+          <th>別稱</th>
+          <th>定義與說明</th>
+          <th>代表實例（課本原例）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">直接消費</td>
+          <td>最終消費</td>
+          <td>直接利用財貨滿足人類最終生活慾望的行為。</td>
+          <td>媽媽買鬆餅給小孩吃、個人買外套禦寒、吃拉麵填飽肚子。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">生產消費</td>
+          <td>引申消費 / 間接消費</td>
+          <td>使用生產要素或中間財，目的在投入生產過程以製造新財貨。</td>
+          <td>阿霞想在網路上賣手工蔥油餅，到菜市場<b>購買三星蔥作為原料</b>。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="color:#0f172a;margin:24px 0 8px">3. 消費財的四大種類（課本 3-1-2 節 P.4 依購買習慣分類）：</h4>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>財貨種類</th>
+          <th>定義與購買特性</th>
+          <th>需求價格彈性</th>
+          <th>代表實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">必需品</td>
+          <td>維持生命與日常生活基本運作不可或缺之物，購買頻率高。</td>
+          <td>彈性最小（Ed ＜ 1）</td>
+          <td>白米、食用鹽、自來水、自來瓦斯。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">便利品</td>
+          <td>消費者經常購買、就近在超商購買、花費最少搜尋時間與精力的商品。</td>
+          <td>彈性中等偏小</td>
+          <td>超商飲料、口香糖、報紙、衛生紙、打火機。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">選購品</td>
+          <td>消費者在購買前會多方奔走、仔細比較品質、造型、價格與售後服務的商品。</td>
+          <td>彈性較大（Ed ＞ 1）</td>
+          <td>流行服飾、智慧型手機、筆電、家具、家庭劇院。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">特殊品</td>
+          <td>具備獨特品牌魅力、稀有性或專業信譽，消費者願專程前往特定地點購買之物。</td>
+          <td>富人彈性小/高價</td>
+          <td>勞力士名表、名家古董畫作、百萬超跑、高級手工定製婚紗。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 模組二：效用與邊際效用遞減律 ==================== -->
+  <div class="card" id="sec-utility">
+    <div class="card-header">
+      <h2>📈 模組二：效用衡量、邊際效用遞減律 ＆ 水與鑽石的矛盾</h2>
+      <span class="tag">課本 3-2 節 ｜ 計數效用分析核心</span>
+    </div>
+
+    <div class="formula-box">
+      📐 <b>邊際效用（Marginal Utility, MU）定義：</b><br>
+      每增加一單位財貨的消費，所引起的「總效用變動量」：
+      <div class="math-formula">
+        <i>MU</i> ＝ 
+        <span class="frac"><span class="frac-top">總效用變動量 (Δ<i>TU</i>)</span><span class="frac-bottom">消費量變動量 (Δ<i>Q</i>)</span></span>
+      </div>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch03/fig3_04_tu_mu_curves.png" alt="TU與MU關係曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.103 圖 3-4 ＆ 表 3-1：湘民吃太陽餅的總效用 TU 與邊際效用 MU</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 邊際效用遞減律（Law of Diminishing Marginal Utility）：</h4>
+        <ul class="rule-list">
+          <li>在一定時間內，連續消費某種財貨，隨消費量增加，<b>每增加一單位所帶來的邊際效用（滿足感增量）必然持續遞減</b>。</li>
+        </ul>
+
+        <h4 style="color:#0f172a;margin:14px 0 6px">2. 總效用（TU）與邊際效用（MU）三大黃金連動（統測必考題！）：</h4>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>邊際效用（MU）狀態</th>
+              <th>總效用（TU）走勢</th>
+              <th>代表意義與決策</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><i>MU</i> ＞ 0（正數）</td>
+              <td><b><i>TU</i> 遞增（持續上升）</b></td>
+              <td>多吃一單位仍覺得開心，滿足感繼續累積。</td>
+            </tr>
+            <tr class="highlight-cell">
+              <td><b><i>MU</i> ＝ 0（零）</b></td>
+              <td><b><i>TU</i> 達到最大值！（最高峰）</b></td>
+              <td>滿足感達到飽和，<b>此時為最佳消費量（應停止消費）</b>！</td>
+            </tr>
+            <tr>
+              <td><i>MU</i> ＜ 0（負數）</td>
+              <td><b><i>TU</i> 開始遞減（下降）</b></td>
+              <td>吃撐反胃，產生負效用（Disutility），總滿足感縮水。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 水與鑽石的矛盾 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">3. 價值的矛盾（Paradox of Value）：水與鑽石的矛盾</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch03/fig3_08_water_diamond.png" alt="水與鑽石矛盾" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.122 圖 3-8：水與鑽石的價量關係與矛盾解密</div>
+      </div>
+      <div>
+        <div class="formula-box">
+          💎 <b>亞當斯密提出的世紀之謎：</b><br>
+          水是生命不可或缺的必需品，用途極多，但市價卻極低；鑽石對生存可有可無，用途極少，但市價卻極為昂貴！
+        </div>
+        <ul class="rule-list">
+          <li><b>邊際學派解答：</b> 財貨的市場價格不是由「總效用 TU」決定，而是由<b>「邊際效用 MU」</b>決定！</li>
+          <li><b>水的特性：</b> 儲存量豐富、消費量極大 ➔ 處於邊際效用遞減的末端 ➔ <b>總效用 TU 極大，但邊際效用 MU 極小 ➔ 價格極低！</b></li>
+          <li><b>鑽石的特性：</b> 產量稀少、消費量極小 ➔ 處於邊際效用遞減的開端 ➔ <b>總效用 TU 雖小，但邊際效用 MU 極大 ➔ 價格極昂貴！</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組三：消費者均衡與需求曲線推導 ==================== -->
+  <div class="card" id="sec-equil">
+    <div class="card-header">
+      <h2>⚖️ 模組三：消費者最大滿足決策 ＆ 需求曲線之推導</h2>
+      <span class="tag">課本 3-3 節 ｜ 統測經典計算考點</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 理性消費者的兩大情境抉擇：</h4>
+        <ul class="rule-list">
+          <li><b>情境 A：財貨為「自由財」（免付費，如喝免費水）：</b>
+            <br>消費者會持續消費直到 <b><i>MU</i> ＝ 0</b> 為止，此時總效用達到最大！
+          </li>
+          <li><b>情境 B：財貨為「經濟財」（考慮價格與有限所得）：</b>
+            <br>消費者面臨有限所得限制，必須追求<b>「每花費一塊錢所獲得的邊際效用處處相等」</b>！
+          </li>
+        </ul>
+
+        <div class="formula-box">
+          📐 <b>邊際效用均等法則（消費者均衡條件）：</b>
+          <div class="math-formula">
+            <span class="frac"><span class="frac-top"><i>MU<sub>X</sub></i></span><span class="frac-bottom"><i>P<sub>X</sub></i></span></span> ＝ 
+            <span class="frac"><span class="frac-top"><i>MU<sub>Y</sub></i></span><span class="frac-bottom"><i>P<sub>Y</sub></i></span></span> ＝ <i>MU<sub>M</sub></i>（貨幣的邊際效用）
+          </div>
+          <b>預算限制式：</b> <i>P<sub>X</sub>·X</i> ＋ <i>P<sub>Y</sub>·Y</i> ＝ 所得 <i>M</i>
+        </div>
+
+        <ul class="rule-list">
+          <li><b>未達均衡時的理性調整原則：</b>
+            <br>• 若 <i>MU<sub>X</sub> / P<sub>X</sub></i> ＞ <i>MU<sub>Y</sub> / P<sub>Y</sub></i> ➔ 花在 X 財更划算 ➔ <b>多買 X、少買 Y</b> ➔ 隨消費增加，<i>MU<sub>X</sub></i> 下降，直到相等為止！
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch03/fig3_06_consumer_equilibrium.png" alt="消費者均衡調整過程" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.108 圖 3-6：理性消費者調整 X、Y 財購買組合之動態過程</div>
+        </div>
+
+        <div class="formula-box" style="margin-top:14px;background:#eff6ff;border-left-color:#2563eb">
+          📉 <b>如何從消費者均衡導出「需求曲線」？</b><br>
+          由 <i>MU<sub>X</sub> / P<sub>X</sub> ＝ MU<sub>M</sub></i> 移項可得：
+          <div class="math-formula" style="color:#1d4ed8">
+            <i>P<sub>X</sub></i> ＝ 
+            <span class="frac"><span class="frac-top"><i>MU<sub>X</sub></i></span><span class="frac-bottom"><i>MU<sub>M</sub></i></span></span>
+          </div>
+          當消費量 <i>X</i> 增加時，根據邊際效用遞減律，<i>MU<sub>X</sub></i> 逐漸下降，因此消費者<b>每多消費一單位所願意支付的最高價格 <i>P<sub>X</sub></i> 也隨之下降</b>！<br>
+          這直接證明了：<b>需求曲線必然呈現向右下方傾斜（負斜率）！</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組四：消費者剩餘與恩格爾法則 ==================== -->
+  <div class="card" id="sec-surplus">
+    <div class="card-header">
+      <h2>🍰 模組四：消費者剩餘、家庭消費定律（恩格爾法則） ＆ 消費者主權</h2>
+      <span class="tag">課本 3-4～3-6 節</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch03/fig3_07_consumer_surplus.png" alt="消費者剩餘CS" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.113 圖 3-7：需求曲線下方與市價上方為消費者剩餘（CS）</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 消費者剩餘（Consumer's Surplus, CS）：</h4>
+        <div class="formula-box">
+          📐 <b>消費者剩餘定義（馬歇爾 Alfred Marshall 提出）：</b><br>
+          消費者願意支付的最高總金額 － 實際支付的市場總金額：
+          <div class="math-formula">
+            <i>CS</i> ＝ 願意支付總額 － 實際支付總額
+          </div>
+        </div>
+        <ul class="rule-list">
+          <li><b>幾何圖形：</b> 落在<b>「需求曲線下方」</b>且在<b>「市場價格線上方」</b>之三角形面積。</li>
+          <li><b>市價變動影響：</b> 當市場價格下降時，消費者剩餘（福利）擴大；市價上升時，消費者剩餘縮水。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 恩格爾法則 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">2. 家庭消費定律（恩格爾法則 Engel's Law）</h3>
+    <div class="formula-box">
+      📊 <b>恩格爾係數（Engel's Coefficient）：</b>
+      <div class="math-formula">
+        恩格爾係數 ＝ 
+        <span class="frac"><span class="frac-top">糧食（食物）支出總額</span><span class="frac-bottom">家庭總消費支出（或總所得）</span></span>
+      </div>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>項目類別</th>
+          <th>家庭所得提高時的支出變化</th>
+          <th>佔家庭總支出之比例變動</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">糧食（食物）支出</td>
+          <td>金額增加</td>
+          <td><b>比例反而下降（恩格爾法則核心）</b></td>
+        </tr>
+        <tr>
+          <td>衣著、居住、燃料支出</td>
+          <td>金額增加</td>
+          <td><b>比例大體保持不變</b></td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">教育、娛樂、文化醫療</td>
+          <td>金額大幅增加</td>
+          <td><b>比例明顯大幅上升</b></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.9rem;color:#475569;margin-top:8px">
+      💡 <b>生活水準指標：</b> 恩格爾係數<b>「愈低」</b>，代表家庭不用把所得全耗在溫飽上，能將更多錢用於精神文化生活，表示<b>該國或該家庭生活水準愈高、愈富裕</b>！
+    </p>
+
+    <!-- 消費者主權與消保法 -->
+    <h3 style="color:#0f172a;margin:24px 0 8px;font-size:1.1rem">3. 消費者主權 ＆ 台灣《消費者保護法》（課本 3-6 節 P.19）</h3>
+    <ul class="rule-list">
+      <li><b>消費者主權（Consumer Sovereignty）：</b> 在自由競爭市場中，消費者透過「貨幣選票（買與不買）」來決定廠商生產什麼、生產多少，消費者如同市場的最高主權者。</li>
+      <li><b>美國甘迺迪總統（J. F. Kennedy）1962 年提出之消費者四大權利：</b>
+        <br>① <b>求安全的權利：</b> 商品與服務不可危害消費者生命、身體、健康或財產。
+        <br>② <b>求知的權利：</b> 充分揭露商品成份、有效期限、製造商與產地等標籤資訊。
+        <br>③ <b>選擇的權利：</b> 反對獨占與勾結，確保市場有充分競爭可供自由選擇。
+        <br>④ <b>表達意見的權利：</b> 消費者有申訴投訴之管道，主管機關與企業應重視回饋。
+      </li>
+      <li><b>台灣《消費者保護法》（消保法）實戰重要規範（課本 P.19）：</b>
+        <br>• <b>七天猶豫期（鑑賞期）：</b> 通訊交易（網路購物、電視購物、型錄郵購）或訪問交易之消費者，在收到商品後 <b>7 日內得無條件解除契約退款，無須說明任何理由，亦不需負擔任何運費或手續費</b>。
+        <br>• <b>企業經營者之「無過失責任」：</b> 企業所提供之商品或服務若欠缺安全性致生損害於消費者，縱使企業證明其無故意或過失，仍應對消費者負連帶賠償責任！
+        <br>• <b>定型化契約規範：</b> 排除顯失公平之條款，保障弱勢消費者權益。
+      </li>
+    </ul>
+  </div>
+
+  <!-- ==================== 模組五：課本精選實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組五：CH3 課本精選 5 大經典實戰測驗</h2>
+      <span class="tag">課本 P.117～120 原題驗證</span>
+    </div>
+
+    <!-- 題 1：慾望特性判斷 -->
+    <div class="quiz-item">
+      <div class="quiz-q">1. 【課本 P.117 第 3 題】霍爾每天早上一定要喝紅茶，而且一定要加二顆方糖。請問對霍爾而言，此種情況屬於慾望的哪兩種特性？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(A) 種類無限性，強度遞減性</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(B) 強度遞減性，互補性</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(C) 替代性，種類無限性</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, true)">(D) 習慣性，互補性</button>
+      </div>
+      <div class="quiz-ans" id="ans-1">
+        🎉 <b>答對了！選 (D)</b><br>
+        「每天早上一定要喝」具有周而復始、定期產生的特性，屬於<b>習慣性（再生性）</b>；「喝紅茶一定要加方糖」兩者必須相互搭配才能滿足慾望，屬於<b>互補性（連帶性）</b>！
+      </div>
+    </div>
+
+    <!-- 題 2：水與鑽石矛盾 -->
+    <div class="quiz-item">
+      <div class="quiz-q">2. 【課本 P.117 第 7 題】水的用途比鑽石多，且是生存不可或缺之物，但水的價格卻遠比鑽石低，是因為水的：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(A) 總效用較小</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(B) 邊際效用較大</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, true)">(C) 邊際效用較小</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(D) 平均效用較大</button>
+      </div>
+      <div class="quiz-ans" id="ans-2">
+        🎉 <b>答對了！選 (C)</b><br>
+        財貨的市場價格不是由總效用決定，而是由<b>「最後一單位的邊際效用 MU」</b>決定。水的儲藏量豐富且消費量大，其最後一單位的 MU 極小，故市價便宜；反之鑽石稀少，最後一單位的 MU 極大，故價格昂貴！
+      </div>
+    </div>
+
+    <!-- 題 3：麻糬愛好者最佳消費量 -->
+    <div class="quiz-item">
+      <div class="quiz-q">3. 【課本 P.119 生活情境第 2 題】花太太是位追求總效用極大的麻糬愛好者，其吃麻糬的邊際效用如下表（第1~7顆的 MU 分別為：15, 10, 8, 5, 2, 0, -10）。在不考慮麻糬價格（免費享用）的情況下，花太太最多會吃幾顆？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(A) 2 顆</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(B) 3 顆</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, true)">(C) 6 顆</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(D) 7 顆</button>
+      </div>
+      <div class="quiz-ans" id="ans-3">
+        🎉 <b>答對了！選 (C)</b><br>
+        在不必付費的情況下，只要 MU ＞ 0，多吃一顆總效用 TU 就會增加；吃到第 6 顆時 <b>MU ＝ 0，此時總效用達到最大值（TU ＝ 15+10+8+5+2+0 ＝ 40）</b>。若再吃第 7 顆，MU 為 -10（負效用），總效用反而下滑至 30！故花太太最多會吃 <b>6 顆</b>。
+      </div>
+    </div>
+
+    <!-- 題 4：消費者均衡計算 -->
+    <div class="quiz-item">
+      <div class="quiz-q">4. 【課本 P.119 第 3 題】已知采潔對 A 財的邊際效用為 50，對 B 財的邊際效用為 25。若 A 財的價格為 10 元，請根據「邊際效用均等法則」，判斷在總效用最大的情況下，B 財的價格應為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(A) 2.5 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(B) 2 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, true)">(C) 5 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(D) 4 元</button>
+      </div>
+      <div class="quiz-ans" id="ans-4">
+        🎉 <b>答對了！選 (C)</b><br>
+        根據消費者均衡條件：<i>MU<sub>A</sub> / P<sub>A</sub> ＝ MU<sub>B</sub> / P<sub>B</sub></i><br>
+        帶入數值：50 / 10 ＝ 25 / <i>P<sub>B</sub></i> ➔ 5 ＝ 25 / <i>P<sub>B</sub></i> ➔ <b><i>P<sub>B</sub></i> ＝ 5 元</b>！
+      </div>
+    </div>
+
+    <!-- 題 5：花捲消費者剩餘計算 -->
+    <div class="quiz-item">
+      <div class="quiz-q">5. 【課本 P.119 第 4 題】旺伯對花捲的需求如下：買第 1 個願付 20 元、第 2 個願付 18 元、第 3 個願付 15 元、第 4 個願付 11 元、第 5 個願付 6 元。請問當花捲的市價為 15 元時，旺伯購買 3 個花捲的消費者剩餘（CS）為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(A) 1 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, true)">(B) 8 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(C) 16 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(D) 3 元</button>
+      </div>
+      <div class="quiz-ans" id="ans-5">
+        🎉 <b>答對了！選 (B)</b><br>
+        • 旺伯購買 3 個花捲的<b>願付總額</b> ＝ 20 ＋ 18 ＋ 15 ＝ 53 元。<br>
+        • 旺伯的<b>實際支付總額</b> ＝ 市價 15 元 × 3 個 ＝ 45 元。<br>
+        • 消費者剩餘 <i>CS</i> ＝ 願付總額 53 元 － 實付總額 45 元 ＝ <b>8 元</b>！<br>
+        <i>（也可以逐個計算剩餘加總：(20-15) + (18-15) + (15-15) = 5 + 3 + 0 = 8 元）</i>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 燈箱視窗 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大原圖" />
+</div>
+
+<script>
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const img = document.getElementById('modal-img');
+  img.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+function checkAns(btn, qId, isCorrect) {
+  const ansBox = document.getElementById('ans-' + qId);
+  ansBox.style.display = 'block';
+  if (isCorrect) {
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#059669';
+  } else {
+    btn.style.background = '#f87171';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#dc2626';
+    alert('觀念有點混淆囉！請看下方綠色即時解析～');
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH17 國際貿易與國際金融 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組快速導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px 0;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 分數標籤排版 */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 4px;
+}
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.frac > span:last-child {
+  padding-top: 1px;
+}
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📘 CH17 國際貿易與國際金融 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch16_government_fiscal.html" class="header-btn">⬅ 上一章：CH16 政府與財政政策</a>
+    <a href="ch18_economic_fluctuations.html" class="header-btn highlight">下一章：CH18 經濟波動 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列 -->
+<nav class="subnav">
+  <a href="#sec-trade-theory" class="subnav-btn">① 17-1 國際貿易概述與貿易理論</a>
+  <a href="#sec-trade-policy" class="subnav-btn">② 17-2 國際貿易政策（自由 vs 保護）</a>
+  <a href="#sec-international-investment" class="subnav-btn">③ 17-3 國際投資（FDI vs 證券投資）</a>
+  <a href="#sec-forex-equilibrium" class="subnav-btn">④ 17-4 外匯概念、牌告與供需均衡</a>
+  <a href="#sec-exchange-rate-effects" class="subnav-btn">⑤ 17-4 匯率變動、進出口衝擊與匯率制度</a>
+  <a href="#sec-economic-integration" class="subnav-btn">⑥ 17-5 國際經貿組織與區域經濟整合</a>
+  <a href="#sec-quiz" class="subnav-btn">⑦ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-trade-theory">
+    <h2>① 17-1 國際貿易概述與國際貿易理論（統測金牌考點）</h2>
+
+    <p>在日常生活中，我們常可見到美國的 iPhone 手機、日本的 Uniqlo 服飾、澳洲的牛肉；台灣生產的捷安特自行車、愛文芒果、微熱山丘鳳梨酥也暢銷海外。國與國之間互通有無，進行商品交易與勞務往來的經濟活動，即為<strong>國際貿易（International Trade）</strong>。</p>
+
+    <div class="img-wrap" style="max-width: 520px; margin: 18px auto;">
+      <img src="images/ch17/fig17_01_shipping.png" alt="圖 17-1 國際貿易－海運運輸" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 17-1 國際貿易－海運貨櫃運輸（商品與勞務跨國流動的實體基礎）</div>
+    </div>
+
+    <h3>一、國際貿易發生的五大原因</h3>
+    <ul>
+      <li><strong>各國資源稟賦不同：</strong>土地、天然資源與勞動分布極不均勻（如沙烏地阿拉伯石油豐富，台灣平原有限但人力素質高），各國分工生產互利交換。</li>
+      <li><strong>各國生產技術水準差異：</strong>研發創新能力不同，高科技國家（如美、日、台）專注晶圓與精密設備，落後國家專注初級原料。</li>
+      <li><strong>各國生產成本差異：</strong>生產要素工資與租金不同，生產成本低者具出口競爭力。</li>
+      <li><strong>擴大市場達成規模經濟（Economies of Scale）：</strong>國內市場狹小，透過外銷可擴大生產規模，降低單位長期平均成本（AC）。</li>
+      <li><strong>消費偏好差異：</strong>滿足消費者對多樣化商品的需求（如國人喜愛日本動漫、瑞士巧克力）。</li>
+    </ul>
+
+    <h3>二、三大經典國際貿易理論深度解析</h3>
+
+    <div class="concept-box">
+      <strong>1. 亞當斯密——絕對利益法則（Absolute Advantage）：</strong><br>
+      • <strong>核心觀點：</strong>若一國投入相同生產要素所產出的產品數量<strong>「多於」</strong>他國（或生產一單位產品所需的成本／勞動工時<strong>「少於」</strong>他國），該國在此產品即具有<strong>絕對利益</strong>。<br>
+      • <strong>貿易主張：</strong>各國應專業化生產具有絕對利益的產品並互相交換，雙方皆能獲利。<br>
+      • <strong>致命缺點：</strong>若一國在所有產品上都具有絕對優勢（先進國），而另一國在所有產品上都居於絕對劣勢（後進國），絕對利益法則便無法解釋兩國為何依然會進行貿易！
+    </div>
+
+    <div class="concept-box" style="border-left-color: #0284c7;">
+      <strong>2. 李嘉圖——比較利益法則（Comparative Advantage，統測絕對必考）：</strong><br>
+      • <strong>核心心法：</strong><strong>「兩利相權取其重，兩害相權取其輕」</strong>——決定貿易型態的不是絕對產量，而是<strong>「機會成本（Opportunity Cost）」</strong>！<br>
+      • <strong>黃金法則：</strong>生產某產品所犧牲的另一種產品數量較少者（即<strong>機會成本較低者</strong>），便具有<strong>比較利益</strong>！各國應專業化生產具有比較利益之產品出口。<br>
+      • <strong>劃時代突破：</strong>即使一國在所有產品生產上都處於絕對劣勢，只要兩國生產不同產品的「相對機會成本」不同，劣勢國依然可以專業化生產<strong>「劣勢較小（機會成本較低）」</strong>的產品進行出口交換，互蒙其利！
+    </div>
+
+    <h4>📐 統測經典雙向解題口訣（產出型 vs 投入型）：</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>題型類別</th>
+            <th>資料數據呈現型態</th>
+            <th>機會成本計算口訣</th>
+            <th>比較利益判斷標準</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>產出型<br>（產量表）</strong></td>
+            <td>固定投入一單位要素（如 1 小時勞動），兩國分別能生產的<strong>「產品數量」</strong>。<br><em>（如課本表 17-2：泰國產相機 20 或球鞋 40；日本產相機 50 或球鞋 60）</em></td>
+            <td><strong>求誰就把誰放在分母！</strong><br>
+            生產 1 單位 X 的機會成本 ＝ <span class="frac"><span>放棄的 Y 產量</span><span>本項 X 產量</span></span></td>
+            <td>機會成本<strong>較低（數值較小）</strong>者，具有比較利益！<br>
+            • 日本生產 1 相機放棄 1.2 球鞋（＜ 泰國 2 球鞋）➔ <strong>日本相機具比較利益</strong><br>
+            • 泰國生產 1 球鞋放棄 0.5 相機（＜ 日本 0.83 相機）➔ <strong>泰國球鞋具比較利益</strong></td>
+          </tr>
+          <tr>
+            <td><strong>投入型<br>（成本／工時表）</strong></td>
+            <td>生產一單位固定產品，兩國所需投入的<strong>「生產成本」</strong>或<strong>「勞動工時」</strong>。<br><em>（如課本表 17-3：韓國產手機成本 10、汽車 20；美國產手機 15、汽車 25）</em></td>
+            <td><strong>求誰就把誰放在分子！</strong><br>
+            生產 1 單位 X 的機會成本 ＝ <span class="frac"><span>本項 X 成本</span><span>另一產品 Y 成本</span></span></td>
+            <td>機會成本<strong>較低（相對比值較小）</strong>者，具有比較利益！<br>
+            • 韓國手機相對成本 10/20＝0.5（＜ 美國 15/25＝0.6）➔ <strong>韓國手機具比較利益</strong><br>
+            • 美國汽車相對成本 25/15＝1.67（＜ 韓國 20/10＝2.0）➔ <strong>美國汽車具比較利益</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="concept-box" style="border-left-color: #10b981;">
+      <strong>3. 赫克夏-歐林（Heckscher-Ohlin, H-O 理論）——現代要素稟賦理論：</strong><br>
+      • <strong>學說論點：</strong>一國的貿易型態由其<strong>「生產要素稟賦條件（要素豐缺度與相對價格）」</strong>決定。<br>
+      • <strong>貿易規律：</strong>一國會出口<strong>密集使用本國豐富且便宜之要素</strong>所生產的產品；而進口<strong>密集使用本國稀少且昂貴之要素</strong>所生產的產品。<br>
+      • <strong>課本實例：</strong>勞動豐富之開發中國家（如早期的台灣、越南）出口<strong>勞力密集型產品</strong>（成衣、加工組裝）；資本或技術豐富之先進國家（美、德、日）出口<strong>資本與技術密集型產品</strong>（機械、飛機、半導體高階製程）。
+    </div>
+
+    <h3>三、國際貿易的利益與貿易條件（TOT）</h3>
+
+    <div class="formula-box">
+      <div class="formula-title">📌 貿易條件（Terms of Trade, TOT）計算公式</div>
+      <div style="font-size: 1.15rem; margin: 8px 0;">
+        <i>TOT</i> ＝ <span class="frac"><span>出口物價指數（<i>P<sub>X</sub></i>）</span><span>進口物價指數（<i>P<sub>M</sub></i>）</span></span> × 100%
+      </div>
+      <div style="font-size: 0.95rem; margin-top: 6px;">
+        • <strong>TOT ＞ 100%（上升）：</strong>貿易條件<strong>「改善」</strong>（每出口一單位商品可換回更多進口品，有利本國）。<br>
+        • <strong>TOT ＜ 100%（下降）：</strong>貿易條件<strong>「惡化」</strong>（必須出口更多商品才能換回等量進口品，不利本國）。
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>🌟 統測社會福利分析大考點（福利變動）：</strong><br>
+      • <strong>出口國：</strong>開放自由貿易後，國內價格<strong>上升</strong>至國際價格。國內消費者剩餘（CS）減少、生產者剩餘（PS）大幅增加，<strong>國家社會總福利（CS＋PS）淨增加！</strong><br>
+      • <strong>進口國：</strong>開放自由貿易後，國內價格<strong>下跌</strong>至國際價格。國內消費者剩餘（CS）大幅增加、生產者剩餘（PS）減少，<strong>國家社會總福利（CS＋PS）依然淨增加！</strong>
+    </div>
+
+    <div class="img-wrap" style="max-width: 650px; margin: 20px auto;">
+      <img src="images/ch17/fig17_02_taiwan_trade_partners.png" alt="圖 17-2 台灣主要的貿易夥伴（2021年）" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 17-2 台灣主要貿易夥伴排名（中國大陸躍居第 1，美、日、港、韓緊追在後；出口主力轉型為半導體與電子零組件）</div>
+    </div>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-trade-policy">
+    <h2>② 17-2 國際貿易政策（自由貿易 vs 保護貿易）</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>貿易政策</th>
+            <th>核心主張與理論依據</th>
+            <th>優點（正面效應）</th>
+            <th>缺點（負面效應）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>自由貿易<br>（Free Trade）</strong></td>
+            <td>• 自由放任、免除關稅與非關稅限制<br>• 亞當斯密、李嘉圖古典學派</td>
+            <td>• 促進全球專業化分工<br>• 擴大市場規模與規模經濟<br>• 引進競爭刺激技術進步<br>• 消費者享低價多元商品，增進社會總福利</td>
+            <td>• 打擊本國弱勢幼稚產業<br>• 加深對外經濟依賴<br>• 易遭受外國景氣蕭條與金融風暴波及</td>
+          </tr>
+          <tr>
+            <td><strong>保護貿易<br>（Protectionism）</strong></td>
+            <td>• 政府採取關稅或管制手段限制外國進口<br>• <strong>李士特（Friedrich List）</strong>提倡<strong>「幼稚工業保護說（Infant Industry Argument）」</strong></td>
+            <td>• 保護國內新興幼稚產業茁壯<br>• 增加國內就業機會<br>• 維持國防安全與糧食自給自足<br>• 防杜外國不公平低價傾銷</td>
+            <td>• 扭曲市場價格機制，削弱企業競爭力<br>• 誘發利益團體政治遊說與競租<br>• 招致外國報復引發全球貿易戰<br>• <strong>造成社會總福利之無謂損失（DWL）</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>一、保護貿易之具體措施與工具</h3>
+    <ol>
+      <li><strong>關稅措施（Tariffs）：</strong>對進口商品課徵租稅（從價稅、從量稅、複合稅）。
+        <ul>
+          <li><strong>反傾銷稅（Anti-Dumping Duty）：</strong>外國廠商以「低於母國售價或生產成本」傾銷時，課徵懲罰性關稅。</li>
+          <li><strong>平衡稅（Countervailing Duty）：</strong>外國政府給予出口補貼造成不公平競爭時，本國課徵相對應關稅以抵銷補貼效果。</li>
+          <li><strong>關稅效果：</strong>國內價格上漲、進口數量縮減、國內生產者獲益、政府獲關稅稅收、消費者受損，<strong>產生淨無謂損失（Deadweight Loss）</strong>。</li>
+        </ul>
+      </li>
+      <li><strong>非關稅措施（Non-Tariff Barriers, NTB）：</strong>
+        <ul>
+          <li><strong>進口配額（Import Quotas）：</strong>直接限制特定時期內特定商品之進口最大數量。</li>
+          <li><strong>出口補貼（Export Subsidies）：</strong>政府直接給予出口廠商現金補貼或租稅優惠，助其低價搶佔國際市場。</li>
+          <li><strong>行政干預與檢驗檢疫標準：</strong>繁複海關檢驗手續、安全檢驗、環保標準（如我國曾規定豬肉須符合<strong>萊克多巴胺（瘦肉精）殘留檢驗標準</strong>始得進口）。</li>
+          <li><strong>自願出口限制（VER）與外匯管制：</strong>出口國在進口國施壓下「自願」協議限制出口量；或由政府管制外匯買賣與出境額度。</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-international-investment">
+    <h2>③ 17-3 國際投資概述（FDI 直接投資 vs 證券間接投資）</h2>
+
+    <p>國際投資是指<strong>資金跨越國界的移動</strong>，追求資產的獲利性、安全性與流動性。依投資者對海外事業是否擁有實質經營管理權，可分為兩大類：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>外國直接投資（Foreign Direct Investment, FDI）</th>
+            <th>外國間接投資（證券投資 Portfolio Investment）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>實質內涵</strong></td>
+            <td>投資者跨國投入資金，並<strong>對海外企業擁有實質控制與經營管理權</strong>。</td>
+            <td>投資者購買外國公司之股票、債券、共同基金，<strong>不具實質經營管理權</strong>。</td>
+          </tr>
+          <tr>
+            <td><strong>常見方式</strong></td>
+            <td>• 海外獨資設立新公司或子公司<br>• 與外國企業合資設立企業<br>• 跨國併購（M&amp;A）外國企業</td>
+            <td>• 購買外國企業發行之普通股、特別股<br>• 購買外國政府公債或公司債<br>• 將資金貸放給外國企業或政府（跨國借貸）</td>
+          </tr>
+          <tr>
+            <td><strong>實務生活範例</strong></td>
+            <td><strong>台積電赴美國亞利桑那州、日本熊本、德國德勒斯登設廠生產晶圓</strong>；鴻海收購日本夏普（Sharp）。</td>
+            <td>我國投資人透過複委託購買<strong>美國蘋果（Apple）、微軟（Microsoft）股票</strong>或購買海外科技 ETF。</td>
+          </tr>
+          <tr>
+            <td><strong>特性對比</strong></td>
+            <td>資金沉澱期長、回收慢、流動性較低；但能為地主國引進先進技術、創造實質就業機會。</td>
+            <td>流動性極高、隨時可在外國證券市場變現拋售；追求資本利得（價差）與股息利息。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="concept-box" style="border-left-color: #ef4444;">
+      <strong>⚠️ 統測必考觀念：國際熱錢（Hot Money）對地主國金融市場的衝擊：</strong><br>
+      • <strong>熱錢定義：</strong>遊走於國際金融市場、尋求短期高投機利益與匯率利差的短期流動資金。<br>
+      • <strong>雙面刃衝擊：</strong>熱錢湧入時推升股市房市暴漲、本幣劇烈升值；一旦情勢反轉，熱錢大舉撤離，引發匯市崩跌、股市重挫，重創地主國金融穩定！<br>
+      • <strong>課本實例：</strong>1997 年亞洲金融風暴，國際金融投機客索羅斯（George Soros）拋售東南亞貨幣大肆炒作，馬來西亞前總理馬哈迪痛批熱錢破壞金融穩定，突顯各國對短期外資流動適度設限與監理的必要性。
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-forex-equilibrium">
+    <h2>④ 17-4 外匯市場與均衡匯率的決定（統測超核心大題）</h2>
+
+    <h3>一、外匯與匯率的基本概念</h3>
+    <ul>
+      <li><strong>外匯（Foreign Exchange）：</strong>具有國際流動性，可作為國際支付結算手段的外國貨幣與外幣資產（外國鈔票、外幣支票、外幣存款、外國政府公債等）。</li>
+      <li><strong>匯率（Exchange Rate）：</strong>兩國貨幣之間的兌換比例，即<strong>以一國貨幣表示的另一國貨幣的價格</strong>。</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>匯率表示方式</th>
+            <th>定義與報價邏輯</th>
+            <th>實務報價範例</th>
+            <th>採行國家與地區</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>應付匯率<br>（直接標價法 Direct Quotation）</strong></td>
+            <td>以<strong>一單位外國貨幣</strong>折合若干單位<strong>本國貨幣</strong>表示。<em>（外幣為商品，本幣為價格）</em></td>
+            <td>1 美元 ＝ 30 新台幣（1 USD ＝ 30 TWD）<br>1 美元 ＝ 150 日圓（1 USD ＝ 150 JPY）</td>
+            <td><strong>台灣、日本</strong>及全球絕大多數國家普遍採行。</td>
+          </tr>
+          <tr>
+            <td><strong>應收匯率<br>（間接標價法 Indirect Quotation）</strong></td>
+            <td>以<strong>一單位本國貨幣</strong>折合若干單位<strong>外國貨幣</strong>表示。<em>（本幣為商品，外幣為價格）</em></td>
+            <td>1 新台幣 ＝ 0.033 美元（1 TWD ＝ 0.033 USD）<br>1 英鎊 ＝ 1.30 美元（1 GBP ＝ 1.30 USD）</td>
+            <td><strong>英國、歐元區、澳洲、紐西蘭</strong>等少數國家採行。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>🏦 銀行牌告匯率的買入與賣出（圖 17-3 必考判斷）</h4>
+    <div class="img-wrap" style="max-width: 420px; margin: 18px auto;">
+      <img src="images/ch17/fig17_03_bank_exchange_board.png" alt="圖 17-3 銀行牌告匯率" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 17-3 銀行牌告匯率（以應付匯率表示：買入匯率 ＜ 賣出匯率）</div>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 站在銀行的角度看買賣（買入價 vs 賣出價）：</strong><br>
+      • <strong>買入匯率（Bid Rate）：</strong><strong>銀行向民眾「買進外匯」</strong>的價格（例如民眾拿美金換台幣，銀行付給民眾較少台幣）。<br>
+      • <strong>賣出匯率（Offer/Ask Rate）：</strong><strong>銀行將外匯「賣給民眾」</strong>的價格（例如民眾出國想買美金，必須付給銀行較多台幣）。<br>
+      • <strong>黃金口訣：</strong>銀行的<strong>「賣出匯率一定高於買入匯率（賣出 ＞ 買入）」</strong>！兩者差額即為銀行的利潤與手續費營運成本。
+    </div>
+
+    <h3>二、外匯市場的供給、需求與均衡匯率</h3>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch17/fig17_04_demand_causes.png" alt="圖 17-4 支付外匯，產生外匯需求" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-4 產生外匯需求的四大經濟活動</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_05_demand_curve.png" alt="圖 17-5 外匯需求曲線" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-5 外匯需求曲線（向右下傾斜，負斜率）</div>
+        </div>
+        <p style="font-size:0.92rem;margin-top:8px;"><strong>外匯需求（D）：</strong>凡是<strong>「本國必須對外國支付外匯」</strong>之行為皆屬之（進口商品、國人赴外旅遊留學、對外直接投資 FDI、購買外國股票、償還外債）。匯率越低（外幣便宜），進口增加，外匯需求量越大；故曲線向右下傾斜。</p>
+      </div>
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch17/fig17_06_supply_causes.png" alt="圖 17-6 收取外匯，產生外匯供給" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-6 產生外匯供給的四大經濟活動</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_07_supply_curve.png" alt="圖 17-7 外匯供給曲線" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-7 外匯供給曲線（向右上傾斜，正斜率）</div>
+        </div>
+        <p style="font-size:0.92rem;margin-top:8px;"><strong>外匯供給（S）：</strong>凡是<strong>「本國自外國收取外匯流入」</strong>之行為皆屬之（本國商品勞務出口、外國觀光客來台、外人來台投資 FDI、購買台股、國外親友匯款返台）。匯率越高（外幣值錢），出口商換得台幣越多，外匯供給量越大；故曲線向右上傾斜。</p>
+      </div>
+    </div>
+
+    <div class="img-wrap" style="max-width: 580px; margin: 20px auto;">
+      <img src="images/ch17/fig17_08_equilibrium_exchange_rate.png" alt="圖 17-8 外匯市場均衡匯率的決定" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 17-8 外匯市場均衡匯率的決定（S 與 D 交點決定均衡匯率 <i>e</i>* 與均衡外匯數量 <i>Q</i>*）</div>
+    </div>
+
+    <h3>三、外匯供需變動對均衡匯率的四大影響（課本圖 17-9 至 17-12）</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch17/fig17_09_demand_increase.png" alt="圖 17-9 外匯供給不變，需求增加" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-9 D 右移 ➔ <strong>匯率上升（e ↑，本幣貶值）</strong><br><span style="font-size:0.8rem;color:#64748b">例：國人搶買進口車、瘋出國旅遊</span></div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch17/fig17_10_demand_decrease.png" alt="圖 17-10 外匯供給不變，需求減少" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-10 D 左移 ➔ <strong>匯率下降（e ↓，本幣升值）</strong><br><span style="font-size:0.8rem;color:#64748b">例：國人提倡愛用國貨、減少進口</span></div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch17/fig17_11_supply_increase.png" alt="圖 17-11 外匯需求不變，供給增加" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-11 S 右移 ➔ <strong>匯率下降（e ↓，本幣升值）</strong><br><span style="font-size:0.8rem;color:#64748b">例：半導體出口創歷史新高、外資匯入買台股</span></div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch17/fig17_12_supply_decrease.png" alt="圖 17-12 外匯需求不變，供給減少" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-12 S 左移 ➔ <strong>匯率上升（e ↑，本幣貶值）</strong><br><span style="font-size:0.8rem;color:#64748b">例：國際景氣衰退出口銳減、外資大舉撤退</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-exchange-rate-effects">
+    <h2>⑤ 17-4 匯率升貶值計算、進出口衝擊與匯率制度</h2>
+
+    <h3>一、匯率與貨幣的升貶值（應付匯率／直接標價視角）</h3>
+    <p>在直接標價法下，<strong>匯率數字的升降與「外幣價值」同步同向，但與「本國貨幣價值」呈反向！</strong></p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch17/fig17_13_exchange_rate_rise.png" alt="圖 17-13 匯率上升造成美元升值，新台幣貶值" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-13 匯率上升（e ↑，如 28 ➔ 32）：<strong>美元升值、新台幣貶值</strong></div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch17/fig17_14_exchange_rate_fall.png" alt="圖 17-14 匯率下降造成美元貶值，新台幣升值" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-14 匯率下降（e ↓，如 32 ➔ 28）：<strong>美元貶值、新台幣升值</strong></div>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-title">📐 課本第 23 頁升貶值幅度計算公式（統測高頻計算題）</div>
+      <p style="margin-bottom: 6px;">假設 1 美元兌換新台幣的匯率由舊匯率 <i>e</i><sub>0</sub> 變動為新匯率 <i>e</i><sub>1</sub>：</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin: 12px 0;">
+        <div>
+          • <strong>本國貨幣（新台幣）升貶值幅度 ＝</strong>
+          <span class="frac"><span>舊匯率（<i>e</i><sub>0</sub>）－ 新匯率（<i>e</i><sub>1</sub>）</span><span>新匯率（<i>e</i><sub>1</sub>）</span></span> × 100%
+          <span style="font-size:0.9rem;color:#166534">（正值為升值，負值為貶值）</span>
+        </div>
+        <div>
+          • <strong>外國貨幣（美元）升貶值幅度 ＝</strong>
+          <span class="frac"><span>新匯率（<i>e</i><sub>1</sub>）－ 舊匯率（<i>e</i><sub>0</sub>）</span><span>舊匯率（<i>e</i><sub>0</sub>）</span></span> × 100%
+          <span style="font-size:0.9rem;color:#166534">（正值為升值，負值為貶值）</span>
+        </div>
+      </div>
+      <div style="font-size: 0.95rem; border-top: 1px dashed #86efac; padding-top: 8px;">
+        <strong>📝 課本生活題範例：</strong>匯率由 1：28 變為 1：32 時：<br>
+        • 新台幣升貶值幅度 ＝ (28 － 32) ÷ 32 × 100% ＝ <strong>－12.5%（新台幣貶值 12.5%）</strong><br>
+        • 美元升貶值幅度 ＝ (32 － 28) ÷ 28 × 100% ＝ <strong>＋14.29%（美元升值 14.29%）</strong>
+      </div>
+    </div>
+
+    <h3>二、匯率變動對進出口及總體經濟之衝擊（統測必考綜合對照）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>經濟主體與項目</th>
+            <th>本國貨幣貶值（匯率上升 e ↑）<br><span style="font-size:0.85rem;color:#b45309">（如 1 美元由 28 變為 32 台幣）</span></th>
+            <th>本國貨幣升值（匯率下降 e ↓）<br><span style="font-size:0.85rem;color:#1d4ed8">（如 1 美元由 32 變為 28 台幣）</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>出口商與出口產業</strong></td>
+            <td><strong>有利出口！</strong>本國商品換算成外幣價格變便宜，外國人購買力增強，出口量大增；換回之台幣貨款增加。</td>
+            <td><strong>不利出口！</strong>本國商品折合外幣變貴，國際價格競爭力下降，出口量縮減。</td>
+          </tr>
+          <tr>
+            <td><strong>進口商與進口成本</strong></td>
+            <td><strong>不利進口！</strong>每進口 1 美元商品須支付更多台幣，進口成本大增，壓縮利潤。</td>
+            <td><strong>有利進口！</strong>進口商品折合台幣變便宜，進口原料與設備成本大降。</td>
+          </tr>
+          <tr>
+            <td><strong>國內總體物價水準</strong></td>
+            <td><strong>物價上漲壓力大！</strong>進口能源（石油）、農工原料成本暴漲，引發<strong>「輸入性通貨膨脹」</strong>。</td>
+            <td><strong>抑制物價通膨！</strong>進口商品便宜，平抑國內一般物價水準。</td>
+          </tr>
+          <tr>
+            <td><strong>出國觀光與外國客來台</strong></td>
+            <td>• 國人出國旅遊／留學<strong>成本變貴（不利）</strong>。<br>• 外國旅客來台消費<strong>變便宜划算（有利觀光業）</strong>。</td>
+            <td>• 國人出國旅遊／留學<strong>變便宜（有利）</strong>。<br>• 外國旅客來台消費<strong>變貴（不利觀光業）</strong>。</td>
+          </tr>
+          <tr>
+            <td><strong>外幣外債償債負擔</strong></td>
+            <td><strong>負擔加重！</strong>每償還 1 美元外債須拿出更多台幣，債務壓力攀升。</td>
+            <td><strong>負擔減輕！</strong>每償還 1 美元外債只需較少台幣，債務壓力舒緩。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>三、世界三大匯率制度與台灣演進</h3>
+    <ul>
+      <li><strong>固定匯率制度（Fixed Exchange Rate）：</strong>政府或央行以行政法令將本國貨幣與特定外幣（或黃金）釘死在固定兌換比率（如金本位制、布列敦森林體系、早期的台灣）。優點是消除匯率風險；缺點是央行喪失貨幣政策自主權，且須備妥龐大外匯存底。</li>
+      <li><strong>純粹浮動匯率制度（Freely Floating Exchange Rate）：</strong>匯率完全交由外匯市場供需自由決定，政府與央行完全不進場干預。優點是能自動調節國際收支；缺點是匯率波動劇烈，增加國際貿易投資之風險。</li>
+      <li><strong>管理浮動匯率制度（Managed Floating Exchange Rate，又稱骯髒浮動 Dirty Floating）：</strong><strong>原則上尊重外匯市場供需機制自由浮動，但當匯率受到國際短期投機炒作或突發事件導致劇烈異常波動時，中央銀行將進場調節（逆風操作）！</strong></li>
+    </ul>
+
+    <div class="concept-box">
+      <strong>🇹🇼 台灣匯率制度的歷史演進歷程：</strong><br>
+      • <strong>1978 年 7 月以前：</strong>採<strong>固定匯率制度</strong>（1973 年以前美元兌台幣長期釘死在 1：40）。<br>
+      • <strong>1978 年 7 月：</strong>廢除固定匯率，改採機動匯率制度（設立外匯交易中心）。<br>
+      • <strong>1989 年 4 月起至今：</strong>廢除中心匯率限制，全面建立<strong>「管理浮動匯率制度」</strong>。中央銀行維持「動態穩定」，維護新台幣匯率秩序。
+    </div>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-economic-integration">
+    <h2>⑥ 17-5 國際經貿組織與區域經濟整合（全球經貿版圖）</h2>
+
+    <div class="img-wrap" style="max-width: 720px; margin: 18px auto;">
+      <img src="images/ch17/fig17_15_integration_hierarchy.png" alt="圖 17-15 國際經貿組織與區域經濟整合體系" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 17-15 國際經貿架構：全球性經貿組織（WTO、OECD、APEC）與區域經濟整合組織（EU、NAFTA、ASEAN）</div>
+    </div>
+
+    <h3>一、統測黃金考點：區域經濟整合五大階段（由低至高進化階梯）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>整合階段（由低至高）</th>
+            <th>會員國間關稅待遇</th>
+            <th>對非會員國對外關稅</th>
+            <th>生產要素自由流動</th>
+            <th>共同經濟與貨幣政策</th>
+            <th>代表性組織或協定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>① 優惠貿易協定<br>（PTA）</strong></td>
+            <td>部分商品給予關稅減讓</td>
+            <td>各自維持獨立關稅</td>
+            <td>✕（禁止自由流動）</td>
+            <td>✕（無）</td>
+            <td>英國特惠制、美台早收清單</td>
+          </tr>
+          <tr>
+            <td><strong>② 自由貿易區<br>（FTA）</strong></td>
+            <td><strong>全部商品完全廢除關稅與配額</strong></td>
+            <td><strong>各自維持自主獨立關稅</strong></td>
+            <td>✕（要素不自由流動）</td>
+            <td>✕（無）</td>
+            <td><strong>NAFTA（美墨加 USMCA）<br>CPTPP</strong></td>
+          </tr>
+          <tr>
+            <td><strong>③ 關稅同盟<br>（Customs Union）</strong></td>
+            <td>會員國間完全免關稅</td>
+            <td><strong>採取統一「共同對外關稅」</strong></td>
+            <td>✕（要素不自由流動）</td>
+            <td>✕（無）</td>
+            <td>早期歐洲關稅同盟、東非共同體</td>
+          </tr>
+          <tr>
+            <td><strong>④ 共同市場<br>（Common Market）</strong></td>
+            <td>會員國間完全免關稅</td>
+            <td>採取統一共同對外關稅</td>
+            <td><strong>勞動與資本可完全自由跨國移動</strong></td>
+            <td>✕（貨幣財政政策尚未統一）</td>
+            <td>歐洲共同體（EEC）、南方共同市場（Mercosur）</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ 經濟同盟<br>（Economic Union）</strong></td>
+            <td>會員國間完全免關稅</td>
+            <td>採取統一共同對外關稅</td>
+            <td>生產要素完全自由移動</td>
+            <td><strong>協調財政與貨幣政策、採用單一共同貨幣（最高級）</strong></td>
+            <td><strong>歐洲聯盟（EU 歐元區）</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>二、三大全球性國際經貿組織</h3>
+
+    <div style="margin: 20px 0;">
+      <h4>1. 世界貿易組織（World Trade Organization, WTO）——「經貿聯合國」</h4>
+      <p>1995 年成立，總部設於<strong>瑞士日內瓦</strong>，前身為關稅暨貿易總協定（GATT）。核心宗旨在於促進國際貿易自由化、消除貿易壁壘、解決國際貿易爭端。三大運作原則：<strong>最惠國待遇（MFN，非歧視）、國民待遇（NT）、透明化原則</strong>。</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0;">
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_16_wto_headquarter.png" alt="圖 17-16 WTO 瑞士日內瓦總部" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-16 WTO 瑞士日內瓦總部</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_17_wto_members_map.png" alt="圖 17-17 WTO 會員國分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-17 WTO 164 個會員國全球分布圖</div>
+        </div>
+      </div>
+      <div class="img-wrap" style="max-width: 650px; margin: 16px auto;">
+        <img src="images/ch17/fig17_18_taiwan_trade_after_wto.png" alt="圖 17-18 台灣加入 WTO 後進出口值變化趨勢" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 17-18 台灣加入 WTO 後進出口貿易急遽成長趨勢（我國於 2002 年以「台澎金馬個別關稅領域」正式入會）</div>
+      </div>
+    </div>
+
+    <div style="margin: 24px 0;">
+      <h4>2. 經濟合作暨發展組織（OECD）——「智庫」、「富人俱樂部」</h4>
+      <p>1961 年成立，總部設於<strong>法國巴黎</strong>。會員國多為已開發高所得國家，主要扮演經濟與社會政策之<strong>「論壇與智庫（Think Tank）」</strong>角色，專注於經濟政策研究、環境標準與理念倡導，<strong>無實質貿易協定簽訂與關稅互惠交換</strong>。</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 14px 0;">
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_19_oecd_headquarter.png" alt="圖 17-19 OECD 法國巴黎總部" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-19 OECD 法國巴黎總部</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_20_oecd_members_map.png" alt="圖 17-20 OECD 會員國分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-20 OECD 38 個會員國分布圖</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_21_oecd_forum.png" alt="圖 17-21 OECD 論壇" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-21 OECD 論壇研討國際經貿議題</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: 24px 0;">
+      <h4>3. 亞太經濟合作會議（APEC）——官方經貿論壇（無約束力）</h4>
+      <p>1989 年成立，秘書處設於<strong>新加坡</strong>，涵蓋環太平洋 21 個會員「經濟體（Economies）」。特點為<strong>「非約束性、自願參與、共識決」</strong>。我國於 1991 年以<strong>「中華台北（Chinese Taipei）」</strong>名義正式加入，是少數台灣具備正式會籍的重要官方國際組織。</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 14px 0;">
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_22_apec_members_map.png" alt="圖 17-22 APEC 會員經濟體分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-22 APEC 21 個經濟體分布圖</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_23_apec_chang_pence.png" alt="圖 17-23 台灣 APEC 特使張忠謀先生會談" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-23 我國領袖代表張忠謀先生於 APEC 與各國領袖舉行雙邊會談</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>三、主要區域經濟整合組織</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch17/fig17_24_asean_members_map.png" alt="圖 17-24 ASEAN 會員國分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-24 東南亞國家協會（ASEAN，10 國）</div>
+        </div>
+        <p style="font-size:0.92rem;"><strong>ASEAN（東協）：</strong>秘書處設於印尼雅加達，推動成立「東協經濟共同體（AEC）」，並與中日韓等國擴展東協十加三經貿連結。</p>
+      </div>
+
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch17/fig17_25_cptpp_members_map.png" alt="圖 17-25 CPTPP 會員國分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-25 跨太平洋夥伴全面進步協定（CPTPP）</div>
+        </div>
+        <p style="font-size:0.92rem;"><strong>CPTPP：</strong>由日本、加拿大、澳洲等 11 國發起之高標準自由貿易協定，強調零關稅與高規格數位貿易投資標準，我國已正式申請加入。</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch17/fig17_26_eu_members_map.png" alt="圖 17-26 EU 歐盟會員國分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-26 歐洲聯盟（EU 27 國分布）</div>
+        </div>
+        <div class="img-wrap" style="margin: 0;">
+          <img src="images/ch17/fig17_27_ecb_frankfurt.png" alt="圖 17-27 歐洲中央銀行（法蘭克福）" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-27 歐洲中央銀行（歐元區 20 國）</div>
+        </div>
+        <p style="font-size:0.92rem;margin-top:8px;"><strong>EU（歐盟）：</strong>總部比利時布魯塞爾，全球<strong>整合程度最高之區域組織</strong>。設立歐洲中央銀行（ECB）並發行單一貨幣——<strong>歐元（€）</strong>。</p>
+      </div>
+
+      <div>
+        <div class="img-wrap" style="margin: 0 0 10px 0;">
+          <img src="images/ch17/fig17_28_nafta_members_map.png" alt="圖 17-28 NAFTA 會員國分布圖" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 圖 17-28 北美自由貿易協定（美、加、墨 3 國）</div>
+        </div>
+        <p style="font-size:0.92rem;"><strong>NAFTA / USMCA：</strong>美、加、墨三國於 1994 年成立北美自由貿易區，2018 年升級為《美墨加協定（USMCA）》，促進北美地區零關稅自由貿易。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 模組七 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑦ 課本原題即測即評 (8 題精選統測必考真題)</h2>
+    <p>點擊正確選項即可查看即時判定與精準名師解析：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">1. 最早為國際貿易起源立下理論基礎，提出「絕對利益法則」的古典經濟學家是何人？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 亞當斯密（Adam Smith）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 李嘉圖（David Ricardo）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 凱因斯（J. M. Keynes）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 馬歇爾（Alfred Marshall）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">2. 下列何種理論主張「一國的貿易型態是由各國生產要素稟賦的差異決定，一國會出口要素稟賦豐富的產品，而進口該國缺乏要素的產品」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 保護貿易理論</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 絕對利益法則</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 比較利益法則</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 赫克夏-歐林要素稟賦理論（H-O 理論）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">3. 關於國際貿易分工理論，下列敘述何者「錯誤」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 亞當斯密提出絕對利益法則，強調分工與專業化利益</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 李嘉圖提出比較利益法則，以機會成本為衡量基準</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 即使在所有產品生產上都處於絕對優勢的國家，依然可以透過貿易獲益</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 根據李嘉圖比較利益法則，在所有產品皆處於絕對劣勢的國家，不應進行國際貿易</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">4. 我國政府過去規定進口肉品必須符合嚴格之防檢疫與「不含瘦肉精（萊克多巴胺）」標準方可進口，此屬於何種保護貿易措施？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 從價關稅措施</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 進口配額制度</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 出口補貼措施</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 行政干預與檢驗技術性非關稅障礙</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">5. 台灣民眾透過券商複委託購買美國蘋果公司（Apple）或德國西門子公司的股票，屬於下列哪一種國際投資方式？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 外國直接投資（FDI）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 外國間接投資（證券組合投資）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 國際官方無償援助</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 跨國合資企業設廠</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">6. 在台灣現行的直接標價法（應付匯率）下，若美元兌換新台幣的匯率由 1：28 變動為 1：27，則下列敘述何者完全正確？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 匯率下降，新台幣升值，美元貶值</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 匯率上升，新台幣貶值，美元升值</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 匯率下降，新台幣貶值，美元升值</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 匯率上升，新台幣升值，美元貶值</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">7. 在其他條件不變的情況下，若新台幣對美元大幅貶值（匯率由 28 上升為 32），對台灣經濟主體的影響何者正確？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 有利於台灣進口商進口外國商品</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 台灣民眾前往美國旅遊更便宜划算</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 有利於台灣半導體與自行車等外銷出口廠商</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 台灣企業償還以美元計價之外債負擔大幅減輕</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">8. 關於區域經濟整合的各個階段與組織，下列敘述何者「完全正確」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 自由貿易區（FTA）的會員國之間須採行共同對外關稅政策</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 北美自由貿易協定（NAFTA）會員國採用共同單一貨幣</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. OECD 是目前世界上區域經濟整合程度最高的組織</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 歐洲聯盟（EU）屬於經濟同盟層級，並於歐元區實施單一法定貨幣歐元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "亞當斯密（Adam Smith）於 1776 年在《國富論》中提出絕對利益法則，強調各國分工生產具絕對優勢之產品，為國際貿易理論奠定基石。",
+  2: "赫克夏-歐林（Heckscher-Ohlin）要素稟賦理論主張，各國要素稟賦多寡決定其比較利益與貿易型態，勞力充裕國出口勞力密集品，資本充裕國出口資本密集品。",
+  3: "李嘉圖比較利益法則的最大貢獻，即是證明『即使一國在所有產品生產上都處於絕對劣勢，只要專業化生產劣勢較小（機會成本較低）的產品，依然能從貿易中獲利』，故 (D) 錯誤。",
+  4: "政府透過食品安全衛生檢驗、動植物檢疫（SPS）與技術規格（TBT）限制外國特定肉品進口，屬於典型的非關稅貿易障礙（行政干預措施）。",
+  5: "跨國購買股票、債券等有價證券，目的在於獲取資本利得或股息收入，並無海外實質經營控制權，屬於『外國間接投資（證券組合投資）』。",
+  6: "應付匯率（直接標價）下，1 美元折合台幣由 28 變 27，代表購買 1 美元所需台幣變少，此為『匯率下降』，表示『新台幣升值、美元貶值』。",
+  7: "本國貨幣貶值（匯率上升）使台灣外銷產品折合外幣售價變便宜，國際競爭力增強，故『有利於出口商』；但會導致進口成本上升、出國變貴、外債折合台幣負擔加重。",
+  8: "歐盟（EU）是目前世界整合程度最高的區域經濟組織，屬於『經濟同盟』層級，設立歐洲中央銀行（ECB）並發行單一貨幣歐元；而 FTA 會員國各自保有獨立對外關稅且無共同貨幣。"
+};
+
+function checkQuiz(btn, selected) {
+  const item = btn.closest('.quiz-item');
+  const ans = item.getAttribute('data-answer');
+  const feedback = item.querySelector('.quiz-feedback');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(item) + 1;
+  
+  const buttons = item.querySelectorAll('.quiz-btn');
+  buttons.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (selected === ans) {
+    btn.style.backgroundColor = '#dcfce7';
+    btn.style.borderColor = '#86efac';
+    btn.style.fontWeight = '700';
+    btn.style.color = '#15803d';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = '<strong>✔ 正確！</strong> ' + EXPLANATIONS[qNum];
+  } else {
+    btn.style.backgroundColor = '#fee2e2';
+    btn.style.borderColor = '#fca5a5';
+    btn.style.color = '#b91c1c';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = '<strong>✘ 答錯了！</strong> 正確答案為 (' + ans + ')。<br>' + EXPLANATIONS[qNum];
+    
+    buttons.forEach(b => {
+      if (b.innerText.trim().startsWith(ans)) {
+        b.style.backgroundColor = '#dcfce7';
+        b.style.borderColor = '#86efac';
+        b.style.fontWeight = '700';
+        b.style.color = '#15803d';
+      }
+    });
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

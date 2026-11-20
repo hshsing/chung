@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH16 政府角色與財政政策 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組快速導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px 0;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH16 政府角色與財政政策 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch15_money_banking.html" class="header-btn">⬅ 上一章：CH15 貨幣與金融</a>
+    <a href="ch17_international_trade.html" class="header-btn highlight">下一章：CH17 國際貿易與國際金融 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然展開為 6 大模組 ＋ 即測即評） -->
+<nav class="subnav">
+  <a href="#sec-gov-roles" class="subnav-btn">① 16-1 政府職能與四大經濟角色</a>
+  <a href="#sec-market-failure" class="subnav-btn">② 16-2 市場失靈四大成因與政府對策</a>
+  <a href="#sec-public-goods" class="subnav-btn">③ 16-3 財貨四大分類與公共財特性</a>
+  <a href="#sec-gov-revenue-expenditure" class="subnav-btn">④ 16-4 政府財政收入與財政支出</a>
+  <a href="#sec-fiscal-policies" class="subnav-btn">⑤ 16-5 財政政策與自動穩定機能</a>
+  <a href="#sec-public-choice" class="subnav-btn">⑥ 16-6 代理問題、公共選擇與政治鐵三角</a>
+  <a href="#sec-quiz" class="subnav-btn">⑦ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-gov-roles">
+    <h2>① 16-1 政府的職能與四大經濟角色</h2>
+    
+    <div class="concept-box">
+      <strong>📌 看不見的手 vs 看得見的手：</strong><br>
+      • <strong>古典學派亞當斯密（Adam Smith）：</strong>主張自由放任，信賴市場機能（價格機能）這隻<strong>「看不見的手（An Invisible Hand）」</strong>來引導資源配置；政府僅扮演「消極夜警國家」角色（維持治安、國防、司法與基本教育）。<br>
+      • <strong>現代混合經濟體系：</strong>現實中市場機能往往會失靈，造成環境污染、貧富懸殊、經濟大蕭條。此時政府必須伸出<strong>「看得見的手（A Visible Hand）」</strong>進行適度干預，扮演市場失靈消除者與繁榮守護者的關鍵角色！
+    </div>
+
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch16/fig16_01_presidential_office.png" alt="圖 16-1 中華民國總統府" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-1 中華民國總統府（中央政府機關與五院共同承擔國家治理職能）</div>
+    </div>
+
+    <h3>一、政府四大經濟角色與任務</h3>
+    <ol>
+      <li><strong>制定法律與標準，保障人民權利：</strong>建立法規架構（如《民法》、《公平交易法》、《消費者保護法》），確立私有產權與合約履行機制。</li>
+      <li><strong>維護經濟公平，縮小貧富差距：</strong>實施綜合所得稅累進稅率、低收入戶急難救助、身障福利與老農津貼，落實財富二次分配。</li>
+      <li><strong>維持經濟穩定，促進充分就業：</strong>景氣蕭條失業率攀升時擴大公共支出降息；景氣過熱物價飆漲時緊縮支出升息。</li>
+      <li><strong>消除市場失靈，提升經濟效率：</strong>介入自然獨占產業、提供公共建設、管制污染外部成本。</li>
+    </ol>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-market-failure">
+    <h2>② 16-2 市場失靈四大成因與政府對策</h2>
+
+    <p>市場失靈（Market Failure）是指<strong>市場價格機能無法充分發揮有效配置經濟資源的功能</strong>，導致社會總福利受損。課本歸納四大主要成因與政府對策：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>市場失靈成因</th>
+            <th>經濟機制與失靈現象</th>
+            <th>課本實務生活範例</th>
+            <th>政府對策與因應手段</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. 自然獨占（Natural Monopoly）</strong></td>
+            <td>初期固定成本與設備極其龐大，隨產量增加平均成本（AC）持續下降（規模經濟顯著）。若任由私人競爭會造成重複投資浪費，私人獨占則會抬高價格剝削消費者。</td>
+            <td>自來水供應（台水）、電網傳輸（台電）、鐵路軌道系統（台鐵、高鐵）。</td>
+            <td>• <strong>政府經營公營事業</strong>（如台水、台電）。<br>• 透過法規進行<strong>價格管制</strong>（平均成本定價法、邊際成本定價法）。<br>• 採用 <strong>BOT 模式</strong>（興建-營運-移轉）。</td>
+          </tr>
+          <tr>
+            <td><strong>2. 資訊不對稱（Information Asymmetry）</strong></td>
+            <td>交易雙方掌握之資訊不對等（我知你不知）。導致：<br>
+            • <strong>事前「逆選擇（Adverse Selection）」：</strong>優質品退出市場（二手車檸檬市場、帶病投保）。<br>
+            • <strong>事後「道德危險（Moral Hazard）」：</strong>投保後疏於防範、員工偷懶摸魚。</td>
+            <td>中古車買賣、中古屋漏水爭議、人壽保險投保。</td>
+            <td>• 訂定<strong>資訊揭露</strong>法規（食品成分標示、中古屋屋況說明書）。<br>• 規定<strong>定型化契約</strong>規範鑑賞期。<br>• 建立<strong>專業證照檢驗</strong>制度（醫師、會計師執照）。</td>
+          </tr>
+          <tr>
+            <td><strong>3. 正的外部性（外部利益）</strong></td>
+            <td>經濟行為對他人帶來正面效益，他人卻不必付費。<strong>私人利益 ＜ 社會利益</strong>，導致<strong>市場均衡產出不足（小於社會最適量）</strong>。</td>
+            <td>家長帶幼兒接種麻疹疫苗、農民造林綠化、企業投入研發新科技。</td>
+            <td>• <strong>給予補貼</strong>（疫苗公費補助、育兒津貼）。<br>• <strong>租稅減免</strong>（企業研發投資抵減）。<br>• <strong>專利權保護</strong>（保障研發成果）。</td>
+          </tr>
+          <tr>
+            <td><strong>4. 負的外部性（外部成本）</strong></td>
+            <td>經濟行為對他人造成損害，行為人卻不必承擔代價。<strong>私人成本 ＜ 社會成本</strong>（社會成本 ＝ 私人成本 ＋ 外部成本），導致<strong>市場過度生產（大於社會最適量）</strong>。</td>
+            <td>石化廠排廢氣廢水、重機夜間噪音炸街、二手菸害。</td>
+            <td>• <strong>課徵皮古稅（Pigovian Tax）</strong>（空污稅、碳費、隨袋徵收垃圾費）。<br>• <strong>法令直接管制與開罰</strong>（環保標準罰鍰）。<br>• <strong>界定產權（寇斯定理）</strong>。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測名師避坑指引：</strong><br>
+      • <strong>外部利益</strong> ➔ 市場生產<strong>不足</strong> ➔ 政府應<strong>補貼</strong>。<br>
+      • <strong>外部成本</strong> ➔ 市場生產<strong>過剩</strong> ➔ 政府應<strong>課稅或處罰</strong>。
+    </div>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-public-goods">
+    <h2>③ 16-3 財貨四大分類矩陣與公共財特性（統測絕對必考）</h2>
+
+    <p>財貨的分類取決於兩大核心維度：<strong>「獨享性 vs 共享性（敵對性）」</strong>以及<strong>「可排他性 vs 不可排他性」</strong>。</p>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch16/fig16_02_rivalry_vs_nonrivalry.png" alt="圖 16-2 獨享性 v.s. 共享性" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-2 獨享性（車多擁擠減損他人效用）vs 共享性（車流量少時多一輛車不影響他人速度與效用）</div>
+    </div>
+
+    <h3>一、統測黃金考點：私有財與公共財判斷矩陣（課本圖 16-7）</h3>
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch16/fig16_07_goods_classification_matrix.png" alt="圖 16-7 財貨的分類" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-7 財貨的四大分類矩陣（依「排他性」與「敵對性/獨享性」兩大維度劃分）</div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>分類項目</th>
+            <th>獨享性（互斥性 / 敵對性）<br><span style="font-weight:normal;font-size:0.85rem">一人享用會減少他人享用額度</span></th>
+            <th>共享性（非互斥性 / 非敵對性）<br><span style="font-weight:normal;font-size:0.85rem">一人享用不影響他人享用效用</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>可排他性</strong><br><span style="font-size:0.85rem;color:#64748b">可透過收費阻絕未付費者</span></td>
+            <td>
+              <div style="font-weight:700;color:#1d4ed8;font-size:1.05rem;">① 純私有財（Pure Private Goods）</div>
+              • 具獨享性、具可排他性<br>
+              • 課本實例：<strong>便當、衣服、球鞋、手機、個人自用車</strong><br>
+              • 特性：市場機制運作最有效率，付費購買才能獨自享有。
+            </td>
+            <td>
+              <div style="font-weight:700;color:#0284c7;font-size:1.05rem;">② 準公共財（俱樂部財 Club Goods）</div>
+              • 具共享性、具可排他性<br>
+              • 課本實例：<strong>有線電視第四台、收費游泳池、不擁擠但收費的國道高速公路</strong><br>
+              • 特性：未付費可拉線阻絕，付費後可多人同時共享。
+            </td>
+          </tr>
+          <tr>
+            <td><strong>不可排他性</strong><br><span style="font-size:0.85rem;color:#64748b">無法收費或收費成本太高</span></td>
+            <td>
+              <div style="font-weight:700;color:#b45309;font-size:1.05rem;">③ 準私有財（共有資源 Common Resources）</div>
+              • 具獨享性、無排他性<br>
+              • 課本實例：<strong>公海中的鯨魚魚類、公有草地牧場、不收費但車多擁擠的公路</strong><br>
+              • 致命缺失：人人皆可免費取用且先搶先贏，易釀成<strong>「公地悲劇（過度捕撈耗竭資源）」</strong>！
+            </td>
+            <td>
+              <div style="font-weight:700;color:#15803d;font-size:1.05rem;">④ 純公共財（Pure Public Goods）</div>
+              • 無敵對性、無排他性<br>
+              • 課本實例：<strong>國防、警政司法、路燈、燈塔、行人號誌走動小綠人</strong><br>
+              • 致命缺失：邊際成本為 0，人人想<strong>「搭便車（Free-Rider）」</strong>享受而不出錢，私人市場絕不願供給，<strong>必須由政府提供！</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch16/fig16_03_pure_private_goods.png" alt="圖 16-3 純私有財" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 純私有財（球鞋：可排他＋獨享）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch16/fig16_04_quasi_private_goods.png" alt="圖 16-4 準私有財" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 準私有財（公海魚類：不排他＋獨享）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch16/fig16_05_pure_public_goods.png" alt="圖 16-5 純公共財" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 純公共財（路燈：不排他＋共享）</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch16/fig16_06_quasi_public_goods.png" alt="圖 16-6 準公共財" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 準公共財（有線電視：可排他＋共享）</div>
+      </div>
+    </div>
+
+    <h3>二、政府如何提供公共財（決策與程序）</h3>
+    <div class="img-wrap" style="max-width: 600px; margin: 18px auto;">
+      <img src="images/ch16/fig16_08_how_gov_provides_public_goods.png" alt="圖 16-8 政府如何提供公共財" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-8 成本效益分析（效益 ＞ 成本始得編列預算）➔ 行政院送立法院審議通過 ➔ 決定供給量</div>
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-gov-revenue-expenditure">
+    <h2>④ 16-4 政府財政收入與支出（科目歸類與公債陷阱）</h2>
+
+    <h3>一、政府財政收入七大來源</h3>
+    <ol>
+      <li><strong>租稅收入（稅課收入，最主要來源，占 70%~80%）：</strong>
+        <ul>
+          <li><strong>四大古典租稅原則（亞當斯密）：</strong>平等（負擔能力公平）、確定（時間地點數額明確）、便利（納稅手續簡便）、經濟（徵稅成本降至最低）。</li>
+          <li><strong>兩大現代公平原則：</strong>
+            - <strong>量能課稅原則（能力原則 / 垂直公平）：</strong>所得高者多繳稅（如綜合所得稅累進稅率）。<br>
+            - <strong>受益原則（利益原則 / 水平公平）：</strong>享受政府好處多者多付費（如隨油徵收汽燃費、商港建設費）。
+          </li>
+          <li><strong>國稅 vs 地方稅：</strong>
+            - <i>國稅</i>：關稅、所得稅（綜所稅、營所稅）、遺產及贈與稅、貨物稅、證券交易稅、營業稅、特種貨物及勞務稅（奢侈稅）。<br>
+            - <i>地方稅</i>：地價稅、土地增值稅、房屋稅、契稅、使用牌照稅、印花稅、娛樂稅。
+          </li>
+          <li><strong>直接稅 vs 間接稅：</strong>
+            - <i>直接稅</i>：納稅義務人即實質負擔人，<strong>無法轉嫁</strong>（綜合所得稅、營利事業所得稅、遺產稅、地價稅）。<br>
+            - <i>間接稅</i>：納稅人可將稅負轉嫁給買方消費者（營業稅、關稅、貨物稅、菸酒稅、奢侈稅）。
+          </li>
+        </ul>
+      </li>
+      <li><strong>規費收入：</strong>使用者付費（申請戶籍謄本、換發護照規費、高速公路通行費）。</li>
+      <li><strong>財產收入：</strong>公有財產出租之租金、出售國有土地、廢舊物料售價。</li>
+      <li><strong>營業盈餘及事業收入：</strong>公營事業（中油、台電、台糖，圖 16-9）盈餘繳庫。</li>
+      <li><strong>罰款及賠償收入：</strong>違規停車罰單、超速罰鍰、廠商違約賠償。</li>
+      <li><strong>捐獻及贈與收入：</strong>民間或企業無償捐贈給政府的財物。</li>
+      <li><strong>公債收入（債務收入）：</strong>發行國庫券或公債融通資金（<strong>屬負債性質，非實質歲入</strong>）。</li>
+    </ol>
+
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch16/fig16_09_taiwan_sugar_profit.png" alt="圖 16-9 台灣糖業公司的營業盈餘" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-9 台灣糖業公司（國營事業營業盈餘繳庫屬於政府事業收入）</div>
+    </div>
+
+    <h3>二、政府財政支出（經常支出 vs 資本支出）</h3>
+    <div class="table-wrap" style="max-width: 760px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>支出分類</th>
+            <th>經濟意義與主要項目</th>
+            <th>公債收支統測黃金考點</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>經常支出</strong></td>
+            <td>政府維持日常公務運作之例行性支出（發放公務人員薪資、採購辦公文具消耗品、發放老人弱勢津貼、災害救濟金）。</td>
+            <td><strong>支付公債「利息」➔ 屬於經常支出！</strong><br>（因屬每期固定的利息維護負擔）</td>
+          </tr>
+          <tr>
+            <td><strong>資本支出</strong></td>
+            <td>政府購置耐久性資本設備、推動重大公共建設（南迴公路圖 16-10、蘇花改公路、台中捷運、興建港灣水庫）。能提升國家長期生產力！</td>
+            <td><strong>償還公債「本金」➔ 屬於資本支出！</strong><br>（因屬負債本金的清償與資本帳沖銷）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="img-wrap" style="max-width: 600px; margin: 18px auto;">
+      <img src="images/ch16/fig16_10_south_link_highway.png" alt="圖 16-10 南迴公路" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-10 南迴公路截彎取直拓寬工程（重大公共建設屬於資本支出，刺激投資擴大內需）</div>
+    </div>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-fiscal-policies">
+    <h2>⑤ 16-5 政府經濟政策：財政政策與自動穩定機能</h2>
+
+    <p>財政政策是政府透過調整<strong>政府支出（<i>G</i>）</strong>或<strong>稅收（<i>T</i>）</strong>，以導引總需求回到充分就業的宏觀調控手段。</p>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch16/fig16_11_fiscal_policy_expansion_contraction.png" alt="圖 16-11 擴張性與緊縮性財政政策" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-11 景氣低迷採擴張政策（增支減稅）；景氣過熱採緊縮政策（減支增稅）</div>
+    </div>
+
+    <h3>一、擴張性 vs 緊縮性財政政策對照矩陣</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>政策類型</th>
+            <th>景氣現況與面臨問題</th>
+            <th>政府具體操作手段</th>
+            <th>經濟效果</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>擴張性財政政策（鬆）</strong></td>
+            <td>景氣衰退蕭條、有效需求不足、失業率攀升、產能閒置。</td>
+            <td>• <strong>增加政府支出（<i>G ↑</i>）：</strong>擴大公共建設、發行振興券。<br>• <strong>減稅（<i>T ↓</i>）：</strong>降低所得稅、減徵貨物稅。</td>
+            <td>帶動總需求 <i>AD</i> 擴張，透過乘數原理使國民所得 <i>Y</i> 倍數增加，促使失業率下降。</td>
+          </tr>
+          <tr>
+            <td><strong>緊縮性財政政策（緊）</strong></td>
+            <td>景氣過熱膨脹、有效需求過盛、引發嚴重物價膨脹（通膨）。</td>
+            <td>• <strong>減少政府支出（<i>G ↓</i>）：</strong>縮減非必要工程、撙節公務開支。<br>• <strong>加稅（<i>T ↑</i>）：</strong>調高租稅稅率、開徵新稅。</td>
+            <td>抑制民間與政府總需求，冷卻過熱景氣，平抑物價上漲壓力。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>二、內建自動穩定機能（Built-in Automatic Stabilizers）</h3>
+    <div class="concept-box">
+      <strong>📌 自動穩定機能定義：</strong><br>
+      指政府財政制度本身預先內建的機制，<strong>無須經過行政部門臨時提案與立法院立法通過</strong>，即能隨經濟景氣起伏「自動」發揮反向調節總需求之功能！<br>
+      • <strong>1. 綜合所得稅累進稅率：</strong>景氣好時大眾所得增加，適用累進高稅率，繳稅自動倍增，發揮自動煞車降溫效果；景氣差所得萎縮，稅率自動跳低，減輕人民負擔。<br>
+      • <strong>2. 失業救濟金與社會福利救助：</strong>景氣衰退時失業人口暴增，政府發放救濟金與急難補貼自動暴增，直接支撐基層家庭維持消費水準；景氣繁榮時失業少，補助支出自動下降。
+    </div>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-public-choice">
+    <h2>⑥ 16-6 代理問題、公共選擇理論與政治鐵三角</h2>
+
+    <h3>一、代理問題（Principal-Agent Problem）</h3>
+    <p>在民主體制中，人民（委託人）投票選出政府官員與民意代表（代理人）。當雙方資訊不對稱且存在自利心時，產生兩大問題：</p>
+
+    <div class="img-wrap" style="max-width: 600px; margin: 18px auto;">
+      <img src="images/ch16/fig16_12_adverse_selection_moral_hazard.png" alt="圖 16-12 逆選擇與道德危險" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-12 選前逆選擇（候選人隱瞞缺點做出不實承諾）vs 選後道德危險（當選就任後圖利廠商收取回扣）</div>
+    </div>
+    <ul>
+      <li><strong>逆選擇（事前）：</strong>在契約成立或選舉投票「之前」，代理人隱瞞自身缺點（如政客濫開空頭支票），使選民做出錯誤挑選。</li>
+      <li><strong>道德危險（事後）：</strong>在契約成立或就任「之後」，代理人做出違背人民利益之自利行為（如官員編列自肥預算、收受賄賂、怠惰摸魚）。</li>
+    </ul>
+
+    <h3>二、公共選擇理論（Public Choice Theory，圖 16-13）</h3>
+    <div class="img-wrap" style="max-width: 580px; margin: 18px auto;">
+      <img src="images/ch16/fig16_13_public_choice_process.png" alt="圖 16-13 公共選擇的運作過程" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-13 公共選擇運作：選民（納稅投票）➔ 政治人物（立法審查）➔ 行政官員（執行政策提供公共財）</div>
+    </div>
+
+    <h3>三、利益團體、鑽營行為與政治鐵三角（Iron Triangle）</h3>
+    <div class="img-wrap" style="max-width: 460px; margin: 18px auto;">
+      <img src="images/ch16/fig16_14_iron_triangle.png" alt="圖 16-14 政治鐵三角" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 16-14 政治鐵三角：政治人物（民代）、官員、利益團體三者間牢不可破的利益交換結構</div>
+    </div>
+
+    <div class="concept-box">
+      <strong>📌 鑽營競租行為（Rent-Seeking）：</strong><br>
+      利益團體透過遊說、政治獻金甚至賄賂等方式影響政治人物與官員，企圖爭取對自身有利的特許權、高關稅保護或專屬補助。鑽營行為不創造實質產出，純屬資源掠奪與浪費，嚴重損害全民福祉！
+    </div>
+  </section>
+
+  <!-- 模組七 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑦ 課本原題即測即評 (8 題精選互動測驗)</h2>
+    <p>嚴選課本課後習題與綜合情境題，點擊選項立即獲得即時評分、詳盡解析與統測避坑提示：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">1. 對於因「自然獨占」所造成的市場失靈現象，政府通常會採取何種方式來因應？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 對廠商課徵高額污染稅</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 給予無上限之財政補貼</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 由政府經營公營事業或進行公用事業價格管制</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 放任自由競爭使其產生多數廠商</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">2. 某一產品市場因為資訊不對稱，導致劣質品驅逐優質品，使得整個市場演變成「檸檬市場（Lemon Market）」，其核心成因為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 廠商生產存在負的外部性</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 產品具備純公共財特性</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 買賣雙方存在嚴重的資訊不對稱（逆選擇）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 政府課徵過高的消費稅</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">3. 依據財貨的排他性與敵對性分類，中央氣象署發布的「海嘯警報」與「防空警報」屬於下列何種財貨？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 純公共財（具共享性且不可排他）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 準公共財（具共享性但可排他）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 準私有財（具獨享性但不可排他）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 純私有財（具獨享性且可排他）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">4. 「公海中的鯨魚魚類」或「公有草地牧場」屬於準私有財（共有資源），這類財貨最容易引發下列何種悲劇現象？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 搭便車問題</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 規模報酬遞增</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 流動性陷阱</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 公地悲劇（過度捕撈或過度放牧耗竭資源）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">5. 我國國民每年 5 月申報繳納的「個人綜合所得稅」，依財政學租稅分類應屬於：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 國稅、所得稅、直接稅</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 地方稅、財產稅、間接稅</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 國稅、消費稅、直接稅</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 地方稅、流通稅、間接稅</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">6. 關於政府公債之發行與償還，下列敘述何者完全正確？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 償還公債「本金」屬於資本支出；支付公債「利息」屬於經常支出</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 償還公債本金與支付利息皆屬於經常支出</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 發行公債籌措之資金屬於實質租稅收入</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 償還公債本金屬於政府實質消費支出，直接計入 GDP</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">7. 某保戶為自己投保巨額人壽保險後，故意在暴風雨天製造假墜崖車禍詐死，企圖讓家屬詐領保險理賠金，此行為屬於：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 逆選擇（契約成立前隱瞞資訊）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 道德危險（契約成立後因自利做出不法危害行為）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 搭便車問題</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 外部利益行為</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">8. 在公共選擇運作中，由「民意代表（政治人物）」、「行政官員」與「利益團體」三者形成互相輸送利益、制定偏袒政策的政治共生結構，被稱為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 價格卡特爾</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 政治鐵三角（Iron Triangle）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 外部性補貼聯盟</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 托拉斯托拉斯聯營</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "自然獨占因固定設備龐大具顯著規模經濟，私人自由競爭會造成巨額資源浪費，故政府通常採取『公營公辦（如台水台電）』或透過法規進行平均成本定價等價格管制。",
+  2: "資訊不對稱造成契約成立前的『逆選擇』，買方因無法辨別二手車品質只願出平均價，使優質車退出市場，市場充斥瑕疵劣質車（檸檬車），形成檸檬市場。",
+  3: "海嘯防空警報任何人聽聞皆不會減損他人聽聞效用（共享性/非敵對），且無法透過收費阻止國境內未付費者聽取警報（不可排他性），故屬於典型純公共財。",
+  4: "準私有財（共有資源）具獨享性但缺乏排他性，在先捕先贏激勵下無人願意保育，導致過度捕撈耗竭資源，此即著名的『公地悲劇（Tragedy of the Commons）』。",
+  5: "我國綜合所得稅由中央國稅局徵收（國稅），稅課標的為所得（所得稅），且稅負無法轉嫁給他人負擔，納稅人即實質負擔人（直接稅）。",
+  6: "公債本金償還屬於負債本金結清與資本帳沖銷，列為『資本支出』；而每年按期支付的公債利息則屬於維持債務之日常業務支出，列為『經常支出』。公債本息收支均不計入 GDP。",
+  7: "投保契約成立『之後』，因有保險金掩護而故意從事詐保、不愛惜生命或縱火等損人利己的不道德行為，屬於典型的『道德危險（Moral Hazard）』。",
+  8: "利益團體（提供政治獻金遊說）＋ 國會政治人物（立法審核提案）＋ 行政官僚（編列預算執行特許）三者互相盤根錯節的共生關係，即為課本介紹的『政治鐵三角』。"
+};
+
+function checkQuiz(btn, chosen) {
+  const parent = btn.closest('.quiz-item');
+  const answer = parent.getAttribute('data-answer');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(parent) + 1;
+  const feedback = parent.querySelector('.quiz-feedback');
+  const allBtns = parent.querySelectorAll('.quiz-btn');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (chosen === answer) {
+    btn.style.borderColor = '#10b981';
+    btn.style.background = '#ecfdf5';
+    btn.style.color = '#065f46';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = `<strong>✔ 正確！</strong> ${EXPLANATIONS[qNum]}`;
+  } else {
+    btn.style.borderColor = '#ef4444';
+    btn.style.background = '#fef2f2';
+    btn.style.color = '#991b1b';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = `<strong>✘ 答錯了！</strong> 正確答案為 (${answer})。<br>${EXPLANATIONS[qNum]}`;
+    
+    // 高亮正確選項
+    const correctIndex = answer.charCodeAt(0) - 65;
+    const correctBtn = allBtns[correctIndex];
+    if (correctBtn) {
+      correctBtn.style.borderColor = '#10b981';
+      correctBtn.style.background = '#ecfdf5';
+      correctBtn.style.color = '#065f46';
+    }
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

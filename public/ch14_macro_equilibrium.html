@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH14 所得水準的決定 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組快速導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px 0;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 分數排版 */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 3px;
+  font-size: 0.9em;
+}
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.frac > span.bottom {
+  padding-top: 1px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH14 所得水準的決定 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch13_national_income.html" class="header-btn">⬅ 上一章：CH13 國民所得</a>
+    <a href="ch15_money_banking.html" class="header-btn highlight">下一章：CH15 貨幣與金融 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然展開為 8 大模組 ＋ 即測即評） -->
+<nav class="subnav">
+  <a href="#sec-effective-demand" class="subnav-btn">① 14-1 有效需求理論</a>
+  <a href="#sec-consumption-saving" class="subnav-btn">② 14-2-1 & 14-2-2 消費與儲蓄函數</a>
+  <a href="#sec-c-s-relation" class="subnav-btn">③ 14-2-3 & 14-2-4 45度線與損益平衡點</a>
+  <a href="#sec-investment-mei" class="subnav-btn">④ 14-3 投資與投資邊際效率 (MEI)</a>
+  <a href="#sec-simple-keynesian" class="subnav-btn">⑤ 14-4 簡單凱因斯兩部門均衡決定</a>
+  <a href="#sec-multiplier-thrift" class="subnav-btn">⑥ 14-5 乘數原理與 14-7 節儉的矛盾</a>
+  <a href="#sec-gaps" class="subnav-btn">⑦ 14-6 膨脹缺口與緊縮缺口</a>
+  <a href="#sec-government-multipliers" class="subnav-btn">⑧ 14-8 加入政府部門模型與各項乘數</a>
+  <a href="#sec-quiz" class="subnav-btn">⑨ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-effective-demand">
+    <h2>① 14-1 有效需求理論（Effective Demand Theory）</h2>
+    
+    <div class="concept-box">
+      <strong>📌 古典學派 vs 凱因斯學派的劃時代對決：</strong><br>
+      • <strong>1929 年前（古典學派）：</strong>信奉<strong>賽伊法則（Say's Law，即「供給創造其自身需求」）</strong>。認為充分就業是常態，透過價格機能靈活調整，市場自動趨於均衡，絕不可能發生長期普遍性失業。<br>
+      • <strong>1929 年經濟大恐慌：</strong>全球陷入嚴重經濟衰退，美國失業率飆至 25%，物價狂跌，古典學派無力解釋。<br>
+      • <strong>1936 年凱因斯（J. M. Keynes）：</strong>發表《就業、利息與貨幣的一般理論》，指出在未充分就業下，<strong>「需求創造其自身供給」</strong>，均衡國民所得水準是由<strong>「有效需求（Effective Demand）」</strong>的大小來決定！
+    </div>
+
+    <h3>一、有效需求的構成（封閉經濟體系）</h3>
+    <p>有效需求是指在不同所得水準下，社會各部門「有購買意願且有支付能力」的總需求。在封閉經濟體系中，有效需求由三大部門支出所構成：</p>
+    <ul>
+      <li><strong>家計部門的消費支出（<i>C</i>）</strong></li>
+      <li><strong>企業部門的投資支出（<i>I</i>）</strong></li>
+      <li><strong>政府部門的政府支出（<i>G</i>）</strong></li>
+    </ul>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch14/fig14_01_effective_demand.png" alt="圖 14-1 有效需求的構成與對所得水準的影響" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-1 有效需求的構成與對所得水準的影響（有效需求不足 ➔ 總產出 GDP 降低；有效需求擴張 ➔ 總產出增加）</div>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測名師提醒：</strong>凱因斯強調，當社會存在閒置資源與失業（未充分就業）時，政府必須扮演積極角色，透過擴張性公共建設或減稅提振有效需求，帶動產出與就業回升。
+    </div>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-consumption-saving">
+    <h2>② 14-2-1 & 14-2-2 消費與儲蓄函數（傾向指標精解）</h2>
+
+    <p>家計部門的可支配所得 <i>Y<sub>d</sub></i> 只有兩個去處：不是用於消費 <i>C</i>，就是用於儲蓄 <i>S</i>，即：<strong><i>Y<sub>d</sub> ＝ C ＋ S</i></strong>。</p>
+
+    <h3>一、基本消費心理法則與消費函數</h3>
+    <div class="concept-box">
+      <strong>📌 凱因斯基本消費心理法則（Fundamental Psychological Law）：</strong><br>
+      當社會的可支配所得增加時，民間消費支出也會增加，但<strong>消費增加的幅度小於所得增加的幅度</strong>（因為人會把部分增額存起來）。因此：<br>
+      <strong>0 ＜ 邊際消費傾向（<i>MPC</i>） ＜ 1</strong>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 14-1：線性消費函數</div>
+      <p style="margin-bottom: 6px;"><strong><i>C ＝ a ＋ bY<sub>d</sub></i></strong> （其中 <i>a ＞ 0</i>，<i>0 ＜ b ＜ 1</i>）</p>
+      <ul style="margin: 6px 0 0 20px; font-size: 0.95rem; color: #166534;">
+        <li><strong><i>a</i>：自發性消費（Autonomous Consumption）</strong>。不受所得影響，當 <i>Y<sub>d</sub> ＝ 0</i> 時維持生存所需的最低支出（固定常數）。</li>
+        <li><strong><i>bY<sub>d</sub></i>：誘發性消費（Induced Consumption）</strong>。隨可支配所得增減而變動之消費。</li>
+        <li><strong><i>b</i>：邊際消費傾向（<i>MPC</i>）</strong>。消費曲線的斜率。</li>
+      </ul>
+    </div>
+
+    <div class="img-wrap" style="max-width: 650px; margin: 18px auto;">
+      <img src="images/ch14/fig14_02_consumption_curve.png" alt="圖 14-2 消費曲線" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-2 消費曲線：縱軸截距為自發性消費 a，正斜率 b ＝ MPC ＝ ΔC / ΔYd</div>
+    </div>
+
+    <h3>二、儲蓄函數推導</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 14-4：儲蓄函數推導</div>
+      <p style="margin-bottom: 6px;"><strong><i>S ＝ Y<sub>d</sub> － C ＝ Y<sub>d</sub> － (a ＋ bY<sub>d</sub>) ＝ －a ＋ (1 － b)Y<sub>d</sub></i></strong></p>
+      <ul style="margin: 6px 0 0 20px; font-size: 0.95rem; color: #166534;">
+        <li><strong><i>－a</i>：自發性負儲蓄</strong>。當 <i>Y<sub>d</sub> ＝ 0</i> 時動用原有儲蓄或舉債借款的金額（絕對值等於自發性消費）。</li>
+        <li><strong><i>1 － b</i>：邊際儲蓄傾向（<i>MPS</i>）</strong>。儲蓄曲線的斜率。</li>
+      </ul>
+    </div>
+
+    <div class="img-wrap" style="max-width: 650px; margin: 18px auto;">
+      <img src="images/ch14/fig14_03_saving_curve.png" alt="圖 14-3 儲蓄曲線" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-3 儲蓄曲線：縱軸截距為負儲蓄 -a，斜率為 MPS ＝ 1 － b</div>
+    </div>
+
+    <h3>三、四大傾向指標深層對照（統測必考公式）</h3>
+    <div class="table-wrap" style="max-width: 760px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>指標名稱</th>
+            <th>定義與數學公式</th>
+            <th>隨所得增加之走勢</th>
+            <th>兩者大小關係</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>平均消費傾向（<i>APC</i>）</strong></td>
+            <td><strong><i>APC ＝ <span class="frac"><span>C</span><span class="bottom">Y<sub>d</sub></span></span> ＝ <span class="frac"><span>a</span><span class="bottom">Y<sub>d</sub></span></span> ＋ b</i></strong><br>每 1 單位可支配所得中用於消費的比例</td>
+            <td>隨所得增加而<strong>遞減</strong></td>
+            <td rowspan="2" style="vertical-align:middle;font-weight:700;color:#2563eb;"><i>APC ＞ MPC</i><br>（因 <i>a/Y<sub>d</sub> ＞ 0</i>）</td>
+          </tr>
+          <tr>
+            <td><strong>邊際消費傾向（<i>MPC</i>）</strong></td>
+            <td><strong><i>MPC ＝ <span class="frac"><span>ΔC</span><span class="bottom">ΔY<sub>d</sub></span></span> ＝ b</i></strong><br>每增加 1 單位所得所引起的消費增量</td>
+            <td>在線性模型中為固定常數（<i>0 ＜ b ＜ 1</i>）</td>
+          </tr>
+          <tr>
+            <td><strong>平均儲蓄傾向（<i>APS</i>）</strong></td>
+            <td><strong><i>APS ＝ <span class="frac"><span>S</span><span class="bottom">Y<sub>d</sub></span></span> ＝ <span class="frac"><span>－a</span><span class="bottom">Y<sub>d</sub></span></span> ＋ (1 － b)</i></strong><br>每 1 單位可支配所得中用於儲蓄的比例</td>
+            <td>隨所得增加而<strong>遞增</strong></td>
+            <td rowspan="2" style="vertical-align:middle;font-weight:700;color:#059669;"><i>APS ＜ MPS</i><br>（因 <i>－a/Y<sub>d</sub> ＜ 0</i>）</td>
+          </tr>
+          <tr>
+            <td><strong>邊際儲蓄傾向（<i>MPS</i>）</strong></td>
+            <td><strong><i>MPS ＝ <span class="frac"><span>ΔS</span><span class="bottom">ΔY<sub>d</sub></span></span> ＝ 1 － b</i></strong><br>每增加 1 單位所得所引起的儲蓄增量</td>
+            <td>在線性模型中為固定常數（<i>0 ＜ MPS ＜ 1</i>）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-c-s-relation">
+    <h2>③ 14-2-3 & 14-2-4 45度線與損益平衡點（消費、儲蓄與所得關係）</h2>
+
+    <h3>一、傾向相加總和定理</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 傾向互補定理</div>
+      <p style="margin-bottom: 6px;"><strong>1. <i>APC ＋ APS ＝ 1</i></strong> （每塊錢的所得不是消費就是儲蓄）</p>
+      <p style="margin-bottom: 0;"><strong>2. <i>MPC ＋ MPS ＝ 1</i></strong> （每增加一塊錢的所得增量，不是多花就是多存）</p>
+    </div>
+
+    <h3>二、45º 輔助線與收支平衡點（損益平衡點，Break-even Point）</h3>
+    <p>45º 線是由原點出發的幾何輔助線，線上任一點的縱座標均等於橫座標，即 <strong><i>Y<sub>d</sub> ＝ C</i></strong>。</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch14/fig14_04_45_degree_line.png" alt="圖 14-4 45º線圖形" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 14-4 45º線幾何特性：線上每一點皆滿足 Yd ＝ C</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch14/fig14_05_c_s_yd_relation.png" alt="圖 14-5 消費、儲蓄與可支配所得的關係" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 14-5 雙圖合一：E 點為收支平衡所得（Yd ＝ C 且 S ＝ 0）</div>
+      </div>
+    </div>
+
+    <h3>三、課本表 14-1 三大區間全景對比表</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>所得區間狀態</th>
+            <th>消費線與 45º 線位置</th>
+            <th>儲蓄 <i>S</i> 狀態</th>
+            <th><i>APC</i> 與 1 的大小</th>
+            <th><i>APS</i> 與 0 的大小</th>
+            <th>日常生活經濟行為</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><i>Y<sub>d</sub> ＜ C</i>（平衡點左側）</strong></td>
+            <td>消費線在 45º 線<strong>上方</strong></td>
+            <td><strong>負儲蓄（<i>S ＜ 0</i>）</strong></td>
+            <td><strong><i>APC ＞ 1</i></strong></td>
+            <td><strong><i>APS ＜ 0</i></strong></td>
+            <td>入不敷出、舉債度日、動用老本</td>
+          </tr>
+          <tr style="background:#eff6ff;font-weight:700;">
+            <td><strong><i>Y<sub>d</sub> ＝ C</i>（收支平衡點 E）</strong></td>
+            <td>消費線與 45º 線<strong>相交</strong></td>
+            <td><strong>零儲蓄（<i>S ＝ 0</i>）</strong></td>
+            <td><strong><i>APC ＝ 1</i></strong></td>
+            <td><strong><i>APS ＝ 0</i></strong></td>
+            <td>收支相抵、月光族（賺多少花多少）</td>
+          </tr>
+          <tr>
+            <td><strong><i>Y<sub>d</sub> ＞ C</i>（平衡點右側）</strong></td>
+            <td>消費線在 45º 線<strong>下方</strong></td>
+            <td><strong>正儲蓄（<i>S ＞ 0</i>）</strong></td>
+            <td><strong><i>APC ＜ 1</i></strong></td>
+            <td><strong><i>APS ＞ 0</i></strong></td>
+            <td>所得有餘裕、累積存款與財富</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 影響消費的其他關鍵考點（所得分配）：</strong><br>
+      低所得者（窮人）的 <i>MPC</i> 大於高所得者（富人）。因此，<strong>若一國政府實施財富重分配政策（如累進所得稅、補助弱勢），使所得分配更平均，將促使全國總消費支出增加！</strong>
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-investment-mei">
+    <h2>④ 14-3 投資與投資邊際效率（MEI，Marginal Efficiency of Investment）</h2>
+
+    <p>經濟學探討的投資指<strong>實體資本形成</strong>（添購新機器設備、興建新廠房、新增存貨）。在簡單凱因斯模型中，假設投資全屬<strong>自發性投資（<i>I ＝ I<sub>0</sub></i>）</strong>，不受所得影響，為一水平線。</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch14/fig14_06_investment_curve.png" alt="圖 14-6 投資曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 14-6 自發性投資曲線：不受所得影響之水平線 I ＝ I0</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch14/fig14_07_mei_curve.png" alt="圖 14-7 MEI 曲線（投資需求曲線）" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 14-7 MEI 曲線：負斜率，代表廠商的投資需求曲線</div>
+      </div>
+    </div>
+
+    <h3>一、投資邊際效率（MEI，公式 14-8）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 14-8：凱因斯投資邊際效率定義</div>
+      <p style="margin-bottom: 6px;">使資本資產未來預期年淨收入之現值總和，恰好等於該資產重置購置成本（<i>C</i>）之<strong>折現率（<i>MEI</i>）</strong>：</p>
+      <p style="margin-bottom: 0;"><strong><i>C ＝ <span class="frac"><span>R</span><span class="bottom">1 ＋ MEI</span></span></i> ➔ <i>MEI ＝ <span class="frac"><span>R</span><span class="bottom">C</span></span> － 1</i></strong> （其中 <i>R</i> 為預期淨收入，<i>C</i> 為購置成本）</p>
+    </div>
+
+    <h3>二、企業投資決策三大準則（統測高頻題）</h3>
+    <div class="step-grid">
+      <div class="step-card" style="border-left:4px solid #10b981;">
+        <div><strong>1. <i>MEI ＞ i</i>（市場利率）</strong></div>
+        <div style="font-weight:600;color:#059669;">預期報酬率高於資金借貸成本 ➔ 進行投資（有利可圖，擴大投資）</div>
+      </div>
+      <div class="step-card" style="border-left:4px solid #ef4444;">
+        <div><strong>2. <i>MEI ＜ i</i>（市場利率）</strong></div>
+        <div style="font-weight:600;color:#b91c1c;">預期報酬率低於利息成本 ➔ 不進行投資（會虧損）</div>
+      </div>
+      <div class="step-card" style="border-left:4px solid #2563eb;">
+        <div><strong>3. <i>MEI ＝ i</i>（市場利率）</strong></div>
+        <div style="font-weight:600;color:#1d4ed8;">最適投資規模決定點（均衡投資量）</div>
+      </div>
+    </div>
+    <p>因此，市場利率愈高，符合 <i>MEI ＞ i</i> 的計畫愈少，全社會投資需求量愈少；反之利率愈低，投資量愈多。故 <strong>MEI 曲線即為廠商的「投資需求曲線」，呈現負斜率！</strong></p>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-simple-keynesian">
+    <h2>⑤ 14-4 簡單凱因斯兩部門均衡所得決定過程</h2>
+
+    <p>在簡單凱因斯模型中，體系僅包含「家計部門（消費 <i>C</i>）」與「企業部門（投資 <i>I</i>）」，且假設未達充分就業、物價與利率不變。</p>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch14/fig14_08_equilibrium_income.png" alt="圖 14-8 均衡所得的決定" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-8 均衡所得決定：上圖總支出法（Y ＝ C ＋ I 與 45º 線交點），下圖漏出注入法（S ＝ I 交點）</div>
+    </div>
+
+    <h3>一、兩大均衡分析法與非自願存貨調整機制</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>分析方法</th>
+            <th>均衡條件方程式</th>
+            <th>當產出過剩（<i>Y ＞ Y<sub>e</sub></i>）</th>
+            <th>當產出不足（<i>Y ＜ Y<sub>e</sub></i>）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>總支出法（<i>AD ＝ AS</i>）</strong></td>
+            <td><strong><i>Y ＝ C ＋ I</i></strong><br>總供給線（45º 線）與總需求線（<i>C ＋ I</i>）之交點</td>
+            <td>總需求不足（<i>AD ＜ AS</i>），商品賣不出去</td>
+            <td>總需求過盛（<i>AD ＞ AS</i>），市面供不應求</td>
+          </tr>
+          <tr>
+            <td><strong>漏出注入法</strong></td>
+            <td><strong>漏出（<i>S</i>）＝ 注入（<i>I</i>）</strong></td>
+            <td>儲蓄大於投資（<i>S ＞ I</i>）</td>
+            <td>投資大於儲蓄（<i>I ＞ S</i>）</td>
+          </tr>
+          <tr style="background:#fffbeb;">
+            <td><strong>存貨非自願變動機制</strong></td>
+            <td><strong>非自願存貨變動 ＝ 0</strong></td>
+            <td><strong>非自願存貨增加</strong> ➔ 廠商減產裁員 ➔ 產出下降至 <i>Y<sub>e</sub></i></td>
+            <td><strong>非自願存貨減少</strong> ➔ 廠商擴大增產 ➔ 產出上升至 <i>Y<sub>e</sub></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>二、均衡所得代數求法（公式 14-10）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 14-10：兩部門均衡所得代數解</div>
+      <p style="margin-bottom: 6px;">已知 <i>C ＝ a ＋ bY</i>，<i>I ＝ I<sub>0</sub></i>，均衡時 <i>Y ＝ C ＋ I</i>：</p>
+      <p style="margin-bottom: 0;"><strong><i>Y ＝ a ＋ bY ＋ I<sub>0</sub></i> ➔ <i>(1 － b)Y ＝ a ＋ I<sub>0</sub></i> ➔ <strong><i>Y<sub>e</sub> ＝ <span class="frac"><span>a ＋ I<sub>0</sub></span><span class="bottom">1 － b</span></span> ＝ <span class="frac"><span>a ＋ I<sub>0</sub></span><span class="bottom">MPS</span></span></i></strong></strong></p>
+    </div>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-multiplier-thrift">
+    <h2>⑥ 14-5 乘數原理與 14-7 節儉的矛盾（Paradox of Thrift）</h2>
+
+    <h3>一、乘數原理（Multiplier Principle，公式 14-11）</h3>
+    <p>在未充分就業下，任何<strong>自發性支出變動（如投資增加 ΔI）</strong>，會透過經濟循環引發所得呈<strong>「倍數」</strong>的擴張。</p>
+
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 14-11：投資乘數公式</div>
+      <p style="margin-bottom: 6px;"><strong><i>K<sub>I</sub> ＝ <span class="frac"><span>ΔY</span><span class="bottom">ΔI</span></span> ＝ <span class="frac"><span>1</span><span class="bottom">1 － b</span></span> ＝ <span class="frac"><span>1</span><span class="bottom">1 － MPC</span></span> ＝ <span class="frac"><span>1</span><span class="bottom">MPS</span></span></i></strong></p>
+      <p style="margin-bottom: 0;"><strong>總所得變動量：<i>ΔY ＝ K<sub>I</sub> × ΔI ＝ <span class="frac"><span>ΔI</span><span class="bottom">MPS</span></span></i></strong></p>
+    </div>
+
+    <div class="tip-box">
+      <strong>★ 乘數連鎖邏輯：</strong><br>
+      • <i>MPC</i> 愈大（<i>MPS</i> 愈小）➔ 乘數 <i>K<sub>I</sub></i> 愈大 ➔ 創造的國民所得增額愈大！<br>
+      • 例：若 <i>MPC ＝ 0.8</i>，則 <i>K<sub>I</sub> ＝ 1 / (1 － 0.8) ＝ 5</i>；投資每增加 10 億，國民所得增加 50 億元！
+    </div>
+
+    <h3>二、14-7 節儉的矛盾（Paradox of Thrift）</h3>
+    <p>凱因斯指出：節儉對個人雖能累積財富，但在<strong>未充分就業社會</strong>，人人試圖增加儲蓄將引發災難！</p>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch14/fig14_12_paradox_of_thrift_flow.png" alt="圖 14-12 節儉矛盾的產生" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-12 節儉矛盾的因果鏈：大眾儲蓄↑ ➔ 消費↓ ➔ 商品滯銷存貨積壓 ➔ 投資↓ ➔ 失業↑所得↓ ➔ 最終儲蓄反而不變或減少！</div>
+    </div>
+
+    <div class="img-wrap" style="max-width: 500px; margin: 18px auto;">
+      <img src="images/ch14/fig14_13_paradox_of_thrift_geom.png" alt="圖 14-13 節儉的矛盾幾何圖" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-13 幾何圖解：儲蓄線由 S0 上移至 S1，均衡所得由 Y0 萎縮至 Y1，但在自發性投資下，實現的總儲蓄量依然固定在 I0！</div>
+    </div>
+  </section>
+
+  <!-- 模組七 -->
+  <section class="module-card" id="sec-gaps">
+    <h2>⑦ 14-6 膨脹缺口與緊縮缺口（幾何與代數測量）</h2>
+
+    <p>當實際均衡所得 <i>Y<sub>e</sub></i> 與<strong>維持充分就業的所得水準 <i>Y<sub>f</sub></i></strong> 不一致時，社會將產生「缺口」：</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch14/fig14_09_inflationary_gap.png" alt="圖 14-9 膨脹缺口" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 14-9 膨脹缺口：Ye ＞ Yf，在 Yf 處實際總需求超過充分就業總需求</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch14/fig14_10_deflationary_gap.png" alt="圖 14-10 緊縮缺口" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 14-10 緊縮缺口：Ye ＜ Yf，在 Yf 處實際總需求不足，面臨衰退失業</div>
+      </div>
+    </div>
+
+    <h3>一、膨脹缺口 vs 緊縮缺口對照矩陣</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>膨脹缺口（Inflationary Gap）</th>
+            <th>緊縮缺口（Deflationary Gap）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>所得水準關係</strong></td>
+            <td><strong><i>Y<sub>e</sub> ＞ Y<sub>f</sub></i></strong>（均衡所得超過充分就業水準）</td>
+            <td><strong><i>Y<sub>e</sub> ＜ Y<sub>f</sub></i></strong>（均衡所得低於充分就業水準）</td>
+          </tr>
+          <tr>
+            <td><strong>總需求現況</strong></td>
+            <td>實際 <i>AD<sub>e</sub> ＞</i> 充分就業 <i>AD<sub>f</sub></i>（有效需求過度）</td>
+            <td>實際 <i>AD<sub>e</sub> ＜</i> 充分就業 <i>AD<sub>f</sub></i>（有效需求不足）</td>
+          </tr>
+          <tr>
+            <td><strong>經濟現象</strong></td>
+            <td>景氣過熱、工資飆漲、引發<strong>物價膨脹（通貨膨脹）</strong></td>
+            <td>景氣蕭條、產能過剩、大量<strong>失業</strong></td>
+          </tr>
+          <tr style="background:#f0fdf4;">
+            <td><strong>缺口垂直距離公式</strong></td>
+            <td><strong>膨脹缺口 ＝ <span class="frac"><span>Y<sub>e</sub> － Y<sub>f</sub></span><span class="bottom">K</span></span> ＝ (Y<sub>e</sub> － Y<sub>f</sub>) × MPS</strong></td>
+            <td><strong>緊縮缺口 ＝ <span class="frac"><span>Y<sub>f</sub> － Y<sub>e</sub></span><span class="bottom">K</span></span> ＝ (Y<sub>f</sub> － Y<sub>e</sub>) × MPS</strong></td>
+          </tr>
+          <tr>
+            <td><strong>政府因應對策</strong></td>
+            <td><strong>緊縮性財政政策：</strong>減少政府支出（<i>ΔG ＜ 0</i>）或增加租稅（<i>ΔT ＞ 0</i>）</td>
+            <td><strong>擴張性財政政策：</strong>增加公共支出（<i>ΔG ＞ 0</i>）或發行振興券、減稅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="img-wrap" style="max-width: 420px; margin: 18px auto;">
+      <img src="images/ch14/fig14_11_stimulus_vouchers.png" alt="圖 14-11 振興五倍券" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-11 政府發放振興券刺激消費，目的即為彌補緊縮缺口、提振總產出</div>
+    </div>
+  </section>
+
+  <!-- 模組八 -->
+  <section class="module-card" id="sec-government-multipliers">
+    <h2>⑧ 14-8 加入政府部門的凱因斯模型與各項乘數（三部門模型）</h2>
+
+    <p>加入政府部門後，總需求由家計（<i>C</i>）、企業（<i>I</i>）與政府（<i>G</i>）三者組成。家計部門的可支配所得變為扣除稅收 <i>T</i> 後的餘額：<strong><i>Y<sub>d</sub> ＝ Y － T</i></strong>。</p>
+
+    <div class="img-wrap" style="max-width: 520px; margin: 18px auto;">
+      <img src="images/ch14/fig14_14_equilibrium_with_government.png" alt="圖 14-14 加入政府部門的均衡所得" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 14-14 每加入一個部門的支出，總需求線上移，均衡所得逐步擴大（Y1 ＜ Y2 ＜ Y3）</div>
+    </div>
+
+    <h3>一、三部門均衡所得求解（採定額稅 T0）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 14-14：三部門均衡所得總式</div>
+      <p style="margin-bottom: 6px;">模型：<i>Y ＝ C ＋ I ＋ G</i>，其中 <i>C ＝ a ＋ b(Y － T<sub>0</sub>)</i>，<i>I ＝ I<sub>0</sub></i>，<i>G ＝ G<sub>0</sub></i></p>
+      <p style="margin-bottom: 0;"><strong><i>Y<sub>e</sub> ＝ <span class="frac"><span>a － bT<sub>0</sub> ＋ I<sub>0</sub> ＋ G<sub>0</sub></span><span class="bottom">1 － b</span></span></i></strong></p>
+    </div>
+
+    <h3>二、政府各項財政政策乘數大全（統測必考大對照）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>乘數類型</th>
+            <th>代號與公式</th>
+            <th>經濟意義與數值範例（設 MPC ＝ 0.75）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>政府支出乘數</strong></td>
+            <td><strong><i>K<sub>G</sub> ＝ <span class="frac"><span>ΔY</span><span class="bottom">ΔG</span></span> ＝ <span class="frac"><span>1</span><span class="bottom">1 － b</span></span> ＝ <span class="frac"><span>1</span><span class="bottom">MPS</span></span></i></strong></td>
+            <td>政府每增加 1 元公共支出所帶動的所得增量。<br>例：<i>K<sub>G</sub> ＝ 1 / 0.25 ＝ 4</i>（增加 10 億支出，所得增加 40 億）。</td>
+          </tr>
+          <tr>
+            <td><strong>政府租稅乘數（定額稅）</strong></td>
+            <td><strong><i>K<sub>T</sub> ＝ <span class="frac"><span>ΔY</span><span class="bottom">ΔT</span></span> ＝ <span class="frac"><span>－b</span><span class="bottom">1 － b</span></span> ＝ <span class="frac"><span>－MPC</span><span class="bottom">MPS</span></span></i></strong></td>
+            <td>政府每加稅 1 元所造成的所得萎縮量（<strong>負值</strong>）。<br>例：<i>K<sub>T</sub> ＝ －0.75 / 0.25 ＝ －3</i>（加稅 10 億，所得減少 30 億）。</td>
+          </tr>
+          <tr>
+            <td><strong>政府移轉支付乘數</strong></td>
+            <td><strong><i>K<sub>R</sub> ＝ <span class="frac"><span>ΔY</span><span class="bottom">ΔR</span></span> ＝ <span class="frac"><span>b</span><span class="bottom">1 － b</span></span> ＝ <span class="frac"><span>MPC</span><span class="bottom">MPS</span></span></i></strong></td>
+            <td>政府發放津貼救濟金之乘數效應（正值但小於政府支出乘數）。<br>例：<i>K<sub>R</sub> ＝ 0.75 / 0.25 ＝ 3</i>。</td>
+          </tr>
+          <tr style="background:#f0fdf4;font-weight:700;">
+            <td><strong>平衡預算乘數</strong></td>
+            <td><strong><i>K<sub>B</sub> ＝ K<sub>G</sub> ＋ K<sub>T</sub> ＝ <span class="frac"><span>1 － b</span><span class="bottom">1 － b</span></span> ＝ 1</i></strong></td>
+            <td>當政府<strong>同時同額同方向</strong>增加支出與增稅（<i>ΔG ＝ ΔT</i>）時，<strong>平衡預算乘數永遠等於 1</strong>！所得增加量剛好等於政府支出增額（<i>ΔY ＝ ΔG</i>）。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測經典考點：為什麼政府支出乘數（KG）大於租稅乘數（KT）？</strong><br>
+      因為政府增加支出 <i>G</i> 是「直接 100%」投入市場成為第一期有效需求；而政府減稅 <i>T</i> 給民眾時，民眾會先將一部分「儲蓄起來（存下 MPS）」，只有誘發消費部分（<i>bΔT</i>）進入市場，因此稅收乘數的效果必然小於支出乘數！
+    </div>
+  </section>
+
+  <!-- 模組九 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑨ 課本原題即測即評 (8 題精選互動測驗)</h2>
+    <p>嚴選課本課後習題與綜合情境題，點擊選項立即獲得即時評分、詳盡解析與統測避坑提示：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">1. 根據凱因斯「有效需求理論」，在未達充分就業下，當社會的總需求增加時，不會出現下列何種情形？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 廠商擴大投資增加生產</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 社會失業率明顯提高</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 全國社會總產出增加</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 國民所得水準提升</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">2. 假設某國的平均消費傾向（APC）為 0.6，則該國當前的儲蓄狀態與相關指標何者正確？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 該國儲蓄為正（S ＞ 0，且 APS ＝ 0.4）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 該國家計部門收支平衡（S ＝ 0）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 該國儲蓄為負（S ＜ 0）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 該國邊際儲蓄傾向（MPS）必等於 0.4</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">3. 依據凱因斯消費函數 C ＝ a ＋ bYd（a ＞ 0，0 ＜ b ＜ 1），關於 APC 與 MPC 之關係，下列敘述何者恆真？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. APC ＞ MPC，且隨所得增加 APC 遞減</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. APC ＝ MPC，兩者皆為常數</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. APC ＜ MPC，且隨所得增加 APC 遞增</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. APC 與 MPC 互補，相加恆等於 1</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">4. 根據凱因斯「投資邊際效率（MEI）」理論，在其他條件不變的情況下，若某投資計畫之 MEI 大於市場借貸利率（i），廠商應採取的決策為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 增加投資（有利可圖，擴大資本設備）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 減少投資（利息負擔過重）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 放棄投資，將資金存入銀行</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 投資決策與市場利率無關</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">5. 在簡單凱因斯兩部門模型中，假設邊際儲蓄傾向 MPS ＝ 0.2。若企業自發性投資增加 10 億元，則投資乘數（KI）與均衡所得增量（ΔY）分別為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. KI ＝ 5，ΔY ＝ 50 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. KI ＝ 4，ΔY ＝ 40 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. KI ＝ 0.2，ΔY ＝ 2 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. KI ＝ 2.5，ΔY ＝ 25 億元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">6. 假設某國實際均衡所得 Ye ＝ 100 億元，維持充分就業的所得水準 Yf ＝ 300 億元，邊際消費傾向 MPC ＝ 0.8。為達到充分就業，政府應採取何種政策？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 存在膨脹缺口 40 億元，應減少自發性投資 40 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 存在緊縮缺口 200 億元，應增加自發性投資 200 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 存在緊縮缺口 40 億元，應增加自發性投資 40 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 存在膨脹缺口 200 億元，應增稅 40 億元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">7. 關於凱因斯提出的「節儉的矛盾（Paradox of Thrift）」，下列敘述何者「錯誤」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 發生在未達充分就業的社會</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 大眾增加儲蓄減少消費，將使商品滯銷存貨積壓，導致失業增加與所得下降</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 指人人想儲蓄又想消費所產生的內心天人交戰矛盾心理</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 在自發性投資固定下，大眾儲蓄曲線平行上移，最終實現的總儲蓄量依然不變</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">8. 在加入政府部門的凱因斯模型中（無國外部門，採定額稅），若政府實施「平衡預算政策」，同時同方向各增加公共支出 20 億元與增稅 20 億元，則該國國民所得將會：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 完全不變（因增稅與增支互相抵銷）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 增加 20 億元（平衡預算乘數等於 1）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 減少 20 億元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 增加 40 億元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "有效需求增加會促使廠商去化存貨、擴大增產僱用員工，使就業增加、失業率降低、國民所得水準提升。故『失業率提高』絕不可能發生。",
+  2: "APC ＋ APS ＝ 1，當 APC ＝ 0.6 時，APS ＝ 1 － 0.6 ＝ 0.4 ＞ 0，故儲蓄必為正（S ＞ 0）。MPC 與 MPS 為邊際斜率概念，無法由單一 APC 數值直接斷定。",
+  3: "APC ＝ a/Yd ＋ b，MPC ＝ b。由於自發性消費 a ＞ 0，故在任何所得水準下恆有 APC ＞ MPC；隨所得增加，a/Yd 遞減，故 APC 隨所得增加而遞減。",
+  4: "MEI 為資本資產預期年報酬率，i 為資金利息成本。當 MEI ＞ i，代表投資收益高於成本，廠商必然增加投資直至 MEI ＝ i 為止。",
+  5: "投資乘數 KI ＝ 1 / MPS ＝ 1 / 0.2 ＝ 5。所得增量 ΔY ＝ KI × ΔI ＝ 5 × 10 ＝ 50 億元。",
+  6: "實際均衡 Ye ＝ 100 ＜ 充分就業 Yf ＝ 300 ➔ 存在『緊縮缺口』。乘數 K ＝ 1 / (1 － 0.8) ＝ 5。緊縮缺口 ＝ (Yf － Ye) / K ＝ (300 － 100) / 5 ＝ 40 億元。故應增加自發性投資 40 億元彌補缺口。",
+  7: "C 選項錯誤，故為正確答案。節儉的矛盾是總體經濟現象：指人人試圖增加儲蓄，卻造成有效需求萎縮、景氣衰退，最後全社會實現的總儲蓄反而不變或減少，並非指個人心理衝突。",
+  8: "平衡預算乘數 KB ＝ KG ＋ KT ＝ [1/(1－b)] ＋ [－b/(1－b)] ＝ (1－b)/(1－b) ＝ 1。當 ΔG ＝ ΔT ＝ 20 億時，ΔY ＝ KB × ΔG ＝ 1 × 20 ＝ 增加 20 億元！"
+};
+
+function checkQuiz(btn, chosen) {
+  const parent = btn.closest('.quiz-item');
+  const answer = parent.getAttribute('data-answer');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(parent) + 1;
+  const feedback = parent.querySelector('.quiz-feedback');
+  const allBtns = parent.querySelectorAll('.quiz-btn');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (chosen === answer) {
+    btn.style.borderColor = '#10b981';
+    btn.style.background = '#ecfdf5';
+    btn.style.color = '#065f46';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = `<strong>✔ 正確！</strong> ${EXPLANATIONS[qNum]}`;
+  } else {
+    btn.style.borderColor = '#ef4444';
+    btn.style.background = '#fef2f2';
+    btn.style.color = '#991b1b';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = `<strong>✘ 答錯了！</strong> 正確答案為 (${answer})。<br>${EXPLANATIONS[qNum]}`;
+    
+    // 高亮正確選項
+    const correctIndex = answer.charCodeAt(0) - 65;
+    const correctBtn = allBtns[correctIndex];
+    if (correctBtn) {
+      correctBtn.style.borderColor = '#10b981';
+      correctBtn.style.background = '#ecfdf5';
+      correctBtn.style.color = '#065f46';
+    }
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>

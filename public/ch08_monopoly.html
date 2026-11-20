@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CH8 獨占市場產量與價格的決定 ｜ 高職經濟學統測複習講義</title>
+<style>
+:root {
+  --brand: #c2410c;
+  --brand-light: #fff7ed;
+  --brand-border: #fdba74;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --line-gray: #e2e8f0;
+  --accent-green: #15803d;
+  --accent-green-bg: #f0fdf4;
+  --accent-blue: #0369a1;
+  --accent-blue-bg: #f0f9ff;
+  --accent-purple: #7e22ce;
+  --accent-purple-bg: #faf5ff;
+  --accent-red: #b91c1c;
+  --accent-red-bg: #fef2f2;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* 頂部導航列 */
+header {
+  background: #ffffff;
+  border-bottom: 2px solid var(--line-gray);
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--line-gray);
+}
+.header-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.header-btn.highlight {
+  background: #ffedd5;
+  color: var(--brand);
+  border-color: var(--brand-border);
+}
+.header-btn.highlight:hover {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* 章節副導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.subnav-btn {
+  background: #f8fafc;
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.15s ease;
+}
+.subnav-btn:hover {
+  background: var(--brand-light);
+  color: var(--brand);
+  border-color: var(--brand-border);
+}
+
+/* 主容器 */
+.container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 20px;
+}
+
+/* 核心模組卡片 */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--line-gray);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.03);
+}
+.card-header {
+  border-bottom: 2px solid #ffedd5;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #9a3412;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tag {
+  background: var(--brand-light);
+  color: var(--brand);
+  border: 1px solid var(--brand-border);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 860px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-wrap img:hover {
+  transform: scale(1.01);
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 解說卡片 */
+.info-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--brand);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 0.94rem;
+}
+.concept-box h3 {
+  margin: 0 0 6px;
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+.concept-box p {
+  margin: 0;
+  color: #334155;
+}
+
+/* 公式與結論強調框 */
+.formula-box {
+  background: #fff8f5;
+  border: 1.5px dashed var(--brand-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+.formula-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--brand);
+  margin-bottom: 4px;
+}
+.formula-math {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #fff7ed;
+}
+.highlight-cell {
+  background: #ffedd5;
+  font-weight: 700;
+  color: #9a3412;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+}
+.quiz-btn.correct {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+.quiz-btn.wrong {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+.quiz-explain {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #166534;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+/* 圖片放大 Modal */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH8 獨占市場產量與價格的決定 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch07_perfect_competition.html" class="header-btn">⬅ 上一章：CH7 完全競爭</a>
+    <a href="ch09_imperfect_competition.html" class="header-btn">下一章：CH9 不完全競爭 ➔</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本 5 大節有機展開為 6 大模組） -->
+<nav class="subnav">
+  <a href="#sec-ed-pricing" class="subnav-btn">① 8-1 短期均衡與 Ed>1 法則</a>
+  <a href="#sec-short-run-3cases" class="subnav-btn">② 8-1-2 短期三種均衡情形</a>
+  <a href="#sec-loss-decision" class="subnav-btn">③ 8-1-3 虧損決策與無供給線</a>
+  <a href="#sec-long-run" class="subnav-btn">④ 8-2 長期均衡與超額產能</a>
+  <a href="#sec-discrimination" class="subnav-btn">⑤ 8-3 三級差別訂價與其他策略</a>
+  <a href="#sec-comparison" class="subnav-btn">⑥ 8-4/8-5 獨占評論與完競全對比</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 模組一：8-1 短期均衡與 Ed>1 法則 ==================== -->
+  <div class="card" id="sec-ed-pricing">
+    <div class="card-header">
+      <h2>🎯 模組一：8-1 獨占廠商決定價格的考量因素與短期均衡點</h2>
+      <span class="tag">課本 8-1-1 節 ｜ 價格決定者並非漫天要價</span>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：解說卡片 -->
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3>📌 1. 獨占廠商的雙重考量：需求彈性與生產成本</h3>
+          <p>獨占廠商雖是市場中唯一的供給者（價格決定者 Price Maker），但<b>面對負斜率的市場需求曲線（即 <i>AR</i> 線）</b>，想要增加銷量就必須降價，因此不能任意漫天要價，受限於買方的需求彈性與自身成本結構：</p>
+          <ul class="rule-list">
+            <li><b>需求彈性連動總收益：</b>
+              <ul>
+                <li>當 <i>E<sub>d</sub></i> ＞ 1（富有彈性）：降價使銷量增加比率大於價格下降比率，<b><i>MR</i> ＞ 0，總收益 <i>TR</i> 增加</b>。</li>
+                <li>當 <i>E<sub>d</sub></i> ＝ 1（單一彈性）：<b><i>MR</i> ＝ 0，總收益 <i>TR</i> 達到最高點</b>。</li>
+                <li>當 <i>E<sub>d</sub></i> ＜ 1（缺乏彈性）：降價使<b><i>MR</i> ＜ 0，總收益 <i>TR</i> 反而縮水減少</b>！</li>
+              </ul>
+            </li>
+            <li><b>統測鐵律：獨占廠商必定在 <i>E<sub>d</sub></i> ＞ 1 區域生產！</b><br>
+            因為追求利潤極大化的邊際成本 <i>MC</i> 恆為正（<i>MC</i> ＞ 0），均衡條件 <i>MR</i> ＝ <i>MC</i> 表示 <i>MR</i> 必須大於 0。邊際收益大於 0 的區間正好落在 <b><i>E<sub>d</sub></i> ＞ 1</b>！獨占廠商<b>絕不會</b>在 <i>E<sub>d</sub></i> ＜ 1 的區域生產！</li>
+          </ul>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">⚡ 獨占廠商最適決策二步驟</div>
+          <div class="formula-math">步驟一（定量）：<i>MR</i> ＝ <i>MC</i> ➔ 決定最適產量 <i>Q*</i></div>
+          <div class="formula-math">步驟二（定價）：由 <i>Q*</i> 垂直向上對應至 <i>AR</i> 線 ➔ 決定市場售價 <i>P*</i></div>
+          <p style="margin:6px 0 0;font-size:0.86rem;color:#78350f;">幾何特徵：獨占廠商的售價高於邊際成本（<i>P*</i> ＞ <i>MR</i> ＝ <i>MC</i>）。</p>
+        </div>
+      </div>
+
+      <!-- 右：原圖裁切 -->
+      <div class="img-wrap">
+        <img src="images/ch08/fig8_01_ed_greater_1.png" alt="圖 8-1 獨占廠商會在 Ed > 1 處降價" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 8-1 獨占廠商在富有彈性（<i>E<sub>d</sub></i> ＞ 1）處降價能使 <i>TR</i> 增加</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組二：8-1-2 獨占短期均衡三種情形 ==================== -->
+  <div class="card" id="sec-short-run-3cases">
+    <div class="card-header">
+      <h2>⚖️ 模組二：8-1-2 獨占廠商短期均衡的三種情況</h2>
+      <span class="tag">課本 8-1-2 節 ｜ 盈虧判斷看 AR 與 AC 之高低</span>
+    </div>
+
+    <p style="margin-top:0;font-size:0.94rem;color:#475569;">
+      獨占廠商在短期依 <i>MR</i> ＝ <i>MC</i> 之 <i>E</i> 點決定最適產量 <i>Q*</i> 後，其利潤（超額利潤、正常利潤或經濟損失）取決於 <b><i>P</i>（<i>AR</i>）與平均成本 <i>AC</i> 的相對大小</b>：
+    </p>
+
+    <!-- 三種情況左右對照 -->
+    <div style="display:flex;flex-direction:column;gap:24px;">
+
+      <!-- 情況一：超額利潤 -->
+      <div class="split-view">
+        <div class="info-wrap">
+          <div class="concept-box" style="border-left-color: var(--accent-green); background: var(--accent-green-bg);">
+            <h3 style="color: #166534;">一、有超額利潤（<i>P</i> ＝ <i>AR</i> ＞ <i>AC</i>，<i>π</i> ＞ 0）</h3>
+            <ul class="rule-list">
+              <li><b>曲線關係：</b><i>AR</i> 線與 <i>AC</i> 線<b>相交</b>。</li>
+              <li><b>幾何位置：</b>在最適產量 <i>Q*</i> 處，<i>AR</i> ＞ <i>AC</i>。<i>Q*</i> 大多對應在 <b><i>AC</i> 遞減階段</b>（因為 <i>MR</i> 線在 <i>AR</i> 下方，使得 <i>MR=MC</i> 的交點通常落在 <i>AC</i> 最低點的左側）。</li>
+              <li><b>利潤計算：</b>
+                <div style="margin:6px 0;font-size:0.9rem;">
+                  <i>TR</i> ＝ <i>P*</i> × <i>Q*</i> ＝ 矩形 <i>P*fQ*0</i><br>
+                  － <i>TC</i> ＝ <i>AC</i> × <i>Q*</i> ＝ 矩形 <i>hgQ*0</i><br>
+                  ＝ <b>經濟利潤 <i>π</i> ＝ 矩形 <i>P*fgh</i> ＞ 0</b>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_02_supernormal_profit.png" alt="圖 8-2 獨占廠商短期均衡有超額利潤" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-2 獨占廠商短期均衡：有超額利潤（<i>AR</i> ＞ <i>AC</i>）</div>
+        </div>
+      </div>
+
+      <!-- 情況二：正常利潤 -->
+      <div class="split-view">
+        <div class="info-wrap">
+          <div class="concept-box" style="border-left-color: var(--accent-blue); background: var(--accent-blue-bg);">
+            <h3 style="color: #0369a1;">二、有正常利潤（<i>P</i> ＝ <i>AR</i> ＝ <i>AC</i>，<i>π</i> ＝ 0）</h3>
+            <ul class="rule-list">
+              <li><b>曲線關係：</b><i>AR</i> 線與 <i>AC</i> 線<b>相切於 A 點</b>。</li>
+              <li><b>幾何位置：</b>注意！相切點 <i>A</i> 並非 <i>AC</i> 的最低點，而是對應在 <b><i>AC</i> 遞減處</b>！</li>
+              <li><b>利潤計算：</b>
+                <div style="margin:6px 0;font-size:0.9rem;">
+                  <i>TR</i> ＝ 矩形 <i>P*AQ*0</i><br>
+                  － <i>TC</i> ＝ 矩形 <i>P*AQ*0</i><br>
+                  ＝ <b>經濟利潤 <i>π</i> ＝ 0（剛好賺得正常利潤）</b>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_03_normal_profit.png" alt="圖 8-3 獨占廠商短期均衡有正常利潤" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-3 獨占廠商短期均衡：有正常利潤（<i>AR</i> 與 <i>AC</i> 相切）</div>
+        </div>
+      </div>
+
+      <!-- 情況三：經濟損失 -->
+      <div class="split-view">
+        <div class="info-wrap">
+          <div class="concept-box" style="border-left-color: var(--accent-red); background: var(--accent-red-bg);">
+            <h3 style="color: #991b1b;">三、有經濟損失（<i>P</i> ＝ <i>AR</i> ＜ <i>AC</i>，<i>π</i> ＜ 0）</h3>
+            <ul class="rule-list">
+              <li><b>曲線關係：</b><i>AR</i> 線與 <i>AC</i> 線<b>相離</b>（<i>AC</i> 線整條高於 <i>AR</i> 線）。</li>
+              <li><b>幾何位置：</b><i>Q*</i> 對應在 <i>AC</i> 遞減處，售價低於每單位生產成本。</li>
+              <li><b>虧損計算：</b>
+                <div style="margin:6px 0;font-size:0.9rem;">
+                  <i>TR</i> ＝ 矩形 <i>P*aQ*0</i><br>
+                  － <i>TC</i> ＝ 矩形 <i>cbQ*0</i><br>
+                  ＝ <b>經濟虧損 <i>π</i> ＝ 矩形 <i>cbaP*</i> ＜ 0</b>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_04_economic_loss.png" alt="圖 8-4 獨占廠商短期均衡有經濟損失" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-4 獨占廠商短期均衡：有經濟損失（<i>AR</i> ＜ <i>AC</i>）</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 模組三：8-1-3 虧損時決策與無短期供給線 ==================== -->
+  <div class="card" id="sec-loss-decision">
+    <div class="card-header">
+      <h2>🛑 模組三：8-1-3 虧損時的營業決策與 8-1-4 無短期供給曲線</h2>
+      <span class="tag">課本 8-1-3 & 8-1-4 節 ｜ 去留看 AVC・獨占無供給線</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 虧損時營業決策的核心準則：看 <i>P</i> 與 <i>AVC</i> 之大小</h3>
+      <p>短期受制於固定成本（<i>TFC</i>），若歇業必定損失全部 <i>TFC</i>。因此只要<b>售價高於平均變動成本（<i>P</i> ＞ <i>AVC</i>）</b>，營收能彌補全部 <i>TVC</i> 還有剩餘貼補 <i>TFC</i>，廠商就會選擇<b>繼續生產</b>！</p>
+    </div>
+
+    <!-- 三圖對比 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;margin:14px 0;">
+      
+      <!-- 圖 8-5 -->
+      <div class="img-wrap">
+        <img src="images/ch08/fig8_05_loss_less_tfc.png" alt="圖 8-5 虧損小於固定成本" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 圖 8-5 <i>AVC</i> ＜ <i>P</i> ＜ <i>AC</i><br><b style="color:var(--accent-green)">繼續生產</b>（虧損 ＜ <i>TFC</i>）</div>
+      </div>
+
+      <!-- 圖 8-6 -->
+      <div class="img-wrap">
+        <img src="images/ch08/fig8_06_loss_equal_tfc.png" alt="圖 8-6 虧損等於固定成本" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 圖 8-6 <i>P</i> ＝ <i>AVC</i> ＜ <i>AC</i><br><b style="color:var(--brand)">短期歇業點</b>（續產或歇業皆可）</div>
+      </div>
+
+      <!-- 圖 8-7 -->
+      <div class="img-wrap">
+        <img src="images/ch08/fig8_07_loss_greater_tfc.png" alt="圖 8-7 虧損大於固定成本" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 圖 8-7 <i>P</i> ＜ <i>AVC</i> ＜ <i>AC</i><br><b style="color:var(--accent-red)">立即停業／歇業</b>（虧損 ＞ <i>TFC</i>）</div>
+      </div>
+
+    </div>
+
+    <!-- 8-1-4 無供給曲線深入探討 -->
+    <div class="formula-box" style="margin-top:20px;">
+      <div class="formula-title">❓ 統測必考問答：為什麼獨占廠商「沒有短期供給曲線」？</div>
+      <p style="margin:6px 0;font-size:0.92rem;color:#334155;">
+        <b>嚴格經濟學定義：</b>供給曲線是指在不同的價格下，廠商願意且能夠提供銷售的產量，即<b>「價格」與「數量」必須存在嚴格的一對一函數對應關係</b>。<br>
+        在獨占市場中：
+      </p>
+      <ul class="rule-list">
+        <li>獨占廠商是<b>價格決定者</b>，價格取決於需求曲線的位置與斜率（彈性）。</li>
+        <li>當市場需求變動時（如需求曲線發生旋轉或位移），<b>同一個價格可能對應出不同的產量，或同一產量對應不同的價格</b>。</li>
+        <li>因此，獨占廠商<b>無法繪出一條價格與數量一對一對應的曲線</b>，故結論為：<b>「獨占廠商沒有供給曲線」</b>！</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== 模組四：8-2 獨占廠商的長期均衡 ==================== -->
+  <div class="card" id="sec-long-run">
+    <div class="card-header">
+      <h2>🏭 模組四：8-2 獨占廠商的長期均衡與超額產能</h2>
+      <span class="tag">課本 8-2 節 ｜ 長期絕不虧損・必在 LAC 遞減處</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 長期均衡核心條件：<i>MR</i> ＝ <i>SMC</i> ＝ <i>LMC</i></h3>
+      <p>獨占市場具有極高的<b>進入障礙（專利、特許、規模經濟）</b>，新廠商無法自由加入。因此：</p>
+      <ul class="rule-list">
+        <li>獨占廠商在長期能持續保有<b>超額利潤（<i>P</i> ＞ <i>LAC</i>）</b>或<b>正常利潤（<i>P</i> ＝ <i>LAC</i>）</b>。</li>
+        <li><b>長期絕不會有經濟損失！</b>（長期所有要素均可調整，若長期仍虧損廠商便會退出市場，除非是政府補貼支援的民生公用事業）。</li>
+      </ul>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：圖 8-8 長期超額利潤 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_08_long_run_supernormal.png" alt="圖 8-8 獨占廠商長期均衡時有超額利潤" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-8 長期有超額利潤：<i>P<sub>1</sub></i> ＝ <i>AR</i> ＞ <i>SAC</i> ＝ <i>LAC</i></div>
+        </div>
+        <div class="formula-box" style="margin-top:10px;">
+          <div class="formula-title">條件：<i>P</i> ＞ <i>LAC</i></div>
+          <p style="margin:4px 0;font-size:0.88rem;">• 最適產量 <i>Q*</i> 由 <i>MR = SMC = LMC</i> 決定<br>• 超額利潤 <i>π</i> ＝ 矩形 <i>P<sub>1</sub>ABC</i> ＞ 0</p>
+        </div>
+      </div>
+
+      <!-- 右：圖 8-9 長期正常利潤 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_09_long_run_normal.png" alt="圖 8-9 獨占廠商長期均衡時有正常利潤" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-9 長期有正常利潤：<i>P<sub>2</sub></i> ＝ <i>AR</i> ＝ <i>SAC</i> ＝ <i>LAC</i></div>
+        </div>
+        <div class="formula-box" style="margin-top:10px;">
+          <div class="formula-title">條件：<i>P</i> ＝ <i>LAC</i></div>
+          <p style="margin:4px 0;font-size:0.88rem;">• <i>AR</i> 線與 <i>LAC</i> 線相切於 <i>A</i> 點<br>• 經濟利潤 <i>π</i> ＝ 0（廠商僅賺取正常利潤）</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 超額產能考點 -->
+    <div class="concept-box" style="margin-top:16px; border-left-color: var(--accent-purple); background: var(--accent-purple-bg);">
+      <h3 style="color:var(--accent-purple);">⚠️ 統測陷阱提防：獨占廠商長期生產點在 LAC 哪一段？</h3>
+      <p>
+        因為獨占廠商面對負斜率需求線（<i>AR</i> 下斜），<i>MR</i> 必然位於 <i>AR</i> 下方。當 <i>MR</i> ＝ <i>LMC</i> 決定 <i>Q*</i> 時，該產量對應在 <i>LAC</i> 曲線的 <b>「遞減階段」</b>（即位於 <i>LAC</i> 最低點的左側）！<br>
+        這代表廠商未將設備產能發揮到最低單位成本規模，存在<b>「超額產能（Excess Capacity）」</b>，造成生產無效率。
+      </p>
+    </div>
+  </div>
+
+  <!-- ==================== 模組五：8-3 差別訂價與其他訂價策略 ==================== -->
+  <div class="card" id="sec-discrimination">
+    <div class="card-header">
+      <h2>🎟️ 模組五：8-3 差別訂價（一、二、三級）與實務訂價策略</h2>
+      <span class="tag">課本 8-3 節 ｜ 統測超高頻核心計算題庫</span>
+    </div>
+
+    <div class="concept-box" style="margin-bottom:16px;">
+      <h3>📌 廠商實施差別訂價（Price Discrimination）的四大必備條件</h3>
+      <ol class="rule-list" style="margin-top:4px;">
+        <li>廠商必須具有<b>市場獨占力</b>（價格決定者，需求曲線負斜率）。</li>
+        <li>能<b>明確劃分</b>不同特徵的市場或消費族群。</li>
+        <li>各市場之間<b>產品無法轉售</b>（杜絕低買高賣套利，如要求出示證件、不可轉讓票）。</li>
+        <li>各市場的<b>需求價格彈性（<i>E<sub>d</sub></i>）必須不同</b>。</li>
+      </ol>
+    </div>
+
+    <!-- 一級與二級差別訂價對照 -->
+    <div class="split-view">
+      <!-- 第一級差別訂價 -->
+      <div class="info-wrap">
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_11_first_degree_price_discrimination.png" alt="圖 8-11 第一級差別訂價" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-11 第一級差別訂價（完全差別訂價）</div>
+        </div>
+        <div class="concept-box">
+          <h3 style="color:#c2410c;">🥇 第一級差別訂價（完全差別訂價 / 一客一價）</h3>
+          <ul class="rule-list">
+            <li><b>做法：</b>廠商完全掌握消費者的需求曲線，對每一單位產品皆依<b>消費者願意支付的最高價格</b>訂價。</li>
+            <li><b>結果：</b><b>消費者剩餘全部被廠商剝奪，轉化為廠商超額利潤（<i>CS</i> ＝ 0）</b>。</li>
+            <li><b>效率：</b>此時生產量擴大到 <i>P</i> ＝ <i>MC</i>，社會總福利達到最大，<b>無謂損失為零（DWL ＝ 0）</b>！</li>
+            <li><b>實例：</b>怪醫黑傑克依身家索費、風水算命大師依家境開價、名律師客製收費。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第二級差別訂價 -->
+      <div class="info-wrap">
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_12_second_degree_price_discrimination.png" alt="圖 8-12 第二級差別訂價" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-12 第二級差別訂價（區間訂價）</div>
+        </div>
+        <div class="concept-box">
+          <h3 style="color:#0369a1;">🥈 第二級差別訂價（區間訂價 / 數量折讓）</h3>
+          <ul class="rule-list">
+            <li><b>做法：</b>根據消費者的<b>購買數量分段計價</b>（例如 <i>Q<sub>1</sub></i> 以內單價 <i>P<sub>1</sub></i>，<i>Q<sub>1</sub></i> 到 <i>Q<sub>2</sub></i> 單價降為 <i>P<sub>2</sub></i>）。</li>
+            <li><b>結果：</b>消費者剩餘<b>部分被廠商剝奪</b>（剝奪了圖中梯形 <i>A</i> 的面積）。</li>
+            <li><b>實例：</b>台電/自來水階梯式累進費率、甘蔗汁一瓶80三瓶200、好市多量販折扣、買二送一。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 第三級差別訂價（市場分割） -->
+    <div style="margin-top:24px;">
+      <div class="card-header" style="border-bottom:1px solid #fed7aa;padding-bottom:8px;margin-bottom:14px;">
+        <h3 style="margin:0;font-size:1.15rem;color:#b45309;">🥉 第三級差別訂價（市場分割訂價）與彈性定價法則</h3>
+        <span class="tag">統測計算題核心公式</span>
+      </div>
+
+      <div class="split-view">
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_13_third_degree_price_discrimination.png" alt="圖 8-13 第三級差別訂價" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-13 第三級差別訂價：A 市場彈性小訂高價、B 市場彈性大訂低價</div>
+        </div>
+
+        <div class="info-wrap">
+          <div class="formula-box">
+            <div class="formula-title">⚡ 第三級差別訂價阿摩羅梭-羅賓遜均衡公式</div>
+            <div class="formula-math">
+              <i>MR<sub>A</sub></i> ＝ <i>P<sub>A</sub></i>(1 － <span class="frac"><span class="frac-top">1</span><span class="frac-bottom"><i>E<sub>dA</sub></i></span></span>) ＝ <i>MR<sub>B</sub></i> ＝ <i>P<sub>B</sub></i>(1 － <span class="frac"><span class="frac-top">1</span><span class="frac-bottom"><i>E<sub>dB</sub></i></span></span>) ＝ <i>MC</i>
+            </div>
+            <ul class="rule-list" style="margin-top:10px;">
+              <li><b>核心結論（彈性大訂低價、彈性小訂高價）：</b><br>
+                若 <i>E<sub>dA</sub></i> ＜ <i>E<sub>dB</sub></i>（A 市場彈性小、B 市場彈性大），則 <b><i>P<sub>A</sub></i> ＞ <i>P<sub>B</sub></i></b>！
+              </li>
+              <li><b>直觀背法：</b>
+                <ul>
+                  <li><b>需求彈性小（學生/軍警除外的一般成人、急診患者）：</b>缺乏替代品或迫切需要，對價格不敏感，廠商<b>「訂高價」</b>多賺錢！</li>
+                  <li><b>需求彈性大（學生、兒童、早鳥旅客）：</b>預算有限、替代方案多，對價格極度敏感，廠商<b>「訂低價」薄利多銷</b>吸引買氣！</li>
+                </ul>
+              </li>
+              <li><b>實例：</b>電影院學生票與軍警票便宜、高鐵早鳥票便宜、軟體個人版與企業版不同價。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8-3-2 & 8-3-3 其他訂價方式精要整理 -->
+    <div style="margin-top:24px;">
+      <h3 style="font-size:1.05rem;color:#1e293b;margin-bottom:10px;">📋 獨占廠商四種訂價原則與其他實務訂價比較表</h3>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>訂價方法</th>
+            <th>訂價原則</th>
+            <th>市場特徵與經濟含義</th>
+            <th>常考實例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>獨占利潤法</b></td>
+            <td><i>MR</i> ＝ <i>MC</i></td>
+            <td>售價最高、產量最少、消費者負擔最重、廠商超額利潤最大。</td>
+            <td>專利新藥、鑽石珠寶</td>
+          </tr>
+          <tr>
+            <td><b>最大收入法</b></td>
+            <td><i>MR</i> ＝ 0</td>
+            <td>總收益 <i>TR</i> 達到最高點，需求彈性 <i>E<sub>d</sub></i> ＝ 1 處。</td>
+            <td>演唱會最後出清門票</td>
+          </tr>
+          <tr>
+            <td><b>邊際成本定價法</b></td>
+            <td><i>P</i> ＝ <i>MC</i></td>
+            <td><b>資源配置效率最佳、社會福利最大</b>，但自然獨占廠商可能陷入虧損需政府補貼。</td>
+            <td>捷運、自來水基本費</td>
+          </tr>
+          <tr>
+            <td><b>平均成本定價法</b></td>
+            <td><i>P</i> ＝ <i>AC</i></td>
+            <td><b>最公平的訂價法</b>，廠商收支平衡只賺取正常利潤（<i>π</i> ＝ 0）。</td>
+            <td>公用事業政府價格管制</td>
+          </tr>
+          <tr>
+            <td><b>兩段式訂價法</b></td>
+            <td>入會費＋使用費</td>
+            <td>先收取定額入場費（抽取 <i>CS</i>），再依使用量收取使用費。</td>
+            <td>Costco會員卡、遊樂園門票</td>
+          </tr>
+          <tr>
+            <td><b>尖峰負載訂價法</b></td>
+            <td>尖峰高價、離峰低價</td>
+            <td>利用產能容量限制，在尖峰時段抑止過度需求，離峰吸引利用。</td>
+            <td>台電夏月電價、離峰電話費</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== 模組六：8-4/8-5 獨占市場評論與完競全對比 ==================== -->
+  <div class="card" id="sec-comparison">
+    <div class="card-header">
+      <h2>⚖️ 模組六：8-4 獨占市場評論與 8-5 完全競爭 vs 獨占全對比</h2>
+      <span class="tag">課本 8-4 & 8-5 節 ｜ 無謂損失 DWL 幾何圖解與總整理</span>
+    </div>
+
+    <div class="split-view">
+      <!-- 左：無謂損失 DWL 幾何圖 -->
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch08/fig8_14_social_welfare_dwl.png" alt="圖 8-14 社會福利比較與無謂損失" onclick="openModal(this.src)">
+          <div class="img-caption">▲ 課本圖 8-14 完全競爭與獨占之社會福利比較（無謂損失三角形 <i>GEF</i>）</div>
+        </div>
+      </div>
+
+      <!-- 右：無謂損失解說 -->
+      <div class="info-wrap">
+        <div class="concept-box">
+          <h3>📌 獨占的無謂損失（Deadweight Loss, DWL）</h3>
+          <ul class="rule-list">
+            <li><b>完全競爭社會福利：</b>
+              在 <i>E</i> 點（<i>P</i> ＝ <i>MC</i>）生產，產量最大（<i>Q*<sub>完競</sub></i>），價格最低（<i>P*<sub>完競</sub></i>）。<br>
+              社會總福利 ＝ <i>CS</i> ＋ <i>PS</i> ＝ <b>三角形 <i>AEB</i>（達到社會福利最大，無 DWL）</b>。
+            </li>
+            <li><b>獨占市場社會福利：</b>
+              在 <i>F</i> 點（<i>MR</i> ＝ <i>MC</i>）決定產量，對應 <i>AR</i> 訂價為 <i>P*<sub>獨占</sub></i>。<br>
+              產量少（<i>Q*<sub>獨占</sub></i>），價格高（<i>P*<sub>獨占</sub></i>）。<br>
+              社會總福利 ＝ <b>四邊形 <i>AGFB</i></b>。
+            </li>
+            <li><b>福利淨損失（DWL）：</b><br>
+              獨占造成的<b>社會福利損失 ＝ 三角形 <i>GEF</i></b>！<br>
+              其中上部三角形 <i>GEH</i> 為消費者剩餘損失，下部三角形 <i>EFH</i> 為生產者剩餘損失。此損失任何人皆未獲得，稱為<b>「無謂損失」或「獨占的社會成本」</b>。
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 價量角度圖解與表 8-1 原版比較表呈現 -->
+    <div style="margin-top:24px;" class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch08/fig8_10_perfect_comp_vs_monopoly.png" alt="圖 8-10 完全競爭與獨占的比較" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本圖 8-10 完全競爭與獨占之價量對比（<i>Q*<sub>完競</sub></i> ＞ <i>Q*<sub>獨占</sub></i>，<i>P*<sub>完競</sub></i> ＜ <i>P*<sub>獨占</sub></i>）</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch08/table8_01_comp_comparison.png" alt="表 8-1 完全競爭市場與獨占市場的比較" onclick="openModal(this.src)">
+        <div class="img-caption">▲ 課本表 8-1 完全競爭市場 vs 獨占市場全方位重點對照表</div>
+      </div>
+    </div>
+
+    <!-- 獨占的缺點整理 (X-無效率與尋租行為) -->
+    <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="concept-box" style="border-left-color:#b91c1c;background:#fef2f2;">
+        <h4 style="margin:0 0 4px;color:#991b1b;">⚠️ X-無效率（X-Inefficiency）</h4>
+        <p style="font-size:0.88rem;color:#334155;">由於獨占廠商缺乏外部市場競爭壓力，管理階層容易鬆懈怠惰、人員冗贅、成本管控不良，導致實際生產成本高於最低可能成本。</p>
+      </div>
+      <div class="concept-box" style="border-left-color:#c2410c;background:#fff7ed;">
+        <h4 style="margin:0 0 4px;color:#9a3412;">⚠️ 尋租行為（Rent-Seeking）</h4>
+        <p style="font-size:0.88rem;color:#334155;">廠商為了獲取或維持排他性獨占特權，耗費大量金錢與資源進行政治遊說、關說或公關活動，這些支出不創造任何社會產值，形成純粹的社會浪費。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 模組七：課本原題測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 課本原版題庫實戰測驗（選自課本 P.232～P.235 章末評量）</h2>
+      <span class="tag">即測即評 ｜ 點擊選項立刻驗證觀念</span>
+    </div>
+
+    <!-- 題目 1 -->
+    <div class="quiz-item" id="q1">
+      <div class="quiz-q">1. 【課本 P.232 選擇第 1 題】獨占廠商的短期均衡條件為：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(1, 'A')">(A) <i>P</i> ＝ <i>MC</i></button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'B')">(B) <i>P</i> ＝ <i>AC</i></button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'C')">(C) <i>MR</i> ＝ <i>MC</i></button>
+        <button class="quiz-btn" onclick="checkQuiz(1, 'D')">(D) <i>MR</i> ＝ <i>AC</i></button>
+      </div>
+      <div class="quiz-explain" id="exp1">
+        <b>✅ 正確答案：(C)</b><br>
+        <b>解析：</b>所有廠商（不論完全競爭或不完全競爭）追求利潤極大化或虧損最小化的短期均衡條件皆為 <i>MR</i> ＝ <i>MC</i>。完全競爭因 <i>P</i> ＝ <i>MR</i>，故亦可寫為 <i>P</i> ＝ <i>MC</i>；但獨占廠商 <i>P</i> ＞ <i>MR</i>，故其均衡條件為 <b><i>MR</i> ＝ <i>MC</i></b>。
+      </div>
+    </div>
+
+    <!-- 題目 2 -->
+    <div class="quiz-item" id="q2">
+      <div class="quiz-q">2. 【課本 P.232 選擇第 5 題】獨占廠商的短期供給曲線是：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(2, 'A')">(A) <i>AR</i> 線</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'B')">(B) <i>MC</i> 線</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'C')">(C) <i>MC</i> 線高於 <i>AVC</i> 線最低點的一段</button>
+        <button class="quiz-btn" onclick="checkQuiz(2, 'D')">(D) 無供給曲線</button>
+      </div>
+      <div class="quiz-explain" id="exp2">
+        <b>✅ 正確答案：(D)</b><br>
+        <b>解析：</b>獨占廠商面對負斜率需求曲線，其定價取決於市場需求彈性與位置。當需求變動時，同價格可對應不同產量，或同產量對應不同價格，價格與產量不存在一對一對應關係，因此<b>獨占廠商沒有供給曲線</b>。（選項 C 為完全競爭廠商的短期供給線）。
+      </div>
+    </div>
+
+    <!-- 題目 3 -->
+    <div class="quiz-item" id="q3">
+      <div class="quiz-q">3. 【課本 P.232 選擇第 9 題】獨占廠商從差別訂價中所獲取的額外收入來自：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(3, 'A')">(A) 消費者剩餘</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'B')">(B) 生產者剩餘</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'C')">(C) 價格較高</button>
+        <button class="quiz-btn" onclick="checkQuiz(3, 'D')">(D) 成本較低</button>
+      </div>
+      <div class="quiz-explain" id="exp3">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b>差別訂價的本質在於廠商利用不同群體的願付價格，將原本屬於消費者的<b>「消費者剩餘（CS）」</b>剝奪並轉化為廠商自身的利潤。第一級差別訂價甚至將 CS 剝奪至 0。
+      </div>
+    </div>
+
+    <!-- 題目 4 -->
+    <div class="quiz-item" id="q4">
+      <div class="quiz-q">4. 【課本 P.233 選擇第 13～14 題連鎖計算】假設某獨占廠商面對可採差別訂價的 A、B 市場（無轉售可能），其 <i>MC</i> ＝ 60，A 市場彈性 <i>E<sub>dA</sub></i> ＝ 2，B 市場彈性 <i>E<sub>dB</sub></i> ＝ 3。若目前 A 市場訂價 130 元，B 市場訂價 90 元，為求利潤極大化，兩市場之最適售價分別應為多少？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(4, 'A')">(A) A 市場 120 元、B 市場 90 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'B')">(B) A 市場 130 元、B 市場 90 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'C')">(C) A 市場 100 元、B 市場 80 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(4, 'D')">(D) A 市場 150 元、B 市場 100 元</button>
+      </div>
+      <div class="quiz-explain" id="exp4">
+        <b>✅ 正確答案：(A)</b><br>
+        <b>解析：</b><br>
+        由阿摩羅梭-羅賓遜公式：<i>P</i>(1 － 1/<i>E<sub>d</sub></i>) ＝ <i>MC</i><br>
+        • A 市場：<i>P<sub>A</sub></i>(1 － 1/2) ＝ 60 ➔ <i>P<sub>A</sub></i> × 0.5 ＝ 60 ➔ <b><i>P<sub>A</sub></i> ＝ 120 元</b>（目前訂價 130 元偏高，應降低售價至 120 元）。<br>
+        • B 市場：<i>P<sub>B</sub></i>(1 － 1/3) ＝ 60 ➔ <i>P<sub>B</sub></i> × (2/3) ＝ 60 ➔ <b><i>P<sub>B</sub></i> ＝ 90 元</b>（目前訂價 90 元正好為最適價格，維持原價）。
+      </div>
+    </div>
+
+    <!-- 題目 5 -->
+    <div class="quiz-item" id="q5">
+      <div class="quiz-q">5. 【課本 P.234 生活情境題第 3 題】哥吉拉紅茶店為獨占廠商，需求函數為 <i>Q</i> ＝ 20 － <i>P</i>，邊際收益 <i>MR</i> ＝ 20 － 2<i>Q</i>，每杯邊際成本 <i>MC</i> ＝ 4。該店追求利潤極大時，每天應生產幾杯？價格應訂為多少？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkQuiz(5, 'A')">(A) 每天生產 8 杯，價格訂為 4 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'B')">(B) 每天生產 8 杯，價格訂為 12 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'C')">(C) 每天生產 10 杯，價格訂為 10 元</button>
+        <button class="quiz-btn" onclick="checkQuiz(5, 'D')">(D) 每天生產 16 杯，價格訂為 4 元</button>
+      </div>
+      <div class="quiz-explain" id="exp5">
+        <b>✅ 正確答案：(B)</b><br>
+        <b>解析：</b><br>
+        ① 利潤極大化條件：<i>MR</i> ＝ <i>MC</i> ➔ 20 － 2<i>Q</i> ＝ 4 ➔ 2<i>Q</i> ＝ 16 ➔ <b><i>Q*</i> ＝ 8 杯</b>。<br>
+        ② 代入需求函數求價格：<i>Q</i> ＝ 20 － <i>P</i> ➔ 8 ＝ 20 － <i>P</i> ➔ <b><i>P*</i> ＝ 12 元</b>。<br>
+        （⚠️ 統測常犯錯誤：千重萬別把 <i>Q</i> 代回 <i>MR</i> 去算價格！價格是由需求線 <i>P</i> ＝ 20 － <i>Q</i> 決定的！）
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 圖片 Modal -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大圖形">
+</div>
+
+<script>
+// 測驗檢查腳本
+const ANSWERS = {
+  1: 'C',
+  2: 'D',
+  3: 'A',
+  4: 'A',
+  5: 'B'
+};
+
+function checkQuiz(qNum, selected) {
+  const qDiv = document.getElementById('q' + qNum);
+  const btns = qDiv.querySelectorAll('.quiz-btn');
+  const correct = ANSWERS[qNum];
+
+  btns.forEach(btn => {
+    btn.classList.remove('correct', 'wrong');
+    const opt = btn.textContent.trim().substring(1, 2);
+    if (opt === correct) {
+      btn.classList.add('correct');
+    } else if (opt === selected && selected !== correct) {
+      btn.classList.add('wrong');
+    }
+  });
+
+  document.getElementById('exp' + qNum).style.display = 'block';
+}
+
+// 圖片 Lightbox Modal
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

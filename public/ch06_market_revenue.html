@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH6 市場結構與廠商收益 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #0284c7;
+  --brand-light: #e0f2fe;
+  --line-sky: #bae6fd;
+  --line-gray: #e2e8f0;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+}
+
+/* 頂部固定 Header */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.header-btn:hover {
+  background: #e2e8f0;
+}
+.header-btn.highlight {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+/* 模組快速導覽次導航列 */
+.subnav {
+  background: #fff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  position: sticky;
+  top: 59px;
+  z-index: 90;
+}
+.subnav-btn {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.subnav-btn:hover {
+  color: var(--brand);
+  border-color: var(--line-sky);
+  background: var(--brand-light);
+}
+
+.container {
+  max-width: 1060px;
+  margin: 28px auto 80px;
+  padding: 0 20px;
+}
+
+/* 核心大卡片模組 */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--line-gray);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖 */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 重點公式 / 鐵則方框 */
+.formula-box {
+  background: #f0f9ff;
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.math-formula {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #f0f9ff;
+}
+.highlight-cell {
+  background: #e0f2fe;
+  font-weight: 700;
+  color: #0369a1;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-ans {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH6 市場結構與廠商收益 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch05_cost.html" class="header-btn">⬅ 上一章：CH5 成本理論</a>
+    <a href="ch07_perfect_competition.html" class="header-btn">下一章：CH7 完全競爭 ➔</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本 5 大主題自然展開） -->
+<nav class="subnav">
+  <a href="#sec-market-types" class="subnav-btn">① 四大市場結構類型</a>
+  <a href="#sec-revenue-basics" class="subnav-btn">② 廠商收益三大指標</a>
+  <a href="#sec-perfect-revenue" class="subnav-btn">③ 完全競爭與四線合一</a>
+  <a href="#sec-imperfect-revenue" class="subnav-btn">④ 不完全競爭與斜率2倍</a>
+  <a href="#sec-ed-tr" class="subnav-btn">⑤ 收益與彈性Ed連動</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 重點一：市場結構的類型與特徵 ==================== -->
+  <div class="card" id="sec-market-types">
+    <div class="card-header">
+      <h2>🏛️ 重點一：四大市場結構類型與特徵比較</h2>
+      <span class="tag">課本 6-1 節 ｜ 市場競爭光譜全景</span>
+    </div>
+
+    <div class="formula-box">
+      🌐 <b>經濟學上「市場（Market）」的定義：</b><br>
+      市場並非指「特定的實體交易場所」，而是以<b>「某項特定產品」</b>來界定。只要有生產該產品的賣方，以及有意購買該產品的買方所形成的<b>集合</b>，即構成市場（如網路電商市場、白米市場、股票市場）。
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch06/fig6_01_market_structures_spectrum.png" alt="四種市場結構光譜" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.178 圖 6-1：四種市場結構之廠商家數與對價格的影響力光譜</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">四大市場結構特徵速記（依競爭激烈程度排序）：</h4>
+        <ul class="rule-list">
+          <li><b>1. 完全競爭市場（Perfect Competition）：</b>
+            <br>• 買賣者眾多、<span class="highlight-cell">產品完全同質無差異</span>、進出市場完全自由、訊息完全靈通。
+            <br>• 廠商為<b>「價格接受者（Price Taker）」</b>，對市價毫無影響力！實例：散裝白米、農產品。
+          </li>
+          <li><b>2. 獨占性競爭市場（Monopolistic Competition）：</b>
+            <br>• 廠商眾多、<span class="highlight-cell">產品異質（有品牌/包裝/口味差異）</span>、進出容易。
+            <br>• 重視<b>「非價格競爭」</b>（廣告、促銷、贈品、售後服務）。實例：手搖飲、餐廳、牙膏、服飾店。
+          </li>
+          <li><b>3. 寡占市場（Oligopoly）：</b>
+            <br>• <b>少數幾家大型廠商</b>控制市場、廠商間<span class="highlight-cell">相互依存度極高</span>、進出障礙高。
+            <br>• 價格具僵固性（拗折需求線）、多採非價格競爭。實例：電信三雄、水泥、汽車、國產泡麵（統一/維力）。
+          </li>
+          <li><b>4. 獨占市場（Monopoly）：</b>
+            <br>• <b>獨家生產</b>、無近似替代品、進出障礙極高、廠商為<b>「價格決定者（Price Maker）」</b>。
+            <br>• 形成原因：自然獨占（規模經濟、台電台水）、專利權/法律限制（新藥）、政府特許（台灣菸酒）、關鍵資源獨占。
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 表 6-1 課本原圖完整對照 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">四種市場結構完整綜合比較（課本核心大表）</h3>
+    <div class="img-wrap" style="max-width: 720px; margin: 16px auto;">
+      <img src="images/ch06/table6_01_market_structures_comparison.png" alt="四種市場結構比較表" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 教科書 P.184 表 6-1：四種市場結構之廠商家數、產品性質、進出障礙、價格影響力與非價格競爭綜合對照表</div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點二：廠商的收益三大指標 ==================== -->
+  <div class="card" id="sec-revenue-basics">
+    <div class="card-header">
+      <h2>💵 重點二：廠商收益三大指標（TR、AR、MR）</h2>
+      <span class="tag">課本 6-2 節 ｜ 收益分析基礎</span>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>收益指標</th>
+          <th>英文縮寫</th>
+          <th>計算公式</th>
+          <th>核心觀念與幾何意涵</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">總收益</td>
+          <td><i>TR</i> (Total Revenue)</td>
+          <td><i>TR</i> ＝ <i>P</i> × <i>Q</i></td>
+          <td>廠商銷售一定量產品所獲得的<b>全部營業收入</b>。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">平均收益</td>
+          <td><i>AR</i> (Average Revenue)</td>
+          <td><i>AR</i> ＝ <i>TR</i> / <i>Q</i> ＝ (<i>P</i> × <i>Q</i>) / <i>Q</i> ＝ <b><i>P</i></b></td>
+          <td>平均每銷售一單位產品所得之收入。<b>極重要結論：<i>AR</i> 恆等於產品價格 <i>P</i>，故 <i>AR</i> 曲線就是廠商面對的「需求曲線（D）」！</b></td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">邊際收益</td>
+          <td><i>MR</i> (Marginal Revenue)</td>
+          <td><i>MR</i> ＝ Δ<i>TR</i> / Δ<i>Q</i></td>
+          <td>每多銷售 1 單位產品，所引起<b>總收益的增加量（TR 曲線的切線斜率）</b>！</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 重點三：完全競爭廠商之需求與收益 ==================== -->
+  <div class="card" id="sec-perfect-revenue">
+    <div class="card-header">
+      <h2>⚖️ 重點三：完全競爭廠商的需求曲線與「四線合一」</h2>
+      <span class="tag">課本 6-3-1 節 ｜ 價格接受者的收益特徵</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 個別廠商為價格接受者（Price Taker）：</h4>
+        <ul class="rule-list">
+          <li>完全競爭市場中，市場價格由全體「市場供需」相交決定（市價為 <i>P*</i>）。</li>
+          <li>個別廠商產量佔全市場比例微不足道，<b>只能被動接受該市價，多賣或少賣皆不能改變價格</b>。</li>
+        </ul>
+
+        <div class="formula-box">
+          🌟 <b>「四線合一」黃金鐵律：</b><br>
+          個別完全競爭廠商面對的需求曲線為<b>「一條水平線」</b>（彈性 <i>E<sub>d</sub></i> ＝ ∞）：
+          <div class="math-formula">
+            <b><i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>D</i></b>
+          </div>
+          每多賣一單位，價格都不變，故每單位的邊際收益 <i>MR</i> 永遠等於價格 <i>P</i>！
+        </div>
+
+        <ul class="rule-list">
+          <li><b>總收益（TR）線：</b> 因為價格 <i>P</i> 固定，總收益隨銷售量呈等比例增加，<b>為一條由原點出發、向右上方傾斜的直線（射線）</b>，其斜率即為市價 <i>P</i>！</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="img-wrap">
+          <img src="images/ch06/fig6_04_perfect_comp_tr.png" alt="完全競爭TR線" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.189 圖 6-4：完全競爭廠商之 TR 線（由原點出發之正斜率射線）</div>
+        </div>
+
+        <div class="img-wrap" style="margin-top:14px">
+          <img src="images/ch06/fig6_05_perfect_comp_ar_mr.png" alt="完全競爭四線合一" onclick="openModal(this.src)" />
+          <div class="img-caption">▲ 教科書 P.189 圖 6-5：市場供需決定價格 ➔ 個別廠商 P = AR = MR = D 四線合一水平線</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點四：不完全競爭廠商之收益與斜率 2 倍 ==================== -->
+  <div class="card" id="sec-imperfect-revenue">
+    <div class="card-header">
+      <h2>📉 重點四：獨占及不完全競爭廠商之需求曲線與「斜率 2 倍」</h2>
+      <span class="tag">課本 6-3-2 節 ｜ 價格決定者的收益幾何</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch06/fig6_06_imperfect_comp_tr_ar_mr.png" alt="不完全競爭廠商收益走勢" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.191 圖 6-6：不完全競爭廠商的 TR 拋物線、AR 需求線與 MR 關係圖</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">1. 面對負斜率需求曲線：</h4>
+        <ul class="rule-list">
+          <li>獨占、寡占、獨占性競爭廠商為<b>價格決定者（Price Maker）</b>，若想多賣產品，<b>就必須降價銷售</b>！</li>
+          <li>因此廠商面對的需求曲線是一條<b>向右下方傾斜的負斜率曲線（<i>AR ＝ D</i>）</b>。</li>
+        </ul>
+
+        <div class="formula-box">
+          📐 <b>MR 平分橫軸與「斜率 2 倍」幾何鐵則：</b><br>
+          若需求曲線為直線方程式：
+          <div class="math-formula">
+            需求曲線（<i>AR</i>）：<i>P</i> ＝ <i>a</i> － <i>bQ</i>
+          </div>
+          則邊際收益曲線方程式為：
+          <div class="math-formula" style="color:#0284c7">
+            邊際收益（<i>MR</i>）：<i>MR</i> ＝ <i>a</i> － <b>2<i>b</i></b><i>Q</i>
+          </div>
+        </div>
+
+        <ul class="rule-list">
+          <li><b>縱軸截距相同：</b> <i>AR</i> 與 <i>MR</i> 皆從同一縱軸截距 <i>a</i> 出發。</li>
+          <li><b>斜率為 2 倍：</b> <i>MR</i> 位於 <i>AR</i> 下方，其下降速度是 <i>AR</i> 的 <b>2 倍</b>！</li>
+          <li><b>平分水平線段：</b> <i>MR</i> 穿過橫軸的點，剛好平分 <i>AR</i> 線穿過橫軸截距點的一半（<i>Q</i><sub>MR=0</sub> ＝ ½ <i>Q</i><sub>AR=0</sub>）。</li>
+          <li><b>TR 曲線形態：</b> 總收益先上升後下降，呈<b>倒 U 字形拋物線</b>！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點五：收益曲線與需求價格彈性 Ed 連動 ==================== -->
+  <div class="card" id="sec-ed-tr">
+    <div class="card-header">
+      <h2>🎯 重點五：收益與需求價格彈性（<i>E<sub>d</sub></i>）之三大連動律</h2>
+      <span class="tag">課本 6-3 節 ｜ 統測 100% 必考壓軸公式</span>
+    </div>
+
+    <div class="formula-box">
+      📐 <b>阿莫羅索-羅賓遜定理（Amoroso-Robinson Formula，課本公式 6-4）：</b>
+      <div class="math-formula">
+        <i>MR</i> ＝ <i>P</i> × ( 1 － <span class="frac"><span class="frac-top">1</span><span class="frac-bottom"><i>E<sub>d</sub></i></span></span> )
+      </div>
+      此公式揭示了<b>邊際收益 <i>MR</i>、價格 <i>P</i> 與需求價格彈性 <i>E<sub>d</sub></i> 之間的絕對連動！</b>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>需求價格彈性（<i>E<sub>d</sub></i>）</th>
+          <th>邊際收益（<i>MR</i>）正負</th>
+          <th>總收益（<i>TR</i>）走勢</th>
+          <th>廠商定價決策（降價結果）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell"><b><i>E<sub>d</sub></i> ＞ 1</b>（富有彈性）</td>
+          <td><b><i>MR</i> ＞ 0（正值）</b></td>
+          <td><b><i>TR</i> 遞增（上升段）</b></td>
+          <td>降價使 <i>TR</i> 增加（<b>薄利多銷</b>！需求量增加比例大於降價比例）。</td>
+        </tr>
+        <tr style="background:#f0fdf4">
+          <td class="highlight-cell" style="background:#dcfce7;color:#166534"><b><i>E<sub>d</sub></i> ＝ 1</b>（單一彈性）</td>
+          <td><b><i>MR</i> ＝ 0（穿過橫軸）</b></td>
+          <td><b><i>TR</i> 達到歷史最大值！（頂點）</b></td>
+          <td><b>總營業額最高峰！</b>價格變動不影響 <i>TR</i>。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell"><b><i>E<sub>d</sub></i> ＜ 1</b>（缺乏彈性）</td>
+          <td><b><i>MR</i> ＜ 0（負值，跌入第四象限）</b></td>
+          <td><b><i>TR</i> 遞減（下滑段）</b></td>
+          <td>降價使 <i>TR</i> 減少（不宜降價！如穀賤傷農）。此時<b>漲價反而使 TR 增加</b>！</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ==================== 模組六：課本精選實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組六：CH6 課本精選 5 大經典實戰測驗</h2>
+      <span class="tag">課本 P.194～196 原題驗證</span>
+    </div>
+
+    <!-- 題 1：完全競爭對價格無影響力 -->
+    <div class="quiz-item">
+      <div class="quiz-q">1. 【課本 P.194 第 3 題】以下何種市場結構的個別廠商，對市場價格「完全沒有影響力」，只能被動成為價格接受者？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 1, true)">(A) 完全競爭市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(B) 獨占性競爭市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(C) 獨占市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(D) 寡占市場</button>
+      </div>
+      <div class="quiz-ans" id="ans-1">
+        🎉 <b>答對了！選 (A)</b><br>
+        在完全競爭市場中，買賣雙方人數極多且產品完全同質，個別廠商的供給量佔全體比例微不足道，為<b>價格接受者（Price Taker）</b>，對市價完全沒有任何決定或影響的能力！
+      </div>
+    </div>
+
+    <!-- 題 2：自然獨占原因 -->
+    <div class="quiz-item">
+      <div class="quiz-q">2. 【課本 P.194 第 10 題】在現實經濟中，自來水公司、電力公司等形成「自然獨占（Natural Monopoly）」的最主要原因為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(A) 政府法令強制特許</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(B) 市場上絕無替代品存在</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, true)">(C) 存在極顯著的規模經濟（龐大固定資本）</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(D) 自然資源被少數私人廠商壟斷</button>
+      </div>
+      <div class="quiz-ans" id="ans-2">
+        🎉 <b>答對了！選 (C)</b><br>
+        自然獨占是因為初期鋪設管線、輸電電網等<b>固定資本極其龐大</b>，產量愈大、長期平均成本 LAC 愈低，具有極顯著的<b>規模經濟</b>。由單一家廠商供應全市場的成本，遠低於多家廠商重複投資競爭的成本！
+      </div>
+    </div>
+
+    <!-- 題 3：TR呈等比例變動之市場 -->
+    <div class="quiz-item">
+      <div class="quiz-q">3. 【課本 P.195 第 12 題】假設某廠商的總收益（TR）隨銷售量增加呈「等比例變動」（即 TR 是一條由原點出發的正斜率直線），則該廠商屬於何種市場結構？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 3, true)">(A) 完全競爭市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(B) 獨占性競爭市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(C) 寡占市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(D) 獨占市場</button>
+      </div>
+      <div class="quiz-ans" id="ans-3">
+        🎉 <b>答對了！選 (A)</b><br>
+        完全競爭廠商為價格接受者，市價 <i>P</i> 恆為固定常數，故 <i>TR ＝ P × Q</i> 是一條<b>由原點出發的直線（正斜率射線）</b>，總收益隨銷售量 Q 等比例增加！不完全競爭廠商的 TR 則為倒 U 字形拋物線。
+      </div>
+    </div>
+
+    <!-- 題 4：TR最大時的計算題 -->
+    <div class="quiz-item">
+      <div class="quiz-q">4. 【課本 P.195 填充計算第 3 題】已知某不完全競爭廠商的邊際收益函數為 MR ＝ 80 － 4Q，平均收益（需求）函數為 AR ＝ 80 － 2Q。請問該廠商欲達到「總收益（TR）最大」時，銷售量 Q 與最大總收益分別為多少？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(A) Q ＝ 40 單位，TR ＝ 1,600 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, true)">(B) Q ＝ 20 單位，TR ＝ 800 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(C) Q ＝ 20 單位，TR ＝ 400 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(D) Q ＝ 10 單位，TR ＝ 600 元</button>
+      </div>
+      <div class="quiz-ans" id="ans-4">
+        🎉 <b>答對了！選 (B)</b><br>
+        • <b>求 TR 最大的條件：令 <i>MR</i> ＝ 0</b>！<br>
+        • 80 － 4<i>Q</i> ＝ 0 ➔ 4<i>Q</i> ＝ 80 ➔ <b><i>Q</i> ＝ 20 單位</b>。<br>
+        • 當 <i>Q</i> ＝ 20 時，產品單價 <i>P ＝ AR</i> ＝ 80 － 2(20) ＝ 40 元。<br>
+        • 最大總收益 <b><i>TR</i> ＝ <i>P</i> × <i>Q</i> ＝ 40 × 20 ＝ 800 元</b>！
+      </div>
+    </div>
+
+    <!-- 題 5：生活情境題 國產泡麵市場型態 -->
+    <div class="quiz-item">
+      <div class="quiz-q">5. 【課本 P.196 生活情境第 2 題】台灣國產泡麵市場上，各種口味與包裝不斷推陳出新，但主要品牌卻只有統一、維力、味丹等少數幾家大公司主導市場。由此判斷國產泡麵市場最符合下列哪一種市場型態？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(A) 完全競爭市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, true)">(B) 寡占市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(C) 獨占市場</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(D) 獨占性競爭市場</button>
+      </div>
+      <div class="quiz-ans" id="ans-5">
+        🎉 <b>答對了！選 (B)</b><br>
+        市場由「少數幾家大型廠商主導」，且各廠商品牌彼此高度重視對手反應、互相牽制，此為典型<b>寡占市場（Oligopoly）</b>的特徵！
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 燈箱視窗 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大原圖" />
+</div>
+
+<script>
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const img = document.getElementById('modal-img');
+  img.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+function checkAns(btn, qId, isCorrect) {
+  const ansBox = document.getElementById('ans-' + qId);
+  ansBox.style.display = 'block';
+  if (isCorrect) {
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#059669';
+  } else {
+    btn.style.background = '#f87171';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#dc2626';
+    alert('觀念有點混淆囉！請看下方綠色即時解析～');
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>高職經濟學 ｜ 19 章全景整合心智架構圖 ｜ 統測全方位總覽</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #f97316;
+  --coral: #f43f5e;
+  --line: #e2e8f0;
+  --micro-color: #2563eb;
+  --micro-bg: #eff6ff;
+  --micro-border: #bfdbfe;
+  --macro-color: #059669;
+  --macro-bg: #ecfdf5;
+  --macro-border: #a7f3d0;
+  --highlight-border: #f43f5e;
+  --highlight-bg: #fff1f2;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+  padding-bottom: 80px;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #fff;
+  padding: 14px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+header h1 {
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-badge {
+  background: linear-gradient(135deg, #f43f5e, #f97316);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.header-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nav-btn {
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.nav-btn:hover {
+  background: #fff;
+  color: #0f172a;
+}
+.nav-btn.active {
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+/* 控制列 */
+.toolbar-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  background: #fff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover {
+  background: #f1f5f9;
+}
+.filter-btn.active {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+.path-btn {
+  background: #fffaf5;
+  border: 1.5px solid #fdba74;
+  color: #c2410c;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.path-btn:hover, .path-btn.active {
+  background: #ea580c;
+  color: #fff;
+  border-color: #ea580c;
+}
+
+/* 中軸根節點 (CH1 稀少性與循環圖) */
+.root-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.root-card {
+  background: linear-gradient(135deg, #fffaf5 0%, #ffedd5 100%);
+  border: 2px solid #fb923c;
+  border-radius: 16px;
+  padding: 18px 28px;
+  max-width: 680px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(234, 88, 12, 0.12);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.root-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(234, 88, 12, 0.18);
+}
+.root-card h3 {
+  color: #9a3412;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+.root-card p {
+  font-size: 0.9rem;
+  color: #431407;
+  line-height: 1.5;
+}
+
+/* 雙翼大主幹版面 */
+.branches-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .branches-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 主幹欄位 */
+.branch-col {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+.branch-header {
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 2.5px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.branch-micro .branch-header {
+  border-color: var(--micro-color);
+  color: var(--micro-color);
+}
+.branch-macro .branch-header {
+  border-color: var(--macro-color);
+  color: var(--macro-color);
+}
+.branch-header h2 {
+  font-size: 1.25rem;
+}
+.branch-badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.branch-micro .branch-badge {
+  background: var(--micro-bg);
+  color: var(--micro-color);
+  border: 1px solid var(--micro-border);
+}
+.branch-macro .branch-badge {
+  background: var(--macro-bg);
+  color: var(--macro-color);
+  border: 1px solid var(--macro-border);
+}
+
+/* 模組區塊 */
+.module-block {
+  margin-bottom: 20px;
+}
+.module-title {
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: #334155;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.module-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 章節單卡 */
+.ch-card {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.ch-card:hover {
+  background: #ffffff;
+  border-color: #64748b;
+  transform: translateX(3px);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+.ch-card.featured {
+  background: #fffaf5;
+  border-color: #fdba74;
+}
+.ch-card.highlighted {
+  border-color: var(--coral) !important;
+  background: #fff1f2 !important;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.25) !important;
+  transform: scale(1.02);
+  z-index: 2;
+}
+.ch-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.ch-code {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+.ch-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1e293b;
+  margin-left: 6px;
+}
+.ch-pill {
+  font-size: 0.76rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #475569;
+}
+.ch-card.featured .ch-pill {
+  background: #fed7aa;
+  color: #9a3412;
+}
+.ch-desc {
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 3px;
+}
+.ch-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.ch-tag {
+  font-size: 0.75rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #475569;
+}
+
+/* 詳情抽屜 (Drawer) */
+#drawer {
+  position: fixed;
+  top: 0;
+  right: -480px;
+  width: 460px;
+  max-width: 90vw;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -4px 0 25px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+#drawer.open {
+  right: 0;
+}
+.drawer-header {
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.drawer-header h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+.drawer-close {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drawer-close:hover {
+  background: rgba(255,255,255,0.3);
+}
+.drawer-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+.drawer-section {
+  margin-bottom: 18px;
+}
+.drawer-section h4 {
+  font-size: 0.95rem;
+  color: #9a3412;
+  border-left: 3px solid #ea580c;
+  padding-left: 8px;
+  margin-bottom: 8px;
+}
+.drawer-section p, .drawer-section ul {
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.6;
+}
+.drawer-section ul {
+  padding-left: 18px;
+}
+.drawer-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #f43f5e, #f97316);
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 14px;
+  box-shadow: 0 3px 12px rgba(244,63,94,0.3);
+  transition: opacity 0.2s;
+}
+.drawer-btn:hover {
+  opacity: 0.93;
+}
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 150;
+  display: none;
+}
+#overlay.open {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>
+      <span>🗺️ 高職經濟學全景整合心智架構圖</span>
+      <span class="header-badge">統測 19 章脈絡總覽</span>
+    </h1>
+  </div>
+  <div class="header-nav">
+    <a href="index.html" class="nav-btn">⬅ 回首頁</a>
+    <a href="a3_sheet01_consumer.html" class="nav-btn" style="background:#7c3aed;border-color:#7c3aed">📐 A3 橫向心智圖(第1張)</a>
+    <a href="ch01_basics.html" class="nav-btn" style="background:#f43f5e;border-color:#f43f5e">📘 CH1 基本概念</a>
+    <a href="ch02_elasticity.html" class="nav-btn" style="background:#ea580c;border-color:#ea580c">📘 CH2 需求與供給</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 頂部控制列 -->
+  <div class="toolbar-card">
+    <div class="toolbar-row">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-weight:700;font-size:0.9rem;color:#334155">視角切換：</span>
+        <div class="btn-group">
+          <button class="filter-btn active" onclick="filterView('all', this)">🌟 全景總覽 (19章)</button>
+          <button class="filter-btn" onclick="filterView('micro', this)">📘 個體經濟學 (CH1–12)</button>
+          <button class="filter-btn" onclick="filterView('macro', this)">🏛️ 總體經濟學 (CH13–19)</button>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-weight:700;font-size:0.9rem;color:#9a3412">🔗 跨章因果神經線：</span>
+        <div class="btn-group">
+          <button class="path-btn" onclick="highlightPath('supply', this)">成本供給線</button>
+          <button class="path-btn" onclick="highlightPath('price', this)">市場定價線</button>
+          <button class="path-btn" onclick="highlightPath('factor', this)">要素分配線</button>
+          <button class="path-btn" onclick="highlightPath('multiplier', this)">總體乘數線</button>
+          <button class="filter-btn" style="padding:4px 10px" onclick="clearHighlight()">🔄 重設</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 中軸起點：CH1 稀少性與循環圖 -->
+  <div class="root-section" id="root-node">
+    <div class="root-card" id="card-ch1" onclick="openDrawer('CH1')">
+      <h3>🏛️ 中軸起點：CH1 經濟基本概念 ＆ 循環流向圖</h3>
+      <p>
+        <b>稀少性（Scarcity）是一切的起點</b> ➔ 資源有限產生選擇 ➔ <b>機會成本（Opportunity Cost）</b> 與 <b>生產可能曲線（PPC）</b>。<br>
+        家計（買財貨、供要素）與廠商（供財貨、買要素）在兩大市場交會，分流出<b>個體價格機制</b>與<b>總體國民所得</b>兩大主幹！
+      </p>
+      <div style="margin-top:8px">
+        <span class="ch-tag">PPC與邊際轉換率 MRT</span>
+        <span class="ch-tag">實證 vs 規範</span>
+        <span class="ch-tag">經濟循環流向圖</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 雙翼大主幹 -->
+  <div class="branches-grid">
+
+    <!-- 左翼：個體經濟學 (CH1~12) -->
+    <div class="branch-col branch-micro" id="col-micro">
+      <div class="branch-header">
+        <div>
+          <h2>📘 左翼：個體經濟學（Microeconomics）</h2>
+          <div style="font-size:0.84rem;color:#64748b;margin-top:2px">核心任務：單一市場的價格形成、資源配置與個別廠商決策</div>
+        </div>
+        <span class="branch-badge">CH1 ～ CH12</span>
+      </div>
+
+      <!-- 模組一：供需與消費 -->
+      <div class="module-block">
+        <div class="module-title">🛒 模組一：供需分析與消費理論</div>
+        <div class="module-cards">
+
+          <div class="ch-card featured" id="card-ch2" onclick="openDrawer('CH2')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH2</span><span class="ch-name">需求與供給（供需彈性）</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">需求與供給法則、點的移動 vs 線的移動、供需五大彈性、總收益 TR 連動、價格管制（上限短缺／下限過剩）。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">點彈性與弧彈性</span>
+              <span class="ch-tag">薄利多銷 vs 穀賤傷農</span>
+              <span class="ch-tag">交縱>1/過原=1/交橫<1</span>
+            </div>
+          </div>
+
+          <div class="ch-card" id="card-ch3" onclick="openDrawer('CH3')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH3</span><span class="ch-name">消費行為理論</span></div>
+              <span class="ch-pill">買方微觀基礎</span>
+            </div>
+            <div class="ch-desc">邊際效用遞減律（MU）、水與鑽石價值矛盾、消費者均衡（MUx/Px = MUy/Py）、消費者剩餘（CS）、恩格爾法則。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">TU與MU關係圖</span>
+              <span class="ch-tag">消費者剩餘 CS</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 模組二：生產與成本 -->
+      <div class="module-block">
+        <div class="module-title">🏭 模組二：生產理論與成本分析</div>
+        <div class="module-cards">
+
+          <div class="ch-card" id="card-ch4" onclick="openDrawer('CH4')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH4</span><span class="ch-name">生產理論</span></div>
+              <span class="ch-pill">賣方投入產出</span>
+            </div>
+            <div class="ch-desc">短期邊際報酬遞減律、總產量 TP、平均產量 AP、邊際產量 MP 幾何關係、合理生產第二階段、長期等產量線。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">MP穿過AP最高點</span>
+              <span class="ch-tag">生產三階段</span>
+            </div>
+          </div>
+
+          <div class="ch-card" id="card-ch5" onclick="openDrawer('CH5')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH5</span><span class="ch-name">成本理論</span></div>
+              <span class="ch-pill">短期七線與利潤</span>
+            </div>
+            <div class="ch-desc">會計成本 vs 經濟成本（正常利潤屬於內含成本）、短期七條成本曲線（TC/AC/MC/AVC）、長期平均成本 LAC（規模經濟）。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">MC穿過AC與AVC最低點</span>
+              <span class="ch-tag">經濟利潤=0</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 模組三：市場結構與廠商決策 -->
+      <div class="module-block">
+        <div class="module-title">🏪 模組三：四大市場結構與定價</div>
+        <div class="module-cards">
+
+          <div class="ch-card" id="card-ch6" onclick="openDrawer('CH6')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH6</span><span class="ch-name">市場結構與廠商收益</span></div>
+              <span class="ch-pill">四市場分類總覽</span>
+            </div>
+            <div class="ch-desc">完全競爭、獨占性競爭、寡占、獨占四大市場特徵；TR、AR、MR 收益曲線；自然獨占。</div>
+          </div>
+
+          <div class="ch-card" id="card-ch7" onclick="openDrawer('CH7')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH7</span><span class="ch-name">完全競爭產量與價格</span></div>
+              <span class="ch-pill">高頻考點</span>
+            </div>
+            <div class="ch-desc">價格接受者（P=AR=MR）、短期最適 P=MC、損益平衡點 vs 停業點（P=min AVC）、短期供給線為 min AVC 以上的 MC 線。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">停業點判定</span>
+              <span class="ch-tag">長期 P=min LAC 超額利潤為0</span>
+            </div>
+          </div>
+
+          <div class="ch-card" id="card-ch8" onclick="openDrawer('CH8')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH8</span><span class="ch-name">完全獨占產量與價格</span></div>
+              <span class="ch-pill">價格決定者</span>
+            </div>
+            <div class="ch-desc">獨占定價（MR=MC 對 AR 定價）、無謂損失（DWL）、第一／二／三級差別取價、彈性定價法則（Ed>1降價利）。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">三級差別取價</span>
+              <span class="ch-tag">無謂損失 DWL</span>
+            </div>
+          </div>
+
+          <div class="ch-card" id="card-ch9" onclick="openDrawer('CH9')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH9</span><span class="ch-name">不完全競爭（獨占性競爭與寡占）</span></div>
+              <span class="ch-pill">實務常見市場</span>
+            </div>
+            <div class="ch-desc">獨占性競爭產品差異化與長期切點；寡占史威吉拗折需求線（跟跌不跟漲）、MR 垂直斷層與價格僵固性、卡特爾協議。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">拗折需求線</span>
+              <span class="ch-tag">價格僵固性</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 模組四：分配理論與要素報酬 -->
+      <div class="module-block">
+        <div class="module-title">💰 模組四：要素市場與分配理論</div>
+        <div class="module-cards">
+
+          <div class="ch-card" id="card-ch10" onclick="openDrawer('CH10')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH10</span><span class="ch-name">分配理論</span></div>
+              <span class="ch-pill">所得差距衡量</span>
+            </div>
+            <div class="ch-desc">功能分配 vs 個人分配、羅倫茲曲線與吉尼係數（A/(A+B)）、要素引申需求與聯合需求、最適僱用條件 MRP=PL。</div>
+          </div>
+
+          <div class="ch-card" id="card-ch11" onclick="openDrawer('CH11')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH11</span><span class="ch-name">工資與地租</span></div>
+              <span class="ch-pill">要素報酬一</span>
+            </div>
+            <div class="ch-desc">名目工資 vs 實質工資、後彎的勞動供給線（替代效果 vs 所得效果）、工會策略、差額地租與經濟租。</div>
+          </div>
+
+          <div class="ch-card featured" id="card-ch12" onclick="openDrawer('CH12')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH12</span><span class="ch-name">利息與利潤</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">迂迴生產、四大利息學說、費雪方程式（名目 vs 實質利率）、三大均衡利率理論（可貸資金說 vs 凱因斯流動性偏好）、熊彼得五大創新與利潤學說。</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 右翼：總體經濟學 (CH13~19) -->
+    <div class="branch-col branch-macro" id="col-macro">
+      <div class="branch-header">
+        <div>
+          <h2>🏛️ 右翼：總體經濟學（Macroeconomics）</h2>
+          <div style="font-size:0.84rem;color:#64748b;margin-top:2px">核心任務：全國總產出、貨幣金融、政府財政政策與跨國貿易成長</div>
+        </div>
+        <span class="branch-badge">CH13 ～ CH19</span>
+      </div>
+
+      <!-- 模組五：國民所得與均衡決定 -->
+      <div class="module-block">
+        <div class="module-title">📈 模組五：國民所得衡量與產出決定</div>
+        <div class="module-cards">
+
+          <div class="ch-card featured" id="card-ch13" onclick="openDrawer('CH13')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH13</span><span class="ch-name">國民所得（GDP / GNI）</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">GDP 四大特性（屬地/流量/最終/市價）、三面等價與支出面 C+I+G+(X-M)、五大指標階梯遞減（GNI→NNI→NI→PI→DI）、名目 vs 實質 GDP 與綠色 GDP。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">GDP vs GNI</span>
+              <span class="ch-tag">三面等價</span>
+              <span class="ch-tag">五大所得梯級</span>
+            </div>
+          </div>
+
+          <div class="ch-card featured" id="card-ch14" onclick="openDrawer('CH14')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH14</span><span class="ch-name">所得水準的決定（凱因斯模型）</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">有效需求理論、消費與儲蓄函數（APC/MPC）、45度線與損益平衡點、MEI 投資需求、簡單凱因斯兩部門均衡、乘數原理與節儉矛盾、膨脹/緊縮缺口與三部門平衡預算乘數。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">凱因斯 45 度線</span>
+              <span class="ch-tag">乘數原理與缺口消除</span>
+              <span class="ch-tag">平衡預算乘數</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 模組六：貨幣金融與政府政策 -->
+      <div class="module-block">
+        <div class="module-title">🏦 模組六：貨幣金融與政府調控之手</div>
+        <div class="module-cards">
+
+          <div class="ch-card featured" id="card-ch15" onclick="openDrawer('CH15')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH15</span><span class="ch-name">貨幣與金融</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">貨幣四功能與格雷欣法則、台灣貨幣三層次（M1A/M1B/M2）、凱因斯流動性偏好與流動性陷阱、貨幣數量說（MV=PT vs M=kPY）、存款貨幣創造（1/rd）、央行三大政策工具與金融市場。</div>
+            <div class="ch-tags">
+              <span class="ch-tag">M1A / M1B / M2</span>
+              <span class="ch-tag">流動性陷阱</span>
+              <span class="ch-tag">存款創造乘數</span>
+            </div>
+          </div>
+
+          <div class="ch-card featured" id="card-ch16" onclick="openDrawer('CH16')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH16</span><span class="ch-name">政府角色與財政政策</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">看不見的手 vs 看得見的手、市場失靈四大成因與對策、財貨四大分類（排他性 vs 敵對性矩陣）、政府財政收支（公債本金 vs 利息陷阱）、擴張／緊縮財政政策與自動穩定機能、代理問題與政治鐵三角。</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 模組七：開放經濟、波動與長線成長 -->
+      <div class="module-block">
+        <div class="module-title">🌍 模組七：開放經濟、景氣波動與長遠發展</div>
+        <div class="module-cards">
+
+          <div class="ch-card featured" id="card-ch17" onclick="openDrawer('CH17')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH17</span><span class="ch-name">國際貿易與國際金融</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">絕對利益 vs 比較利益（機會成本與雙向口訣）、要素稟賦理論、自由 vs 保護貿易（關稅無謂損失）、FDI vs 證券投資、直接標價外匯供需與牌告、匯率升貶計算與進出口衝擊、經貿組織與區域整合五大階段。</div>
+          </div>
+
+          <div class="ch-card featured" id="card-ch18" onclick="openDrawer('CH18')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH18</span><span class="ch-name">經濟波動（景氣、失業、通膨）</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">經濟波動四型態與五大循環週期（朱格拉大循環）、景氣四階段特徵、國發會景氣燈號（紅黃綠黃藍五色）、失業三型態與自然失業率充分就業、需求拉動 vs 成本推動 AS-AD 圖解、菲力普曲線與通膨財富重分配。</div>
+          </div>
+
+          <div class="ch-card featured" id="card-ch19" onclick="openDrawer('CH19')">
+            <div class="ch-card-top">
+              <div><span class="ch-code">CH19</span><span class="ch-name">經濟成長與經濟發展</span></div>
+              <span class="ch-pill">★ 必考焦點 (含原圖)</span>
+            </div>
+            <div class="ch-desc">成長（量） vs 發展（質與量）、貧窮惡性循環、哈樂德-多瑪模型 G=S/V、六大成長理論（亞當斯密/馬爾薩斯/熊彼得/梭羅/羅莫）、台灣七大發展階段、知識經濟四類知識、環境永續與綠色GDP。</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 側邊抽屜 (Drawer) -->
+<div id="overlay" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <div class="drawer-header">
+    <h3 id="drawer-title">章節名稱</h3>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-section">
+      <h4>📖 核心觀念精華</h4>
+      <p id="drawer-concept"></p>
+    </div>
+    <div class="drawer-section">
+      <h4>📊 統測常考必背圖形</h4>
+      <ul id="drawer-figures"></ul>
+    </div>
+    <div class="drawer-section">
+      <h4>⚡ 關鍵公式與解題心法</h4>
+      <p id="drawer-formula"></p>
+    </div>
+    <div id="drawer-action" style="margin-top:20px"></div>
+  </div>
+</div>
+
+<script>
+const CHAPTERS_DATA = {
+  CH1: {
+    title: "CH1 經濟基本概念",
+    concept: "稀少性是一切經濟問題的起點。六大基本問題（生產什麼、如何生產、為誰生產等）皆圍繞有限資源分配。生產可能曲線（PPC）凹向原點代表機會成本遞增，斜率絕對值為邊際轉換率 MRT。線內代表閒置無效率，線上代表具備生產效率，線外目前技術達不到，整條外移代表經濟成長。",
+    figures: ["生產可能曲線（PPC）與機會成本遞增圖", "經濟循環流向圖（家計與廠商在財貨與要素市場交會）"],
+    formula: "機會成本 ＝ 放棄各選項中價值最高者。MRT ＝ |ΔY / ΔX|。",
+    link: "ch01_basics.html"
+  },
+  CH2: {
+    title: "CH2 需求與供給（供需彈性）",
+    concept: "需求法則與供給法則。量變線上爬（價格變動導致線上點移動），變動整條拉（非價格因素導致整條線移動）。需求彈性 Ed 衡量買方對價格敏感度，影響賣方總收益 TR。價格上限造成排隊短缺，價格下限造成生產剩餘。",
+    figures: ["直線型需求曲線點彈性（線段比圖）", "需求彈性五大類型圖", "TR 與彈性關係圖（薄利多銷 vs 穀賤傷農）", "供給彈性交點判斷圖"],
+    formula: "點彈性 Ed ＝ P / (Pmax － P)。弧彈性中點公式。供給彈性：交縱軸 > 1、過原點 ＝ 1、交橫軸 < 1。",
+    link: "ch02_elasticity.html"
+  },
+  CH3: {
+    title: "CH3 消費行為理論",
+    concept: "邊際效用遞減律是鐵律，導出負斜率需求線。水與鑽石價值矛盾：水總效用巨大但邊際效用低故便宜，鑽石相反。消費者均衡將每塊錢的邊際效用花到均等（MUx/Px = MUy/Py）。消費者剩餘 CS ＝ 願意付最高價 － 實際支付價。",
+    figures: ["總效用 TU 與邊際效用 MU 垂直對齊圖（MU=0 時 TU 最大）", "消費者剩餘 CS 與生產者剩餘 PS 三角形面積圖"],
+    formula: "均衡條件：MUx/Px ＝ MUy/Py ＝ MUm。CS ＝ 需求線下方、市價線上方之面積。",
+    link: "ch03_consumer.html"
+  },
+  CH4: {
+    title: "CH4 生產理論",
+    concept: "短期至少一種要素固定（設備廠房），長期所有要素皆可調。邊際報酬遞減律：連續增加勞動投入，邊際產量 MP 終將遞減。MP 穿過 AP 最高點；MP=0 時 TP 最大。生產三階段中只有第二階段（AP 下降但 MP 仍大於 0）為合理生產區。",
+    figures: ["TP、AP、MP 關係圖（生產三階段標註）", "長期等產量曲線圖"],
+    formula: "AP ＝ TP / L。MP ＝ ΔTP / ΔL。最適生產區：AP 最高點至 TP 最高點之間。",
+    link: "ch04_production.html"
+  },
+  CH5: {
+    title: "CH5 成本理論",
+    concept: "會計成本只認外顯支出，經濟成本還要加計內含成本（自有店租、薪資）。正常利潤屬於內含成本，故經濟利潤為 0 代表剛好賺得正常利潤。短期七條線：TC=TFC+TVC，MC 必定精確穿過 AC 與 AVC 的最低點。長期平均成本 LAC 呈 U 形，左半段為規模經濟，右半段為規模不經濟。",
+    figures: ["短期七條成本曲線幾何關係圖", "長期平均成本 LAC 規模經濟包絡線圖"],
+    formula: "TC ＝ TFC ＋ TVC。MC ＝ ΔTC / ΔQ。經濟利潤 ＝ 總收益 TR － 經濟成本。",
+    link: "ch05_cost.html"
+  },
+  CH6: {
+    title: "CH6 市場結構與廠商收益",
+    concept: "完全競爭、獨占性競爭、寡占、獨占四大市場結構，競爭程度依序遞減，定價能力反向遞增。完全競爭為價格接受者（水平需求線 P=AR=MR），獨占面對負斜率需求線（MR < AR）。自然獨占由成本結構決定，隨產量增加平均成本持續下降。",
+    figures: ["完全競爭水平收益線圖（P=AR=MR）", "一般獨占負斜率收益線圖（MR 斜率為 AR 的兩倍）"],
+    formula: "TR ＝ P × Q。AR ＝ TR / Q ＝ P。MR ＝ ΔTR / ΔQ。",
+    link: "ch06_market_revenue.html"
+  },
+  CH7: {
+    title: "CH7 完全競爭產量與價格",
+    concept: "短期最適決策：P ＝ MR ＝ MC。利潤判斷看 P 與 AC，去留判斷看 P 與 AVC。P >= AVC 短期短痛續產（貼補固定成本），P < AVC 立刻歇業。短期供給線為 min AVC 以上的 MC 線。長期自由進出，均衡停在 P = MR = MC = min LAC，超額利潤為 0。",
+    figures: ["完全競爭短期損益平衡點 vs 停業點圖", "個別廠商短期供給線推導圖", "完全競爭長期均衡圖"],
+    formula: "停業點：P ＝ min AVC。損益平衡點：P ＝ min AC。短期供給線：S ＝ MC (P >= min AVC)。",
+    link: "ch07_perfect_competition.html"
+  },
+  CH8: {
+    title: "CH8 完全獨占產量與價格",
+    concept: "獨占先用 MR=MC 決定產量，再對著需求線 AR 決定最高價格，故 P > MC 產生無謂損失 DWL。差別取價三等級（第一級一客一價、第二級量大折讓、第三級市場分割）。彈性法則：Ed>1 處降價利，獨占廠商絕不會在 Ed<1 區域生產！",
+    figures: ["獨占均衡與無謂損失 DWL 三角形圖", "第一／二／三級差別取價圖"],
+    formula: "最適定量：MR ＝ MC。阿摩羅梭-羅賓遜公式：MR ＝ P(1 － 1/Ed)。",
+    link: "ch08_monopoly.html"
+  },
+  CH9: {
+    title: "CH9 不完全競爭（獨占性競爭與寡占）",
+    concept: "獨占性競爭（早餐店）產品具差異性，長期自由進出使需求線與 AC 相切，只賺正常利潤。寡占（電信三雄）互相猜心，史威吉拗折需求線假設對手「跟跌不跟漲」，造成 MR 垂直斷層，MC 在缺口內移動價格維持僵固。",
+    figures: ["獨占性競爭長期切點均衡圖", "寡占史威吉拗折需求線與 MR 缺口圖"],
+    formula: "獨占性競爭長期：P ＝ AC（無超額利潤）。加成定價：P ＝ AC × (1 ＋ 加成率)。",
+    link: "ch09_imperfect_competition.html"
+  },
+  CH10: {
+    title: "CH10 分配理論",
+    concept: "功能分配看要素所得（工資利息地租利潤），個人分配看貧富差距。羅倫茲曲線愈彎曲愈不均，吉尼係數 g = A / (A+B)，0 為完全均等，1 為極端不均。要素需求為引申需求與聯合需求。廠商僱用要素至 MRPL = PL（競爭下 VMPL = PL）。",
+    figures: ["羅倫茲曲線與吉尼係數面積圖", "邊際產值 VMPL 與要素僱用圖"],
+    formula: "吉尼係數 g ＝ A / (A ＋ B)。VMPL ＝ P × MPL。最適僱用：MRPL ＝ PL。",
+    link: "ch10_distribution.html"
+  },
+  CH11: {
+    title: "CH11 工資與地租",
+    concept: "名目工資為鈔票數字，實質工資 ＝ 名目 / 物價，代表實質購買力。勞動供給線後彎：起初加薪替代效果大於所得效果願多做，高薪後所得效果大於替代效果，寧買休閒使供給左彎。差額地租來自土地肥沃或位置差異。地價 ＝ 年租 / 利率。",
+    figures: ["後彎的勞動供給曲線圖（替代效果 vs 所得效果）", "地租與經濟租面積圖"],
+    formula: "實質工資 ＝ (名目工資 / 物價指數) × 100。地價 ＝ 年地租 / 利率。",
+    link: "ch11_wage_rent.html"
+  },
+  CH12: {
+    title: "CH12 利息與利潤",
+    concept: "資本特性與迂迴生產，利息四學說（忍慾說、時間偏好說、邊際生產力說、迂迴生產說）。利率計算與民間利息單位（分/厘/碼）、費雪方程式（名目＝實質＋預期通膨率）。三大均衡利率理論（古典投資儲蓄說、新古典可貸資金說、凱因斯貨幣流動性偏好說：交易/預防/投機動機）。企業家才能與利潤四大特性（剩餘所得、不確定、事後決定、不適用邊際生產力），利潤四學說與熊彼得五大創新活動。",
+    figures: ["資本循環圖", "投資儲蓄說均衡線", "可貸資金供需均衡線", "貨幣市場均衡與流動性偏好線"],
+    formula: "名目利率 i ＝ 實質利率 r ＋ 預期物價膨脹率 π。1分＝10%，1厘＝1%，1碼＝0.25%，半碼＝0.125%。",
+    link: "ch12_interest_profit.html"
+  },
+  CH13: {
+    title: "CH13 國民所得（GDP / GNI）",
+    concept: "GDP 屬地主義（國境內），GNI 屬人主義（常住居民）。GDP 四大特性：國境內、流量、最終產品、當期市價。國民所得三面等價（生產面＝支出面 C+I+G+(X-M)＝所得面 要素報酬+間接稅淨額+折舊）。五大指標梯級遞減：GNI 扣折舊得 NNI，扣間接稅淨額得 NI，扣勞而不獲加不勞而獲得 PI，扣非消費支出得 DI（C+S）。名目 GDP、實質 GDP 與平減指數，衡量缺失與綠色 GDP。",
+    figures: ["GDP 與 GNI 差別圖", "國民所得三面等價圖", "麵包生產附加價值鏈流程圖", "五大所得指標推導梯級表"],
+    formula: "GNI ＝ GDP ＋ 國外要素所得淨額。GDP ＝ C ＋ I ＋ G ＋ (X － M)。平減指數 ＝ (名目GDP / 實質GDP) × 100。綠色GDP ＝ GDP － 自然資源折耗 － 環境折耗。",
+    link: "ch13_national_income.html"
+  },
+  CH14: {
+    title: "CH14 所得水準的決定（凱因斯模型）",
+    concept: "凱因斯有效需求理論（未充分就業下需求創造供給）。消費函數 C ＝ a ＋ bYd（b ＝ MPC），儲蓄函數 S ＝ －a ＋ (1－b)Yd（1－b ＝ MPS）。45度線損益平衡點 Yd＝C 且 S＝0。投資邊際效率 MEI ＞ i 才投資。簡單兩部門均衡 Y ＝ C ＋ I（非自願存貨變動為0）。乘數原理 KI ＝ 1/(1－b) ＝ 1/MPS。節儉的矛盾（儲蓄增加反使所得縮水）。充分就業產出 Yf 下之膨脹缺口（景氣過熱）與緊縮缺口（衰退失業）。三部門政府支出乘數 KG ＝ 1/MPS，租稅乘數 KT ＝ －MPC/MPS，平衡預算乘數 KB ＝ 1。",
+    figures: ["有效需求構成圖", "消費與儲蓄曲線圖", "45度線收支平衡雙圖", "MEI 投資需求線", "45度線均衡所得決定圖", "膨脹缺口與緊縮缺口圖", "節儉的矛盾幾何圖", "加入政府部門均衡圖"],
+    formula: "Y ＝ C ＋ I ＋ G。KI ＝ 1 / (1 － b)。膨脹/緊縮缺口 ＝ ΔY / K ＝ ΔY × MPS。KG ＝ 1 / (1 － b)，KT ＝ －b / (1 － b)，KB ＝ 1。",
+    link: "ch14_macro_equilibrium.html"
+  },
+  CH15: {
+    title: "CH15 貨幣與金融",
+    concept: "貨幣四功能（交易媒介、價值標準、延期支付、價值儲藏）與格雷欣法則（劣幣驅逐良幣）。台灣貨幣三層次：M1A＝通貨淨額＋支存＋活存，M1B＝M1A＋活儲，M2＝M1B＋準貨幣。凱因斯流動性偏好三大動機（交易/預防/投機），流動性陷阱（利率極低需求呈水平線，貨幣政策失靈）。費雪交易說 MV＝PT，劍橋餘額說 M＝kPY（k＝1/V）。商業銀行存款貨幣信用創造（乘數 Km＝1/rd，引申存款 A×(1－rd)/rd）。央行三大主要政策工具（準備率、重貼現率、公開市場操作）與金融市場二分（貨幣市場 vs 資本市場）。",
+    figures: ["貨幣供給垂直線", "貨幣需求與均衡利率圖", "流動性陷阱水平段圖", "公開市場操作示意圖", "我國金融體系架構圖", "金控架構圖"],
+    formula: "M1B ＝ 通貨淨額 ＋ 存款貨幣。M2 ＝ M1B ＋ 準貨幣。MV ＝ PT。M ＝ kPY。存款乘數 Km ＝ 1 / rd。創造存款 D ＝ A / rd。",
+    link: "ch15_money_banking.html"
+  },
+  CH16: {
+    title: "CH16 政府角色與財政政策",
+    concept: "看不見的手（價格機能）vs 看得見的手（政府干預）。市場失靈四大成因：自然獨占（公營/價格管制/BOT）、資訊不對稱（逆選擇與道德危險）、正外部性（補貼）與負外部性（皮古稅）。財貨四大分類矩陣（可排他/不可排他 × 獨享/共享）：純私有財、共有資源（準私有財，公地悲劇）、俱樂部財（準公共財）、純公共財（搭便車）。政府財政收入（租稅四大原則、國稅/地方稅、直接稅/間接稅）與支出（經常支出含公債利息 vs 資本支出含公債本金償還）。景氣蕭條採擴張財政（增支減稅），景氣過熱採緊縮財政（減支增稅）。內建自動穩定機能（累進所得稅率與失業救濟福利津貼）。公共選擇、代理問題與政治鐵三角（利益團體/官僚/民意代表，鑽營競租行為）。",
+    figures: ["圖 16-1 中華民國總統府", "圖 16-2 獨享性 vs 共享性", "圖 16-3~16-6 私有財/準私有財/純公共財/準公共財實例", "圖 16-7 財貨四大分類矩陣", "圖 16-8 政府提供公共財決策流程", "圖 16-9 台糖營業盈餘", "圖 16-10 南迴公路資本支出", "圖 16-11 擴張與緊縮財政政策", "圖 16-12 逆選擇與道德危險", "圖 16-13 公共選擇程序", "圖 16-14 政治鐵三角關係圖"],
+    formula: "外部成本 ＝ 社會成本 － 私人成本；租稅原則：公平、確定、便利、經濟；公債利息 ＝ 經常支出，公債本金償還 ＝ 資本支出。",
+    link: "ch16_government_fiscal.html"
+  },
+  CH17: {
+    title: "CH17 國際貿易與國際金融",
+    concept: "亞當斯密絕對利益（生產效率）vs 李嘉圖比較利益（機會成本低者出口，劣勢國亦能獲利）。赫克夏-歐林要素稟賦說（密集使用豐富要素者出口）。貿易條件 TOT＝(Px/Pm)×100%。自由貿易 vs 保護貿易（李士特幼稚工業保護說、反傾銷稅、平衡稅、行政干預檢驗）。外國直接投資（FDI，具經營權）vs 間接投資（證券組合，無經營權）與國際熱錢衝擊。外匯與匯率：應付匯率（直接標價，1外幣＝若干台幣）vs 應收匯率（間接標價）；銀行賣出匯率 ＞ 買入匯率。外匯需求（負斜率，進口/觀光/外投/還債）與供給（正斜率，出口/外客/外資/收款）。直接標價下匯率上升（e↑）＝本幣貶值、外幣升值（有利出口、不利進口、出國貴、外債加重）；匯率下降（e↓）＝本幣升值、外幣貶值。新台幣升貶值幅度＝(舊－新)/新×100%，外幣升貶值幅度＝(新－舊)/舊×100%。管理浮動匯率制（央行逆風操作維持動態穩定）。區域經濟整合五大階段（優惠貿易協定➔自由貿易區➔關稅同盟➔共同市場➔經濟同盟）與核心經貿組織（WTO、OECD、APEC、ASEAN、EU、NAFTA、CPTPP）。",
+    figures: ["圖 17-1 國際貿易海運運輸", "圖 17-2 台灣主要貿易夥伴排名", "圖 17-3 銀行牌告匯率", "圖 17-4~17-7 外匯需求與供給曲線", "圖 17-8 外匯均衡匯率決定", "圖 17-9~17-12 外匯供需變動位移圖", "圖 17-13~17-14 匯率升降天平圖", "圖 17-15 國際經貿組織體系", "圖 17-16~17-18 WTO 總部、會員分布與台灣貿易趨勢", "圖 17-19~17-21 OECD 總部、會員分布與論壇", "圖 17-22~17-23 APEC 會員分布與張忠謀特使會談", "圖 17-24 ASEAN 會員分布", "圖 17-25 CPTPP 會員分布", "圖 17-26~17-27 EU 會員分布與歐洲央行", "圖 17-28 NAFTA 會員分布"],
+    formula: "本幣升貶幅度 ＝ (舊匯率 － 新匯率) ÷ 新匯率 × 100%；外幣升貶幅度 ＝ (新匯率 － 舊匯率) ÷ 舊匯率 × 100%；TOT ＝ (Px ÷ Pm) × 100%。",
+    link: "ch17_international_trade.html"
+  },
+  CH18: {
+    title: "CH18 經濟波動（景氣循環、失業與通膨）",
+    concept: "經濟波動四型態：長期趨勢（T）、季節變動（S）、循環變動（C）、不規則變動（I）。五大週期：姬青小循環（3~4年存貨）、朱格拉大循環（7~11年設備，經濟循環之父）、顧志耐建築循環（17~18年）、康德拉提夫長波（50~60年技術革命）、熊彼得創新循環。景氣四階段：復甦、繁榮（高峰）、衰退、蕭條（谷底）。國發會景氣動向指標（領先7項、同時7項、落後5項）與景氣對策信號五色燈號（紅燈過熱45~38、黃紅燈37~32、綠燈穩定31~23、黃藍燈22~17、藍燈低迷16~9）。實際失業＝摩擦（自願換職）＋結構（技術轉型技能不符）＋循環（景氣衰退總需求不足）。自然失業率＝(摩擦＋結構)/勞動力×100%；充分就業意指循環性失業＝0（實際失業率＝自然失業率）。特殊失業：季節性失業（列入就業）、隱藏性失業（無薪假、學非所用MPL=0）。勞動力＝就業＋失業；失業率＝失業/勞動力×100%（就業率＋失業率＝100%）。物價膨脹（爬升5%以下、急遽10%以上、惡性奔馳如辛巴威100兆大鈔）。成因：需求拉動（AD右移）vs 成本推動（AS左移釀停滯性通膨）。短期菲力普曲線負斜率（失業率與通膨率反向交替替代）；痛苦指數＝失業率＋通膨率。通膨財富重分配：債務人與實質資產者獲利、債權人與固定所得者受損。通貨緊縮螺旋與總體政策工具對抗矩陣。",
+    figures: ["圖 18-1 長期趨勢線", "圖 18-2 週期性變動五種類型之循環期間比較", "圖 18-3 景氣循環圖", "圖 18-4 景氣對策信號五色燈號矩陣", "圖 18-5 勞動部失業輔助計畫", "圖 18-6 辛巴威100兆紙鈔惡性通膨", "圖 18-7 需求拉動型物價膨脹", "圖 18-8 成本推動型物價膨脹", "圖 18-9 菲力普曲線", "圖 18-10 需求拉動 vs 成本推動 AS-AD 比較圖", "圖 18-11 解決通膨與通縮對策矩陣"],
+    formula: "失業率 ＝ (失業人口 ÷ 勞動力) × 100%；就業率 ＋ 失業率 ＝ 100%；自然失業率 ＝ [(摩擦性 ＋ 結構性) ÷ 勞動力] × 100%；痛苦指數 ＝ 失業率 ＋ 物價膨脹率。",
+    link: "ch18_economic_fluctuations.html"
+  },
+  CH19: {
+    title: "CH19 經濟成長與經濟發展",
+    concept: "經濟成長（實質總產出或每人實質GDP增加，重在量，適於已開發國家）vs 經濟發展（涵蓋文化政治教育法律體制革新，重在質與量，適於開發中國家，經濟發展包含經濟成長）。諾克斯貧窮惡性循環（所得低➔儲蓄少➔投資少➔資本不足➔生產力低➔所得低）。經濟成長理論六大流派：亞當斯密專業分工、馬爾薩斯人口論、熊彼得企業家創新（創造性破壞）、哈樂德-多瑪模型（G＝S/V＝儲蓄率/資本係數＝S×平均資本生產力）、梭羅新古典外生成長理論（勞動與資本可互換，技術進步為外生變數）、羅莫與盧卡斯內生成長理論（人力資本與研發創新具規模報酬遞增）。世銀所得四級分類（台灣屬高所得）與HDI人類發展指數。台灣經濟發展七階段：戰後重建（美援/幣制改革）➔第一次進口替代（非耐久消費財）➔出口擴張（加工出口區，1963年首度貿易順差）➔第二次進口替代（十大建設，中間投入與資本財）➔資訊化與自由化（竹科，高科技半導體）➔知識經濟與接軌國際（2002加入WTO）➔創新驅動結構改革（前瞻建設，解決五缺）。OECD四類知識：know-what（事實）、know-why（原理）、know-how（技能竅門）、know-who（人際網絡）。知識具報酬遞增特性。環境永續發展、污染對策（課稅/碳權交易）與綠色GDP（扣除生態折損）。",
+    figures: ["圖 19-1 貧窮的惡性循環", "圖 19-2 熊彼得創新理論", "圖 19-3 梭羅新古典成長模型", "圖 19-4 經濟發展包含經濟成長", "圖 19-5 高雄加工出口區", "圖 19-6 前瞻基礎建設計畫", "圖 19-7 平板電腦觸控原理", "圖 19-8 庫克經營運籌", "圖 19-9 清境農場過度開發", "圖 19-10 冰山融化威脅北極熊"],
+    formula: "實質經濟成長率 G ＝ (今年實質GDP － 去年實質GDP) ÷ 去年實質GDP × 100%；H-D 模型 G ＝ S ÷ V ＝ S × 平均資本生產力；綠色 GDP ＝ 實質 GDP － 自然資源折耗 － 環境品質損耗。",
+    link: "ch19_economic_growth.html"
+  }
+};
+
+function openDrawer(ch) {
+  const data = CHAPTERS_DATA[ch];
+  if (!data) return;
+  document.getElementById('drawer-title').textContent = data.title;
+  document.getElementById('drawer-concept').textContent = data.concept;
+  
+  const figUl = document.getElementById('drawer-figures');
+  figUl.innerHTML = '';
+  data.figures.forEach(f => {
+    const li = document.createElement('li');
+    li.textContent = f;
+    figUl.appendChild(li);
+  });
+
+  document.getElementById('drawer-formula').textContent = data.formula;
+
+  const actBox = document.getElementById('drawer-action');
+  if (data.link) {
+    actBox.innerHTML = `<a href="${data.link}" class="drawer-btn">🚀 進入本章完整精華頁（含原版 300DPI 考圖與測驗）➔</a>`;
+  } else {
+    actBox.innerHTML = `<button type="button" class="drawer-btn" style="background:#64748b;cursor:not-allowed">本章原圖精華模組建置中…</button>`;
+  }
+
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+function filterView(mode, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const microCol = document.getElementById('col-micro');
+  const macroCol = document.getElementById('col-macro');
+  const rootNode = document.getElementById('root-node');
+
+  if (mode === 'all') {
+    microCol.style.display = 'block';
+    macroCol.style.display = 'block';
+    rootNode.style.display = 'flex';
+  } else if (mode === 'micro') {
+    microCol.style.display = 'block';
+    macroCol.style.display = 'none';
+    rootNode.style.display = 'flex';
+  } else if (mode === 'macro') {
+    microCol.style.display = 'none';
+    macroCol.style.display = 'block';
+    rootNode.style.display = 'flex';
+  }
+}
+
+const PATH_MAPS = {
+  supply: ['card-ch4', 'card-ch5', 'card-ch7', 'card-ch2'],
+  price: ['card-ch3', 'card-ch2', 'card-ch6', 'card-ch7', 'card-ch8', 'card-ch9', 'card-ch16'],
+  factor: ['card-ch4', 'card-ch10', 'card-ch11', 'card-ch12'],
+  multiplier: ['card-ch13', 'card-ch14', 'card-ch15', 'card-ch16']
+};
+
+function highlightPath(pathName, btn) {
+  clearHighlight();
+  btn.classList.add('active');
+  const targets = PATH_MAPS[pathName] || [];
+  targets.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('highlighted');
+  });
+}
+
+function clearHighlight() {
+  document.querySelectorAll('.path-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ch-card').forEach(c => c.classList.remove('highlighted'));
+}
+</script>
+
+</body>
+</html>

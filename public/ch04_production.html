@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH4 生產理論 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --brand: #2563eb;
+  --brand-light: #eff6ff;
+  --line-blue: #bfdbfe;
+  --line-gray: #e2e8f0;
+  --shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.6;
+}
+
+/* 頂部固定 Header */
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 14px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header .badge {
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+.header-btn {
+  background: #f1f5f9;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.header-btn:hover {
+  background: #e2e8f0;
+}
+.header-btn.highlight {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+/* 模組快速導覽次導航列 */
+.subnav {
+  background: #fff;
+  border-bottom: 1px solid var(--line-gray);
+  padding: 8px 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  position: sticky;
+  top: 59px;
+  z-index: 90;
+}
+.subnav-btn {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  transition: all 0.2s ease;
+}
+.subnav-btn:hover {
+  color: var(--brand);
+  border-color: var(--line-blue);
+  background: var(--brand-light);
+}
+
+.container {
+  max-width: 1060px;
+  margin: 28px auto 80px;
+  padding: 0 20px;
+}
+
+/* 核心大卡片模組 */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--line-gray);
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+  margin-bottom: 28px;
+}
+.card-header {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-header .tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* 左右對照視圖（圖片 ＋ 重點解說） */
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .split-view { grid-template-columns: 1fr; }
+}
+
+/* 原圖裁切卡片 */
+.img-wrap {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  object-fit: contain;
+}
+.img-caption {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* 重點公式 / 鐵則方框 */
+.formula-box {
+  background: #eff6ff;
+  border-left: 4px solid var(--brand);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.math-formula {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 2px;
+}
+.frac-bottom {
+  padding-top: 2px;
+}
+
+/* 重點條列樣式 */
+.rule-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: #334155;
+}
+.rule-list li {
+  margin-bottom: 8px;
+}
+.rule-list b {
+  color: var(--ink);
+}
+
+/* 比較表格樣式 */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+  font-size: 0.88rem;
+}
+.comp-table th, .comp-table td {
+  border: 1px solid var(--line-gray);
+  padding: 10px 14px;
+  text-align: left;
+}
+.comp-table th {
+  background: #f8fafc;
+  font-weight: 800;
+  color: #1e293b;
+}
+.comp-table tr:hover {
+  background: #f0f7ff;
+}
+.highlight-cell {
+  background: #eff6ff;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+/* 測驗模組樣式 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--line-gray);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.quiz-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+@media (max-width: 640px) {
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+.quiz-btn {
+  background: #ffffff;
+  border: 1px solid var(--line-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #334155;
+  font-weight: 600;
+}
+.quiz-btn:hover {
+  border-color: var(--brand);
+  background: var(--brand-light);
+  color: var(--brand);
+}
+.quiz-ans {
+  display: none;
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: #065f46;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* 燈箱視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.85);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  background: #fff;
+  padding: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH4 生產理論 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch03_consumer.html" class="header-btn">⬅ CH3 消費理論</a>
+    <a href="ch05_cost.html" class="header-btn" style="background:#d97706;color:#fff;border-color:#d97706">前往 CH5 成本理論 ➔</a>
+    <a href="master_map.html" class="header-btn highlight">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本 6 大主題完整呈現） -->
+<nav class="subnav">
+  <a href="#sec-concept" class="subnav-btn">① 生產概念與要素</a>
+  <a href="#sec-surplus" class="subnav-btn">② 生產者剩餘與福利</a>
+  <a href="#sec-func" class="subnav-btn">③ 生產函數與長短期</a>
+  <a href="#sec-short-run" class="subnav-btn">④ 短期產量 TP/AP/MP</a>
+  <a href="#sec-three-stages" class="subnav-btn">⑤ 生產三階段</a>
+  <a href="#sec-malthus" class="subnav-btn">⑥ 馬爾薩斯人口論</a>
+  <a href="#sec-quiz" class="subnav-btn">🎯 課本原題測驗</a>
+</nav>
+
+<div class="container">
+
+  <!-- ==================== 重點一：生產的一般概念 ==================== -->
+  <div class="card" id="sec-concept">
+    <div class="card-header">
+      <h2>🏭 重點一：生產的意義、方式、要素與效用創造</h2>
+      <span class="tag">課本 4-1 節 ｜ 供給端的源頭</span>
+    </div>
+
+    <div class="formula-box">
+      ⚙️ <b>生產（Production）的經濟學定義：</b><br>
+      生產是指人類利用生產要素從事各種經濟活動，藉以<b>「創造效用」</b>或<b>「增加效用」</b>，以滿足人類慾望的行為。
+    </div>
+
+    <h4 style="color:#0f172a;margin:18px 0 6px">1. 生產的方式（直接生產 vs 迂迴生產）：</h4>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>生產方式</th>
+          <th>定義與說明</th>
+          <th>優缺點與實例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">直接生產</td>
+          <td>不使用生產工具，完全赤手空拳直接向大自然獲取財貨的生產方式。</td>
+          <td>效率極低。實例：原始人徒手摘野果、用雙手撈魚。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">迂迴生產<br>（資本化生產）</td>
+          <td><b>先製造機器設備等生產工具（資本財），再利用這些工具來生產消費財</b>的生產方式。</td>
+          <td><b>現代工業生產的核心！</b>初期費時耗資，但可大幅提高生產效率、降低長期平均成本。實例：先造漁網與漁船再出海捕魚；先造晶圓機具再生產晶片。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="color:#0f172a;margin:22px 0 6px">2. 四大生產要素與報酬對照（引申需求之基石）：</h4>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>生產要素（Input）</th>
+          <th>要素提供者</th>
+          <th>所獲取之經濟報酬</th>
+          <th>對應後續章節</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>勞動（Labor, L）</b></td>
+          <td>勞工（人類心力與體力投入）</td>
+          <td><b>工資（Wage, W）</b></td>
+          <td>CH11 工資理論</td>
+        </tr>
+        <tr>
+          <td><b>土地（Land, N）</b></td>
+          <td>地主（大自然賦予之天然資源與地理位置）</td>
+          <td><b>地租（Rent, R）</b></td>
+          <td>CH11 地租理論</td>
+        </tr>
+        <tr>
+          <td><b>資本（Capital, K）</b></td>
+          <td>資本家（人造的人力資本、廠房機器設備）</td>
+          <td><b>利息（Interest, i）</b></td>
+          <td>CH12 利息理論</td>
+        </tr>
+        <tr>
+          <td><b>企業家才能（Entrepreneurship, E）</b></td>
+          <td>企業家（組織資源、承擔經營風險、技術創新）</td>
+          <td><b>利潤（Profit, π）</b></td>
+          <td>CH12 利潤理論</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="color:#0f172a;margin:22px 0 6px">3. 生產所創造的五大效用：</h4>
+    <ul class="rule-list">
+      <li><b>本質效用（初級效用）：</b> 自大自然採集原始資源創造的效用（農林漁牧礦業，如採煤、種稻）。</li>
+      <li><b>形態效用（形式效用）：</b> 將原料加工改變外觀、結構或品質（製造業加工，如小麥磨成麵粉做麵包）。</li>
+      <li><b>時間效用：</b> 將財貨自產出過剩時儲存，待匱乏時釋出（倉儲業、冷凍冷藏保鮮）。</li>
+      <li><b>空間效用（地方效用）：</b> 將財貨從豐產地區運往短缺地區（運輸物流業，如高山蔬菜運往都會區）。</li>
+      <li><b>產權效用（所有權效用）：</b> 透過交易使財貨所有權移轉給最需要的人（商業批發零售、房屋仲介）。</li>
+    </ul>
+  </div>
+
+  <!-- ==================== 重點二：生產者剩餘與社會福利 ==================== -->
+  <div class="card" id="sec-surplus">
+    <div class="card-header">
+      <h2>📈 重點二：生產者剩餘（PS）與社會福利</h2>
+      <span class="tag">課本 4-2 節 ｜ 福利經濟核心</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch04/fig4_01_producer_surplus.png" alt="生產者剩餘PS" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.129 圖 4-1：供給線上方與市價下方為生產者剩餘（PS）</div>
+      </div>
+
+      <div>
+        <div class="formula-box">
+          📐 <b>生產者剩餘（Producer's Surplus, PS）：</b><br>
+          生產者出售商品實際獲得的總收入 － 生產者願意接受的最低總報酬（邊際成本 MC 之和）：
+          <div class="math-formula">
+            <i>PS</i> ＝ 實際收入總額 － 最低要求報酬總額
+          </div>
+        </div>
+        <ul class="rule-list">
+          <li><b>幾何圖形：</b> 落在<b>「市場價格線下方」</b>且在<b>「供給曲線上方」</b>之三角形面積。</li>
+          <li><b>市價上升時：</b> 廠商實際收入增加，生產者剩餘（PS）擴大；市價下跌時，PS 縮小。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 社會福利 CS + PS -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">社會福利極大化（Social Welfare）</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch04/fig4_02_social_welfare.png" alt="社會福利CS+PS" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.129 圖 4-2：市場均衡下社會福利達到最大（CS ＋ PS）</div>
+      </div>
+
+      <div>
+        <div class="formula-box" style="background:#f0fdf4;border-left-color:#10b981">
+          🌱 <b>社會福利公式：</b>
+          <div class="math-formula" style="color:#065f46">
+            社會總福利 ＝ 消費者剩餘 (<i>CS</i>) ＋ 生產者剩餘 (<i>PS</i>)
+          </div>
+        </div>
+        <ul class="rule-list">
+          <li>在完全競爭市場自由運作達到均衡（<i>P*</i>, <i>Q*</i>）時，買賣雙方無任何外部管制介入，<b>社會總福利達到最大境界</b>！</li>
+          <li>若政府實施價格管制（價格上限/下限）或課稅，將造成<b>無謂損失（Deadweight Loss）</b>，導致社會福利萎縮。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點三：生產函數與長短期的區分 ==================== -->
+  <div class="card" id="sec-func">
+    <div class="card-header">
+      <h2>⏳ 重點三：生產函數與長短期的劃分</h2>
+      <span class="tag">課本 4-3 節 ｜ 馬歇爾時間分析</span>
+    </div>
+
+    <div class="formula-box">
+      📐 <b>生產函數（Production Function）：</b>
+      在一定的生產技術水準下，投入的各種生產要素數量與其所能產生的「最大產量」之間的技術依存關係：
+      <div class="math-formula">
+        <i>Q</i> ＝ <i>f</i> (<i>L</i>, <i>K</i>) ； <i>Q</i> 代表產量、<i>L</i> 代表勞動、<i>K</i> 代表資本設備
+      </div>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch04/table4_01_short_long_run.png" alt="長短期的概念與生產函數" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.133 表 4-1：長短期的概念與生產函數對照</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">長短期的本質界定（由經濟學家馬歇爾提出）：</h4>
+        <ul class="rule-list">
+          <li>長短期<b>不是以日曆上的「時間長短（幾天幾月幾年）」劃分</b>，而是以<b>「生產要素能否全部自由調整」</b>為唯一標準！</li>
+        </ul>
+
+        <table class="comp-table" style="margin-top:10px">
+          <thead>
+            <tr>
+              <th>期間類型</th>
+              <th>要素調整彈性</th>
+              <th>生產函數形態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="highlight-cell">短期（Short-Run）</td>
+              <td><b>至少有一種要素固定不變</b>（如廠房設備 K 固定），只能透過調整變動要素（如勞動 L）來增減產量。</td>
+              <td><i>Q</i> ＝ <i>f</i> (<i>L</i>, <i>K̄</i>)<br>（<i>K̄</i> 代表資本固定）</td>
+            </tr>
+            <tr>
+              <td class="highlight-cell">長期（Long-Run）</td>
+              <td><b>所有生產要素皆可隨意調整</b>（無固定要素存在），廠商可自由擴建廠房、引進新機具或自由進退產業。</td>
+              <td><i>Q</i> ＝ <i>f</i> (<i>L</i>, <i>K</i>)<br>（所有要素均為變動）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點四：短期產量分析 TP/AP/MP 與邊際報酬遞減律 ==================== -->
+  <div class="card" id="sec-short-run">
+    <div class="card-header">
+      <h2>📊 重點四：短期產量分析（TP、AP、MP）與邊際報酬遞減法則</h2>
+      <span class="tag">課本 4-4 節 ｜ 統測最高頻計算與圖形考點</span>
+    </div>
+
+    <h4 style="color:#0f172a;margin-top:0">1. 三大產量指標定義與計算公式：</h4>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>指標名稱</th>
+          <th>英文縮寫</th>
+          <th>計算公式</th>
+          <th>經濟意義</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">總產量</td>
+          <td><i>TP</i> (Total Product)</td>
+          <td><i>TP</i> ＝ <i>AP</i> × <i>L</i> ＝ Σ<i>MP</i></td>
+          <td>投入一定量的變動要素（勞動 L）所生產出來的全部產量。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">平均產量</td>
+          <td><i>AP</i> (Average Product)</td>
+          <td><i>AP<sub>L</sub></i> ＝ <i>TP</i> / <i>L</i></td>
+          <td>平均每單位勞動投入所貢獻的產量（TP 線上點與原點連線之射線斜率）。</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">邊際產量</td>
+          <td><i>MP</i> (Marginal Product)</td>
+          <td><i>MP<sub>L</sub></i> ＝ Δ<i>TP</i> / Δ<i>L</i></td>
+          <td><b>每增加 1 單位勞動投入，所引起總產量的增加量（TP 曲線的切線斜率）！</b></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="split-view" style="margin-top:20px">
+      <div class="img-wrap">
+        <img src="images/ch04/fig4_03_pizza_tp_ap_mp.png" alt="小樂披薩店TP/AP/MP" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.136 圖 4-3 ＆ 表 4-2：小樂披薩店在資本固定下之產量數值走勢</div>
+      </div>
+      <div class="img-wrap">
+        <img src="images/ch04/fig4_05_tp_mp_ap_alignment.png" alt="TP與MP/AP垂直對照圖" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.138 圖 4-5：TP 與 MP、AP 幾何上下垂直對照之黃金律</div>
+      </div>
+    </div>
+
+    <!-- 四大關鍵幾何連動關係 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">2. TP、AP 與 MP 曲線四大絕對連動關係（統測 100% 必考！）：</h3>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>幾何關鍵位置</th>
+          <th>總產量（TP）狀態</th>
+          <th>邊際產量（MP）狀態</th>
+          <th>平均產量（AP）狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="highlight-cell">① 拐點（反曲點，A 點）</td>
+          <td>TP 由「凹向上（遞增）」轉為「凹向下（遞減）」</td>
+          <td><b><i>MP</i> 達到歷史最高點！（A' 點）</b></td>
+          <td><i>AP</i> 仍在上升階段（<i>MP</i> ＞ <i>AP</i>）</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">② AP 最高點（B 點）</td>
+          <td>原點出發射線與 TP 線相切處</td>
+          <td><b><i>MP</i> ＝ <i>AP</i>（MP 由上方貫穿 AP 最高點！）</b></td>
+          <td><b><i>AP</i> 達到最高點！（B' 點）</b></td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">③ TP 最高峰（C 點）</td>
+          <td><b><i>TP</i> 達到歷史最大值！（切線水平，C 點）</b></td>
+          <td><b><i>MP</i> ＝ 0（MP 剛好穿過橫軸！C' 點）</b></td>
+          <td><i>AP</i> 處於下降階段</td>
+        </tr>
+        <tr>
+          <td class="highlight-cell">④ 過高峰之後</td>
+          <td><i>TP</i> 開始下滑（負報酬）</td>
+          <td><i>MP</i> ＜ 0（負數，跌落橫軸下方）</td>
+          <td><i>AP</i> 繼續下降但恆為正數</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 邊際報酬遞減法則 -->
+    <h3 style="color:#0f172a;margin:28px 0 8px;font-size:1.1rem">3. 邊際報酬遞減法則（Law of Diminishing Returns）</h3>
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch04/fig4_06_three_stages_returns.png" alt="報酬三階段" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.139 圖 4-6：報酬三階段（遞增 ➔ 遞減 ➔ 負報酬）</div>
+      </div>
+      <div>
+        <div class="formula-box">
+          🌱 <b>邊際報酬遞減法則定義（短期的鐵律）：</b><br>
+          在技術水準與其他生產要素（如資本、土地）固定不變下，若連續增加某一種變動要素（如勞動）的投入，起初由於分工專業化，邊際產量會遞增；但超過某一點後，固定要素負荷過重，<b>最後邊際產量 MP 必然會呈現持續遞減的現象</b>！
+        </div>
+        <ul class="rule-list">
+          <li><b>前提條件：</b> ① 必須是在「短期」（有固定要素）；② 生產技術保持不變；③ 投入的要素品質均等。</li>
+          <li><b>對應後續：</b> 邊際產量 MP 遞減，直接決定了第 5 章<b>邊際成本 MC 必然遞增</b>（兩者互為顛倒的倒數鏡像）！</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點五：生產三階段 ==================== -->
+  <div class="card" id="sec-three-stages">
+    <div class="card-header">
+      <h2>🎯 重點五：生產三階段劃分與廠商決策最佳區域</h2>
+      <span class="tag">課本 4-5 節 ｜ 理性廠商經濟決策</span>
+    </div>
+
+    <div class="split-view">
+      <div class="img-wrap">
+        <img src="images/ch04/fig4_07_production_three_stages.png" alt="生產三階段" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 教科書 P.140 圖 4-7：生產三階段之分界與經濟合理生產階段</div>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">生產三階段特徵與廠商抉擇表：</h4>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>階段</th>
+              <th>範圍界定</th>
+              <th>產量特徵</th>
+              <th>廠商決策與評價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>第 Ⅰ 階段</b></td>
+              <td>原點 0 ～ <b><i>AP</i> 最高點</b>（0 ～ <i>L</i><sub>2</sub>）</td>
+              <td><i>MP</i> ＞ <i>AP</i>，<i>AP</i> 持續上升。</td>
+              <td><b>不合理階段！</b>固定要素相對過多（設備閒置，俗稱「殺雞焉用牛刀」），多增聘勞工能使平均效率提升，理性廠商不會在此停產。</td>
+            </tr>
+            <tr class="highlight-cell">
+              <td><b>第 Ⅱ 階段</b></td>
+              <td><b><i>AP</i> 最高點 ～ <i>MP</i> ＝ 0</b>（<i>L</i><sub>2</sub> ～ <i>L</i><sub>3</sub>）</td>
+              <td><i>AP</i> ＞ <i>MP</i> ＞ 0，<i>AP</i> 與 <i>MP</i> 皆遞減但均為正值。</td>
+              <td><b>🌟 唯一經濟合理生產階段！</b>固定要素與變動要素配置最適當。廠商具體生產在哪一點，取決於要素價格與產品價格。</td>
+            </tr>
+            <tr>
+              <td><b>第 Ⅲ 階段</b></td>
+              <td><b><i>MP</i> ＝ 0 之後</b>（<i>L</i><sub>3</sub> 之後）</td>
+              <td><i>MP</i> ＜ 0（負數），<i>TP</i> 隨勞工增加反而下降。</td>
+              <td><b>絕對不合理階段！</b>變動要素相對過多（「人多手雜，愈幫愈忙」），增聘員工反而破壞產出，理性廠商絕不在此生產。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 重點六：馬爾薩斯人口論 ==================== -->
+  <div class="card" id="sec-malthus">
+    <div class="card-header">
+      <h2>👥 重點六：馬爾薩斯人口論與現代觀點</h2>
+      <span class="tag">課本 4-6 節 ｜ 報酬遞減之歷史應用</span>
+    </div>
+
+    <div class="split-view">
+      <div>
+        <div class="formula-box">
+          📖 <b>人口論提出者：</b> 英國古典學派學者<b>馬爾薩斯（Thomas Robert Malthus）</b>於 1798 年出版《人口論》。
+        </div>
+        <h4 style="color:#0f172a;margin:14px 0 6px">1. 核心論點與論證基礎：</h4>
+        <ul class="rule-list">
+          <li><b>理論基石：</b> <span class="highlight-cell">邊際報酬遞減法則</span>！在耕地面積（土地）有限且固定的情況下，連續增加農業勞動，糧食增產速度終將趨緩。</li>
+          <li><b>兩大級數落差：</b>
+            <br>• <b>糧食產量：</b> 受土地報酬遞減限制，只能以<span class="highlight-cell">「算術級數（等差級數：1, 2, 3, 4, 5...）」</span>增加。
+            <br>• <b>人口繁殖：</b> 若不受抑制，會以<span class="highlight-cell">「幾何級數（等比級數：1, 2, 4, 8, 16...）」</span>增加。
+            <br>➔ 結論：人口增長必然超越糧食供給，造成飢荒與貧窮！
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color:#0f172a;margin-top:0">2. 抑制人口的兩大途徑：</h4>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>抑制方式</th>
+              <th>內涵與手段</th>
+              <th>實例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="highlight-cell">積極抑制<br>(Positive Checks)</td>
+              <td>透過提高死亡率來縮減人口（非自願性）。</td>
+              <td>戰爭、瘟疫、飢荒、惡劣氣候天災。</td>
+            </tr>
+            <tr>
+              <td class="highlight-cell">預防抑制<br>(Preventive Checks)</td>
+              <td>透過降低出生率來控制人口（人為理性預防）。</td>
+              <td>晚婚、不婚、道德自制。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4 style="color:#0f172a;margin:16px 0 6px">3. 現代經濟學對人口論的修正與評價：</h4>
+        <ul class="rule-list">
+          <li>馬爾薩斯過度悲觀，忽視了<b>「農業科技、化肥水利與育種改良的飛躍」</b>（突破了報酬遞減限制，使糧食大幅增產）。</li>
+          <li>現代已開發國家不但未出現人口幾何暴增，反而面臨<b>「少子化、高齡化與勞動力不足」</b>的新挑戰。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 模組七：課本精選實戰測驗 ==================== -->
+  <div class="card" id="sec-quiz">
+    <div class="card-header">
+      <h2>🎯 模組七：CH4 課本精選 5 大經典實戰測驗</h2>
+      <span class="tag">課本 P.144～147 原題驗證</span>
+    </div>
+
+    <!-- 題 1：迂迴生產 -->
+    <div class="quiz-item">
+      <div class="quiz-q">1. 【課本 P.144 第 2 題】先生產機器設備等生產工具，再利用工具來生產各種生活消費財的生產方式，在經濟學上稱為：</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(A) 直接生產</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, true)">(B) 迂迴生產</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(C) 大規模生產</button>
+        <button class="quiz-btn" onclick="checkAns(this, 1, false)">(D) 勞務生產</button>
+      </div>
+      <div class="quiz-ans" id="ans-1">
+        🎉 <b>答對了！選 (B)</b><br>
+        「迂迴生產（資本化生產）」是指不直接徒手採集，而是先製造工具/機器（資本財），再藉工具製造最終產品。雖初期費時耗資，但能大幅提高生產效率！
+      </div>
+    </div>
+
+    <!-- 題 2：生產者剩餘計算 -->
+    <div class="quiz-item">
+      <div class="quiz-q">2. 【課本 P.144 第 4 題】假設香蕉的市場供給函數為 QS ＝ −80 ＋ 5P。當市場價格為 48 元時，香蕉的生產者剩餘（PS）為多少元？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(A) 32 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(B) 160 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, true)">(C) 2,560 元</button>
+        <button class="quiz-btn" onclick="checkAns(this, 2, false)">(D) 5,120 元</button>
+      </div>
+      <div class="quiz-ans" id="ans-2">
+        🎉 <b>答對了！選 (C)</b><br>
+        • 當市價 <i>P</i> ＝ 48 時，供給量 <i>QS</i> ＝ -80 ＋ 5(48) ＝ 160 單位。<br>
+        • 求供給線縱軸截距（廠商願開始供給的最低價格）：令 <i>QS</i> ＝ 0 ➔ 0 ＝ -80 ＋ 5P ➔ <i>P</i> ＝ 16 元。<br>
+        • 生產者剩餘 <i>PS</i> ＝ 底 × 高 ÷ 2 ＝ 160 × (48 － 16) ÷ 2 ＝ 160 × 32 ÷ 2 ＝ <b>2,560 元</b>！
+      </div>
+    </div>
+
+    <!-- 題 3：TP最大時的連動 -->
+    <div class="quiz-item">
+      <div class="quiz-q">3. 【課本 P.145 第 9 題】在短期產量分析中，當總產量（TP）達到最大時，下列何項敘述絕對正確？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(A) AP 處於遞增</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(B) MP 達到歷史最大</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, false)">(C) AP 達到歷史最大</button>
+        <button class="quiz-btn" onclick="checkAns(this, 3, true)">(D) MP ＝ 0</button>
+      </div>
+      <div class="quiz-ans" id="ans-3">
+        🎉 <b>答對了！選 (D)</b><br>
+        因為邊際產量 MP 是總產量 TP 曲線的切線斜率。當 TP 達到頂峰（切線呈水平，斜率為 0）時，<b>邊際產量 MP 剛好等於 0（穿過橫軸）</b>！
+      </div>
+    </div>
+
+    <!-- 題 4：生產第二階段特徵 -->
+    <div class="quiz-item">
+      <div class="quiz-q">4. 【課本 P.145 第 12 題】在生產三階段的「第二階段（經濟合理生產階段）」中，平均產量（AP）與邊際產量（MP）的關係為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 4, true)">(A) AP ＞ MP ＞ 0</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(B) MP ＞ AP ＞ 0</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(C) AP ＞ MP，且 MP ＜ 0</button>
+        <button class="quiz-btn" onclick="checkAns(this, 4, false)">(D) AP ＜ MP ＜ 0</button>
+      </div>
+      <div class="quiz-ans" id="ans-4">
+        🎉 <b>答對了！選 (A)</b><br>
+        第二階段介於「AP 最高點」到「MP ＝ 0」之間。在此區間內，MP 落在 AP 下方，且兩者皆為正值，因此 <b>AP ＞ MP ＞ 0</b>！此階段要素搭配最佳，是理性廠商唯一會選擇生產的區段。
+      </div>
+    </div>
+
+    <!-- 題 5：人口論之理論基礎 -->
+    <div class="quiz-item">
+      <div class="quiz-q">5. 【課本 P.145 第 15 題】馬爾薩斯發表《人口論》指出糧食增產速度終究落後於人口繁衍速度，其背後最關鍵的經濟學論證基礎為何？</div>
+      <div class="quiz-opts">
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(A) 需求法則</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(B) 供給法則</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, true)">(C) 邊際報酬遞減法則</button>
+        <button class="quiz-btn" onclick="checkAns(this, 5, false)">(D) 邊際效用遞減法則</button>
+      </div>
+      <div class="quiz-ans" id="ans-5">
+        🎉 <b>答對了！選 (C)</b><br>
+        馬爾薩斯認為耕地（土地）面積固定有限，在土地上連續投入農動人口，受限於<b>「邊際報酬遞減法則」</b>，糧食產量只能以算術等差級數增加，無法追上人口幾何暴增！
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 燈箱視窗 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="放大原圖" />
+</div>
+
+<script>
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const img = document.getElementById('modal-img');
+  img.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+function checkAns(btn, qId, isCorrect) {
+  const ansBox = document.getElementById('ans-' + qId);
+  ansBox.style.display = 'block';
+  if (isCorrect) {
+    btn.style.background = '#10b981';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#059669';
+  } else {
+    btn.style.background = '#f87171';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#dc2626';
+    alert('觀念有點混淆囉！請看下方綠色即時解析～');
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A3 橫式心智圖 第1張 ｜ 起點與消費篇（CH1 基礎 ➔ CH3 效用 ➔ CH2 供需）</title>
+<style>
+/* ==========================================================================
+   A3 橫向極致印刷與教學看板標準樣式
+   實體尺寸：420mm × 297mm
+   嚴格規範：全版面所有文字最低 14pt（約 18.7px），無任何小於 14pt 的文字！
+   ========================================================================== */
+
+@page {
+  size: A3 landscape;
+  margin: 8mm;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f172a;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  font-size: 14pt;
+  line-height: 1.35;
+}
+
+/* 頂部操作工具列（螢幕顯示，列印自動隱藏） */
+.top-bar {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #334155;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.top-title {
+  font-size: 15pt;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.top-badge {
+  background: #f97316;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 14pt;
+}
+.top-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 14pt;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+.btn-print {
+  background: #059669;
+}
+.btn-print:hover {
+  background: #047857;
+}
+.btn-secondary {
+  background: #334155;
+  color: #e2e8f0;
+}
+.btn-secondary:hover {
+  background: #475569;
+}
+
+/* A3 橫向畫布容器 */
+.a3-page-wrapper {
+  padding: 20px 10px;
+  display: flex;
+  justify-content: center;
+}
+.a3-canvas {
+  width: 420mm;
+  min-height: 297mm;
+  background: #ffffff;
+  padding: 10mm 12mm;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 橫幅大標題區 */
+.canvas-header {
+  border-bottom: 3px solid #0f172a;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.main-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.sheet-number {
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 18pt;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+.sheet-main-title {
+  font-size: 26pt;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+.sheet-sub-title {
+  font-size: 15pt;
+  color: #475569;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.header-meta {
+  text-align: right;
+  font-size: 14pt;
+  color: #64748b;
+  font-weight: 600;
+}
+.header-meta b {
+  color: #dc2626;
+}
+
+/* 三大主幹直向佈局（420mm 橫式三欄） */
+.canvas-body {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr 1.05fr;
+  gap: 12mm;
+  flex: 1;
+}
+
+/* 單一主幹欄位 */
+.trunk-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+/* 主幹標題頂條 */
+.col-header {
+  padding: 6px 14px;
+  border-radius: 8px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.col-header h2 {
+  font-size: 18pt;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+.col-header .col-badge {
+  font-size: 14pt;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.22);
+  font-weight: 700;
+}
+
+/* 欄位色彩主題 */
+.theme-ch1 .col-header { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
+.theme-ch1 .node-box { border-left-color: #2563eb; }
+
+.theme-ch3 .col-header { background: linear-gradient(135deg, #881337, #e11d48); }
+.theme-ch3 .node-box { border-left-color: #e11d48; }
+
+.theme-ch2 .col-header { background: linear-gradient(135deg, #064e3b, #059669); }
+.theme-ch2 .node-box { border-left-color: #059669; }
+
+/* 心智圖節點卡片（Node Card） */
+.node-box {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-left-width: 6px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.node-title {
+  font-size: 16pt;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.node-pill {
+  font-size: 14pt;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 4px;
+  color: #ffffff;
+}
+.pill-ch1 { background: #2563eb; }
+.pill-ch3 { background: #e11d48; }
+.pill-ch2 { background: #059669; }
+
+/* 節點內容要點清單 */
+.node-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14pt;
+  color: #1e293b;
+  line-height: 1.35;
+}
+.node-list li {
+  margin-bottom: 4px;
+}
+.node-list li:last-child {
+  margin-bottom: 0;
+}
+.hl-bold {
+  font-weight: 800;
+  color: #0f172a;
+}
+.hl-red {
+  color: #b91c1c;
+  font-weight: 800;
+}
+.hl-tag {
+  display: inline-block;
+  background: #fef08a;
+  color: #854d0e;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 14pt;
+}
+
+/* 核心公式框 */
+.formula-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin: 3px 0;
+  font-size: 14pt;
+}
+.formula-math {
+  font-size: 16pt;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 3px 0;
+}
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 14pt;
+  padding: 0 4px;
+}
+.frac-top {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 1px;
+}
+.frac-bottom {
+  padding-top: 1px;
+}
+
+/* 課本 300 DPI 原圖卡片 */
+.fig-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px;
+  margin-top: 2px;
+  text-align: center;
+}
+.fig-card img {
+  max-width: 100%;
+  max-height: 65mm;
+  object-fit: contain;
+  border-radius: 4px;
+  cursor: zoom-in;
+  display: block;
+  margin: 0 auto;
+}
+.fig-caption {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #475569;
+  margin-top: 3px;
+}
+
+/* 跨欄因果連接箭頭帶 */
+.causal-footer {
+  margin-top: 10px;
+  background: #f1f5f9;
+  border: 2px dashed #94a3b8;
+  border-radius: 8px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 14pt;
+  font-weight: 800;
+  color: #0f172a;
+}
+.causal-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.causal-arrow {
+  color: #f97316;
+  font-size: 18pt;
+  font-weight: 900;
+}
+
+/* 燈箱放大視窗 */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.88);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+#modal img {
+  max-width: 92vw;
+  max-height: 92vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  background: #fff;
+  padding: 8px;
+}
+
+/* 列印樣式覆寫 */
+@media print {
+  body {
+    background: #ffffff !important;
+    font-size: 14pt !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .a3-page-wrapper {
+    padding: 0 !important;
+  }
+  .a3-canvas {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  .fig-card img {
+    max-height: 58mm !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部操作列（可列印、可縮放） -->
+<div class="top-bar no-print">
+  <div class="top-title">
+    <span>📐 統測經濟學 A3 橫向旗艦心智圖</span>
+    <span class="top-badge">第 1 張：起點與消費篇</span>
+    <span style="font-size:14pt;color:#94a3b8">｜ 全字體 14pt 以上保證</span>
+  </div>
+  <div class="top-actions">
+    <button class="btn btn-print" onclick="window.print()">🖨️ 列印 / 存為 A3 橫向 PDF</button>
+    <a href="master_map.html" class="btn btn-secondary">🗺️ 19章全景圖</a>
+    <a href="ch01_basics.html" class="btn btn-secondary">📘 CH1 單章講義</a>
+    <a href="ch02_elasticity.html" class="btn btn-secondary">📗 CH2 單章講義</a>
+    <a href="index.html" class="btn btn-secondary">⬅ 回解題網</a>
+  </div>
+</div>
+
+<div class="a3-page-wrapper">
+  <div class="a3-canvas">
+
+    <!-- 橫幅頂部標題列 -->
+    <header class="canvas-header">
+      <div>
+        <div class="main-title-wrap">
+          <span class="sheet-number">第 1 聯幅</span>
+          <h1 class="sheet-main-title">起點與消費篇 ｜ 從稀少抉擇到市場需求形成</h1>
+        </div>
+        <div class="sheet-sub-title">統測商管群跨章思維重組 ｜ 整合 CH1 基礎觀念 ➔ CH3 效用理論 ➔ CH2 需求法則與彈性</div>
+      </div>
+      <div class="header-meta">
+        標準尺寸：<b>A3 橫向 (420mm × 297mm)</b><br>
+        排版守則：<b>全文字 ≧ 14pt ｜ 課本 300 DPI 原圖精確對標</b>
+      </div>
+    </header>
+
+    <!-- 三大直向主幹欄位 -->
+    <main class="canvas-body">
+
+      <!-- ==================== 第 1 欄：CH1 資源稀少與生產可能曲線 ==================== -->
+      <section class="trunk-col theme-ch1">
+        <div class="col-header">
+          <h2>🌿 一、稀少性與生產可能曲線</h2>
+          <span class="col-badge">CH1 基礎觀念</span>
+        </div>
+
+        <!-- 節點 1.1: 經濟問題根源 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch1">1.1</span>
+            <span>經濟問題三大根源 ＆ 取捨</span>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">基本因果：</span> <span class="hl-tag">慾望無窮</span> ✕ <span class="hl-tag">資源稀少</span> ✕ <span class="hl-tag">多種用途</span> ➔ 產生選擇與取捨（Trade-off）。</li>
+            <li><span class="hl-bold">六大基本問題（4W ＋ 2宏觀）：</span>
+              <br>• <span class="hl-bold">前 4 問（個體）：</span> 生產什麼、如何生產、何時生產、為誰生產 ➔ <b>由市場價格機能（看不見的手）解決</b>。
+              <br>• <span class="hl-bold">後 2 問（總體）：</span> 穩定經濟、促進成長 ➔ <b>由政府政策解決</b>。
+            </li>
+          </ul>
+        </div>
+
+        <!-- 節點 1.2: 機會成本鐵則 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch1">1.2</span>
+            <span>機會成本（Opportunity Cost）</span>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">機會成本鐵則：</span> 面臨多種選擇時，所放棄的其他用途中<span class="hl-red">「價值最高者」</span>（非各項相加！）。</li>
+            <li><span class="hl-bold">成本構成：</span> 外顯成本（實際掏錢） ＋ 隱含成本（自有要素轉用代價）。</li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch01/fig1_14_opportunity_cost.png" alt="機會成本阿振工作" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 1-14：阿振選擇甲(4萬)，機會成本為乙(3.5萬)</div>
+          </div>
+        </div>
+
+        <!-- 節點 1.3: 生產可能曲線 PPC -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch1">1.3</span>
+            <span>生產可能曲線（PPC）與 MRT</span>
+          </div>
+          <div class="formula-card">
+            <div class="formula-math">
+              <i>MRT<sub>XY</sub></i> ＝ 
+              <span class="frac"><span class="frac-top">放棄的 <i>Y</i> 財產量 (Δ<i>Y</i>)</span><span class="frac-bottom">增加的 <i>X</i> 財產量 (Δ<i>X</i>)</span></span>
+              ＝ PPC 之斜率絕對值
+            </div>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">負斜率：</span> 資源有限，多產 X 必須少產 Y。</li>
+            <li><span class="hl-bold">凹向原點：</span> <span class="hl-red">機會成本遞增法則</span>（MRT 遞增，直指第4章報酬遞減）。</li>
+            <li><span class="hl-bold">點位效率：</span> 線上＝<span class="hl-tag">生產效率</span> ｜ 線內＝資源閒置/失業 ｜ 線外＝目前技術達不到。</li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch01/fig1_15_ppc_curve.png" alt="生產可能曲線PPC" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 1-15：民生財 vs 國防財 PPC 曲線</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==================== 第 2 欄：CH3 慾望、效用與消費者決策 ==================== -->
+      <section class="trunk-col theme-ch3">
+        <div class="col-header">
+          <h2>🧠 二、效用理論與願付代價推導</h2>
+          <span class="col-badge">CH3 消費行為</span>
+        </div>
+
+        <!-- 節點 2.1: 慾望五特性與四部曲 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch3">2.1</span>
+            <span>慾望特性 ＆ 效用因果四部曲</span>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">慾望五大特性：</span> 種類無限性、<span class="hl-red">強度遞減性</span>（何時停止消費）、替代性、互補性、習慣性。</li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch03/fig3_03_wants_to_utility.png" alt="慾望到效用四部曲" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 3-3：欠缺感 ➔ 慾望 ➔ 需求 ➔ 消費 ➔ 效用</div>
+          </div>
+        </div>
+
+        <!-- 節點 2.2: TU 與 MU 關鍵連動 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch3">2.2</span>
+            <span>總效用（TU）與邊際效用（MU）</span>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">邊際效用遞減律：</span> 連續消費某財貨，每增加一單位所增加的滿足感逐漸遞減。</li>
+            <li><span class="hl-bold">統測必考三部曲：</span>
+              <br>① 當 <i>MU</i> ＞ 0 ➔ <i>TU</i> 持續上升。
+              <br>② 當 <span class="hl-red"><i>MU</i> ＝ 0</span> ➔ <span class="hl-tag"><i>TU</i> 達到最大！</span>（最佳消費量）
+              <br>③ 當 <i>MU</i> ＜ 0 ➔ <i>TU</i> 開始下降。
+            </li>
+            <li><span class="hl-bold">水與鑽石矛盾：</span> 物品價格由<span class="hl-red">「邊際效用 MU」</span>決定，而非總效用 TU！水 TU 極大但 MU 極低故便宜；鑽石 MU 極高故昂貴。</li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch03/fig3_04_tu_mu_curves.png" alt="TU與MU關係曲線" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 3-4：湘民吃太陽餅 TU 與 MU 走勢圖</div>
+          </div>
+        </div>
+
+        <!-- 節點 2.3: 消費者均衡與消費者剩餘 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch3">2.3</span>
+            <span>消費者均衡 ＆ 導出需求曲線</span>
+          </div>
+          <div class="formula-card">
+            <div class="formula-math">
+              <span class="frac"><span class="frac-top"><i>MU<sub>X</sub></i></span><span class="frac-bottom"><i>P<sub>X</sub></i></span></span> ＝ 
+              <span class="frac"><span class="frac-top"><i>MU<sub>Y</sub></i></span><span class="frac-bottom"><i>P<sub>Y</sub></i></span></span> ＝ <i>MU<sub>M</sub></i>（貨幣邊際效用）
+            </div>
+            <div style="text-align:center;font-size:14pt;color:#475569">限制式：<i>P<sub>X</sub>·X</i> ＋ <i>P<sub>Y</sub>·Y</i> ＝ 所得 <i>M</i></div>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">導出需求線：</span> 消費者願付最高價格 <i>P</i> ＝ <i>MU</i> / <i>MU<sub>M</sub></i>，因 <i>MU</i> 遞減 ➔ <b>需求曲線向右下方傾斜！</b></li>
+            <li><span class="hl-bold">消費者剩餘（CS）：</span> 願付總額 － 實付總額（需求線下方、市價線上方之三角形面積）。</li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch03/fig3_07_consumer_surplus.png" alt="消費者剩餘CS" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 3-7：需求曲線下方與市價上方為消費者剩餘 CS</div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==================== 第 3 欄：CH2 需求法則、價格彈性與市場均衡 ==================== -->
+      <section class="trunk-col theme-ch2">
+        <div class="col-header">
+          <h2>⚖️ 三、市場需求、價格彈性與管制</h2>
+          <span class="col-badge">CH2 需求與供給</span>
+        </div>
+
+        <!-- 節點 3.1: 需求法則與動線分辨 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch2">3.1</span>
+            <span>需求法則 ＆ 點移動 vs 線平移</span>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">需求法則：</span> 其他條件不變，價格（P）與需求量（Qd）呈<span class="hl-red">反向變動</span>。</li>
+            <li><span class="hl-bold">統測常考陷阱（動vs移）：</span>
+              <br>• <span class="hl-tag">需求量變動</span>：<b>本產品價格變動</b> ➔ 線上的點移動。
+              <br>• <span class="hl-tag">需求變動</span>：<b>所得、偏好、替代品/互補品價格變動</b> ➔ 整條線向右/向左平移！
+            </li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch02/fig2_06_demand_quantity_change.png" alt="點移動與線平移" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 2-6：需求量變動（價格變動 ➔ 線上的點移動）</div>
+          </div>
+        </div>
+
+        <!-- 節點 3.2: 需求價格彈性與幾何中點法 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch2">3.2</span>
+            <span>需求價格彈性 <i>E<sub>d</sub></i> 幾何判定</span>
+          </div>
+          <div class="formula-card">
+            <div class="formula-math">
+              <i>E<sub>d</sub></i> ＝ 
+              <span class="frac"><span class="frac-top">下段長度 (P 點到橫軸)</span><span class="frac-bottom">上段長度 (P 點到縱軸)</span></span>
+            </div>
+          </div>
+          <ul class="node-list">
+            <li>• <span class="hl-bold">中點上方：</span> 下段 ＞ 上段 ➔ <span class="hl-red"><i>E<sub>d</sub></i> ＞ 1</span>（富有彈性）。</li>
+            <li>• <span class="hl-bold">正中點處：</span> 下段 ＝ 上段 ➔ <span class="hl-red"><i>E<sub>d</sub></i> ＝ 1</span>（單一彈性）。</li>
+            <li>• <span class="hl-bold">中點下方：</span> 下段 ＜ 上段 ➔ <span class="hl-red"><i>E<sub>d</sub></i> ＜ 1</span>（缺乏彈性）。</li>
+            <li>• <span class="hl-bold">兩軸截距：</span> 縱軸 <i>E<sub>d</sub></i> ＝ ∞ ｜ 橫軸 <i>E<sub>d</sub></i> ＝ 0。</li>
+          </ul>
+          <div class="fig-card">
+            <img src="images/ch02/fig2_09_demand_linear_points.png" alt="需求彈性幾何中點法" onclick="openModal(this.src)" />
+            <div class="fig-caption">▲ 課本圖 2-9：直線型需求曲線五段彈性判定</div>
+          </div>
+        </div>
+
+        <!-- 節點 3.3: 彈性與總收入TR連動 + 政府管制 -->
+        <div class="node-box">
+          <div class="node-title">
+            <span class="node-pill pill-ch2">3.3</span>
+            <span>彈性與總收入（TR） ＆ 政府管制</span>
+          </div>
+          <ul class="node-list">
+            <li><span class="hl-bold">彈性與廠商總收入（<i>TR ＝ P × Q</i>）：</span>
+              <br>• <span class="hl-bold"><i>E<sub>d</sub></i> ＞ 1（富有彈性）：</span> 降價 ➔ <i>TR</i> 增加（<span class="hl-tag">薄利多銷</span>）；漲價 ➔ <i>TR</i> 減少。
+              <br>• <span class="hl-bold"><i>E<sub>d</sub></i> ＜ 1（缺乏彈性）：</span> 漲價 ➔ <i>TR</i> 增加；降價 ➔ <i>TR</i> 減少（<span class="hl-tag">穀賤傷農</span>）。
+              <br>• <span class="hl-bold"><i>E<sub>d</sub></i> ＝ 1（單一彈性）：</span> 價格變動，<i>TR</i> 保持不變。
+            </li>
+            <li><span class="hl-bold">政府價格管制兩大鐵律：</span>
+              <br>• <span class="hl-red">價格上限（最高限價）：</span> 設在均衡價下方（保護消費者） ➔ <b>造成市場短缺（缺貨、黑市、排隊）</b>。
+              <br>• <span class="hl-red">價格下限（最低限價）：</span> 設在均衡價上方（保護生產者，如基本工資） ➔ <b>造成市場過剩</b>。
+            </li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 底部跨欄因果邏輯貫穿帶 -->
+    <footer class="causal-footer">
+      <div class="causal-step">
+        <span>🌱 【起點】慾望無窮 ✕ 資源有限</span>
+        <span class="causal-arrow">➔</span>
+      </div>
+      <div class="causal-step">
+        <span>⚖️ 【取捨】機會成本 ＆ PPC (MRT遞增)</span>
+        <span class="causal-arrow">➔</span>
+      </div>
+      <div class="causal-step">
+        <span>🧠 【效用】邊際效用 MU 遞減律</span>
+        <span class="causal-arrow">➔</span>
+      </div>
+      <div class="causal-step">
+        <span>📉 【需求】願付最高價 (P=MU/MUm) 導出負斜率需求線</span>
+        <span class="causal-arrow">➔</span>
+      </div>
+      <div class="causal-step">
+        <span>🎯 【定價】彈性 Ed 與總收益 TR 連動 ＆ 市場均衡管制</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- 圖片燈箱 -->
+<div id="modal" onclick="closeModal()">
+  <img id="modal-img" src="" alt="原圖放大預覽" />
+</div>
+
+<script>
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const img = document.getElementById('modal-img');
+  img.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

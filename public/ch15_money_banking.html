@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CH15 貨幣與金融 ｜ 統測旗艦講義 ｜ 課本 100% 貼合</title>
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --primary-dark: #1d4ed8;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #0ea5e9;
+  --accent-light: #f0f9ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  padding-bottom: 80px;
+}
+
+header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.header-btn:hover {
+  background: #e2e8f0;
+  color: var(--primary);
+}
+
+.header-btn.highlight {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.header-btn.highlight:hover {
+  background: var(--primary-dark);
+}
+
+/* 模組快速導覽錨點列 */
+.subnav {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.subnav-btn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.subnav-btn:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: #bfdbfe;
+}
+
+/* 主要容器 */
+main {
+  max-width: 1080px;
+  margin: 28px auto;
+  padding: 0 20px;
+}
+
+.module-card {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+}
+
+.module-card h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 12px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-card h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #334155;
+  margin: 24px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.module-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 18px 0 8px 0;
+}
+
+p {
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+
+ul, ol {
+  margin-left: 24px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+  line-height: 1.7;
+}
+
+/* 觀念框與公式框 */
+.concept-box {
+  background: #f8fafc;
+  border-left: 4px solid var(--primary);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.tip-box {
+  background: #fefce8;
+  border-left: 4px solid var(--warning);
+  padding: 16px 20px;
+  border-radius: 0 8px 8px 0;
+  margin: 18px 0;
+  font-size: 0.96rem;
+}
+
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  padding: 18px 22px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 1.05rem;
+  color: #14532d;
+}
+
+.formula-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 分數排版 */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0 3px;
+  font-size: 0.9em;
+}
+.frac > span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.frac > span.bottom {
+  padding-top: 1px;
+}
+
+/* 圖片與排版 */
+.img-wrap {
+  text-align: center;
+  margin: 22px 0;
+  padding: 14px;
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.img-wrap img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+.img-wrap img:hover {
+  transform: scale(1.015);
+}
+
+.img-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+tr:hover {
+  background: #f8fafc;
+}
+
+/* 階梯卡片 */
+.nest-box {
+  border: 2px dashed #cbd5e1;
+  padding: 16px;
+  border-radius: 10px;
+  margin: 16px 0;
+  background: #ffffff;
+}
+
+/* 測驗區 */
+.quiz-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-bottom: 22px;
+}
+
+.quiz-q {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  color: #1e293b;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.quiz-btn {
+  text-align: left;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.96rem;
+  transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-feedback {
+  display: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.93rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.quiz-feedback.correct {
+  display: block;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.quiz-feedback.incorrect {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Lightbox Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.82);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  max-width: 92%;
+  max-height: 92%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #f1f1f1;
+  font-size: 38px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .module-card { padding: 22px 20px; }
+  header { padding: 14px 16px; }
+  .header-actions { width: 100%; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部 Header -->
+<header>
+  <div>
+    <h1>📘 CH15 貨幣與金融 ｜ 統測旗艦講義 <span class="badge">課本 100% 貼合</span></h1>
+  </div>
+  <div class="header-actions">
+    <a href="ch14_macro_equilibrium.html" class="header-btn">⬅ 上一章：CH14 所得水準的決定</a>
+    <a href="ch16_government_fiscal.html" class="header-btn highlight">下一章：CH16 政府與財政政策 ➔</a>
+    <a href="master_map.html" class="header-btn">🗺️ 19章全景架構圖</a>
+    <a href="index.html" class="header-btn">⬅ 回首頁</a>
+  </div>
+</header>
+
+<!-- 模組快速導覽錨點列（本章依課本架構自然展開為 7 大模組 ＋ 即測即評） -->
+<nav class="subnav">
+  <a href="#sec-money-concepts" class="subnav-btn">① 15-1 貨幣概念、功能與演進</a>
+  <a href="#sec-money-supply" class="subnav-btn">② 15-2-1 貨幣供給體系 (M1A/M1B/M2)</a>
+  <a href="#sec-liquidity-preference" class="subnav-btn">③ 15-2-2 ~ 15-2-5 流動性偏好與流動性陷阱</a>
+  <a href="#sec-quantity-theories" class="subnav-btn">④ 15-3 物價、幣值與貨幣數量學說</a>
+  <a href="#sec-bank-creation" class="subnav-btn">⑤ 15-4 商業銀行與存款貨幣創造</a>
+  <a href="#sec-central-bank" class="subnav-btn">⑥ 15-5 中央銀行與貨幣政策工具</a>
+  <a href="#sec-financial-system" class="subnav-btn">⑦ 15-6 我國金融體系與金控架構</a>
+  <a href="#sec-quiz" class="subnav-btn">⑧ 課本原題即測即評 (8 題)</a>
+</nav>
+
+<main>
+
+  <!-- 模組一 -->
+  <section class="module-card" id="sec-money-concepts">
+    <h2>① 15-1 貨幣的概念、四大功能與演進歷程</h2>
+    
+    <div class="concept-box">
+      <strong>📌 貨幣的經濟學定義：</strong><br>
+      貨幣（Money）是指在經濟社會中，為社會大眾所「共同接受（General Acceptability）」作為交易媒介的物品。俗語說「錢不是萬能，但沒錢萬萬不能」，在現代分工經濟體系中，貨幣是不可或缺的潤滑劑。
+    </div>
+
+    <h3>一、貨幣的四大核心功能</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>功能類別</th>
+            <th>經濟意義與特性</th>
+            <th>課本實務生活範例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. 交易媒介（最重要、最基本功能）</strong></td>
+            <td>作為買賣商品與勞務時的支付工具，解決物物交換中「慾望雙重一致（Double Coincidence of Wants）」的困難。</td>
+            <td>走進便利商店拿 35 元現金購買飯糰飲料。</td>
+          </tr>
+          <tr>
+            <td><strong>2. 計價標準（價值標準 / 計價單位）</strong></td>
+            <td>作為衡量所有商品與勞務價值高低的共同尺度（記帳單位），大幅降低市場交易的比較成本。</td>
+            <td>百貨公司衣服標價「新台幣 1,200 元」、iPhone 標價「35,000 元」。</td>
+          </tr>
+          <tr>
+            <td><strong>3. 延期支付標準（債權債務清償工具）</strong></td>
+            <td>作為未來契約清償、借貸還款或延期付款的衡量與結算標準。</td>
+            <td>向銀行申請房貸分 20 年按月本息攤還、購買分期付款機車。</td>
+          </tr>
+          <tr>
+            <td><strong>4. 價值儲藏（財富累積工具）</strong></td>
+            <td>將目前的購買力保留到未來使用的工具。貨幣具備最高的<strong>流動性（Liquidity）</strong>。</td>
+            <td>將每個月工作賺得的薪資保留一部份存在銀行作為儲蓄。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測必考排雷：塑膠卡片是貨幣嗎？</strong><br>
+      • <strong>信用卡（Credit Card）/ 簽帳金融卡（Debit Card）：</strong>統稱<strong>「塑膠貨幣」</strong>，但經濟學上<strong>並不是真正的貨幣</strong>！它們只是「先消費後付款」的延期支付信用憑證，最終結清欠款時仍須透過銀行帳戶的法定貨幣清償。<br>
+      • <strong>電子票證與電子支付（悠遊卡、一卡通、街口支付儲值金）：</strong>屬於<strong>「電子貨幣」</strong>，是將實質法定貨幣以電子數據形式儲存，方便小額零售交易。
+    </div>
+
+    <h3>二、貨幣的演進與格雷欣法則（Gresham's Law）</h3>
+    <ul>
+      <li><strong>1. 商品貨幣時期：</strong>以貝殼、小麥、絲帛、牛、酒等具使用價值的物品充當媒介，但有不易攜帶、難以分割、易腐損的缺點。</li>
+      <li><strong>2. 金屬貨幣時期：</strong>金、銀、銅具質地均勻、易分割、便於攜帶與耐久特性，發展出鑄幣。
+        <div class="concept-box" style="margin:10px 0;">
+          <strong>★ 格雷欣法則（劣幣驅逐良幣，Bad money drives out good）：</strong><br>
+          當社會同時流通「面額相同但實際金屬價值不同」的兩種金屬鑄幣時，大眾會將金屬成色高或重量足的<strong>「良幣」</strong>收藏、鎔鑄或運往國外，而將金屬成色不足或磨損嚴重的<strong>「劣幣」</strong>用於市場交易流通。長久之下，市面上只剩下劣幣流通！
+        </div>
+      </li>
+      <li><strong>3. 信用貨幣時期：</strong>由政府或中央銀行發行、以國家信用為擔保之不兌現紙幣（Fiat Money）與商業銀行存款貨幣。</li>
+    </ul>
+
+    <h3>三、貨幣的法律分類（主幣 vs 輔幣）</h3>
+    <div class="table-wrap" style="max-width: 720px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>分類維度</th>
+            <th>本位貨幣（主幣，Standard Money）</th>
+            <th>輔幣（Fractional Currency）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>主從地位</strong></td>
+            <td>一國貨幣的基本單位（我國為「圓/元」）</td>
+            <td>主幣以下的小額找零貨幣（如 1元、5元、10元、50元硬幣）</td>
+          </tr>
+          <tr>
+            <td><strong>法償效力</strong></td>
+            <td><strong>無限法償（Legal Tender）</strong>：法律規定任何交易，收款人不得拒絕接受，拒收違法。</td>
+            <td><strong>有限法償</strong>：在法定特定限額內具法償效力，若超過法定限額，收款人依法可拒絕收受。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組二 -->
+  <section class="module-card" id="sec-money-supply">
+    <h2>② 15-2-1 貨幣供給體系與台灣三層次定義（M1A、M1B、M2）</h2>
+
+    <p>貨幣供給量（Money Supply, <i>MS</i>）是指在<strong>某一個特定時間點</strong>，一國全體經濟體系中所流通的貨幣總額，屬於<strong>「存量（Stock）」</strong>概念。</p>
+
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch15/fig15_01_money_supply_curve.png" alt="圖 15-1 貨幣供給曲線" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 15-1 貨幣供給曲線：由中央銀行獨立調控，不受市場利率高低影響，呈現垂直線！</div>
+    </div>
+
+    <h3>一、台灣中央銀行貨幣供給量三大層次（俄羅斯娃娃體系）</h3>
+    
+    <div class="nest-box" style="background:#eff6ff; border-color:#93c5fd;">
+      <h4 style="color:#1d4ed8; margin-top:0;">🟢 M2（廣義貨幣供給量 / 最外層大娃娃）</h4>
+      <p style="margin-bottom:8px;"><strong>M2 ＝ M1B ＋ 準貨幣（Quasi-Money）</strong></p>
+      
+      <div class="nest-box" style="background:#f0fdf4; border-color:#86efac; margin:10px 0;">
+        <h4 style="color:#15803d; margin-top:0;">🟡 M1B（狹義貨幣供給量 / 股市資金活水動能觀察指標）</h4>
+        <p style="margin-bottom:8px;"><strong>M1B ＝ M1A ＋ 活期儲蓄存款（個人及非營利團體開立之活儲）</strong></p>
+        
+        <div class="nest-box" style="background:#fefce8; border-color:#fde047; margin:10px 0;">
+          <h4 style="color:#a16207; margin-top:0;">🔴 M1A（最狹義貨幣供給量 / 純交易媒介 / 最內層小娃娃）</h4>
+          <p style="margin-bottom:0;"><strong>M1A ＝ 通貨淨額 ＋ 支票存款 ＋ 活期存款（主要為企業開立）</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <h3>二、核心名詞公式與組成定義</h3>
+    <ul>
+      <li><strong>通貨淨額：</strong>＝ 央行發行通貨總額 － 各商業銀行金庫庫存現金。</li>
+      <li><strong>存款貨幣：</strong>＝ 支票存款 ＋ 活期存款 ＋ 活期儲蓄存款。故：<strong><i>M1B ＝ 通貨淨額 ＋ 存款貨幣</i></strong>。</li>
+      <li><strong>準貨幣（Quasi-Money）：</strong>指變現性較高、可在短時間內轉換為現金但不能直接簽發支票或購物的金融資產。包含：<strong>定期存款、定期儲蓄存款、外匯存款、郵政儲金、外國人新台幣存款、附買回交易餘額、貨幣市場共同基金</strong>等。</li>
+    </ul>
+
+    <h3>三、統測終極排雷：帳戶轉換對 M1A、M1B、M2 變動題型</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>資金轉移操作情境</th>
+            <th>M1A 變動</th>
+            <th>M1B 變動</th>
+            <th>準貨幣變動</th>
+            <th>M2 變動</th>
+            <th>考題核心解析指引</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>小陳將<strong>定期存款（40萬）</strong>轉為<strong>活期儲蓄存款</strong></td>
+            <td>不變</td>
+            <td><strong>增加 ↑</strong></td>
+            <td><strong>減少 ↓</strong></td>
+            <td><strong>不變</strong></td>
+            <td>資金在 M2 內部流轉，總量不變；活儲增加使 M1B 增加。</td>
+          </tr>
+          <tr>
+            <td>甲公司將<strong>支票存款（100萬）</strong>轉存為<strong>定期存款</strong></td>
+            <td><strong>減少 ↓</strong></td>
+            <td><strong>減少 ↓</strong></td>
+            <td><strong>增加 ↑</strong></td>
+            <td><strong>不變</strong></td>
+            <td>支存屬 M1A/M1B，轉入定存使 M1A、M1B 萎縮，M2 總額不變。</td>
+          </tr>
+          <tr>
+            <td>乙公司將<strong>外匯存款（50萬）</strong>解約轉為<strong>活期存款</strong></td>
+            <td><strong>增加 ↑</strong></td>
+            <td><strong>增加 ↑</strong></td>
+            <td><strong>減少 ↓</strong></td>
+            <td><strong>不變</strong></td>
+            <td>外匯存款為準貨幣，轉成活存使 M1A、M1B 上升。</td>
+          </tr>
+          <tr>
+            <td>小張將<strong>活期儲蓄存款（10萬）</strong>提領為<strong>現金紙鈔持有</strong></td>
+            <td><strong>增加 ↑</strong></td>
+            <td><strong>不變</strong></td>
+            <td>不變</td>
+            <td><strong>不變</strong></td>
+            <td>通貨淨額增加使 M1A 增加；但提領同額活儲，兩者在 M1B 內相抵，M1B 不變！</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組三 -->
+  <section class="module-card" id="sec-liquidity-preference">
+    <h2>③ 15-2-2 ~ 15-2-5 流動性偏好、均衡利率與流動性陷阱</h2>
+
+    <div class="concept-box">
+      <strong>📌 凱因斯貨幣需求三大動機（流動性偏好理論）：</strong><br>
+      • <strong>交易動機（<i>L<sub>t</sub></i>）：</strong>因應日常交易支出，受<strong>所得（<i>Y</i>）</strong>影響，為所得的增函數。<br>
+      • <strong>預防動機（<i>L<sub>p</sub></i>）：</strong>因應突發疾病意外支出，受<strong>所得（<i>Y</i>）</strong>影響，為所得的增函數。<br>
+      • <strong>投機動機（<i>L<sub>s</sub></i>）：</strong>等待金融市場（債券、股票）有利時機進行買賣，受<strong>市場利率（<i>i</i>）</strong>影響，為利率的<strong>減函數</strong>（利率愈高，持有現金的機會成本愈大，投機貨幣需求愈小）。
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch15/fig15_02_money_demand_curve.png" alt="圖 15-2 貨幣需求曲線" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 15-2 貨幣需求曲線：負斜率，反映利率與貨幣需求量之反向變動</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch15/fig15_03_change_in_md_quantity.png" alt="圖 15-3 貨幣需求量的變動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 15-3 需求量變動：純由「利率 i 變動」引發線上點的移動</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch15/fig15_04_shift_in_md_curve.png" alt="圖 15-4 貨幣需求的變動" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 15-4 需求變動：由「所得 Y 提高」或偏好增強引發整條曲線右移</div>
+      </div>
+    </div>
+
+    <h3>一、貨幣市場均衡利率之決定與供需變動</h3>
+    <p>市場均衡利率由貨幣供給線（<i>MS</i>）與貨幣需求線（<i>Md</i>）之交點 E 決定：</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0;">
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch15/fig15_05_money_market_equilibrium.png" alt="圖 15-5 貨幣市場均衡利率的決定" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 15-5 均衡利率決定：MS ＝ Md 決定均衡利率 i*</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch15/fig15_06_md_increase.png" alt="圖 15-6 貨幣需求增加" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 15-6 需求增加：Md 右移 ➔ 利率由 i0 上升至 i1</div>
+      </div>
+      <div class="img-wrap" style="margin: 0;">
+        <img src="images/ch15/fig15_07_ms_increase.png" alt="圖 15-7 貨幣供給增加" onclick="openModal(this.src)" />
+        <div class="img-caption">▲ 圖 15-7 供給增加：MS 右移 ➔ 利率由 i0 下降至 i1</div>
+      </div>
+    </div>
+
+    <h3>二、流動性陷阱（Liquidity Trap，統測超熱門題型）</h3>
+    <div class="img-wrap" style="max-width: 540px; margin: 18px auto;">
+      <img src="images/ch15/fig15_08_liquidity_trap.png" alt="圖 15-8 流動性陷阱" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 15-8 流動性陷阱：當利率跌至極低點 i0，Md 曲線呈水平線，增加 MS 無法再降低利率！</div>
+    </div>
+
+    <div class="tip-box">
+      <strong>★ 流動性陷阱的三大本質特徵：</strong><br>
+      1. <strong>發生時機：</strong>市場利率降至極低水準（幾近於零）。此時債券價格處於歷史高點，大眾預期利率只會上升、債券只會下跌，寧可持有現金而不買債券。<br>
+      2. <strong>彈性特徵：</strong>貨幣需求對利率的彈性為<strong>「無窮大」</strong>，整條貨幣需求曲線呈現<strong>「水平線」</strong>！<br>
+      3. <strong>政策意涵：</strong>此時央行無論如何擴張貨幣供給（<i>MS</i> 右移），全數被大眾如無底洞般吸收，<strong>利率固定不變，貨幣政策完全失效！</strong>凱因斯強烈主張：<strong>此時必須改採「擴張性財政政策」（政府增加公共投資）才能解救景氣！</strong>
+    </div>
+  </section>
+
+  <!-- 模組四 -->
+  <section class="module-card" id="sec-quantity-theories">
+    <h2>④ 15-3 物價、幣值與古典貨幣數量學說</h2>
+
+    <p>貨幣價值（幣值）是指一單位貨幣所能購買商品或勞務的數量，即<strong>貨幣的實質購買力</strong>。幣值與物價水準 <i>P</i> 互為<strong>反比關係</strong>：<strong><i>V<sub>m</sub> ＝ 1 / P</i></strong>（物價上漲一倍，手中鈔票幣值腰斬）。</p>
+
+    <h3>一、費雪現金交易說（Transaction Approach，公式 15-1）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 費雪交易方程式（Fisher Equation of Exchange）</div>
+      <p style="margin-bottom: 6px;"><strong><i>M × V ＝ P × T</i></strong> （或以實質產出表示為：<strong><i>M × V ＝ P × Y</i></strong>）</p>
+      <ul style="margin: 6px 0 0 20px; font-size: 0.95rem; color: #166534;">
+        <li><i>M</i>：貨幣數量（貨幣供給量）。</li>
+        <li><i>V</i>：貨幣流通速度（特定期間內平均每元鈔票轉手交易的次數）。</li>
+        <li><i>P</i>：一般物價水準。</li>
+        <li><i>T</i>：商品與勞務之實質交易總量（或 <i>Y</i> 總產出）。</li>
+      </ul>
+    </div>
+
+    <div class="concept-box">
+      <strong>📌 費雪學說核心結論：</strong><br>
+      古典學派假設在短期內，受社會制度、交易習慣與充分就業限制，<strong>貨幣流通速度（<i>V</i>）與實質交易總量（<i>T</i>）均固定不變</strong>。<br>
+      因此：<strong>物價水準（<i>P</i>）與貨幣供給量（<i>M</i>）呈「同方向、同比例」變動！</strong>（央行若多印一倍鈔票，物價立刻大漲一倍，幣值縮水一半！）。
+    </div>
+
+    <h3>二、劍橋現金餘額說（Cash-Balance Approach，公式 15-2）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 劍橋方程式（Cambridge Equation）</div>
+      <p style="margin-bottom: 6px;">由英國劍橋學派馬歇爾（A. Marshall）與皮古（A. C. Pigou）提出：</p>
+      <p style="margin-bottom: 0;"><strong><i>M ＝ k × P × Y</i></strong> （其中 <i>k</i> 為現金餘額比率，代表大眾願以貨幣形式持有的所得比例）</p>
+    </div>
+
+    <h3>三、兩大古典貨幣數量學說完整對照（課本表 15-1）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>費雪現金交易說（Transaction Approach）</th>
+            <th>劍橋現金餘額說（Cash-Balance Approach）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>代表學者</strong></td>
+            <td>美國經濟學家 費雪（Irving Fisher）</td>
+            <td>英國劍橋學派 馬歇爾（Marshall）、皮古（Pigou）</td>
+          </tr>
+          <tr>
+            <td><strong>代表方程式</strong></td>
+            <td><strong><i>M × V ＝ P × T</i></strong></td>
+            <td><strong><i>M ＝ k × P × Y</i></strong></td>
+          </tr>
+          <tr>
+            <td><strong>著重功能</strong></td>
+            <td>著重貨幣之<strong>「交易媒介」</strong>功能（強調流通轉手）</td>
+            <td>著重貨幣之<strong>「價值儲藏」</strong>功能（強調留在手邊的現金餘額）</td>
+          </tr>
+          <tr>
+            <td><strong>分析出發點</strong></td>
+            <td>從<strong>貨幣供給面</strong>出發（流量角度）</td>
+            <td>從<strong>貨幣需求面</strong>出發（存量角度，個人持有意願）</td>
+          </tr>
+          <tr>
+            <td><strong>參數關聯</strong></td>
+            <td colspan="2" style="text-align:center;font-weight:700;color:#2563eb;"><strong><i>k ＝ 1 / V</i></strong>（現金餘額比率 <i>k</i> 與貨幣流通速度 <i>V</i> 互為倒數！）<br>大眾保有貨幣的時間愈長，<i>k</i> 愈大，貨幣轉手流通速度 <i>V</i> 愈慢。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 模組五 -->
+  <section class="module-card" id="sec-bank-creation">
+    <h2>⑤ 15-4 商業銀行與存款貨幣的信用創造</h2>
+
+    <p>商業銀行透過吸收存款、提存法定準備金後將剩餘資金放款，藉由支票與存款在銀行體系連鎖流轉，能將一筆「原始存款」呈倍數放大，此過程稱為<strong>存款貨幣的信用創造</strong>。</p>
+
+    <h3>一、準備金體系架構</h3>
+    <ul>
+      <li><strong>實際準備金（<i>R</i>）：</strong>銀行持有的全部準備資金。</li>
+      <li><strong>法定準備金：</strong>依中央銀行規定的<strong>法定準備率（<i>r<sub>d</sub></i>）</strong>必須提存於央行的最低準備金（保障存款人提款安全）。</li>
+      <li><strong>超額準備金：</strong>實際準備金超過法定準備金的餘額。<strong>銀行只有擁有超額準備金時，才能對外放款與創造信用！</strong></li>
+    </ul>
+
+    <h3>二、存款貨幣創造公式大全（統測必考大題）</h3>
+    <div class="formula-box">
+      <div class="formula-title">📐 公式 15-3：存款貨幣創造與貨幣乘數</div>
+      <p style="margin-bottom: 6px;">假設無現金流失、無超額準備，原始存款為 <i>A</i>，法定準備率為 <i>r<sub>d</sub></i>：</p>
+      <ul style="margin: 6px 0 0 20px; font-size: 0.98rem; color: #166534;">
+        <li><strong>1. 貨幣乘數（存款乘數）：<i>K<sub>m</sub> ＝ <span class="frac"><span>1</span><span class="bottom">r<sub>d</sub></span></span></i></strong></li>
+        <li><strong>2. 創造的存款總額：<i>D ＝ A × <span class="frac"><span>1</span><span class="bottom">r<sub>d</sub></span></span> ＝ A × K<sub>m</sub></i></strong></li>
+        <li><strong>3. 創造的引申存款（存款增額）：<i>ΔD ＝ D － A ＝ A × (<span class="frac"><span>1</span><span class="bottom">r<sub>d</sub></span></span> － 1) ＝ A × <span class="frac"><span>1 － r<sub>d</sub></span><span class="bottom">r<sub>d</sub></span></span></i></strong></li>
+        <li><strong>4. 創造的放款總額：<i>L ＝ A × <span class="frac"><span>1 － r<sub>d</sub></span><span class="bottom">r<sub>d</sub></span></span> ＝ 引申存款總額</i></strong></li>
+      </ul>
+    </div>
+
+    <h3>三、課本表 15-2 經典實例連鎖推演（設原始存款 100 萬，法定準備率 10%）</h3>
+    <div class="table-wrap" style="max-width: 760px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>傳遞銀行</th>
+            <th>收到存款（萬元）</th>
+            <th>提存法定準備金（10%）</th>
+            <th>可供放款金額（90%）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第 1 家銀行（原始存款）</td>
+            <td>100.0</td>
+            <td>10.0</td>
+            <td>90.0（貸給借款人 A）</td>
+          </tr>
+          <tr>
+            <td>第 2 家銀行（收到貨款）</td>
+            <td>90.0</td>
+            <td>9.0</td>
+            <td>81.0（貸給借款人 B）</td>
+          </tr>
+          <tr>
+            <td>第 3 家銀行（收到貨款）</td>
+            <td>81.0</td>
+            <td>8.1</td>
+            <td>72.9（貸給借款人 C）</td>
+          </tr>
+          <tr>
+            <td>… 連續傳遞</td>
+            <td>…</td>
+            <td>…</td>
+            <td>…</td>
+          </tr>
+          <tr style="background:#eff6ff;font-weight:700;color:#1e3a8a;">
+            <td>全體銀行體系合計</td>
+            <td><strong>存款總額 D ＝ 1,000 萬元</strong><br>(100 × 1/0.1)</td>
+            <td><strong>準備金總額 ＝ 100 萬元</strong></td>
+            <td><strong>放款總額 L ＝ 900 萬元</strong><br>(引申存款 ＝ 900 萬元)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 統測名師提醒：</strong><br>
+      • 法定準備率 <i>r<sub>d</sub></i> 愈低，貨幣乘數 <i>K<sub>m</sub></i> 愈大，創造的存款信用總額愈多！<br>
+      • 若借款人提領部分現金不回存（<strong>現金流失</strong>）或銀行自行保留部分資金（<strong>超額準備</strong>），將造成貨幣乘數縮小，信用創造能力被大幅削弱。
+    </div>
+  </section>
+
+  <!-- 模組六 -->
+  <section class="module-card" id="sec-central-bank">
+    <h2>⑥ 15-5 中央銀行與貨幣政策工具</h2>
+
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch15/fig15_10_central_bank.png" alt="圖 15-10 我國的中央銀行" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 15-10 中華民國中央銀行（台北市羅斯福路），負責調控全台貨幣金融命脈</div>
+    </div>
+
+    <h3>一、中央銀行的四大角色與法定職責</h3>
+    <ol>
+      <li><strong>發行國家通貨的銀行：</strong>獨占新台幣紙鈔與鑄幣之發行權。</li>
+      <li><strong>政府的銀行：</strong>代理經理國庫存款、協助政府發行公債、融通政府財政收支。</li>
+      <li><strong>銀行的銀行（最後融通者，Lender of Last Resort）：</strong>保管商業銀行存款準備金，在銀行流動性告急時提供緊急融通借款。</li>
+      <li><strong>維持金融與物價穩定、調控外匯儲備：</strong>保管國家外匯存底，干預匯市穩定新台幣匯率。</li>
+    </ol>
+
+    <h3>二、央行三大主要貨幣政策工具（一般性信用管制 / 量的管制）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>工具名稱</th>
+            <th>運作機制與特性</th>
+            <th>擴張性政策（景氣低迷衰退時）</th>
+            <th>緊縮性政策（景氣過熱膨脹時）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. 法定準備率政策</strong></td>
+            <td>規定銀行每收 100 元存款必須提存的比例。<strong>威力最猛烈、影響最全面，央行不輕易頻繁調整。</strong></td>
+            <td><strong>降低準備率 ↓</strong><br>(銀行可放款資金增，MS↑)</td>
+            <td><strong>提高準備率 ↑</strong><br>(強力緊縮銀行放款，MS↓)</td>
+          </tr>
+          <tr>
+            <td><strong>2. 重貼現率政策</strong></td>
+            <td>商業銀行拿未到期商業票據向央行申請融通借款時的貼現利率。具強烈<strong>告示效果（宣告效果）</strong>。</td>
+            <td><strong>調降重貼現率 ↓</strong><br>(借款成本低，引導降息)</td>
+            <td><strong>調升重貼現率 ↑</strong><br>(借款成本高，引導升息)</td>
+          </tr>
+          <tr>
+            <td><strong>3. 公開市場操作</strong></td>
+            <td>央行在公開市場直接買賣國庫券、公債或存單。<strong>最靈活、彈性最大、最常使用的工具！</strong></td>
+            <td><strong>買回債券（釋出貨幣）</strong><br>(資金流入市面，MS↑)</td>
+            <td><strong>賣出債券（收回貨幣）</strong><br>(收回市場資金，MS↓)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch15/fig15_11_open_market_operation.png" alt="圖 15-11 公開市場操作示意圖" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 15-11 公開市場操作示意圖：買回債券 ➔ 釋出貨幣（擴張）；賣出債券 ➔ 收回貨幣（緊縮）</div>
+    </div>
+
+    <h3>三、央行次要貨幣政策工具（質的管制 / 選擇性信用管制）</h3>
+    <ul>
+      <li><strong>選擇性信用管制：</strong>針對特定產業或部門設定貸款成數上限與寬限期（如房市管制、打炒房限制第二戶房貸成數）。</li>
+      <li><strong>道德勸說（Moral Suasion）：</strong>央行總裁邀請銀行董事長座談「喝咖啡」，以行政指導勸告配合國家政策，屬心理暗示與柔性工具。</li>
+    </ul>
+  </section>
+
+  <!-- 模組七 -->
+  <section class="module-card" id="sec-financial-system">
+    <h2>⑦ 15-6 我國金融體系與金融控股公司架構</h2>
+
+    <div class="img-wrap" style="max-width: 680px; margin: 18px auto;">
+      <img src="images/ch15/fig15_12_financial_system.png" alt="圖 15-12 我國金融體系架構" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 15-12 我國金融體系架構：正式金融體系（金融市場 ＋ 金融機構）與非正式金融體系</div>
+    </div>
+
+    <h3>一、金融市場二分法（貨幣市場 vs 資本市場）</h3>
+    <div class="table-wrap" style="max-width: 760px; margin: 16px auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>分類標準</th>
+            <th>貨幣市場（Money Market）</th>
+            <th>資本市場（Capital Market）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>融通信用期限</strong></td>
+            <td><strong>一年以下（短期資金融通）</strong></td>
+            <td><strong>一年以上（中長期資本籌措）</strong></td>
+          </tr>
+          <tr>
+            <td><strong>主要交易工具</strong></td>
+            <td>國庫券（Treasury Bills）、商業本票（CP）、銀行承兌匯票（BA）、可轉讓定期存單（NCD）</td>
+            <td>股票（普通股/特別股）、公司債、政府建設公債、金融債券</td>
+          </tr>
+          <tr>
+            <td><strong>主要經濟功能</strong></td>
+            <td>調度企業與銀行臨時性營運周轉資金</td>
+            <td>提供企業擴建新廠房、購置大型機器長期融資</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>二、金融控股公司（金控公司）與主管機關</h3>
+    <div class="img-wrap" style="max-width: 480px; margin: 18px auto;">
+      <img src="images/ch15/fig15_13_financial_holding_company.png" alt="圖 15-13 中信金控旗下子公司" onclick="openModal(this.src)" />
+      <div class="img-caption">▲ 圖 15-13 中信金控跨業整併旗下銀行、證券、人壽、產險、投信等子公司</div>
+    </div>
+
+    <div class="concept-box">
+      <strong>📌 金融控股公司（Financial Holding Company）：</strong><br>
+      指依《金融控股公司法》設立，對一銀行、保險公司或證券商有控制性持股之母公司。金控公司本身不直接面對顧客承作業務，而是透過旗下子公司達成<strong>跨業經營、發揮綜效（One-Stop Shopping）</strong>。<br>
+      👉 <strong>主管機關：</strong>負責監理金融控股公司及金融市場的最高行政機關為<strong>行政院金融監督管理委員會（金管會）</strong>！
+    </div>
+  </section>
+
+  <!-- 模組八 -->
+  <section class="module-card" id="sec-quiz">
+    <h2>⑧ 課本原題即測即評 (8 題精選互動測驗)</h2>
+    <p>嚴選課本課後習題與綜合情境題，點擊選項立即獲得即時評分、詳盡解析與統測避坑提示：</p>
+
+    <!-- Q1 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">1. 下列有關我國貨幣供給量統計之敘述，何者「不屬於」準貨幣（Quasi-Money）？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 企業在第一銀行開立的活期存款</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 民眾在中華郵政開立之郵政儲金</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 上班族存入銀行的定期儲蓄存款</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 進出口貿易商持有的外匯存款</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-item" data-answer="B">
+      <div class="quiz-q">2. 歷史上當市場同時流通兩種面額相同但實際金屬成色價值不同之鑄幣時，所產生「劣幣驅逐良幣」之經濟現象，稱為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 恩格爾法則（Engel's Law）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 格雷欣法則（Gresham's Law）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 賽伊法則（Say's Law）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 馬爾薩斯法則（Malthusian Law）</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">3. 凱因斯認為，當市場利率降到極低，使得貨幣市場進入「流動性陷阱」階段時，下列敘述何者正確？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 央行對貨幣的供給曲線將呈現水平線</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 民眾對貨幣的投機動機需求量降為零</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 貨幣需求曲線呈水平線，增加貨幣供給無效，應採擴張性財政政策刺激經濟</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 央行應大幅調升重貼現率以提升經濟動能</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">4. 根據費雪現金交易方程式 MV ＝ PT，在短期貨幣流通速度 V 與交易量 T 固定下，若央行將貨幣供給量 M 增加一倍，將直接導致：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 實質總產出增加一倍</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 實質投資規模增加一倍</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 一般物價水準上漲一倍，貨幣購買力減半</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 社會失業率下降一半</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="quiz-item" data-answer="D">
+      <div class="quiz-q">5. 假設金燕姐姐將演出酬勞現金 100 萬元存入銀行作為原始存款。若法定存款準備率為 20%，在無現金流失且無超額準備假設下，全體銀行體系最多可創造出多少「存款貨幣總額」與「引申存款」？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 存款總額 200 萬元，引申存款 100 萬元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 存款總額 400 萬元，引申存款 300 萬元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 存款總額 500 萬元，引申存款 500 萬元</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 存款總額 500 萬元，引申存款 400 萬元</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">6. 中央銀行在日常執行貨幣政策時，具備彈性大、可微調且「最常採用」的公開政策工具為：</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 調整法定存款準備率</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 調整重貼現率</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 公開市場操作（在公開市場買賣有價證券）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 道德勸說與金融檢查</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="quiz-item" data-answer="C">
+      <div class="quiz-q">7. 當景氣面臨嚴重低迷、失業率攀升時，中央銀行若欲實施「擴張性貨幣政策」，應採取下列何種組合策略？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 提高法定準備率、提高重貼現率、賣出公債</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 降低法定準備率、提高重貼現率、買回公債</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 降低法定準備率、降低重貼現率、在公開市場買回債券</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 調降重貼現率、在公開市場大幅拋售公債</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="quiz-item" data-answer="A">
+      <div class="quiz-q">8. 依交易商品的信用期限劃分，下列各項金融資產中，何者屬於「資本市場（Capital Market）」的交易工具？</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="checkQuiz(this, 'A')">A. 台積電上市普通股股票、十年期中央政府建設公債</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'B')">B. 90 天期國庫券、180 天期商業本票（CP）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'C')">C. 銀行承兌匯票（BA）、半年期可轉讓定期存單（NCD）</button>
+        <button class="quiz-btn" onclick="checkQuiz(this, 'D')">D. 一年以內到期之銀行同業拆款</button>
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- 圖片燈箱 Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
+
+<script>
+// 測驗題詳解與作答邏輯
+const EXPLANATIONS = {
+  1: "活期存款屬於狹義貨幣供給量 M1A（通貨淨額＋支票存款＋活期存款）；郵政儲金、定存、定儲、外匯存款等變現流動性較低者才屬於準貨幣（M2 的範疇）。",
+  2: "格雷欣法則（Gresham's Law）指良幣與劣幣同時流通時，大眾傾向將足值良幣私藏或融化，市面上只剩成色不足的劣幣流通。恩格爾法則論所得與食品支出比例；賽伊法則論供給創造需求。",
+  3: "流動性陷阱中，利率極低，投機貨幣需求彈性無窮大，貨幣需求線 Md 呈水平線；此時增印鈔票無法使利率下降，貨幣政策失靈，必須採擴張性財政政策增加實體公共支出。",
+  4: "費雪假設短期 V 與 T 固定，故 MV ＝ PT 中，貨幣數量 M 與物價水準 P 呈同方向、同比例變動。M 增加一倍，P 隨之上漲一倍，貨幣實質購買力減半。",
+  5: "貨幣乘數 Km ＝ 1 / 0.2 ＝ 5。創造的存款貨幣總額 D ＝ 100 × 5 ＝ 500 萬元；引申存款總額 ΔD ＝ 存款總額 － 原始存款 ＝ 500 － 100 ＝ 400 萬元！",
+  6: "公開市場操作（買賣公債、國庫券）具備主動性、高度靈活性、可隨時小額微調之特性，為中央銀行日常最常採用的貨幣政策工具。準備率政策過於劇烈，重貼現率則屬被動告示。",
+  7: "景氣低迷時需向市場釋放資金（MS↑）：調降法定準備率（釋出銀行超額準備）、調降重貼現率（降低借款成本融通）、在公開市場買回債券（直接注資入市）。",
+  8: "資本市場交易一年期以上之中長期資金工具（股票、長期公司債、政府建設公債）；貨幣市場則融通一年以下之短期工具（國庫券、商業本票、銀行承兌匯票、可轉讓定期存單）。"
+};
+
+function checkQuiz(btn, chosen) {
+  const parent = btn.closest('.quiz-item');
+  const answer = parent.getAttribute('data-answer');
+  const qNum = Array.from(document.querySelectorAll('.quiz-item')).indexOf(parent) + 1;
+  const feedback = parent.querySelector('.quiz-feedback');
+  const allBtns = parent.querySelectorAll('.quiz-btn');
+
+  allBtns.forEach(b => {
+    b.disabled = true;
+    b.style.cursor = 'default';
+  });
+
+  if (chosen === answer) {
+    btn.style.borderColor = '#10b981';
+    btn.style.background = '#ecfdf5';
+    btn.style.color = '#065f46';
+    feedback.className = 'quiz-feedback correct';
+    feedback.innerHTML = `<strong>✔ 正確！</strong> ${EXPLANATIONS[qNum]}`;
+  } else {
+    btn.style.borderColor = '#ef4444';
+    btn.style.background = '#fef2f2';
+    btn.style.color = '#991b1b';
+    feedback.className = 'quiz-feedback incorrect';
+    feedback.innerHTML = `<strong>✘ 答錯了！</strong> 正確答案為 (${answer})。<br>${EXPLANATIONS[qNum]}`;
+    
+    // 高亮正確選項
+    const correctIndex = answer.charCodeAt(0) - 65;
+    const correctBtn = allBtns[correctIndex];
+    if (correctBtn) {
+      correctBtn.style.borderColor = '#10b981';
+      correctBtn.style.background = '#ecfdf5';
+      correctBtn.style.color = '#065f46';
+    }
+  }
+}
+
+// 圖片燈箱
+function openModal(src) {
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  modalImg.src = src;
+  modal.style.display = 'flex';
+}
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+</script>
+</body>
+</html>
