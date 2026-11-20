@@ -957,9 +957,8 @@ body.mode-auto .wrap{max-width:1080px}
 </div>
 </div>
 <div class="wrap tabs" id="main-tabs">
-  <button id="t-both" class="active desktop-only" onclick="showBoth()">💻 雙欄並列（左：拍照解題 ｜ 右：架構圖）</button>
-  <button id="t1" onclick="showTab(1)">📸 拍照解題</button>
-  <button id="t2" onclick="showTab(2)">🗺️ 經濟學架構圖 (1–19章)</button>
+  <button id="t1" class="active" onclick="showTab(1)">📸 拍照解題</button>
+  <button id="t2" onclick="showTab(2)">📖 經濟學架構圖 (1–19章)</button>
 </div>
 </header>
 <main class="wrap main-wrap">
@@ -1998,17 +1997,10 @@ function guessCh(s){
 function showBoth(){
   const b1=document.getElementById('block1');
   const b2=document.getElementById('block2');
-  const t1=document.getElementById('t1');
-  const t2=document.getElementById('t2');
-  const tBoth=document.getElementById('t-both');
   const split=document.querySelector('.split-container');
   if(b1) b1.classList.remove('hide');
   if(b2) b2.classList.remove('hide');
   if(split) split.classList.remove('single-col');
-  if(t1) t1.classList.remove('active');
-  if(t2) t2.classList.remove('active');
-  if(tBoth) tBoth.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function showTab(n){
@@ -2016,29 +2008,28 @@ function showTab(n){
   const b2=document.getElementById('block2');
   const t1=document.getElementById('t1');
   const t2=document.getElementById('t2');
-  const tBoth=document.getElementById('t-both');
   const split=document.querySelector('.split-container');
+  const isDesktop = window.innerWidth >= 992 && currentUIMode !== 'mobile';
 
-  if(n==='both' || n===0){
-    showBoth();
-    return;
-  }
-  if(n===1){ // 拍照解題
+  if(t1) t1.classList.toggle('active', n === 1);
+  if(t2) t2.classList.toggle('active', n === 2);
+
+  if(isDesktop){
+    // 桌機雙欄並列模式：兩欄並存，平滑滾動至目標欄位
     if(b1) b1.classList.remove('hide');
-    if(b2) b2.classList.add('hide');
-    if(split) split.classList.add('single-col');
-    if(t1) t1.classList.add('active');
-    if(t2) t2.classList.remove('active');
-    if(tBoth) tBoth.classList.remove('active');
-  } else if(n===2){ // 經濟學架構圖
-    if(b1) b1.classList.add('hide');
     if(b2) b2.classList.remove('hide');
+    if(split) split.classList.remove('single-col');
+    const target = n === 1 ? b1 : b2;
+    if(target){
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  } else {
+    // 手機單欄模式：切換顯示
+    if(b1) b1.classList.toggle('hide', n !== 1);
+    if(b2) b2.classList.toggle('hide', n !== 2);
     if(split) split.classList.add('single-col');
-    if(t1) t1.classList.remove('active');
-    if(t2) t2.classList.add('active');
-    if(tBoth) tBoth.classList.remove('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  window.scrollTo({top:0, behavior:'smooth'});
 }
 const file=document.getElementById('file'),preview=document.getElementById('preview'),finfo=document.getElementById('finfo'),ocrstat=document.getElementById('ocrstat');
 let imgs=[];
@@ -3922,6 +3913,10 @@ function gotoCh(i){
     if(b2 && b2.classList.contains('hide')){
       showBoth();
     }
+    const t1 = document.getElementById('t1');
+    const t2 = document.getElementById('t2');
+    if(t1) t1.classList.remove('active');
+    if(t2) t2.classList.add('active');
   }
   setTimeout(() => {
     openDrawer(chCode);
