@@ -682,6 +682,335 @@
       }
     }
 
+  
+    /* ===== 模式三：各班幹部與機密通訊速查 (本機保護模式) 樣式 ===== */
+    .badge-safe-online {
+      background: #059669 !important;
+      color: #ffffff !important;
+    }
+    .badge-safe-locked {
+      background: #64748b !important;
+      color: #f1f5f9 !important;
+    }
+
+    .cadres-container {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 10px 16px 40px;
+    }
+
+    /* 安全未載入鎖定提示橫幅 */
+    .safe-lock-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 2px dashed #38bdf8;
+      border-radius: 16px;
+      padding: 48px 24px;
+      text-align: center;
+      color: #f8fafc;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      margin: 20px auto;
+      max-width: 860px;
+    }
+    .safe-lock-icon {
+      font-size: 60px;
+      margin-bottom: 16px;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    .safe-lock-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #38bdf8;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .safe-lock-desc {
+      font-size: 14px;
+      color: #cbd5e1;
+      max-width: 680px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .safe-lock-hint-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 13px;
+      color: #e2e8f0;
+      max-width: 680px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+    .safe-lock-hint-box ol {
+      margin: 6px 0 0 18px;
+      padding: 0;
+    }
+    .safe-lock-hint-box li {
+      margin-bottom: 4px;
+    }
+    .btn-file-import-large {
+      background: #0284c7;
+      color: #ffffff;
+      padding: 13px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-file-import-large:hover {
+      background: #0369a1;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.5);
+    }
+
+    /* 幹部與通訊資訊主面版 */
+    .cadres-dashboard {
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .cadres-header-panel {
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-pills-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px 20px;
+      background: #ffffff;
+      border-bottom: 1px solid #f1f5f9;
+      align-items: center;
+    }
+    .role-pill {
+      padding: 5px 13px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+    .role-pill:hover {
+      border-color: #38bdf8;
+      color: #0284c7;
+      background: #f0f9ff;
+    }
+    .role-pill.active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #0284c7 !important;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    }
+    .role-pill.highlight {
+      border-color: #f59e0b;
+      color: #b45309;
+      background: #fffbeb;
+    }
+    .role-pill.highlight.active {
+      background: #f59e0b !important;
+      color: #ffffff !important;
+      border-color: #f59e0b !important;
+      box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+    }
+
+    /* 幹部表格 */
+    .cadres-table-wrap {
+      overflow-x: auto;
+      padding: 0 16px 16px;
+    }
+    .cadres-grid-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    .cadres-grid-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 800;
+      padding: 10px 14px;
+      border-bottom: 2px solid #cbd5e1;
+      white-space: nowrap;
+    }
+    .cadres-grid-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #1e293b;
+      vertical-align: middle;
+    }
+    .cadres-grid-table tr:hover td {
+      background: #f8fafc;
+    }
+    .phone-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-family: monospace;
+      font-weight: 700;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid #bfdbfe;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .phone-tag:hover {
+      background: #dbeafe;
+      border-color: #60a5fa;
+    }
+    .phone-tag-parent {
+      background: #f0fdf4;
+      color: #15803d;
+      border-color: #bbf7d0;
+    }
+    .phone-tag-parent:hover {
+      background: #dcfce7;
+      border-color: #4ade80;
+    }
+
+    /* 緊急通訊卡片網格 */
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 16px;
+      padding: 18px;
+    }
+    .contact-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s ease-in-out;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .contact-card:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+    .contact-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+    .contact-card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .contact-card-body {
+      font-size: 12.5px;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contact-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px dashed #e2e8f0;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+    .cadre-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      font-weight: 800;
+      font-size: 11px;
+    }
+
+    /* 列印簽到單 A4 專屬容器 (只在點擊列印時輸出) */
+    .signin-print-page {
+      background: #ffffff;
+      width: 210mm;
+      height: 297mm;
+      padding: 10mm 12mm;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0 auto 20px;
+      overflow: hidden;
+    }
+    .signin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11pt;
+      border: 2px solid #000000;
+      text-align: center;
+    }
+    .signin-table th {
+      border: 1px solid #000000;
+      background: #f1f5f9;
+      font-weight: 800;
+      padding: 6px 4px;
+    }
+    .signin-table td {
+      border: 1px solid #000000;
+      padding: 5px 4px;
+      height: 27px;
+    }
+
+    @media print {
+      .cadres-container {
+        display: none !important;
+      }
+      .signin-print-page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-after: always;
+        width: 210mm !important;
+        height: 297mm !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -752,6 +1081,9 @@
       <button class="tab-btn active" id="tabSignoff" onclick="switchMainView('signoff')">
         <span>📋</span> 各年級收發簽領表 (各18班，一年級一張)
       </button>
+      <button class="tab-btn" id="tabCadres" onclick="switchMainView('cadres')">
+        <span>🛡️</span> 班級幹部與通訊速查 (本機保護)
+      </button>
     </nav>
 
     <!-- 模式一工具列：班級學生名冊 -->
@@ -820,6 +1152,79 @@
         <!-- 一鍵列印按鈕 -->
         <button class="btn btn-primary" onclick="window.print()" style="margin-left: 6px; font-size: 13.5px; padding: 7px 16px;">
           <span>🖨️</span> 列印 / 存為 PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- 模式三工具列：各班幹部與機密通訊速查 (本機保護模式) -->
+    <div class="toolbar" id="toolbarCadres" style="display: none; background: #0c1a2e; border-top: 1px solid #1e3a5f;">
+      <div class="toolbar-left">
+        <div class="brand">
+          <span>🛡️ 幹部與通訊</span>
+          <span class="badge badge-safe-locked" id="safeDbStatusBadge">未載入機密庫</span>
+        </div>
+
+        <!-- 子功能切換：幹部名錄 VS 緊急通訊 -->
+        <div style="display: inline-flex; background: #1e293b; border-radius: 6px; padding: 2px; border: 1px solid #334155;">
+          <button class="btn btn-secondary btn-active" id="btnSubCadres" onclick="setCadresSubView('cadres')">
+            <span>🏆</span> 幹部名冊與簽到單
+          </button>
+          <button class="btn btn-secondary" id="btnSubContacts" onclick="setCadresSubView('contacts')">
+            <span>📱</span> 全校緊急通訊速查
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 年級篩選 -->
+        <span class="tool-label" style="color:#38bdf8;">年級：</span>
+        <select id="cadresGradeSelect" onchange="onCadresFilterChange()">
+          <option value="ALL">全部年級</option>
+          <option value="1">一年級</option>
+          <option value="2">二年級</option>
+          <option value="3">三年級</option>
+        </select>
+
+        <!-- 班級篩選 -->
+        <span class="tool-label" style="color:#38bdf8;">班級：</span>
+        <select id="cadresClassSelect" onchange="onCadresFilterChange()">
+          <option value="ALL">全部班級 (54 班)</option>
+        </select>
+      </div>
+
+      <div class="toolbar-right">
+        <!-- 搜尋列（僅在緊急通訊或幹部速查時可用） -->
+        <div style="display: inline-flex; align-items: center; gap: 4px;">
+          <input type="text" id="cadresSearchInput" placeholder="🔍 搜尋姓名、學號、手機、班級或地址..." style="width: 220px;" oninput="onCadresSearch()">
+        </div>
+
+        <!-- 身份證號顯示/隱藏切換 (通訊模式專用) -->
+        <button class="btn btn-secondary" id="btnToggleIdMask" onclick="toggleIdMask()" title="切換身分證字號遮罩">
+          <span id="iconIdMask">👁️</span> <span id="textIdMask">顯示身分證</span>
+        </button>
+
+        <div class="divider"></div>
+
+        <!-- 一鍵複製名單 -->
+        <button class="btn btn-secondary" onclick="copyCurrentCadresList()" title="一鍵複製當前篩選的幹部名冊文字">
+          <span>📋</span> 複製名單
+        </button>
+
+        <!-- 列印幹部簽名單 -->
+        <button class="btn btn-primary" id="btnPrintCadresSignin" onclick="printCadresSigninSheet()" style="background: #0284c7; border-color: #38bdf8;">
+          <span>🖨️</span> 列印簽到單 (A4)
+        </button>
+
+        <div class="divider"></div>
+
+        <!-- 匯入更新本機資料庫 -->
+        <button class="btn btn-indigo" onclick="triggerFileInput()" title="匯入或更新本機學生學籍或幹部 Excel/CSV 檔案">
+          <span>📥</span> 匯入本機資料
+        </button>
+
+        <!-- 清除本機快取按鈕 -->
+        <button class="btn btn-secondary" onclick="clearSafeCache()" title="清除本機瀏覽器中的機密資料庫快取（公用電腦離開時安全清除）" style="color: #f87171;">
+          <span>🗑️</span> 清除快取
         </button>
       </div>
     </div>
@@ -938,8 +1343,14 @@
       currentMainView = view;
       document.getElementById('tabRoster').classList.toggle('active', view === 'roster');
       document.getElementById('tabSignoff').classList.toggle('active', view === 'signoff');
+      const tabCadres = document.getElementById('tabCadres');
+      if (tabCadres) tabCadres.classList.toggle('active', view === 'cadres');
+
       document.getElementById('toolbarRoster').style.display = view === 'roster' ? 'flex' : 'none';
       document.getElementById('toolbarSignoff').style.display = view === 'signoff' ? 'flex' : 'none';
+      const tbCadres = document.getElementById('toolbarCadres');
+      if (tbCadres) tbCadres.style.display = view === 'cadres' ? 'flex' : 'none';
+
       renderPages();
     }
 
@@ -1365,6 +1776,11 @@
     function renderPages() {
       const container = document.getElementById('pagesContainer');
 
+      if (currentMainView === 'cadres') {
+        renderCadresView();
+        return;
+      }
+
       if (currentMainView === 'roster') {
         // 模式一：學生個人名冊
         const selectedClass = document.getElementById('classSelect').value;
@@ -1584,6 +2000,846 @@
       `;
     }
 
+    
+    /* =====================================================================
+       安全本機資料庫 (IndexedDB) & 幹部/緊急通訊功能模組
+       - 學生身分證、電話、地址與幹部名冊 100% 留存在本機 IndexedDB 中
+       - 外人連上網址無法查詢，無任何伺服器個資洩漏風險
+       ===================================================================== */
+    const DB_NAME = 'HS_MILITARY_SAFE_DB';
+    const DB_VERSION = 1;
+
+    let safeStudents = [];       // 全校學生完整學籍與通訊名冊
+    let safeCadres = {};         // 各班幹部對照表: { [classCode]: { [role]: { sid, name } } }
+    let safeStudentsMap = {};    // 依學號快速查找學生物件
+    let hasSafeData = false;     // 本機是否已載入機密資料庫
+    let currentCadresSubView = 'cadres'; // 'cadres' | 'contacts'
+    let selectedCadresRole = 'ALL';      // 'ALL' | '班長' | '風紀' ...
+    let isIdMasked = true;               // 身分證號預設隱碼
+    let cadresSearchQuery = '';
+
+    const CADRE_ROLES = [
+      '班長', '副班長', '風紀1', '風紀2', '學藝', '體育1', '體育2',
+      '服務', '衛生', '綠化', '總務', '輔導圖書', '實習', '設備', '安全', '班代'
+    ];
+
+    function openSafeDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('secure_store')) {
+            db.createObjectStore('secure_store');
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function saveSafeData(key, val) {
+      try {
+        const db = await openSafeDB();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction('secure_store', 'readwrite');
+          tx.objectStore('secure_store').put(val, key);
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      } catch (e) {
+        console.error('IndexedDB save error:', e);
+      }
+    }
+
+    async function getSafeData(key) {
+      try {
+        const db = await openSafeDB();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction('secure_store', 'readonly');
+          const req = tx.objectStore('secure_store').get(key);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      } catch (e) {
+        console.error('IndexedDB get error:', e);
+        return null;
+      }
+    }
+
+    async function clearSafeDB() {
+      try {
+        const db = await openSafeDB();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction('secure_store', 'readwrite');
+          tx.objectStore('secure_store').clear();
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      } catch (e) {
+        console.error('IndexedDB clear error:', e);
+      }
+    }
+
+    // 初始化本機安全資料庫
+    async function initSafeDB() {
+      const students = await getSafeData('students');
+      const cadres = await getSafeData('cadres');
+
+      if (Array.isArray(students) && students.length > 0) {
+        safeStudents = students;
+        safeStudentsMap = {};
+        safeStudents.forEach(s => {
+          if (s.sid) safeStudentsMap[s.sid] = s;
+        });
+      }
+
+      if (cadres && typeof cadres === 'object' && Object.keys(cadres).length > 0) {
+        safeCadres = cadres;
+      }
+
+      hasSafeData = (safeStudents.length > 0) || (Object.keys(safeCadres).length > 0);
+      updateSafeBadge();
+      initCadresClassSelect();
+      if (currentMainView === 'cadres') renderPages();
+    }
+
+    function updateSafeBadge() {
+      const badge = document.getElementById('safeDbStatusBadge');
+      if (!badge) return;
+      if (hasSafeData) {
+        badge.className = 'badge badge-safe-online';
+        const sCount = safeStudents.length;
+        const cCount = Object.keys(safeCadres).length;
+        badge.textContent = `🟢 已連線 (${cCount}班幹部 / ${sCount}生)`;
+      } else {
+        badge.className = 'badge badge-safe-locked';
+        badge.textContent = '🔒 機密庫未載入';
+      }
+    }
+
+    function initCadresClassSelect() {
+      const select = document.getElementById('cadresClassSelect');
+      if (!select) return;
+      const cur = select.value;
+      let options = '<option value="ALL">全部班級 (54 班)</option>';
+      const classes = currentData.map(c => ({ code: c.c, name: c.n }));
+      classes.sort(compareClasses);
+      classes.forEach(c => {
+        options += `<option value="${c.code}">${c.code} ${c.name}</option>`;
+      });
+      select.innerHTML = options;
+      if (cur) select.value = cur;
+    }
+
+    // 切換幹部子功能 (幹部名錄 VS 緊急通訊)
+    function setCadresSubView(subView) {
+      currentCadresSubView = subView;
+      document.getElementById('btnSubCadres').classList.toggle('btn-active', subView === 'cadres');
+      document.getElementById('btnSubContacts').classList.toggle('btn-active', subView === 'contacts');
+      
+      const btnPrint = document.getElementById('btnPrintCadresSignin');
+      if (btnPrint) btnPrint.style.display = subView === 'cadres' ? 'inline-flex' : 'none';
+      const btnMask = document.getElementById('btnToggleIdMask');
+      if (btnMask) btnMask.style.display = subView === 'contacts' ? 'inline-flex' : 'none';
+
+      renderPages();
+    }
+
+    function onCadresFilterChange() {
+      renderPages();
+    }
+
+    function onCadresSearch() {
+      cadresSearchQuery = (document.getElementById('cadresSearchInput')?.value || '').trim();
+      renderPages();
+    }
+
+    function toggleIdMask() {
+      isIdMasked = !isIdMasked;
+      const textEl = document.getElementById('textIdMask');
+      const iconEl = document.getElementById('iconIdMask');
+      if (textEl) textEl.textContent = isIdMasked ? '顯示身分證' : '隱碼身分證';
+      if (iconEl) iconEl.textContent = isIdMasked ? '👁️' : '🔒';
+      renderPages();
+    }
+
+    function setCadreRoleFilter(role) {
+      selectedCadresRole = role;
+      renderPages();
+    }
+
+    // 渲染模式三：幹部與緊急通訊
+    function renderCadresView() {
+      const container = document.getElementById('pagesContainer');
+      if (!container) return;
+
+      if (!hasSafeData) {
+        // 未載入時顯示安全鎖定畫面
+        container.innerHTML = `
+          <div class="cadres-container">
+            <div class="safe-lock-banner">
+              <div class="safe-lock-icon">🔒</div>
+              <div class="safe-lock-title">本機尚未載入學生學籍與幹部機密資料庫</div>
+              <div class="safe-lock-desc">
+                基於《個人資料保護法》，全校學生之身分證字號、聯絡電話、通訊地址與各班幹部名冊<strong>絕對不存放於公開雲端伺服器</strong>。<br>
+                本系統採「零伺服器個資安全架構」，資料僅會加密保存在<strong>您這台電腦的瀏覽器隱私保險箱 (IndexedDB)</strong> 中，其他電腦開啟此網址時絕無任何資料。
+              </div>
+
+              <div class="safe-lock-hint-box">
+                <strong>📌 生輔組同仁初次授權載入步驟：</strong>
+                <ol>
+                  <li>請直接將電腦中的<strong>「全校學生通訊學籍總表(含個資機密).xlsx」</strong>或<strong>「全校各班幹部名冊.xlsx」</strong>檔案（支援 Excel 或 CSV）拖曳至本視窗中。</li>
+                  <li>或點擊下方按鈕選取電腦檔案完成匯入。</li>
+                  <li>載入一次後，本機瀏覽器將永久自動記憶，下次打開此網頁即可直接查詢與列印，無須重複上傳！</li>
+                </ol>
+              </div>
+
+              <div>
+                <button class="btn-file-import-large" onclick="triggerFileInput()">
+                  <span>📥</span> 點擊選取本機名冊 / 幹部 Excel 檔載入
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // 已載入資料：依子功能渲染
+      if (currentCadresSubView === 'cadres') {
+        renderCadresListHtml(container);
+      } else {
+        renderContactsListHtml(container);
+      }
+    }
+
+    // 渲染幹部名冊速查
+    function renderCadresListHtml(container) {
+      const gradeFilter = document.getElementById('cadresGradeSelect')?.value || 'ALL';
+      const classFilter = document.getElementById('cadresClassSelect')?.value || 'ALL';
+      const query = cadresSearchQuery.toLowerCase();
+
+      // 產生 Role Pills
+      let pillsHtml = `
+        <span style="font-size:12px; font-weight:800; color:#64748b; margin-right:4px;">職務速查：</span>
+        <button class="role-pill ${selectedCadresRole === 'ALL' ? 'active' : ''}" onclick="setCadreRoleFilter('ALL')">全部職務</button>
+        <button class="role-pill highlight ${selectedCadresRole === '班長' ? 'active' : ''}" onclick="setCadreRoleFilter('班長')">⭐ 全校班長 (54人)</button>
+        <button class="role-pill highlight ${selectedCadresRole === '風紀' ? 'active' : ''}" onclick="setCadreRoleFilter('風紀')">⭐ 全校風紀股長 1&2</button>
+        <button class="role-pill ${selectedCadresRole === '副班長' ? 'active' : ''}" onclick="setCadreRoleFilter('副班長')">副班長</button>
+        <button class="role-pill ${selectedCadresRole === '學藝' ? 'active' : ''}" onclick="setCadreRoleFilter('學藝')">學藝</button>
+        <button class="role-pill ${selectedCadresRole === '體育' ? 'active' : ''}" onclick="setCadreRoleFilter('體育')">體育 1&2</button>
+        <button class="role-pill ${selectedCadresRole === '衛生' ? 'active' : ''}" onclick="setCadreRoleFilter('衛生')">衛生</button>
+        <button class="role-pill ${selectedCadresRole === '總務' ? 'active' : ''}" onclick="setCadreRoleFilter('總務')">總務</button>
+        <button class="role-pill ${selectedCadresRole === '服務' ? 'active' : ''}" onclick="setCadreRoleFilter('服務')">服務</button>
+        <button class="role-pill ${selectedCadresRole === '綠化' ? 'active' : ''}" onclick="setCadreRoleFilter('綠化')">綠化</button>
+        <button class="role-pill ${selectedCadresRole === '輔導圖書' ? 'active' : ''}" onclick="setCadreRoleFilter('輔導圖書')">輔導圖書</button>
+        <button class="role-pill ${selectedCadresRole === '實習' ? 'active' : ''}" onclick="setCadreRoleFilter('實習')">實習</button>
+        <button class="role-pill ${selectedCadresRole === '設備' ? 'active' : ''}" onclick="setCadreRoleFilter('設備')">設備</button>
+        <button class="role-pill ${selectedCadresRole === '安全' ? 'active' : ''}" onclick="setCadreRoleFilter('安全')">安全</button>
+        <button class="role-pill ${selectedCadresRole === '班代' ? 'active' : ''}" onclick="setCadreRoleFilter('班代')">班代</button>
+      `;
+
+      // 篩選幹部資料
+      const list = [];
+      const classCodes = Object.keys(safeCadres).sort((a,b) => a.localeCompare(b));
+
+      for (const code of classCodes) {
+        if (classFilter !== 'ALL' && code !== classFilter) continue;
+        const g = code.length === 3 ? code[1] : (code[0] || '1');
+        if (gradeFilter !== 'ALL' && g !== gradeFilter) continue;
+
+        const rolesObj = safeCadres[code] || {};
+        const clsObj = currentData.find(c => c.c === code) || { n: '' };
+
+        for (const [role, info] of Object.entries(rolesObj)) {
+          if (!info || !info.name) continue;
+
+          // 職務篩選
+          if (selectedCadresRole === '班長' && role !== '班長') continue;
+          if (selectedCadresRole === '副班長' && role !== '副班長') continue;
+          if (selectedCadresRole === '風紀' && !role.startsWith('風紀')) continue;
+          if (selectedCadresRole === '體育' && !role.startsWith('體育')) continue;
+          if (selectedCadresRole !== 'ALL' && selectedCadresRole !== '風紀' && selectedCadresRole !== '體育' && role !== selectedCadresRole) continue;
+
+          // 關鍵字搜尋
+          if (query) {
+            const match = code.includes(query) || clsObj.n.toLowerCase().includes(query) ||
+                          role.toLowerCase().includes(query) || info.name.toLowerCase().includes(query) ||
+                          (info.sid && info.sid.includes(query));
+            if (!match) continue;
+          }
+
+          const sObj = safeStudentsMap[info.sid] || {};
+          list.push({
+            code,
+            className: clsObj.n,
+            role,
+            sid: info.sid || sObj.sid || '',
+            name: info.name,
+            seat: sObj.seat || '',
+            gender: sObj.gender || '',
+            studentPhone: sObj.studentPhone || '',
+            parentName: sObj.parentName || '',
+            parentPhone: sObj.parentPhone || ''
+          });
+        }
+      }
+
+      // 表格 HTML
+      let rowsHtml = '';
+      if (list.length === 0) {
+        rowsHtml = '<tr><td colspan="8" style="text-align:center; padding:30px; color:#94a3b8;">查無符合條件的幹部資料</td></tr>';
+      } else {
+        list.forEach((item, idx) => {
+          const sPhoneTag = item.studentPhone ? 
+            `<a class="phone-tag" href="tel:${item.studentPhone}" title="點擊撥號或右鍵複製">📱 ${item.studentPhone}</a>` : 
+            '<span style="color:#cbd5e1;">-</span>';
+          const pPhoneTag = item.parentPhone ? 
+            `<a class="phone-tag phone-tag-parent" href="tel:${item.parentPhone}" title="家長：${item.parentName || ''}">👨‍👩‍👧 ${item.parentPhone} (${item.parentName || '家長'})</a>` : 
+            '<span style="color:#cbd5e1;">-</span>';
+
+          rowsHtml += `
+            <tr>
+              <td style="font-weight:700; color:#64748b;">${idx + 1}</td>
+              <td style="font-weight:800; font-family:monospace; color:#0f172a;">${item.code} <span style="font-size:12px; color:#475569; font-weight:600;">${item.className}</span></td>
+              <td><span class="cadre-badge-pill">${item.role}</span></td>
+              <td style="font-weight:800; color:#0369a1; font-size:14px;">${item.name}</td>
+              <td style="font-family:monospace;">${item.seat ? item.seat + '號' : '-'}</td>
+              <td style="font-family:monospace; color:#64748b;">${item.sid || '-'}</td>
+              <td>${sPhoneTag}</td>
+              <td>${pPhoneTag}</td>
+            </tr>
+          `;
+        });
+      }
+
+      container.innerHTML = `
+        <div class="cadres-container">
+          <div class="cadres-dashboard">
+            <div class="cadres-header-panel">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:16px; font-weight:900; color:#0f172a;">🏆 全校班級幹部組織名錄</span>
+                <span class="badge badge-info">共 ${list.length} 位幹部</span>
+              </div>
+              <div style="font-size:12px; color:#64748b;">
+                提示：點擊電話號碼可直接由手機撥號，點右上方「複製名單」可貼至 LINE 群組
+              </div>
+            </div>
+
+            <div class="role-pills-bar">
+              ${pillsHtml}
+            </div>
+
+            <div class="cadres-table-wrap">
+              <table class="cadres-grid-table">
+                <thead>
+                  <tr>
+                    <th style="width:40px;">#</th>
+                    <th style="width:140px;">班級</th>
+                    <th style="width:100px;">擔任職務</th>
+                    <th style="width:100px;">幹部姓名</th>
+                    <th style="width:70px;">座號</th>
+                    <th style="width:100px;">學號</th>
+                    <th style="width:160px;">學生手機 (點擊撥號)</th>
+                    <th>家長緊急電話</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rowsHtml}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 渲染緊急通訊速查卡片
+    function renderContactsListHtml(container) {
+      const gradeFilter = document.getElementById('cadresGradeSelect')?.value || 'ALL';
+      const classFilter = document.getElementById('cadresClassSelect')?.value || 'ALL';
+      const query = cadresSearchQuery.toLowerCase();
+
+      // 建立學生幹部對照: sid -> [roles]
+      const cadreRolesBySid = {};
+      for (const [code, roles] of Object.entries(safeCadres)) {
+        for (const [rName, info] of Object.entries(roles)) {
+          if (info && info.sid) {
+            if (!cadreRolesBySid[info.sid]) cadreRolesBySid[info.sid] = [];
+            cadreRolesBySid[info.sid].push(rName);
+          }
+        }
+      }
+
+      let filtered = safeStudents.filter(s => {
+        if (classFilter !== 'ALL' && s.code !== classFilter) return false;
+        const g = s.code.length === 3 ? s.code[1] : '1';
+        if (gradeFilter !== 'ALL' && g !== gradeFilter) return false;
+
+        if (query) {
+          const match = (s.name && s.name.toLowerCase().includes(query)) ||
+                        (s.sid && s.sid.includes(query)) ||
+                        (s.code && s.code.includes(query)) ||
+                        (s.className && s.className.toLowerCase().includes(query)) ||
+                        (s.studentPhone && s.studentPhone.includes(query)) ||
+                        (s.parentName && s.parentName.toLowerCase().includes(query)) ||
+                        (s.parentPhone && s.parentPhone.includes(query)) ||
+                        (s.mailingAddress && s.mailingAddress.includes(query));
+          if (!match) return false;
+        }
+        return true;
+      });
+
+      // 限制首頁最多顯示 100 筆，避免 DOM 過大造成卡頓
+      const totalMatches = filtered.length;
+      const displayList = filtered.slice(0, 100);
+
+      let cardsHtml = '';
+      if (displayList.length === 0) {
+        cardsHtml = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8; font-size:14px;">查無符合關鍵字的學生資料</div>';
+      } else {
+        displayList.forEach(s => {
+          const cRoles = cadreRolesBySid[s.sid] || [];
+          const cadreBadges = cRoles.map(r => `<span class="cadre-badge-pill">🎖️ ${r}</span>`).join(' ');
+
+          let idDisplay = s.idNo || '-';
+          if (isIdMasked && s.idNo && s.idNo.length >= 8) {
+            idDisplay = s.idNo.substring(0, 4) + '****' + s.idNo.substring(s.idNo.length - 2);
+          }
+
+          cardsHtml += `
+            <div class="contact-card">
+              <div class="contact-card-header">
+                <div>
+                  <div class="contact-card-title">
+                    <span>${s.name}</span>
+                    <span style="font-size:12px; font-weight:700; color:${s.gender === '男' ? '#2563eb' : '#db2777'};">${s.gender || ''}</span>
+                    ${cadreBadges}
+                  </div>
+                  <div style="font-size:12px; color:#64748b; font-family:monospace; margin-top:2px;">
+                    ${s.code} ${s.className}・${s.seat}號・學號 ${s.sid}
+                  </div>
+                </div>
+                <button class="btn btn-secondary" style="font-size:11px; padding:3px 8px;" onclick="copySingleContact('${s.sid}')" title="一鍵複製緊急聯絡通報資訊">
+                  📋 複製
+                </button>
+              </div>
+
+              <div class="contact-card-body">
+                <div class="contact-card-row">
+                  <span style="color:#64748b;">學生手機：</span>
+                  ${s.studentPhone ? `<a class="phone-tag" href="tel:${s.studentPhone}">📱 ${s.studentPhone}</a>` : '<span style="color:#cbd5e1;">未填寫</span>'}
+                </div>
+                <div class="contact-card-row">
+                  <span style="color:#64748b;">家長姓名：</span>
+                  <span style="font-weight:700;">${s.parentName || '未填寫'}</span>
+                </div>
+                <div class="contact-card-row">
+                  <span style="color:#64748b;">家長手機：</span>
+                  ${s.parentPhone ? `<a class="phone-tag phone-tag-parent" href="tel:${s.parentPhone}">📞 ${s.parentPhone}</a>` : '<span style="color:#cbd5e1;">未填寫</span>'}
+                </div>
+                <div class="contact-card-row">
+                  <span style="color:#64748b;">身分證號：</span>
+                  <span style="font-family:monospace; font-weight:700; color:#475569;">${idDisplay}</span>
+                </div>
+                <div style="margin-top:2px; font-size:11.5px; color:#64748b; line-height:1.4;">
+                  📍 <strong>通訊地址：</strong>${s.mailingAddress || s.householdAddress || '未填寫'}
+                </div>
+              </div>
+
+              <div class="contact-card-footer">
+                <span>生日：${s.birthday || '-'}</span>
+                <span>桃園市立中壢高商 115-1</span>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      container.innerHTML = `
+        <div class="cadres-container">
+          <div class="cadres-dashboard">
+            <div class="cadres-header-panel">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:16px; font-weight:900; color:#0f172a;">📱 全校學生與家長緊急聯絡速查</span>
+                <span class="badge badge-info">符合 ${totalMatches} 人${totalMatches > 100 ? ' (顯示前100筆)' : ''}</span>
+              </div>
+              <div style="font-size:12px; color:#64748b;">
+                身分證號預設為隱碼保護，點選右上角「👁️ 顯示身分證」可切換
+              </div>
+            </div>
+
+            <div class="contact-cards-grid">
+              ${cardsHtml}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 複製單一學生緊急聯絡資訊
+    function copySingleContact(sid) {
+      const s = safeStudentsMap[sid];
+      if (!s) return;
+      const text = `【中壢高商學生緊急聯絡資訊】\n班級座號：${s.code} ${s.className} ${s.seat}號\n學生姓名：${s.name} (${s.gender || ''})\n學號：${s.sid}\n學生手機：${s.studentPhone || '無'}\n家長姓名：${s.parentName || '無'}\n家長手機：${s.parentPhone || '無'}\n通訊地址：${s.mailingAddress || s.householdAddress || '無'}`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('✓ 已複製「' + s.name + '」同學緊急聯絡資訊！');
+      }).catch(() => {
+        alert('複製失敗，請手動複製');
+      });
+    }
+
+    // 複製目前篩選的幹部清單
+    function copyCurrentCadresList() {
+      const gradeFilter = document.getElementById('cadresGradeSelect')?.value || 'ALL';
+      const classFilter = document.getElementById('cadresClassSelect')?.value || 'ALL';
+      const roleFilter = selectedCadresRole;
+
+      let title = roleFilter === 'ALL' ? '全校各班幹部名冊' : ('全校各班【' + roleFilter + '】名冊');
+      let lines = [`📢 中壢高商 115-1 ${title}\n━━━━━━━━━━━━━━━━━━━━━━━━━`];
+
+      const classCodes = Object.keys(safeCadres).sort((a,b) => a.localeCompare(b));
+      classCodes.forEach(code => {
+        if (classFilter !== 'ALL' && code !== classFilter) return;
+        const g = code.length === 3 ? code[1] : '1';
+        if (gradeFilter !== 'ALL' && g !== gradeFilter) return;
+
+        const rolesObj = safeCadres[code] || {};
+        const clsObj = currentData.find(c => c.c === code) || { n: '' };
+
+        for (const [r, info] of Object.entries(rolesObj)) {
+          if (!info || !info.name) continue;
+          if (roleFilter === '班長' && r !== '班長') continue;
+          if (roleFilter === '副班長' && r !== '副班長') continue;
+          if (roleFilter === '風紀' && !r.startsWith('風紀')) continue;
+          if (roleFilter === '體育' && !r.startsWith('體育')) continue;
+          if (roleFilter !== 'ALL' && roleFilter !== '風紀' && roleFilter !== '體育' && r !== roleFilter) continue;
+
+          const sObj = safeStudentsMap[info.sid] || {};
+          const phone = sObj.studentPhone ? (' ' + sObj.studentPhone) : '';
+          lines.push(`${code} ${clsObj.n}：${r} ${info.name}${phone}`);
+        }
+      });
+
+      const fullText = lines.join('\n');
+      navigator.clipboard.writeText(fullText).then(() => {
+        showToast('✓ 已複製 ' + title + ' (' + (lines.length - 1) + ' 筆)！');
+      }).catch(() => {
+        alert('複製失敗，請手動複製');
+      });
+    }
+
+    // 列印 A4 幹部會議簽到表
+    function printCadresSigninSheet() {
+      if (!hasSafeData) {
+        alert('尚未載入幹部資料庫，無法列印簽到單！');
+        return;
+      }
+      const role = selectedCadresRole === 'ALL' ? '班長' : selectedCadresRole;
+      const roleTitle = role.startsWith('風紀') ? '風紀股長' : role;
+
+      // 產生 54 班幹部簽名表 (排成雙欄 27 列，剛好一頁 A4！)
+      const classes = currentData.map(c => c.c).sort((a,b) => a.localeCompare(b));
+      const leftClasses = classes.slice(0, 27);
+      const rightClasses = classes.slice(27, 54);
+
+      function getCadreName(code, targetRole) {
+        const obj = safeCadres[code] || {};
+        if (targetRole === '風紀') {
+          const f1 = obj['風紀1']?.name || '';
+          const f2 = obj['風紀2']?.name || '';
+          return [f1, f2].filter(Boolean).join(' / ') || '__________';
+        }
+        return obj[targetRole]?.name || obj[targetRole + '1']?.name || '__________';
+      }
+
+      let rowsHtml = '';
+      for (let i = 0; i < 27; i++) {
+        const c1 = leftClasses[i] || '';
+        const cls1 = currentData.find(c => c.c === c1) || { n: '' };
+        const name1 = c1 ? getCadreName(c1, role) : '';
+
+        const c2 = rightClasses[i] || '';
+        const cls2 = currentData.find(c => c.c === c2) || { n: '' };
+        const name2 = c2 ? getCadreName(c2, role) : '';
+
+        rowsHtml += `
+          <tr>
+            <td style="font-weight:700;">${c1}</td>
+            <td style="font-size:10pt;">${cls1.n}</td>
+            <td style="font-weight:700;">${name1}</td>
+            <td style="width:75px;"></td>
+            <td style="width:35px;"></td>
+
+            <td style="font-weight:700;">${c2}</td>
+            <td style="font-size:10pt;">${cls2.n}</td>
+            <td style="font-weight:700;">${name2}</td>
+            <td style="width:75px;"></td>
+            <td style="width:35px;"></td>
+          </tr>
+        `;
+      }
+
+      const signinPageHtml = `
+        <article class="signin-print-page">
+          <div style="width:100%; text-align:center; margin-bottom:6px;">
+            <h1 style="font-size:20pt; font-weight:900; margin:0; letter-spacing:4px;">桃園市立中壢高級商業職業學校</h1>
+            <h2 style="font-size:16pt; font-weight:800; margin:4px 0 0 0; color:#1e293b;">115 學年度第 1 學期 全校【${roleTitle}】會議簽名冊</h2>
+          </div>
+          <div style="width:100%; display:flex; justify-content:space-between; font-size:11pt; font-weight:700; margin-bottom:6px; border-bottom:2px solid #000; padding-bottom:3px;">
+            <span>會議時間：_____ 年 _____ 月 _____ 日</span>
+            <span>會議地點：司令台前方 / 綜合大樓</span>
+            <span>應到：54 班　實到：____ 班</span>
+          </div>
+          <table class="signin-table">
+            <thead>
+              <tr>
+                <th style="width:40px;">班級</th>
+                <th style="width:80px;">班級名稱</th>
+                <th style="width:75px;">幹部姓名</th>
+                <th style="width:75px;">出席簽名</th>
+                <th style="width:35px;">備註</th>
+                <th style="width:40px;">班級</th>
+                <th style="width:80px;">班級名稱</th>
+                <th style="width:75px;">幹部姓名</th>
+                <th style="width:75px;">出席簽名</th>
+                <th style="width:35px;">備註</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+          <div style="width:100%; display:flex; justify-content:space-between; font-size:10.5pt; font-weight:700; margin-top:8px;">
+            <span>承辦單位：學務處 生輔組</span>
+            <span>業務承辦人：____________________</span>
+            <span>生輔組長：____________________</span>
+          </div>
+        </article>
+      `;
+
+      const container = document.getElementById('pagesContainer');
+      const oldHtml = container.innerHTML;
+      container.innerHTML = signinPageHtml;
+      window.print();
+      setTimeout(() => {
+        container.innerHTML = oldHtml;
+      }, 1000);
+    }
+
+    // 清除本機快取
+    async function clearSafeCache() {
+      if (!confirm('⚠️ 確定要清除本機瀏覽器中的機密資料庫嗎？\n清除後本機將無法查詢學生聯絡電話與幹部名冊，需重新拖曳匯入 Excel 檔案。')) {
+        return;
+      }
+      await clearSafeDB();
+      safeStudents = [];
+      safeCadres = {};
+      safeStudentsMap = {};
+      hasSafeData = false;
+      updateSafeBadge();
+      showToast('✓ 本機機密資料庫快取已完全清除！');
+      renderPages();
+    }
+
+    // 擴充檔案解析器：支援讀取學生通訊總表 (含多 Sheet) 與 幹部名冊
+    const oldProcessUploadedFile = processUploadedFile;
+    processUploadedFile = function(file) {
+      const fileName = file.name;
+      const ext = fileName.split('.').pop().toLowerCase();
+
+      if (ext === 'xlsx' || ext === 'xls') {
+        if (typeof XLSX === 'undefined') {
+          showToast('❌ 目前離線且未載入 Excel 模組，請稍後重試！', true);
+          return;
+        }
+        showToast('⏳ 正在解析檔案「' + fileName + '」...');
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          try {
+            const data = new Uint8Array(evt.target.result);
+            const wb = XLSX.read(data, { type: 'array' });
+
+            let parsedAny = false;
+
+            // 檢查是否為幹部表 (通常第一張 sheet 欄位包含 班長, 副班長, 風紀)
+            const firstSheet = wb.Sheets[wb.SheetNames[0]];
+            const firstRows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            if (firstRows.length > 0 && isCadreHeaderRow(firstRows[0])) {
+              const newCadres = parseCadreExcelRows(firstRows);
+              if (Object.keys(newCadres).length > 0) {
+                safeCadres = newCadres;
+                saveSafeData('cadres', safeCadres);
+                parsedAny = true;
+                showToast(`✓ 成功載入 ${Object.keys(newCadres).length} 班幹部名冊！`);
+              }
+            }
+
+            // 檢查是否包含學生學籍通訊表 (含「115高一」或「身分證」或「學生手機」)
+            const extractedStudents = [];
+            for (const sn of wb.SheetNames) {
+              if (sn === '工作表1' && wb.SheetNames.length > 1) continue; // 略過暫存 scrap
+              const sheet = wb.Sheets[sn];
+              const jsonRows = XLSX.utils.sheet_to_json(sheet);
+              if (jsonRows.length > 0 && (jsonRows[0]['身分證'] || jsonRows[0]['學生手機'] || jsonRows[0]['家長手機'])) {
+                jsonRows.forEach(r => {
+                  const s = {
+                    code: String(r['班級代碼'] || '').trim(),
+                    className: String(r['班級名稱'] || '').trim(),
+                    sid: String(r['學號'] || '').trim(),
+                    seat: String(r['座號'] || '').trim().padStart(2, '0'),
+                    name: String(r['姓名'] || '').trim(),
+                    gender: String(r['性別'] || '').trim(),
+                    birthday: String(r['出生日期'] || '').trim(),
+                    idNo: String(r['身分證'] || '').trim(),
+                    studentPhone: String(r['學生手機'] || '').trim(),
+                    parentName: String(r['家長姓名'] || '').trim(),
+                    parentPhone: String(r['家長手機'] || '').trim(),
+                    householdAddress: String(r['戶籍住址'] || '').trim(),
+                    mailingAddress: String(r['通訊地址'] || '').trim()
+                  };
+                  if (s.code && s.name) extractedStudents.push(s);
+                });
+              }
+            }
+
+            if (extractedStudents.length > 0) {
+              safeStudents = extractedStudents;
+              safeStudentsMap = {};
+              safeStudents.forEach(s => { if (s.sid) safeStudentsMap[s.sid] = s; });
+              saveSafeData('students', safeStudents);
+              parsedAny = true;
+              showToast(`✓ 成功載入 ${extractedStudents.length} 位學生學籍通訊資料！`);
+            }
+
+            if (parsedAny) {
+              hasSafeData = true;
+              updateSafeBadge();
+              renderPages();
+              return;
+            }
+
+            // 如果不是特殊格式，則退回原有的學生名冊解析
+            parseRosterRows(firstRows, fileName);
+          } catch (err) {
+            console.error(err);
+            showToast('❌ Excel 檔案解析失敗：' + err.message, true);
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (ext === 'csv') {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          try {
+            const text = evt.target.result;
+            const rows = parseCsvText(text);
+            if (rows.length > 0 && isCadreHeaderRow(rows[0])) {
+              const newCadres = parseCadreExcelRows(rows);
+              if (Object.keys(newCadres).length > 0) {
+                safeCadres = newCadres;
+                saveSafeData('cadres', safeCadres);
+                hasSafeData = true;
+                updateSafeBadge();
+                showToast(`✓ 成功載入 ${Object.keys(newCadres).length} 班幹部名冊！`);
+                renderPages();
+                return;
+              }
+            }
+            if (rows.length > 1 && rows[0].includes('身分證')) {
+              const header = rows[0];
+              const cIdx = header.indexOf('班級代碼');
+              const cnIdx = header.indexOf('班級名稱');
+              const sidIdx = header.indexOf('學號');
+              const seatIdx = header.indexOf('座號');
+              const nameIdx = header.indexOf('姓名');
+              const gIdx = header.indexOf('性別');
+              const bIdx = header.indexOf('出生日期');
+              const idIdx = header.indexOf('身分證');
+              const spIdx = header.indexOf('學生手機');
+              const pnIdx = header.indexOf('家長姓名');
+              const ppIdx = header.indexOf('家長手機');
+              const haIdx = header.indexOf('戶籍住址');
+              const maIdx = header.indexOf('通訊地址');
+
+              const students = [];
+              for (let i = 1; i < rows.length; i++) {
+                const r = rows[i];
+                if (!r || r.length < 5) continue;
+                students.push({
+                  code: String(r[cIdx] || '').trim(),
+                  className: String(r[cnIdx] || '').trim(),
+                  sid: String(r[sidIdx] || '').trim(),
+                  seat: String(r[seatIdx] || '').trim().padStart(2, '0'),
+                  name: String(r[nameIdx] || '').trim(),
+                  gender: String(r[gIdx] || '').trim(),
+                  birthday: String(r[bIdx] || '').trim(),
+                  idNo: String(r[idIdx] || '').trim(),
+                  studentPhone: String(r[spIdx] || '').trim(),
+                  parentName: String(r[pnIdx] || '').trim(),
+                  parentPhone: String(r[ppIdx] || '').trim(),
+                  householdAddress: String(r[haIdx] || '').trim(),
+                  mailingAddress: String(r[maIdx] || '').trim()
+                });
+              }
+              if (students.length > 0) {
+                safeStudents = students;
+                safeStudentsMap = {};
+                safeStudents.forEach(s => { if (s.sid) safeStudentsMap[s.sid] = s; });
+                saveSafeData('students', safeStudents);
+                hasSafeData = true;
+                updateSafeBadge();
+                showToast(`✓ 成功載入 ${students.length} 位學生通訊名冊！`);
+                renderPages();
+                return;
+              }
+            }
+            parseRosterRows(rows, fileName);
+          } catch (err) {
+            console.error(err);
+            showToast('❌ CSV 檔案解析失敗：' + err.message, true);
+          }
+        };
+        reader.readAsText(file, 'utf-8');
+      } else {
+        oldProcessUploadedFile(file);
+      }
+    };
+
+    function isCadreHeaderRow(row) {
+      if (!Array.isArray(row)) return false;
+      const str = row.join(' ');
+      return str.includes('班長') || str.includes('副班長') || str.includes('風紀');
+    }
+
+    function parseCadreExcelRows(rows) {
+      const cadresMap = {};
+      const roleNames = [
+        '班長', '副班長', '風紀1', '風紀2', '學藝', '體育1', '體育2',
+        '服務', '衛生', '綠化', '總務', '輔導圖書', '實習', '設備', '安全', '班代'
+      ];
+
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        if (!r || !r[0]) continue;
+        const code = String(r[0]).trim();
+        cadresMap[code] = {};
+        for (let j = 0; j < roleNames.length; j++) {
+          const role = roleNames[j];
+          const sid = r[1 + j * 2] ? String(r[1 + j * 2]).trim() : '';
+          const name = r[2 + j * 2] ? String(r[2 + j * 2]).trim() : '';
+          if (sid || name) {
+            cadresMap[code][role] = { sid, name };
+          }
+        }
+      }
+      return cadresMap;
+    }
+
+    // 頁面載入後自動連線 IndexedDB
+    window.addEventListener('DOMContentLoaded', () => {
+      initSafeDB();
+    });
+
     // 初始化執行
     initData();
     initSelect();
@@ -1610,7 +2866,9 @@
       // 支援網址 Hash 切換分頁（例如 #roster 或 #signoff）
       function checkUrlHash() {
         const hash = window.location.hash.toLowerCase();
-        if (hash === '#roster' || hash === '#student') {
+        if (hash === '#cadres' || hash === '#contact') {
+          if (typeof switchMainView === 'function') switchMainView('cadres');
+        } else if (hash === '#roster' || hash === '#student') {
           if (typeof switchMainView === 'function') switchMainView('roster');
         } else if (hash === '#signoff' || hash === '#grade') {
           if (typeof switchMainView === 'function') switchMainView('signoff');
