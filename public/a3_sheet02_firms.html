@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A3 橫向心智圖 第 2 張 ｜ 廠商理論與四大市場結構跨章全整合（CH6 收益 ➔ CH7 完全競爭 ➔ CH8 獨占 ➔ CH9 獨占性競爭與寡占）</title>
+<title>A3 核心放射狀心智圖 ｜ CH6–CH9 廠商理論與市場結構全景整合</title>
 <style>
 /* ==========================================================================
-   A3 橫向旗艦級跨章心智圖樣式表：第 2 聯幅 廠商理論與四大市場結構
-   標準規格：420mm × 297mm
-   排版要求：全頁面所有文字字體 ≧ 14pt（約 18.7px），無任何低於 14pt 的文字！
+   A3 橫向核心放射狀心智圖（Radial Mind Map）
+   標準畫布規格：420mm × 297mm 橫向比例（2000px × 1400px 座標系）
+   嚴格排版保證：全圖所有文字設定皆 ≧ 14pt（約 18.7px），無任何微型字體！
    ========================================================================== */
 
 @page {
   size: A3 landscape;
-  margin: 8mm;
+  margin: 6mm;
 }
 
 * {
@@ -24,26 +24,27 @@
 body {
   margin: 0;
   padding: 0;
-  background: #0f172a;
+  background: #090d16;
   color: #0f172a;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
   font-size: 14pt;
   line-height: 1.4;
+  overflow-x: auto;
 }
 
 /* 頂部操作工具列（螢幕顯示，列印自動隱藏） */
 .top-bar {
-  background: #1e293b;
+  background: #111827;
   color: #f8fafc;
   padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid #1f2937;
   position: sticky;
   top: 0;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 2000;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
 }
 .top-title {
   font-size: 15pt;
@@ -53,15 +54,17 @@ body {
   gap: 12px;
 }
 .top-badge {
-  background: #f97316;
+  background: linear-gradient(135deg, #f97316, #ea580c);
   color: #fff;
-  padding: 3px 10px;
+  padding: 3px 12px;
   border-radius: 999px;
   font-size: 14pt;
+  font-weight: 800;
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.4);
 }
 .top-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -91,185 +94,187 @@ body {
   background: #047857;
 }
 .btn-secondary {
-  background: #334155;
+  background: #1f2937;
   color: #e2e8f0;
+  border: 1px solid #374151;
 }
 .btn-secondary:hover {
-  background: #475569;
+  background: #374151;
 }
 
-/* A3 橫向畫布容器 */
-.a3-page-wrapper {
-  padding: 20px 10px;
+/* 畫布外層滾動容器 */
+.canvas-viewport {
+  padding: 24px 16px;
   display: flex;
   justify-content: center;
+  background: #090d16;
+  min-width: 2080px;
 }
-.a3-canvas {
-  width: 420mm;
-  min-height: 297mm;
-  background: #ffffff;
-  padding: 10mm 12mm;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
-  display: flex;
-  flex-direction: column;
+
+/* 核心放射狀 A3 橫向畫布 (2000px × 1400px，對標 420mm × 297mm) */
+.mindmap-board {
+  width: 2000px;
+  height: 1400px;
+  background: radial-gradient(circle at center, #ffffff 0%, #f8fafc 70%, #f1f5f9 100%);
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
   position: relative;
-  gap: 10px;
+  overflow: hidden;
+  border: 2px solid #cbd5e1;
 }
 
-/* 橫幅大標題區 */
-.canvas-header {
-  border-bottom: 3px solid #0f172a;
-  padding-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+/* 背景平滑 SVG 樹枝連線 */
+.mindmap-svg-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2000px;
+  height: 1400px;
+  pointer-events: none;
+  z-index: 1;
 }
-.main-title-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
+
+/* 節點通用定位與陰影 */
+.node-item {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: text;
 }
-.sheet-number {
-  background: #0f172a;
+.node-item:hover {
+  z-index: 50;
+  transform: translate(-50%, -50%) scale(1.02);
+}
+
+/* 1. 中心核心節點（Central Hub） */
+.center-hub {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   color: #ffffff;
-  font-size: 16pt;
-  font-weight: 800;
-  padding: 4px 12px;
-  border-radius: 6px;
-  letter-spacing: 0.5px;
+  border: 3.5px solid #f59e0b;
+  border-radius: 999px;
+  padding: 20px 36px;
+  text-align: center;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 25px rgba(245, 158, 11, 0.35);
+  min-width: 480px;
 }
-.sheet-main-title {
-  font-size: 24pt;
-  font-weight: 900;
+.center-hub .hub-badge {
+  display: inline-block;
+  background: #f59e0b;
   color: #0f172a;
-  margin: 0;
-  line-height: 1.15;
-  letter-spacing: -0.5px;
-}
-.sheet-sub-title {
-  font-size: 15pt;
-  color: #475569;
-  font-weight: 600;
-  margin-top: 4px;
-}
-.header-meta {
-  text-align: right;
   font-size: 14pt;
-  color: #64748b;
-  font-weight: 600;
-  line-height: 1.35;
+  font-weight: 900;
+  padding: 3px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
 }
-.header-meta b {
-  color: #dc2626;
-}
-
-/* 四大主幹直向佈局（420mm 橫向四欄） */
-.canvas-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 8mm;
-  flex: 1;
-}
-
-/* 單一主幹欄位 */
-.trunk-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border-radius: 8px;
-}
-
-/* 主幹標題頂條 */
-.col-header {
-  padding: 6px 12px;
-  border-radius: 8px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.col-header h2 {
-  font-size: 17pt;
-  font-weight: 800;
+.center-hub .hub-title {
+  font-size: 22pt;
+  font-weight: 900;
   margin: 0;
+  letter-spacing: -0.5px;
   line-height: 1.2;
 }
-.col-header .col-badge {
-  font-size: 14pt;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(255,255,255,0.22);
+.center-hub .hub-formula {
+  margin-top: 8px;
+  font-size: 14.5pt;
+  color: #fef08a;
   font-weight: 700;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 8px;
 }
 
-/* 欄位色彩主題 */
-.theme-ch6 .col-header { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
-.theme-ch6 .node-box { border-left-color: #2563eb; }
+/* 2. 一級主幹節點（Level 1 Primary Stem Nodes） */
+.stem-node {
+  color: #ffffff;
+  font-size: 17pt;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.stem-ch6 { background: linear-gradient(135deg, #1d4ed8, #2563eb); border: 2px solid #93c5fd; }
+.stem-ch7 { background: linear-gradient(135deg, #047857, #059669); border: 2px solid #6ee7b7; }
+.stem-ch8 { background: linear-gradient(135deg, #be123c, #e11d48); border: 2px solid #fda4af; }
+.stem-ch9m { background: linear-gradient(135deg, #b45309, #d97706); border: 2px solid #fde68a; }
+.stem-ch9o { background: linear-gradient(135deg, #6d28d9, #7c3aed); border: 2px solid #c4b5fd; }
+.stem-core { background: linear-gradient(135deg, #0f172a, #334155); border: 2px solid #fbbf24; }
 
-.theme-ch7 .col-header { background: linear-gradient(135deg, #064e3b, #059669); }
-.theme-ch7 .node-box { border-left-color: #059669; }
+/* 3. 二級分支標籤（Level 2 Sub-Branches） */
+.branch-node {
+  background: #ffffff;
+  font-size: 15.5pt;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  white-space: nowrap;
+  border: 2.5px solid;
+}
+.b-ch6 { border-color: #2563eb; color: #1e3a8a; }
+.b-ch7 { border-color: #059669; color: #064e3b; }
+.b-ch8 { border-color: #e11d48; color: #881337; }
+.b-ch9m { border-color: #d97706; color: #78350f; }
+.b-ch9o { border-color: #7c3aed; color: #4c1d95; }
+.b-core { border-color: #0f172a; color: #0f172a; background: #fef3c7; }
 
-.theme-ch8 .col-header { background: linear-gradient(135deg, #881337, #e11d48); }
-.theme-ch8 .node-box { border-left-color: #e11d48; }
-
-.theme-ch9 .col-header { background: linear-gradient(135deg, #7c2d12, #d97706); }
-.theme-ch9 .node-box { border-left-color: #d97706; }
-
-/* 心智圖節點卡片（Node Card） */
-.node-box {
-  background: #f8fafc;
+/* 4. 三級葉節點卡片（Level 3 Leaf Detail Cards） */
+.leaf-card {
+  background: #ffffff;
   border: 1.5px solid #cbd5e1;
-  border-left-width: 6px;
-  border-radius: 8px;
-  padding: 8px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+  font-size: 14pt;
+  line-height: 1.35;
+  width: 360px;
 }
-.node-title {
-  font-size: 16pt;
+.leaf-card.wide {
+  width: 420px;
+}
+.leaf-title {
+  font-size: 14.5pt;
   font-weight: 800;
   color: #0f172a;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 2px;
+  gap: 6px;
 }
-.node-pill {
-  font-size: 14pt;
-  font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 4px;
-  color: #ffffff;
-}
-.pill-ch6 { background: #2563eb; }
-.pill-ch7 { background: #059669; }
-.pill-ch8 { background: #e11d48; }
-.pill-ch9 { background: #d97706; }
-
-/* 節點內容要點清單 */
-.node-list {
+.leaf-list {
   margin: 0;
   padding-left: 18px;
-  font-size: 14pt;
   color: #1e293b;
-  line-height: 1.35;
 }
-.node-list li {
+.leaf-list li {
   margin-bottom: 4px;
 }
-.node-list li:last-child {
+.leaf-list li:last-child {
   margin-bottom: 0;
 }
-.hl-bold {
-  font-weight: 800;
+.leaf-formula {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  margin-top: 4px;
+  font-weight: 700;
   color: #0f172a;
+  text-align: center;
+  font-size: 14pt;
 }
-.hl-red {
-  color: #b91c1c;
-  font-weight: 800;
-}
-.hl-tag {
+
+/* 色彩高亮標籤 */
+.tag-red { color: #b91c1c; font-weight: 800; }
+.tag-blue { color: #1d4ed8; font-weight: 800; }
+.tag-green { color: #047857; font-weight: 800; }
+.tag-amber { color: #b45309; font-weight: 800; }
+.tag-purple { color: #6d28d9; font-weight: 800; }
+.tag-badge {
   display: inline-block;
   background: #fef08a;
   color: #854d0e;
@@ -278,151 +283,44 @@ body {
   font-weight: 800;
   font-size: 14pt;
 }
-.hl-blue {
-  color: #1d4ed8;
+
+/* 跨章因果連線標籤 */
+.cross-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border: 2px dashed #dc2626;
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 14pt;
   font-weight: 800;
-}
-.hl-green {
-  color: #047857;
-  font-weight: 800;
+  color: #b91c1c;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.18);
+  white-space: nowrap;
+  z-index: 25;
 }
 
-/* 核心公式框 */
-.formula-card {
-  background: #ffffff;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 5px 8px;
-  margin: 2px 0;
-  font-size: 14pt;
-}
-.formula-math {
-  font-size: 15pt;
-  font-weight: 800;
-  color: #0f172a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 2px 0;
-  flex-wrap: wrap;
-}
-.frac {
-  display: inline-flex;
-  flex-direction: column;
-  vertical-align: middle;
+/* 課本圖形縮圖小標記 */
+.fig-thumb {
+  margin-top: 4px;
   text-align: center;
-  font-size: 14pt;
-  padding: 0 4px;
-}
-.frac-top {
-  border-bottom: 2px solid #0f172a;
-  padding-bottom: 1px;
-}
-.frac-bottom {
-  padding-top: 1px;
-}
-
-/* 課本 300 DPI 原圖卡片 */
-.fig-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
-  padding: 4px;
-  margin-top: 2px;
-  text-align: center;
+  padding: 2px;
 }
-.fig-card img {
+.fig-thumb img {
   max-width: 100%;
-  max-height: 52mm;
+  max-height: 48px;
   object-fit: contain;
-  border-radius: 4px;
   cursor: zoom-in;
+  border-radius: 4px;
+}
+.fig-thumb span {
   display: block;
-  margin: 0 auto;
-}
-.fig-caption {
   font-size: 14pt;
+  color: #64748b;
   font-weight: 700;
-  color: #475569;
-  margin-top: 3px;
-}
-
-/* 四大市場超級比較大表格 */
-.table-section {
-  background: #f8fafc;
-  border: 2px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-top: 6px;
-}
-.table-section-title {
-  font-size: 16pt;
-  font-weight: 900;
-  color: #0f172a;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.master-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14pt;
-  background: #ffffff;
-}
-.master-table th, .master-table td {
-  border: 1px solid #cbd5e1;
-  padding: 5px 8px;
-  text-align: left;
-  line-height: 1.3;
-}
-.master-table th {
-  background: #f1f5f9;
-  font-weight: 800;
-  color: #0f172a;
-  text-align: center;
-}
-.master-table tr:nth-child(even) td {
-  background: #f8fafc;
-}
-.master-table td.dim-title {
-  font-weight: 800;
-  background: #f1f5f9;
-  color: #334155;
-  width: 14%;
-  text-align: center;
-}
-.master-table td.col-c1 { width: 21.5%; }
-.master-table td.col-c2 { width: 21.5%; }
-.master-table td.col-c3 { width: 21.5%; }
-.master-table td.col-c4 { width: 21.5%; }
-
-/* 跨欄因果連接箭頭帶 */
-.causal-footer {
-  margin-top: 6px;
-  background: #f1f5f9;
-  border: 2px dashed #94a3b8;
-  border-radius: 8px;
-  padding: 8px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: 14pt;
-  font-weight: 800;
-  color: #0f172a;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.causal-step {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.causal-arrow {
-  color: #f97316;
-  font-size: 17pt;
-  font-weight: 900;
 }
 
 /* 燈箱放大視窗 */
@@ -430,15 +328,15 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(15,23,42,0.88);
+  background: rgba(15,23,42,0.9);
   z-index: 9999;
   justify-content: center;
   align-items: center;
   cursor: zoom-out;
 }
 #modal img {
-  max-width: 92vw;
-  max-height: 92vh;
+  max-width: 90vw;
+  max-height: 90vh;
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
   background: #fff;
@@ -454,457 +352,503 @@ body {
   .no-print {
     display: none !important;
   }
-  .a3-page-wrapper {
+  .canvas-viewport {
     padding: 0 !important;
+    min-width: 0 !important;
+    display: block !important;
   }
-  .a3-canvas {
+  .mindmap-board {
     width: 100% !important;
-    min-height: auto !important;
-    padding: 0 !important;
+    height: auto !important;
     box-shadow: none !important;
-    gap: 6px !important;
-  }
-  .fig-card img {
-    max-height: 46mm !important;
+    border: none !important;
+    background: #ffffff !important;
   }
 }
 </style>
 </head>
 <body>
 
-<!-- 頂部操作列（可列印、可縮放） -->
+<!-- 頂部操作工具列 -->
 <div class="top-bar no-print">
   <div class="top-title">
-    <span>📐 統測經濟學 A3 橫向旗艦心智圖</span>
-    <span class="top-badge">第 2 張：廠商理論與市場結構篇</span>
-    <span style="font-size:14pt;color:#94a3b8">｜ 全字體 14pt 以上保證</span>
+    <span>📐 統測經濟學 A3 核心放射狀心智圖</span>
+    <span class="top-badge">CH6–CH9 廠商理論與市場結構</span>
+    <span style="font-size:14pt;color:#9ca3af">｜ 360° 中心向四周輻射 ｜ 全文字 ≧ 14pt</span>
   </div>
   <div class="top-actions">
     <button class="btn btn-print" onclick="window.print()">🖨️ 列印 / 存為 A3 橫向 PDF</button>
     <a href="a3_sheet01_consumer.html" class="btn btn-secondary">📐 第 1 張：起點與消費篇</a>
     <a href="master_map.html" class="btn btn-secondary">🗺️ 19章全景圖</a>
-    <a href="ch06_market_revenue.html" class="btn btn-secondary">📘 CH6 講義</a>
-    <a href="ch07_perfect_competition.html" class="btn btn-secondary">📗 CH7 講義</a>
-    <a href="ch08_monopoly.html" class="btn btn-secondary">📕 CH8 講義</a>
-    <a href="ch09_imperfect_competition.html" class="btn btn-secondary">📙 CH9 講義</a>
+    <a href="ch06_market_revenue.html" class="btn btn-secondary">📘 CH6</a>
+    <a href="ch07_perfect_competition.html" class="btn btn-secondary">📗 CH7</a>
+    <a href="ch08_monopoly.html" class="btn btn-secondary">📕 CH8</a>
+    <a href="ch09_imperfect_competition.html" class="btn btn-secondary">📙 CH9</a>
     <a href="index.html" class="btn btn-secondary">⬅ 回解題網</a>
   </div>
 </div>
 
-<div class="a3-page-wrapper">
-  <div class="a3-canvas">
+<div class="canvas-viewport">
+  <div class="mindmap-board" id="mindmap-board">
 
-    <!-- 橫幅頂部標題列 -->
-    <header class="canvas-header">
-      <div>
-        <div class="main-title-wrap">
-          <span class="sheet-number">第 2 聯幅</span>
-          <h1 class="sheet-main-title">廠商理論與四大市場結構篇 ｜ 從收益定價到市場競爭與福利均衡</h1>
-        </div>
-        <div class="sheet-sub-title">統測商管群跨章思維重組 ｜ 整合 CH6 市場收益 ➔ CH7 完全競爭 ➔ CH8 完全獨占 ➔ CH9 獨占性競爭與寡占</div>
+    <!-- ==========================================
+         SVG 背景有機平滑樹枝連線層
+         ========================================== -->
+    <svg class="mindmap-svg-canvas" viewBox="0 0 2000 1400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- 箭頭標記 -->
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#dc2626" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7" />
+        </marker>
+        <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#7c3aed" />
+        </marker>
+      </defs>
+
+      <!-- 1. 中心放射至 6 大一級主幹 (Primary Stems) -->
+      <!-- Center to North (CH6) -->
+      <path d="M 1000 620 C 1000 500, 1000 460, 1000 410" fill="none" stroke="#2563eb" stroke-width="7" stroke-linecap="round" />
+      
+      <!-- Center to North-East (CH7) -->
+      <path d="M 1150 640 C 1280 600, 1340 540, 1420 510" fill="none" stroke="#059669" stroke-width="7" stroke-linecap="round" />
+
+      <!-- Center to South-East (CH8) -->
+      <path d="M 1150 720 C 1280 770, 1340 830, 1400 860" fill="none" stroke="#e11d48" stroke-width="7" stroke-linecap="round" />
+
+      <!-- Center to South-West (CH9 獨占性競爭) -->
+      <path d="M 850 720 C 720 770, 660 830, 600 860" fill="none" stroke="#d97706" stroke-width="7" stroke-linecap="round" />
+
+      <!-- Center to North-West (CH9 寡占) -->
+      <path d="M 850 640 C 720 600, 660 540, 580 510" fill="none" stroke="#7c3aed" stroke-width="7" stroke-linecap="round" />
+
+      <!-- Center to South (核心決策貫串) -->
+      <path d="M 1000 740 C 1000 820, 1000 900, 1000 950" fill="none" stroke="#b45309" stroke-width="7" stroke-linecap="round" />
+
+      <!-- 2. CH6 主幹分支曲線 (North) -->
+      <path d="M 1000 350 C 1000 300, 720 280, 720 250" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+      <path d="M 1000 350 C 1000 270, 1000 230, 1000 200" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+      <path d="M 1000 350 C 1000 300, 1280 280, 1280 250" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+
+      <path d="M 720 215 C 720 180, 720 140, 720 115" fill="none" stroke="#93c5fd" stroke-width="2" />
+      <path d="M 1000 165 C 1000 130, 1000 100, 1000 75" fill="none" stroke="#93c5fd" stroke-width="2" />
+      <path d="M 1280 215 C 1280 180, 1280 140, 1280 115" fill="none" stroke="#93c5fd" stroke-width="2" />
+
+      <!-- 3. CH7 主幹分支曲線 (North-East) -->
+      <path d="M 1530 460 C 1600 420, 1640 370, 1690 340" fill="none" stroke="#10b981" stroke-width="3.5" />
+      <path d="M 1550 480 C 1610 470, 1660 460, 1720 455" fill="none" stroke="#10b981" stroke-width="3.5" />
+      <path d="M 1550 500 C 1610 530, 1660 560, 1710 575" fill="none" stroke="#10b981" stroke-width="3.5" />
+      <path d="M 1530 520 C 1580 580, 1620 640, 1670 685" fill="none" stroke="#10b981" stroke-width="3.5" />
+
+      <path d="M 1790 340 C 1820 340, 1840 340, 1860 340" fill="none" stroke="#6ee7b7" stroke-width="2" />
+      <path d="M 1820 455 C 1840 455, 1855 455, 1870 455" fill="none" stroke="#6ee7b7" stroke-width="2" />
+      <path d="M 1810 575 C 1835 575, 1850 575, 1870 575" fill="none" stroke="#6ee7b7" stroke-width="2" />
+      <path d="M 1780 685 C 1810 685, 1835 685, 1860 685" fill="none" stroke="#6ee7b7" stroke-width="2" />
+
+      <!-- 4. CH8 主幹分支曲線 (South-East) -->
+      <path d="M 1510 870 C 1580 840, 1620 820, 1670 810" fill="none" stroke="#f43f5e" stroke-width="3.5" />
+      <path d="M 1530 890 C 1590 910, 1630 930, 1680 935" fill="none" stroke="#f43f5e" stroke-width="3.5" />
+      <path d="M 1510 910 C 1560 970, 1600 1020, 1650 1060" fill="none" stroke="#f43f5e" stroke-width="3.5" />
+
+      <path d="M 1780 810 C 1810 810, 1835 810, 1860 810" fill="none" stroke="#fda4af" stroke-width="2" />
+      <path d="M 1790 935 C 1820 935, 1840 935, 1860 935" fill="none" stroke="#fda4af" stroke-width="2" />
+      <path d="M 1770 1060 C 1800 1060, 1830 1060, 1855 1060" fill="none" stroke="#fda4af" stroke-width="2" />
+
+      <!-- 5. CH9 獨占性競爭主幹分支曲線 (South-West) -->
+      <path d="M 480 870 C 420 840, 380 820, 330 810" fill="none" stroke="#f59e0b" stroke-width="3.5" />
+      <path d="M 470 890 C 400 910, 360 930, 310 935" fill="none" stroke="#f59e0b" stroke-width="3.5" />
+      <path d="M 480 910 C 430 970, 390 1020, 340 1060" fill="none" stroke="#f59e0b" stroke-width="3.5" />
+
+      <path d="M 220 810 C 190 810, 170 810, 145 810" fill="none" stroke="#fde68a" stroke-width="2" />
+      <path d="M 200 935 C 180 935, 165 935, 145 935" fill="none" stroke="#fde68a" stroke-width="2" />
+      <path d="M 220 1060 C 190 1060, 170 1060, 145 1060" fill="none" stroke="#fde68a" stroke-width="2" />
+
+      <!-- 6. CH9 寡占主幹分支曲線 (North-West) -->
+      <path d="M 470 460 C 400 420, 360 370, 310 340" fill="none" stroke="#8b5cf6" stroke-width="3.5" />
+      <path d="M 450 480 C 390 470, 350 460, 290 455" fill="none" stroke="#8b5cf6" stroke-width="3.5" />
+      <path d="M 470 500 C 410 540, 370 580, 320 605" fill="none" stroke="#8b5cf6" stroke-width="3.5" />
+
+      <path d="M 200 340 C 180 340, 165 340, 145 340" fill="none" stroke="#c4b5fd" stroke-width="2" />
+      <path d="M 180 455 C 165 455, 155 455, 145 455" fill="none" stroke="#c4b5fd" stroke-width="2" />
+      <path d="M 210 605 C 185 605, 165 605, 145 605" fill="none" stroke="#c4b5fd" stroke-width="2" />
+
+      <!-- 7. 正南方決策貫串鏈 (South) -->
+      <path d="M 1000 1010 C 1000 1060, 740 1080, 740 1130" fill="none" stroke="#b45309" stroke-width="3" />
+      <path d="M 1000 1010 C 1000 1100, 920 1150, 920 1205" fill="none" stroke="#b45309" stroke-width="3" />
+      <path d="M 1000 1010 C 1000 1100, 1080 1150, 1080 1205" fill="none" stroke="#b45309" stroke-width="3" />
+      <path d="M 1000 1010 C 1000 1060, 1260 1080, 1260 1130" fill="none" stroke="#b45309" stroke-width="3" />
+
+      <!-- 8. 跨章因果神經突觸連線 (Cross-Chapter Neural Curves) -->
+      <!-- CH7 P=MC (DWL=0) ➔ CH8 P>MC (DWL>0) -->
+      <path d="M 1860 735 C 1950 820, 1950 990, 1860 1030" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-red)" />
+
+      <!-- CH7 LACmin ➔ CH9 Monopolistic Excess Capacity -->
+      <path d="M 1670 715 C 1500 780, 500 780, 340 1035" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-blue)" />
+
+      <!-- CH6 Amoroso Formula ➔ CH8 3rd Degree Price Discrimination -->
+      <path d="M 1340 190 C 1500 240, 1650 750, 1720 900" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrow-purple)" />
+    </svg>
+
+
+    <!-- ==========================================
+         HTML 節點渲染層 (全部文字 ≧ 14pt)
+         ========================================== -->
+
+    <!-- 0. 中心核心節點 (Central Core Node) -->
+    <div class="node-item center-hub" style="left: 1000px; top: 680px;">
+      <span class="hub-badge">🌟 統測商管群跨章整合核心</span>
+      <h1 class="hub-title">🏢 CH6–CH9 廠商理論與市場結構</h1>
+      <div class="hub-formula">
+        🎯 追求利潤極大化：<b>π ＝ TR － TC</b> ｜ 通用黃金律：<b>MR ＝ MC</b>
       </div>
-      <div class="header-meta">
-        標準尺寸：<b>A3 橫向 (420mm × 297mm)</b><br>
-        排版守則：<b>全文字 ≧ 14pt ｜ 課本 300 DPI 原圖精確對標</b>
+    </div>
+
+
+    <!-- ==================== 1. 北方：CH6 市場光譜與廠商收益 ==================== -->
+    <div class="node-item stem-node stem-ch6" style="left: 1000px; top: 380px;">
+      🏛️ CH6 廠商收益原理與市場光譜
+    </div>
+
+    <!-- 6A. 判定維度 -->
+    <div class="node-item branch-node b-ch6" style="left: 720px; top: 250px;">
+      📐 市場結構 4 判定指標
+    </div>
+    <div class="node-item leaf-card" style="left: 720px; top: 115px;">
+      <div class="leaf-title"><span class="tag-blue">●</span> 劃分市場四大維度</div>
+      <ul class="leaf-list">
+        <li><b>廠商數</b>：無數 ➔ 眾多 ➔ 少數 ➔ 僅此一家</li>
+        <li><b>產品特質</b>：完全同質 ➔ 異質品牌 ➔ 無替代品</li>
+        <li><b>進出難易</b>：完全自由 ➔ 容易 ➔ 困難 ➔ 受阻</li>
+        <li><b>訂價能力</b>：價格接受者 ➔ 決定者</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch06/fig6_01_market_structures_spectrum.png" alt="光譜" onclick="openModal(this.src)" />
+        <span>圖 6-1 市場結構競爭連續光譜</span>
       </div>
-    </header>
+    </div>
 
-    <!-- 四大直向主幹欄位 -->
-    <main class="canvas-body">
-
-      <!-- ==================== 第 1 欄：CH6 市場結構總覽 ＆ 廠商收益總論 ==================== -->
-      <section class="trunk-col theme-ch6">
-        <div class="col-header">
-          <h2>🏛️ 一、市場光譜與廠商收益</h2>
-          <span class="col-badge">CH6 收益基礎</span>
-        </div>
-
-        <!-- 節點 6.1: 市場結構四分法 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch6">6.1</span>
-            <span>市場結構四大判定維度</span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">判定 4 指標</span>：廠商數目、產品同質/異質、進出障礙難易、價格決定力。</li>
-            <li><span class="hl-bold">競爭光譜</span>：完全競爭（最激烈）➔ 獨占性競爭 ➔ 寡占 ➔ 完全獨占（獨占力最強）。</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch06/fig6_01_market_structures_spectrum.png" alt="市場結構連續光譜" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 6-1 競爭程度與獨占力量光譜圖</div>
-          </div>
-        </div>
-
-        <!-- 節點 6.2: 收益三指標與需求線特徵 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch6">6.2</span>
-            <span>收益三指標 ＆ 兩類需求線</span>
-          </div>
-          <div class="formula-card">
-            <div class="formula-math">
-              <i>TR</i> ＝ <i>P</i> × <i>Q</i> ｜ <i>AR</i> ＝ <span class="frac"><span class="frac-top"><i>TR</i></span><span class="frac-bottom"><i>Q</i></span></span> ＝ <i>P</i> ｜ <i>MR</i> ＝ <span class="frac"><span class="frac-top">△<i>TR</i></span><span class="frac-bottom">△<i>Q</i></span></span>
-            </div>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-blue">完全競爭四線合一</span>：個別廠商需求線水平（<i>E<sub>d</sub></i> ＝ ∞），<i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>D</i>。<i>TR</i> 為過原點射線。</li>
-            <li><span class="hl-red">不完全競爭負斜率</span>：<i>P</i> ＝ <i>AR</i> ＞ <i>MR</i>。<i>MR</i> 斜率為 <i>AR</i> 的 <b>2 倍</b>，橫截距為 <b>一半</b>！</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch06/fig6_06_imperfect_comp_tr_ar_mr.png" alt="不完全競爭TR、AR與MR" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 6-6 不完全競爭 TR、AR、MR 幾何連動</div>
-          </div>
-        </div>
-
-        <!-- 節點 6.3: 阿莫羅索公式與利潤極大準則 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch6">6.3</span>
-            <span>阿莫羅索公式 ＆ <i>MR</i>＝<i>MC</i></span>
-          </div>
-          <div class="formula-card">
-            <div class="formula-math">
-              <i>MR</i> ＝ <i>P</i> × ( 1 － <span class="frac"><span class="frac-top">1</span><span class="frac-bottom">|<i>E<sub>d</sub></i>|</span></span> ) ｜ 利潤極大：<i>MR</i> ＝ <i>MC</i>
-            </div>
-          </div>
-          <ul class="node-list">
-            <li>|<i>E<sub>d</sub></i>| ＞ 1 ➔ <i>MR</i> ＞ 0 ➔ 降價使 <i>TR</i> 增加（薄利多銷）。</li>
-            <li>|<i>E<sub>d</sub></i>| ＝ 1 ➔ <i>MR</i> ＝ 0 ➔ <i>TR</i> 達極大頂點。</li>
-            <li>|<i>E<sub>d</sub></i>| ＜ 1 ➔ <i>MR</i> ＜ 0 ➔ 降價使 <i>TR</i> 減少。<span class="hl-red">廠商絕不在此階段生產！</span></li>
-            <li><span class="hl-tag">通用法則</span>：所有市場追求利潤最大必取 <b><i>MR</i> ＝ <i>MC</i></b>，且 <i>MC</i> 斜率 ＞ <i>MR</i> 斜率。</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ==================== 第 2 欄：CH7 完全競爭產量與價格 ==================== -->
-      <section class="trunk-col theme-ch7">
-        <div class="col-header">
-          <h2>⚖️ 二、完全競爭產量與價格</h2>
-          <span class="col-badge">CH7 自由效率</span>
-        </div>
-
-        <!-- 節點 7.1: 短期均衡與損益 5 情境 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch7">7.1</span>
-            <span>短期均衡條件 ＆ 損益 5 情境</span>
-          </div>
-          <div class="formula-card">
-            <div class="formula-math">
-              短期均衡決定 <i>Q</i>*：<i>P</i> ＝ <i>MR</i> ＝ <i>SMC</i>
-            </div>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-green">超額利潤</span>：<i>P</i> ＞ <i>SAC</i>，經濟利潤 π ＞ 0。</li>
-            <li><span class="hl-bold">收支平衡點</span>：<i>P</i> ＝ <i>SAC</i> 最低點，π ＝ 0（正常利潤）。</li>
-            <li><span class="hl-bold">虧損續營運</span>：<i>AVC</i><sub>min</sub> ＜ <i>P</i> ＜ <i>SAC</i>（補貼 <i>TFC</i>，虧損 ＜ <i>TFC</i>）。</li>
-            <li><span class="hl-red">短期歇業點</span>：<i>P</i> ＝ <i>AVC</i> 最低點（營運與關廠虧損皆為 <i>TFC</i>）。</li>
-            <li><span class="hl-red">歇業關廠</span>：<i>P</i> ＜ <i>AVC</i> 最低點（虧損 ＞ <i>TFC</i>，立即停業）。</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch07/fig7_06_shutdown_point.png" alt="收支平衡點與歇業點" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 7-6 收支平衡點（B）與歇業點（C）判定</div>
-          </div>
-        </div>
-
-        <!-- 節點 7.2: 短期供給曲線導出 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch7">7.2</span>
-            <span>短期供給曲線 <i>S</i> ＝ <i>MC</i></span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">廠商短期供給線</span>：整條 <b><i>SMC</i> 曲線高於 <i>AVC</i> 最低點以上的那一段</b>（<i>P</i> ≧ <i>AVC</i><sub>min</sub>）。</li>
-            <li>當 <i>P</i> ＜ <i>AVC</i><sub>min</sub> 時，供給量 <i>Q</i> ＝ 0。</li>
-            <li><span class="hl-bold">市場供給線</span>：個別廠商供給線的「水平加總」（<i>Q<sub>M</sub></i> ＝ Σ <i>q<sub>i</sub></i>）。</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch07/fig7_08_short_run_supply_curve.png" alt="完全競爭短期供給曲線" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 7-8 短期供給曲線由 SMC 在 AVC 以上導出</div>
-          </div>
-        </div>
-
-        <!-- 節點 7.3: 長期「七位一體」完美均衡 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch7">7.3</span>
-            <span>長期「七位一體」完美均衡</span>
-          </div>
-          <div class="formula-card">
-            <div class="formula-math">
-              <i>P</i> ＝ <i>MR</i> ＝ <i>LMC</i> ＝ <i>SMC</i> ＝ <i>LAC</i><sub>min</sub> ＝ <i>SAC</i><sub>min</sub>
-            </div>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">自由進出機制</span>：超額利潤誘使新廠商進入 ➔ 供給增、市價跌；虧損誘使退出 ➔ 市價回升。</li>
-            <li><span class="hl-green">長期利潤必為零</span>：長期僅享正常利潤（π ＝ 0）。</li>
-            <li><span class="hl-tag">社會福祉最大</span>：兼具<b>生產效率</b>（在 <i>LAC</i> 最低點生產）與<b>配置效率</b>（<i>P</i> ＝ <i>MC</i>，無死重損失 <i>DWL</i> ＝ 0）。</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch07/fig7_10_long_run_equilibrium.png" alt="完全競爭長期均衡" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 7-10 完全競爭長期均衡與市場出清</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== 第 3 欄：CH8 完全獨占產量與價格 ==================== -->
-      <section class="trunk-col theme-ch8">
-        <div class="col-header">
-          <h2>👑 三、完全獨占定價與差別取價</h2>
-          <span class="col-badge">CH8 市場力量</span>
-        </div>
-
-        <!-- 節點 8.1: 短期長期均衡與無供給曲線 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch8">8.1</span>
-            <span>獨占產量決定 ＆ 無供給曲線</span>
-          </div>
-          <div class="formula-card">
-            <div class="formula-math">
-              <i>MR</i> ＝ <i>MC</i> 決定 <i>Q</i>* ➔ 對應需求線決定 <i>P</i>*（<i>P</i>* ＞ <i>MC</i>）
-            </div>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-red">獨占無供給曲線</span>：價格與產量不存在一一對應關係！同一價格可對應不同產量。</li>
-            <li><span class="hl-bold">虧損去留準則</span>：看 <i>P</i> 與 <i>AVC</i>。若 <i>P</i> ≧ <i>AVC</i> 繼續生產；<i>P</i> ＜ <i>AVC</i> 歇業。</li>
-            <li><span class="hl-bold">長期均衡</span>：高進入障礙（專利、特許、規模經濟），<b>長期仍可享有超額利潤</b>（<i>P</i> ＞ <i>LAC</i>）。</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch08/fig8_02_supernormal_profit.png" alt="獨占超額利潤" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 8-2 獨占廠商利潤最大化均衡（超額利潤）</div>
-          </div>
-        </div>
-
-        <!-- 節點 8.2: 三大差別訂價實務 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch8">8.2</span>
-            <span>差別取價（價格歧視）三級制</span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">一級（完全差別）</span>：按消費者願付最高保留價逐一索價，<i>CS</i> ＝ 0 轉為 <i>PS</i>，產量同完全競爭，無死重損失。</li>
-            <li><span class="hl-bold">二級（數量折扣）</span>：分段階梯定價（如水電累進費率、量販包）。</li>
-            <li><span class="hl-red">三級（市場分割）</span>：依彈性索價！<b>彈性大索低價、彈性小索高價</b>。</li>
-          </ul>
-          <div class="formula-card">
-            <div class="formula-math">
-              <i>P</i><sub>1</sub>( 1 － <span class="frac"><span class="frac-top">1</span><span class="frac-bottom">|<i>E</i><sub><i>d</i>1</sub>|</span></span> ) ＝ <i>P</i><sub>2</sub>( 1 － <span class="frac"><span class="frac-top">1</span><span class="frac-bottom">|<i>E</i><sub><i>d</i>2</sub>|</span></span> ) ＝ <i>MC</i>
-            </div>
-          </div>
-          <div class="fig-card">
-            <img src="images/ch08/fig8_13_third_degree_price_discrimination.png" alt="三級差別取價" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 8-13 三級差別訂價（彈性大價低、彈性小價高）</div>
-          </div>
-        </div>
-
-        <!-- 節點 8.3: 獨占效率損失與自然獨占管制 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch8">8.3</span>
-            <span>死重損失 <i>DWL</i> ＆ 政府管制</span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-red">福利死重損失</span>：<i>P</i> ＞ <i>MC</i> 導致配置無效率，產量少（<i>Q<sub>m</sub></i> ＜ <i>Q<sub>c</sub></i>）、價格高（<i>P<sub>m</sub></i> ＞ <i>P<sub>c</sub></i>），產生三角形死重損失 <i>DWL</i>。</li>
-            <li><span class="hl-bold">邊際成本定價法（<i>P</i> ＝ <i>MC</i>）</span>：社會福利最大（<i>DWL</i> ＝ 0）。但自然獨占 <i>MC</i> ＜ <i>AC</i>，廠商必虧損，需政府補貼。</li>
-            <li><span class="hl-bold">平均成本定價法（<i>P</i> ＝ <i>AC</i>）</span>：廠商賺取正常利潤（收支平衡），無需補貼，為實務次佳解。</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch08/fig8_14_social_welfare_dwl.png" alt="獨占社會福祉與死重損失" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 8-14 獨占市場之死重損失 DWL（三角形 ABC）</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== 第 4 欄：CH9 不完全競爭：獨占性競爭與寡占 ==================== -->
-      <section class="trunk-col theme-ch9">
-        <div class="col-header">
-          <h2>⚔️ 四、獨占性競爭與寡占賽局</h2>
-          <span class="col-badge">CH9 現實策略</span>
-        </div>
-
-        <!-- 節點 9.1: 獨占性競爭與超額產能 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch9">9.1</span>
-            <span>獨占性競爭 ＆ 超額產能定理</span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">特徵</span>：廠商眾多、<b>產品有差異</b>（包裝、品質、服務）、進出自由。積極進行非價格競爭（廣告）。</li>
-            <li><span class="hl-bold">長期相切均衡</span>：自由進出使長期超額利潤歸零（<b><i>P</i> ＝ <i>LAC</i></b>），需求線切於 <i>LAC</i> 下降段。</li>
-            <li><span class="hl-red">超額產能定理</span>：未在 <i>LAC</i> 最低點生產，有超額產能（產能未充分利用）。但提供了多樣化滿足！</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch09/fig9_05_long_run_tangency.png" alt="獨占性競爭長期相切均衡" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 9-5 獨占性競爭長期相切均衡（P ＝ LAC）</div>
-          </div>
-        </div>
-
-        <!-- 節點 9.2: 寡占市場與史威吉拗折需求線 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch9">9.2</span>
-            <span>寡占 ＆ 史威吉拗折需求線</span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">寡占本質</span>：少數大廠商互相牽制，決策具<b>高度相互依存性</b>。</li>
-            <li><span class="hl-red">史威吉核心假設</span>：<b>「跟跌不跟漲」</b>！
-              <br>• 漲價時：對手不跟進 ➔ 需求彈性大（曲線平坦）。
-              <br>• 跌價時：對手立即跟進 ➔ 需求彈性小（曲線陡峭）。</li>
-            <li><span class="hl-tag">價格僵固性</span>：<i>MR</i> 曲線在折點下方出現<b>垂直斷裂缺口</b>！只要 <i>MC</i> 在缺口內變動，均衡價格 <i>P</i>* 與產量 <i>Q</i>* <b>維持不變</b>！</li>
-          </ul>
-          <div class="fig-card">
-            <img src="images/ch09/fig9_06_kinked_demand_curve.png" alt="史威吉拗折需求曲線" onclick="openModal(this.src)" />
-            <div class="fig-caption">圖 9-6 拗折需求線與 MR 缺口（價格僵固性）</div>
-          </div>
-        </div>
-
-        <!-- 節點 9.3: 卡特爾勾結與賽局囚犯困境 -->
-        <div class="node-box">
-          <div class="node-title">
-            <span class="node-pill pill-ch9">9.3</span>
-            <span>卡特爾勾結 ＆ 囚犯困境賽局</span>
-          </div>
-          <ul class="node-list">
-            <li><span class="hl-bold">卡特爾（Cartel，如 OPEC）</span>：追求聯合利潤最大（Σ<i>MC</i> ＝ <i>MR</i>）。個別成員有私自偷產降價誘因，容易瓦解。</li>
-            <li><span class="hl-bold">價格領導制</span>：低成本或優勢大廠帶頭定價，小廠跟隨。</li>
-            <li><span class="hl-red">囚犯困境（Prisoner's Dilemma）</span>：
-              <br>個別廠商追求私利之<b>優勢策略</b>（打折促銷），最終落入非合作的<b>奈許均衡</b>（雙方皆促銷），利潤低於合作解！說明寡占為何偏好非價格競爭。</li>
-          </ul>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- ==================== 四大市場結構超級跨章總整合比較表 ==================== -->
-    <section class="table-section">
-      <div class="table-section-title">
-        <span>📊 跨章核心整合：統測必考四大市場結構全維度對照矩陣</span>
+    <!-- 6B. 收益指標 -->
+    <div class="node-item branch-node b-ch6" style="left: 1000px; top: 200px;">
+      💵 收益三指標與需求線
+    </div>
+    <div class="node-item leaf-card wide" style="left: 1000px; top: 75px;">
+      <div class="leaf-title"><span class="tag-blue">●</span> 收益三指標 ＆ 兩類需求線</div>
+      <div class="leaf-formula">
+        <i>TR</i> ＝ <i>P</i> × <i>Q</i> ｜ <i>AR</i> ＝ <i>P</i>（需求線） ｜ <i>MR</i> ＝ △<i>TR</i>/△<i>Q</i>
       </div>
-      <table class="master-table">
-        <thead>
-          <tr>
-            <th class="dim-title">比較維度</th>
-            <th class="col-c1" style="color:#059669">完全競爭（CH7）</th>
-            <th class="col-c2" style="color:#d97706">獨占性競爭（CH9）</th>
-            <th class="col-c3" style="color:#b45309">寡占市場（CH9）</th>
-            <th class="col-c4" style="color:#e11d48">完全獨占（CH8）</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="dim-title">廠商數目 ＆ 產品</td>
-            <td>無數家；產品完全同質</td>
-            <td>眾多家；產品有差異化</td>
-            <td>少數幾家；同質或異質</td>
-            <td>僅此一家；獨一無二無替代</td>
-          </tr>
-          <tr>
-            <td class="dim-title">進出障礙 ＆ 訂價力</td>
-            <td>完全自由；價格接受者</td>
-            <td>自由進出；些微價格影響力</td>
-            <td>進出困難；彼此高度牽制</td>
-            <td>進出完全受阻；價格決定者</td>
-          </tr>
-          <tr>
-            <td class="dim-title">個別廠商面對需求線</td>
-            <td>水平直線（<i>E<sub>d</sub></i> ＝ ∞）</td>
-            <td>向右下傾斜（彈性較大）</td>
-            <td>拗折需求曲線（跟跌不跟漲）</td>
-            <td>向右下傾斜市場需求線</td>
-          </tr>
-          <tr>
-            <td class="dim-title">價格與收益關係</td>
-            <td><i>P</i> ＝ <i>AR</i> ＝ <i>MR</i></td>
-            <td><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i></td>
-            <td><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i>（<i>MR</i> 斷裂）</td>
-            <td><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i>（斜率 2 倍）</td>
-          </tr>
-          <tr>
-            <td class="dim-title">短期利潤極大準則</td>
-            <td><i>P</i> ＝ <i>MR</i> ＝ <i>SMC</i></td>
-            <td><i>MR</i> ＝ <i>SMC</i>（對應需求線訂價）</td>
-            <td><i>MR</i> ＝ <i>SMC</i>（缺口內價格僵固）</td>
-            <td><i>MR</i> ＝ <i>SMC</i>（對應需求線訂價）</td>
-          </tr>
-          <tr>
-            <td class="dim-title">短期歇業關廠點</td>
-            <td><i>P</i> ＝ <i>AVC</i><sub>min</sub></td>
-            <td><i>P</i> ＝ <i>AVC</i><sub>min</sub></td>
-            <td><i>P</i> ＝ <i>AVC</i><sub>min</sub></td>
-            <td><i>P</i> ＝ <i>AVC</i><sub>min</sub></td>
-          </tr>
-          <tr>
-            <td class="dim-title">短期供給曲線</td>
-            <td>有！<i>SMC</i> ≧ <i>AVC</i><sub>min</sub> 之區段</td>
-            <td><b>無供給曲線！</b></td>
-            <td><b>無供給曲線！</b></td>
-            <td><b>無供給曲線！</b></td>
-          </tr>
-          <tr>
-            <td class="dim-title">長期經濟利潤 π</td>
-            <td>π ＝ 0（僅享正常利潤）</td>
-            <td>π ＝ 0（自由進出切點均衡）</td>
-            <td>π ≧ 0（受進出阻礙可有超額利潤）</td>
-            <td>π ≧ 0（極高障礙維持超額利潤）</td>
-          </tr>
-          <tr>
-            <td class="dim-title">長期生產效率</td>
-            <td><b>有效率</b>（在 <i>LAC</i> 最低點生產）</td>
-            <td><b>無</b>（具超額產能，在下降段）</td>
-            <td><b>無</b>（未在 <i>LAC</i> 最低點生產）</td>
-            <td><b>無</b>（未在 <i>LAC</i> 最低點生產）</td>
-          </tr>
-          <tr>
-            <td class="dim-title">配置效率與福祉</td>
-            <td><b>最高！</b><i>P</i> ＝ <i>MC</i>，<i>DWL</i> ＝ 0</td>
-            <td><i>P</i> ＞ <i>MC</i>，有死重損失 <i>DWL</i></td>
-            <td><i>P</i> ＞ <i>MC</i>，有死重損失 <i>DWL</i></td>
-            <td><b>最低！</b><i>P</i> ＞ <i>MC</i>，<i>DWL</i> 最大</td>
-          </tr>
-          <tr>
-            <td class="dim-title">非價格競爭（廣告）</td>
-            <td>無需廣告（產品完全同質）</td>
-            <td><b>最盛！</b>品牌包裝品質競爭</td>
-            <td>普遍採用（避免價格惡性戰）</td>
-            <td>公關形象為主，無需推銷</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <ul class="leaf-list">
+        <li><span class="tag-green">完全競爭「四線合一」</span>：<i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>D</i>（水平線，<i>E<sub>d</sub></i> ＝ ∞）</li>
+        <li><span class="tag-red">不完全競爭「負斜率」</span>：<i>P</i> ＝ <i>AR</i> ＞ <i>MR</i>（<i>MR</i> 斜率為 <i>AR</i> 的 <b>2 倍</b>，橫截距為 <b>一半</b>）</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch06/fig6_06_imperfect_comp_tr_ar_mr.png" alt="TR AR MR" onclick="openModal(this.src)" />
+        <span>圖 6-6 不完全競爭 TR、AR、MR 連動</span>
+      </div>
+    </div>
 
-    <!-- 跨章因果神經傳導與決策貫串帶 -->
-    <footer class="causal-footer">
-      <div class="causal-step">
-        <span style="background:#2563eb;color:#fff;padding:2px 8px;border-radius:4px">1. 收益基礎</span>
-        <span><i>TR</i> / <i>AR</i> / <i>MR</i> ＆ 彈性 <i>E<sub>d</sub></i></span>
+    <!-- 6C. 阿莫羅索公式 -->
+    <div class="node-item branch-node b-ch6" style="left: 1280px; top: 250px;">
+      🎯 羅賓遜－阿莫羅索公式
+    </div>
+    <div class="node-item leaf-card" style="left: 1280px; top: 115px;">
+      <div class="leaf-title"><span class="tag-blue">●</span> 彈性定價三大連動律</div>
+      <div class="leaf-formula">
+        <b><i>MR</i> ＝ <i>P</i> × ( 1 － 1/|<i>E<sub>d</sub></i>| )</b>
       </div>
-      <span class="causal-arrow">➔</span>
-      <div class="causal-step">
-        <span style="background:#059669;color:#fff;padding:2px 8px;border-radius:4px">2. 產量決策</span>
-        <span>通用黃金準則 <b><i>MR</i> ＝ <i>MC</i></b></span>
+      <ul class="leaf-list">
+        <li>|<i>E<sub>d</sub></i>| ＞ 1 ➔ <i>MR</i> ＞ 0（降價 <i>TR</i> 增，<b>薄利多銷</b>）</li>
+        <li>|<i>E<sub>d</sub></i>| ＝ 1 ➔ <i>MR</i> ＝ 0（<i>TR</i> 達極大頂點）</li>
+        <li>|<i>E<sub>d</sub></i>| ＜ 1 ➔ <i>MR</i> ＜ 0（<span class="tag-red">廠商絕不在此階段生產！</span>）</li>
+      </ul>
+    </div>
+
+
+    <!-- ==================== 2. 東北：CH7 完全競爭產量與價格 ==================== -->
+    <div class="node-item stem-node stem-ch7" style="left: 1450px; top: 490px;">
+      ⚖️ CH7 完全競爭產量與價格
+    </div>
+
+    <!-- 7A. 價格接受者與短期均衡 -->
+    <div class="node-item branch-node b-ch7" style="left: 1730px; top: 340px;">
+      價格接受與短期均衡
+    </div>
+    <div class="node-item leaf-card" style="left: 1960px; top: 340px;">
+      <div class="leaf-title"><span class="tag-green">●</span> 價格接受者（Price Taker）</div>
+      <ul class="leaf-list">
+        <li>面對水平需求線：<i>P</i> ＝ <i>AR</i> ＝ <i>MR</i>（彈性無限大）</li>
+        <li>短期最佳產量：<b><i>P</i> ＝ <i>MR</i> ＝ <i>SMC</i></b></li>
+      </ul>
+    </div>
+
+    <!-- 7B. 短期 5 情境 -->
+    <div class="node-item branch-node b-ch7" style="left: 1740px; top: 455px;">
+      短期損益 5 大情境
+    </div>
+    <div class="node-item leaf-card wide" style="left: 1980px; top: 455px;">
+      <div class="leaf-title"><span class="tag-green">●</span> 5 種損益判別（比較 P 與 SAC, AVC）</div>
+      <ul class="leaf-list">
+        <li><b>超額利潤</b>：<i>P</i> ＞ <i>SAC</i>（π ＞ 0）</li>
+        <li><b>正常利潤（收支平衡）</b>：<i>P</i> ＝ <i>SAC</i> 最低點</li>
+        <li><b>虧損續營運</b>：<i>AVC</i><sub>min</sub> ＜ <i>P</i> ＜ <i>SAC</i>（虧損 ＜ <i>TFC</i>）</li>
+        <li><span class="tag-red">短期歇業點</span>：<b><i>P</i> ＝ <i>AVC</i> 最低點</b>（營業/關廠皆虧 <i>TFC</i>）</li>
+        <li><span class="tag-red">關廠歇業</span>：<i>P</i> ＜ <i>AVC</i> 最低點（立即停工）</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch07/fig7_06_shutdown_point.png" alt="歇業點" onclick="openModal(this.src)" />
+        <span>圖 7-6 收支平衡點與歇業點判定</span>
       </div>
-      <span class="causal-arrow">➔</span>
-      <div class="causal-step">
-        <span style="background:#dc2626;color:#fff;padding:2px 8px;border-radius:4px">3. 短期去留</span>
-        <span><i>P</i> 與 <i>AVC</i><sub>min</sub> 比較（歇業點）</span>
+    </div>
+
+    <!-- 7C. 短期供給曲線 -->
+    <div class="node-item branch-node b-ch7" style="left: 1730px; top: 575px;">
+      短期供給曲線 <i>S</i> ＝ <i>MC</i>
+    </div>
+    <div class="node-item leaf-card" style="left: 1960px; top: 575px;">
+      <div class="leaf-title"><span class="tag-green">●</span> SMC 高於 AVC 之區段</div>
+      <ul class="leaf-list">
+        <li>個別供給線：<b><i>S</i> ＝ <i>SMC</i> ≧ <i>AVC</i><sub>min</sub></b> 之路段</li>
+        <li>若 <i>P</i> ＜ <i>AVC</i><sub>min</sub>，供給量 <i>Q</i> ＝ 0</li>
+        <li>市場供給線：個別廠商供給線之「水平加總」</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch07/fig7_08_short_run_supply_curve.png" alt="供給曲線" onclick="openModal(this.src)" />
+        <span>圖 7-8 SMC 導出短期供給線</span>
       </div>
-      <span class="causal-arrow">➔</span>
-      <div class="causal-step">
-        <span style="background:#d97706;color:#fff;padding:2px 8px;border-radius:4px">4. 長期調整</span>
-        <span>自由進出阻礙決定超額利潤存續</span>
+    </div>
+
+    <!-- 7D. 長期七位一體 -->
+    <div class="node-item branch-node b-ch7" style="left: 1710px; top: 685px;">
+      長期「七位一體」完美均衡
+    </div>
+    <div class="node-item leaf-card wide" style="left: 1980px; top: 685px;">
+      <div class="leaf-title"><span class="tag-green">●</span> 自由進出與極致福祉（DWL ＝ 0）</div>
+      <div class="leaf-formula">
+        <b><i>P</i> ＝ <i>MR</i> ＝ <i>LMC</i> ＝ <i>SMC</i> ＝ <i>LAC</i><sub>min</sub> ＝ <i>SAC</i><sub>min</sub></b>
       </div>
-      <span class="causal-arrow">➔</span>
-      <div class="causal-step">
-        <span style="background:#7c3aed;color:#fff;padding:2px 8px;border-radius:4px">5. 福利評價</span>
-        <span><b><i>P</i> ＝ <i>MC</i></b> 決定有無死重損失 <i>DWL</i></span>
+      <ul class="leaf-list">
+        <li>長期經濟利潤必為零（<b>π ＝ 0</b> 僅享正常利潤）</li>
+        <li><b>生產效率</b>：在 <i>LAC</i> 最低點生產，產能完全利用</li>
+        <li><b>配置效率</b>：<b><i>P</i> ＝ <i>MC</i></b>，社會總剩餘最大，<b>死重損失 <i>DWL</i> ＝ 0</b></li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch07/fig7_10_long_run_equilibrium.png" alt="長期均衡" onclick="openModal(this.src)" />
+        <span>圖 7-10 完全競爭長期均衡出清</span>
       </div>
-    </footer>
+    </div>
+
+
+    <!-- ==================== 3. 東南：CH8 完全獨占產量與價格 ==================== -->
+    <div class="node-item stem-node stem-ch8" style="left: 1430px; top: 880px;">
+      👑 CH8 完全獨占產量與定價
+    </div>
+
+    <!-- 8A. 均衡決定與無供給線 -->
+    <div class="node-item branch-node b-ch8" style="left: 1720px; top: 810px;">
+      產量決定 ＆ 無供給曲線
+    </div>
+    <div class="node-item leaf-card wide" style="left: 1980px; top: 810px;">
+      <div class="leaf-title"><span class="tag-red">●</span> 價格決定者（Price Maker）</div>
+      <ul class="leaf-list">
+        <li><i>MR</i> ＝ <i>SMC</i> 決定 <i>Q</i>* ➔ 需求線決定 <b><i>P</i>* ＞ <i>MC</i></b></li>
+        <li><span class="tag-red">獨占沒有供給曲線！</span>（價格與產量無一對一關係）</li>
+        <li>長期超額利潤：高進入障礙使<b>長期仍保有 π ＞ 0</b></li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch08/fig8_02_supernormal_profit.png" alt="獨占超額利潤" onclick="openModal(this.src)" />
+        <span>圖 8-2 獨占利潤極大化超額利潤</span>
+      </div>
+    </div>
+
+    <!-- 8B. 差別取價 -->
+    <div class="node-item branch-node b-ch8" style="left: 1730px; top: 935px;">
+      差別訂價（價格歧視）三級制
+    </div>
+    <div class="node-item leaf-card wide" style="left: 1980px; top: 935px;">
+      <div class="leaf-title"><span class="tag-red">●</span> 一級、二級、三級取價</div>
+      <ul class="leaf-list">
+        <li><b>一級（完全差別）</b>：按保留價索費，<i>CS</i>＝0 全轉為 <i>PS</i>，無 <i>DWL</i></li>
+        <li><b>二級（數量折扣）</b>：按數量區間階梯定價（水電費率）</li>
+        <li><b>三級（市場分割）</b>：<b>彈性大索低價、彈性小索高價</b></li>
+      </ul>
+      <div class="leaf-formula">
+        <i>P</i><sub>1</sub>( 1 － 1/|<i>E</i><sub><i>d</i>1</sub>| ) ＝ <i>P</i><sub>2</sub>( 1 － 1/|<i>E</i><sub><i>d</i>2</sub>| ) ＝ <i>MC</i>
+      </div>
+      <div class="fig-thumb">
+        <img src="images/ch08/fig8_13_third_degree_price_discrimination.png" alt="三級差別取價" onclick="openModal(this.src)" />
+        <span>圖 8-13 三級差別訂價法則</span>
+      </div>
+    </div>
+
+    <!-- 8C. 死重損失與自然獨占 -->
+    <div class="node-item branch-node b-ch8" style="left: 1700px; top: 1060px;">
+      死重損失 <i>DWL</i> ＆ 自然獨占
+    </div>
+    <div class="node-item leaf-card wide" style="left: 1980px; top: 1060px;">
+      <div class="leaf-title"><span class="tag-red">●</span> 配置無效率與政府管制</div>
+      <ul class="leaf-list">
+        <li>配置無效率：<b><i>P</i> ＞ <i>MC</i> 產生死重損失 <i>DWL</i> 三角形</b></li>
+        <li><b>邊際成本定價（<i>P</i> ＝ <i>MC</i>）</b>：福祉最大但廠商虧損，需政府補貼</li>
+        <li><b>平均成本定價（<i>P</i> ＝ <i>AC</i>）</b>：賺正常利潤無超額利潤，實務次佳解</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch08/fig8_14_social_welfare_dwl.png" alt="死重損失" onclick="openModal(this.src)" />
+        <span>圖 8-14 獨占福利死重損失 DWL</span>
+      </div>
+    </div>
+
+
+    <!-- ==================== 4. 西南：CH9 獨占性競爭市場 ==================== -->
+    <div class="node-item stem-node stem-ch9m" style="left: 560px; top: 880px;">
+      ☕ CH9 獨占性競爭市場
+    </div>
+
+    <!-- 9A. 市場特徵 -->
+    <div class="node-item branch-node b-ch9m" style="left: 280px; top: 810px;">
+      產品差異 ＆ 非價格競爭
+    </div>
+    <div class="node-item leaf-card" style="left: 40px; top: 810px; width: 330px;">
+      <div class="leaf-title"><span class="tag-amber">●</span> 特徵與非價格競爭</div>
+      <ul class="leaf-list">
+        <li>廠商眾多、進出容易、負斜率彈性大</li>
+        <li><b>產品有差異（異質性）</b>，具些微定價力</li>
+        <li><b>非價格競爭最盛</b>：品牌、包裝、廣告</li>
+      </ul>
+    </div>
+
+    <!-- 9B. 長期相切均衡 -->
+    <div class="node-item branch-node b-ch9m" style="left: 260px; top: 935px;">
+      長期相切均衡 <i>P</i> ＝ <i>LAC</i>
+    </div>
+    <div class="node-item leaf-card" style="left: 20px; top: 935px; width: 350px;">
+      <div class="leaf-title"><span class="tag-amber">●</span> 自由進出使超額利潤歸零</div>
+      <ul class="leaf-list">
+        <li>短期均衡：<i>MR</i> ＝ <i>SMC</i> 決定 <i>Q</i>*</li>
+        <li>長期自由進出：超額利潤歸零（<b><i>P</i> ＝ <i>LAC</i></b>）</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch09/fig9_05_long_run_tangency.png" alt="長期相切" onclick="openModal(this.src)" />
+        <span>圖 9-5 長期相切切點均衡</span>
+      </div>
+    </div>
+
+    <!-- 9C. 超額產能定理 -->
+    <div class="node-item branch-node b-ch9m" style="left: 280px; top: 1060px;">
+      超額產能定理（Excess Capacity）
+    </div>
+    <div class="node-item leaf-card" style="left: 40px; top: 1060px; width: 350px;">
+      <div class="leaf-title"><span class="tag-amber">●</span> 切於 LAC 下降段</div>
+      <ul class="leaf-list">
+        <li>需求線負斜率，相切於 <b>LAC 下降段</b>（最低點左側）</li>
+        <li>實際產量小於最適產能量，<span class="tag-red">產能未完全利用</span></li>
+        <li>福祉評價：<i>P</i> ＞ <i>MC</i> 有 <i>DWL</i>，但滿足多樣化</li>
+      </ul>
+    </div>
+
+
+    <!-- ==================== 5. 西北：CH9 寡占市場與策略互動 ==================== -->
+    <div class="node-item stem-node stem-ch9o" style="left: 550px; top: 490px;">
+      🚗 CH9 寡占市場與策略互動
+    </div>
+
+    <!-- 9D. 寡占本質 -->
+    <div class="node-item branch-node b-ch9o" style="left: 270px; top: 340px;">
+      少數大廠 ＆ 相互依存性
+    </div>
+    <div class="node-item leaf-card" style="left: 30px; top: 340px; width: 340px;">
+      <div class="leaf-title"><span class="tag-purple">●</span> 寡占本質特徵</div>
+      <ul class="leaf-list">
+        <li>少數幾家大廠掌控市場（同質或異質）</li>
+        <li>決策具有<b>高度相互依存性</b>（牽一髮動全身）</li>
+      </ul>
+    </div>
+
+    <!-- 9E. 史威吉拗折需求線 -->
+    <div class="node-item branch-node b-ch9o" style="left: 250px; top: 455px;">
+      史威吉拗折需求線 ＆ 價格僵固
+    </div>
+    <div class="node-item leaf-card" style="left: 10px; top: 455px; width: 360px;">
+      <div class="leaf-title"><span class="tag-purple">●</span> 「跟跌不跟漲」心理假設</div>
+      <ul class="leaf-list">
+        <li><b>漲價不跟</b>（彈性大平坦） ｜ <b>跌價跟進</b>（彈性小陡峭）</li>
+        <li><b>MR 垂直斷裂缺口</b>：<i>MC</i> 在缺口內變動時，<b>均衡價格與產量皆維持不變</b>！</li>
+      </ul>
+      <div class="fig-thumb">
+        <img src="images/ch09/fig9_06_kinked_demand_curve.png" alt="拗折需求" onclick="openModal(this.src)" />
+        <span>圖 9-6 拗折需求線與價格僵固</span>
+      </div>
+    </div>
+
+    <!-- 9F. 卡特爾與賽局 -->
+    <div class="node-item branch-node b-ch9o" style="left: 270px; top: 605px;">
+      卡特爾勾結 ＆ 囚犯困境
+    </div>
+    <div class="node-item leaf-card" style="left: 30px; top: 605px; width: 350px;">
+      <div class="leaf-title"><span class="tag-purple">●</span> 勾結誘惑與賽局均衡</div>
+      <ul class="leaf-list">
+        <li><b>卡特爾（如 OPEC）</b>：追求聯合利潤最大，但個別偷產誘因極強，易瓦解</li>
+        <li><b>價格領導制</b>：優勢大廠領銜定價，小廠跟隨</li>
+        <li><b>囚犯困境賽局</b>：個別優勢策略（削價促銷）導致奈許均衡，總利潤低於合作解！</li>
+      </ul>
+    </div>
+
+
+    <!-- ==================== 6. 正南方：決策貫串鏈與福利評價 ==================== -->
+    <div class="node-item stem-node stem-core" style="left: 1000px; top: 980px;">
+      🎯 跨章核心決策貫串 ＆ 福利評價鏈
+    </div>
+
+    <div class="node-item branch-node b-core" style="left: 740px; top: 1140px;">
+      1. 產量黃金律：<i>MR</i> ＝ <i>MC</i>
+    </div>
+    <div class="node-item leaf-card" style="left: 740px; top: 1240px; width: 300px;">
+      <div class="leaf-title">產量決策通用法則</div>
+      <div>所有市場追求利潤最大必取 <b><i>MR</i> ＝ <i>MC</i></b>，且 <i>MC</i> 斜率 ＞ <i>MR</i> 斜率。</div>
+    </div>
+
+    <div class="node-item branch-node b-core" style="left: 920px; top: 1210px;">
+      2. 短期去留：看 <i>P</i> 與 <i>AVC</i><sub>min</sub>
+    </div>
+    <div class="node-item leaf-card" style="left: 920px; top: 1310px; width: 300px;">
+      <div class="leaf-title">短期停業決策法則</div>
+      <div><i>P</i> ≧ <i>AVC</i><sub>min</sub> 繼續營業；<i>P</i> ＜ <i>AVC</i><sub>min</sub> 立即歇業關廠！</div>
+    </div>
+
+    <div class="node-item branch-node b-core" style="left: 1080px; top: 1210px;">
+      3. 長期利潤：看進出障礙
+    </div>
+    <div class="node-item leaf-card" style="left: 1080px; top: 1310px; width: 300px;">
+      <div class="leaf-title">超額利潤存續關鍵</div>
+      <div>自由進出（完競、獨競）π ＝ 0；障礙阻擋（寡占、獨占）長期保有 π ≧ 0。</div>
+    </div>
+
+    <div class="node-item branch-node b-core" style="left: 1260px; top: 1140px;">
+      4. 福利評價：看 <i>P</i> 與 <i>MC</i>
+    </div>
+    <div class="node-item leaf-card" style="left: 1260px; top: 1240px; width: 300px;">
+      <div class="leaf-title">死重損失判定準則</div>
+      <div><i>P</i> ＝ <i>MC</i> 福祉最大（<i>DWL</i> ＝ 0）；<i>P</i> ＞ <i>MC</i> 產生死重損失（<i>DWL</i> ＞ 0）。</div>
+    </div>
+
+
+    <!-- ==================== 7. 跨章因果連線標籤 (Cross-Links Labels) ==================== -->
+    <div class="cross-label" style="left: 1910px; top: 920px;">
+      ⚡ 福利對比：完全競爭 <i>P</i>＝<i>MC</i>（無DWL） ⇋ 獨占 <i>P</i>＞<i>MC</i>（死重損失 DWL）
+    </div>
+
+    <div class="cross-label" style="left: 1050px; top: 880px; border-color: #0284c7; color: #0284c7;">
+      ⚡ 長期效率對比：完全競爭 <i>LAC</i> 最低點 ⇋ 獨占性競爭 <i>LAC</i> 下降段（超額產能）
+    </div>
+
+    <div class="cross-label" style="left: 1530px; top: 190px; border-color: #7c3aed; color: #7c3aed;">
+      ⚡ 彈性定價因果：CH6 <i>MR</i>＝<i>P</i>(1－1/|Ed|) ➔ CH8 三級差別訂價（彈性大價低、彈性小價高）
+    </div>
 
   </div>
 </div>
 
-<!-- 燈箱放大效果 -->
+<!-- 燈箱放大視窗 -->
 <div id="modal" onclick="this.style.display='none'">
   <img id="modal-img" src="" alt="放大檢視" />
 </div>
