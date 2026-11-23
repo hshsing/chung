@@ -35,13 +35,15 @@ html, body {
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 56px;
   background: #0f172a;
   border-bottom: 2px solid #334155;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 14px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
@@ -457,9 +459,8 @@ html, body {
 <!-- 頂部操作工具列 -->
 <div class="top-bar no-print">
   <div class="top-title">
-    <span>📐 統測經濟學 A3 核心放射狀心智圖</span>
-    <span class="top-badge">四大市場結構橫向項目全景對比</span>
-    <span style="font-size:14pt;color:#94a3b8">｜ 全文字 ≧ 14pt ｜ 零碰撞零重疊</span>
+    <span>📐 統測經濟學 A3 心智圖</span>
+    <span class="top-badge">四大廠商全景橫向對比</span>
   </div>
 
   <!-- 廠商聚焦切換器 -->
@@ -510,7 +511,7 @@ html, body {
 
         <!-- 1. 中心放射至 6 大橫向比較項目主幹 (Primary Stems) -->
         <!-- Center to North (項目 1：市場本質) -->
-        <path d="M 1400 920 C 1400 700, 1400 550, 1400 415" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" />
+        <path d="M 1400 920 C 1400 700, 1400 550, 1400 440" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" />
 
         <!-- Center to North-East (項目 2：需求與收益) -->
         <path d="M 1600 930 C 1780 930, 1850 520, 1920 520" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round" />
@@ -536,7 +537,7 @@ html, body {
         <path d="M 480 710 C 370 850, 370 1130, 480 1270" fill="none" stroke="#0284c7" stroke-width="3.5" stroke-dasharray="8,5" marker-end="url(#arrow-blue)" />
 
         <!-- ⚡ 定價能力 ➔ 供給線有無 (North Meridian) -->
-        <path d="M 1400 415 C 1460 520, 1460 680, 1400 780" fill="none" stroke="#dc2626" stroke-width="3.5" stroke-dasharray="8,5" marker-end="url(#arrow-red)" />
+        <path d="M 1400 440 C 1460 520, 1460 680, 1400 780" fill="none" stroke="#dc2626" stroke-width="3.5" stroke-dasharray="8,5" marker-end="url(#arrow-red)" />
 
         <!-- ⚡ 自由進出 ➔ 長期利潤歸零 (South Meridian) -->
         <path d="M 1400 1200 C 1460 1300, 1460 1460, 1400 1565" fill="none" stroke="#b45309" stroke-width="3.5" stroke-dasharray="8,5" marker-end="url(#arrow-amber)" />
@@ -559,7 +560,7 @@ html, body {
 
 
       <!-- ==================== 2. 北方 (12:00)：項目 1：市場本質與進入門檻 ==================== -->
-      <div class="node-item dim-card d-m1" style="left: 1400px; top: 250px; width: 800px;">
+      <div class="node-item dim-card d-m1" style="left: 1400px; top: 280px; width: 800px;">
         <div class="dim-header">
           <div class="dim-title t-m1">
             <span>📋 項目 1：市場結構本質與進入門檻</span>
@@ -891,11 +892,11 @@ function zoomFit() {
   const bw = 2800;
   const bh = 1980;
   const scaleX = (vw - 40) / bw;
-  const scaleY = (vh - 80) / bh;
+  const scaleY = (vh - 85) / bh;
   currentScale = Math.min(scaleX, scaleY);
   if (currentScale < 0.2) currentScale = 0.2;
   panX = (vw - bw * currentScale) / 2;
-  panY = (vh - bh * currentScale) / 2 + 25;
+  panY = (vh - bh * currentScale) / 2 + 32;
   updateTransform();
 }
 
