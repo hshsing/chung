@@ -1,74 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>A3 核心放射狀心智圖 ｜ CH6–CH9 廠商理論與市場結構全景整合</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>統測經濟學 A3 核心放射狀心智圖：CH6–CH9 廠商理論與市場結構</title>
 <style>
-/* ==========================================================================
-   A3 橫向核心放射狀心智圖（Radial Mind Map）
-   標準畫布規格：420mm × 297mm 橫向比例（2800px × 1980px 幾何零重疊系統）
-   排版要求：全圖文字 ≧ 14pt（約 18.7px），0 重疊、0 裁切、自適應縮放平移！
-   ========================================================================== */
-
+/* =========================================================
+   A3 橫向旗艦規格 (420mm x 297mm) ｜ 360° 核心放射狀心智圖
+   全文字體嚴格 ≧ 14pt ｜ 零重疊完美排版 ｜ 智慧適應視窗
+   ========================================================= */
 @page {
   size: A3 landscape;
-  margin: 6mm;
+  margin: 8mm;
 }
-
 * {
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
 }
-
-body {
+html, body {
   margin: 0;
   padding: 0;
-  background: #090d16;
-  color: #0f172a;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
-  font-size: 14pt;
-  line-height: 1.4;
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+  color: #1e293b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", Roboto, sans-serif;
   overflow: hidden;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-size: 14pt;
 }
 
-/* 頂部操作工具列 */
+/* 操作列（列印時自動隱藏） */
 .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
   background: #111827;
-  color: #f8fafc;
-  padding: 10px 24px;
+  border-bottom: 2px solid #374151;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #1f2937;
-  z-index: 2000;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  flex-shrink: 0;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 }
 .top-title {
-  font-size: 15pt;
-  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 12px;
-}
-.top-badge {
-  background: linear-gradient(135deg, #f97316, #ea580c);
-  color: #fff;
-  padding: 3px 12px;
-  border-radius: 999px;
+  color: #f3f4f6;
   font-size: 14pt;
   font-weight: 800;
-  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.4);
+}
+.top-badge {
+  background: #d97706;
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 14pt;
+  font-weight: 700;
 }
 .top-actions {
   display: flex;
-  gap: 10px;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 .btn {
   background: #2563eb;
@@ -127,7 +122,7 @@ body {
   transition: transform 0.08s ease-out;
 }
 
-/* 核心放射狀 A3 橫向畫布 (2800px × 1980px，精確 1.414 A3 比例) */
+/* 核心放射狀 A3 橫向畫布 (2800px x 1980px，精確 1.414 A3 比例) */
 .mindmap-board {
   width: 2800px;
   height: 1980px;
@@ -203,9 +198,9 @@ body {
 /* 2. 一級主幹節點（Level 1 Primary Stem Nodes） */
 .stem-node {
   color: #ffffff;
-  font-size: 17.5pt;
+  font-size: 17pt;
   font-weight: 800;
-  padding: 13px 30px;
+  padding: 12px 28px;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   text-align: center;
@@ -288,15 +283,6 @@ body {
 .tag-green { color: #047857; font-weight: 800; }
 .tag-amber { color: #b45309; font-weight: 800; }
 .tag-purple { color: #6d28d9; font-weight: 800; }
-.tag-badge {
-  display: inline-block;
-  background: #fef08a;
-  color: #854d0e;
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-weight: 800;
-  font-size: 14pt;
-}
 
 /* 課本圖形縮圖標記 */
 .fig-thumb {
@@ -411,7 +397,7 @@ body {
     <div class="mindmap-board" id="mindmap-board">
 
       <!-- ==========================================
-           SVG 背景平滑有機樹枝連線層 (2800 × 1980)
+           SVG 背景平滑有機樹枝連線層 (2800 x 1980)
            ========================================== -->
       <svg class="mindmap-svg-canvas" viewBox="0 0 2800 1980" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -426,71 +412,73 @@ body {
           </marker>
         </defs>
 
-        <!-- 1. 中心放射至 6 大一級主幹 (Primary Stems) -->
+        <!-- 1. 中心放射至各大主幹 (Primary Stems) -->
         <!-- Center to North (CH6) -->
-        <path d="M 1400 920 C 1400 760, 1400 640, 1400 565" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" />
-        
-        <!-- Center to North-East (CH7) -->
-        <path d="M 1580 940 C 1700 870, 1780 790, 1880 745" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round" />
-
-        <!-- Center to South-East (CH8) -->
-        <path d="M 1580 1040 C 1700 1120, 1780 1200, 1880 1235" fill="none" stroke="#e11d48" stroke-width="8" stroke-linecap="round" />
-
-        <!-- Center to South-West (CH9 獨占性競爭) -->
-        <path d="M 1220 1040 C 1100 1120, 1020 1200, 920 1235" fill="none" stroke="#d97706" stroke-width="8" stroke-linecap="round" />
-
-        <!-- Center to North-West (CH9 寡占) -->
-        <path d="M 1220 940 C 1100 870, 1020 790, 920 745" fill="none" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" />
+        <path d="M 1400 920 C 1400 760, 1400 620, 1400 545" fill="none" stroke="#2563eb" stroke-width="8" stroke-linecap="round" />
 
         <!-- Center to South (核心決策貫串) -->
-        <path d="M 1400 1060 C 1400 1170, 1400 1300, 1400 1395" fill="none" stroke="#b45309" stroke-width="8" stroke-linecap="round" />
+        <path d="M 1400 1060 C 1400 1180, 1400 1320, 1400 1415" fill="none" stroke="#b45309" stroke-width="8" stroke-linecap="round" />
 
-        <!-- 2. CH6 主幹分支曲線 (North) -->
-        <path d="M 1400 515 C 1400 390, 780 370, 780 340" fill="none" stroke="#3b82f6" stroke-width="4.5" />
-        <path d="M 1400 515 C 1400 420, 1400 380, 1400 350" fill="none" stroke="#3b82f6" stroke-width="4.5" />
-        <path d="M 1400 515 C 1400 390, 2020 370, 2020 340" fill="none" stroke="#3b82f6" stroke-width="4.5" />
+        <!-- Center to North-West (CH9 寡占) -->
+        <path d="M 1220 940 C 1100 870, 1000 790, 880 745" fill="none" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" />
 
-        <!-- 3. CH7 主幹分支曲線 (North-East) -->
-        <path d="M 2050 720 C 2180 620, 2240 430, 2290 330" fill="none" stroke="#10b981" stroke-width="4.5" />
-        <path d="M 2050 720 C 2180 660, 2240 590, 2290 560" fill="none" stroke="#10b981" stroke-width="4.5" />
-        <path d="M 2050 720 C 2180 740, 2240 770, 2290 790" fill="none" stroke="#10b981" stroke-width="4.5" />
-        <path d="M 2050 720 C 2180 820, 2240 940, 2290 1020" fill="none" stroke="#10b981" stroke-width="4.5" />
+        <!-- Center to South-West (CH9 獨占性競爭) -->
+        <path d="M 1220 1040 C 1100 1120, 1000 1200, 880 1235" fill="none" stroke="#d97706" stroke-width="8" stroke-linecap="round" />
 
-        <!-- 4. CH8 主幹分支曲線 (South-East) -->
-        <path d="M 2050 1260 C 2180 1260, 2240 1270, 2290 1270" fill="none" stroke="#f43f5e" stroke-width="4.5" />
-        <path d="M 2050 1260 C 2180 1350, 2240 1440, 2290 1510" fill="none" stroke="#f43f5e" stroke-width="4.5" />
-        <path d="M 2050 1260 C 2180 1440, 2240 1650, 2290 1750" fill="none" stroke="#f43f5e" stroke-width="4.5" />
+        <!-- Center to North-East (CH7 完全競爭主幹) -->
+        <path d="M 1600 930 C 1760 840, 1960 620, 2100 420" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round" />
 
-        <!-- 5. CH9 獨占性競爭主幹分支曲線 (South-West) -->
-        <path d="M 750 1260 C 620 1260, 560 1230, 510 1220" fill="none" stroke="#f59e0b" stroke-width="4.5" />
-        <path d="M 750 1260 C 620 1350, 560 1430, 510 1490" fill="none" stroke="#f59e0b" stroke-width="4.5" />
-        <path d="M 750 1260 C 620 1440, 560 1650, 510 1750" fill="none" stroke="#f59e0b" stroke-width="4.5" />
+        <!-- CH7 主幹分支至 CH8 完全獨占主幹 (東側二級放射) -->
+        <path d="M 2275 395 C 2330 395, 2350 480, 2375 480" fill="none" stroke="#e11d48" stroke-width="7" stroke-linecap="round" />
 
-        <!-- 6. CH9 寡占主幹分支曲線 (North-West) -->
-        <path d="M 750 720 C 620 620, 560 470, 510 380" fill="none" stroke="#8b5cf6" stroke-width="4.5" />
-        <path d="M 750 720 C 620 680, 560 660, 510 660" fill="none" stroke="#8b5cf6" stroke-width="4.5" />
-        <path d="M 750 720 C 620 780, 560 880, 510 940" fill="none" stroke="#8b5cf6" stroke-width="4.5" />
 
-        <!-- 7. 正南方決策貫串鏈 (South) -->
-        <path d="M 1400 1445 C 1400 1540, 850 1580, 850 1670" fill="none" stroke="#b45309" stroke-width="4" />
-        <path d="M 1400 1445 C 1400 1560, 1210 1600, 1210 1670" fill="none" stroke="#b45309" stroke-width="4" />
-        <path d="M 1400 1445 C 1400 1560, 1570 1600, 1570 1670" fill="none" stroke="#b45309" stroke-width="4" />
-        <path d="M 1400 1445 C 1400 1540, 1930 1580, 1930 1670" fill="none" stroke="#b45309" stroke-width="4" />
+        <!-- 2. 北方 CH6 主幹分支曲線 -->
+        <path d="M 1400 495 C 1400 380, 780 360, 780 340" fill="none" stroke="#3b82f6" stroke-width="4.5" />
+        <path d="M 1400 495 C 1400 420, 1400 370, 1400 350" fill="none" stroke="#3b82f6" stroke-width="4.5" />
+        <path d="M 1400 495 C 1400 380, 1920 360, 1920 330" fill="none" stroke="#3b82f6" stroke-width="4.5" />
 
-        <!-- 8. 跨章因果神經突觸連線 (Cross-Chapter Neural Curves) -->
-        <!-- CH7 P=MC (DWL=0) ➔ CH8 P>MC (DWL>0) -->
-        <path d="M 2490 1115 C 2550 1140, 2550 1170, 2490 1180" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-red)" />
 
-        <!-- CH7 LACmin ➔ CH9 Monopolistic Excess Capacity -->
-        <path d="M 2290 1020 C 1800 1160, 1100 1340, 510 1490" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-blue)" />
+        <!-- 3. 西北 CH9 寡占主幹分支曲線 -->
+        <path d="M 710 720 C 580 640, 520 480, 520 380" fill="none" stroke="#8b5cf6" stroke-width="4.5" />
+        <path d="M 710 720 C 580 690, 540 670, 520 660" fill="none" stroke="#8b5cf6" stroke-width="4.5" />
+        <path d="M 710 720 C 580 780, 520 870, 520 940" fill="none" stroke="#8b5cf6" stroke-width="4.5" />
 
-        <!-- CH6 Amoroso Formula ➔ CH8 3rd Degree Price Discrimination -->
-        <path d="M 2020 340 C 2180 460, 2360 920, 2380 1180" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-purple)" />
+
+        <!-- 4. 西南 CH9 獨占性競爭主幹分支曲線 -->
+        <path d="M 710 1260 C 580 1240, 540 1230, 520 1220" fill="none" stroke="#f59e0b" stroke-width="4.5" />
+        <path d="M 710 1260 C 580 1340, 520 1430, 520 1490" fill="none" stroke="#f59e0b" stroke-width="4.5" />
+        <path d="M 710 1260 C 580 1430, 520 1650, 520 1760" fill="none" stroke="#f59e0b" stroke-width="4.5" />
+
+
+        <!-- 5. 正南方決策貫串鏈 -->
+        <path d="M 1400 1465 C 1400 1560, 850 1580, 850 1670" fill="none" stroke="#b45309" stroke-width="4" />
+        <path d="M 1400 1465 C 1400 1570, 1200 1600, 1200 1670" fill="none" stroke="#b45309" stroke-width="4" />
+        <path d="M 1400 1465 C 1400 1570, 1550 1600, 1550 1670" fill="none" stroke="#b45309" stroke-width="4" />
+        <path d="M 1400 1465 C 1400 1560, 1900 1580, 1900 1670" fill="none" stroke="#b45309" stroke-width="4" />
+
+
+        <!-- 6. 東側雙排樹枝主幹 (CH7 & CH8 垂直脊柱) -->
+        <!-- CH7 Column 1 綠色主脈貫串 -->
+        <path d="M 2100 420 L 2100 1410" fill="none" stroke="#10b981" stroke-width="4.5" stroke-linecap="round" />
+
+        <!-- CH8 Column 2 紅色主脈貫串 -->
+        <path d="M 2550 505 L 2550 1430" fill="none" stroke="#f43f5e" stroke-width="4.5" stroke-linecap="round" />
+
+
+        <!-- 7. 跨章因果神經突觸連線 (Cross-Chapter Neural Curves) -->
+        <!-- ⚡ 福利對比：CH7 P=MC (DWL=0) ➔ CH8 P>MC (DWL>0) -->
+        <path d="M 2100 1555 C 2100 1630, 2550 1630, 2550 1560" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-red)" />
+
+        <!-- ⚡ 長期效率對比：CH7 LACmin ➔ CH9 獨占性競爭超額產能 -->
+        <path d="M 1905 1410 C 1500 1250, 900 1500, 520 1760" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-blue)" />
+
+        <!-- ⚡ 彈性定價因果：CH6 阿莫羅索公式 ➔ CH8 三級差別訂價 -->
+        <path d="M 1920 330 C 2200 370, 2450 750, 2355 1050" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-purple)" />
       </svg>
 
 
       <!-- ==========================================
-           HTML 節點渲染層（2800 × 1980 嚴格無碰撞零裁切）
+           HTML 節點渲染層（2800 x 1980 嚴格無碰撞零裁切）
            ========================================== -->
 
       <!-- 1. 中心核心節點 (Central Core Hub) -->
@@ -504,7 +492,7 @@ body {
 
 
       <!-- ==================== 2. 北方：CH6 市場光譜與廠商收益 ==================== -->
-      <div class="node-item stem-node stem-ch6" style="left: 1400px; top: 540px;">
+      <div class="node-item stem-node stem-ch6" style="left: 1400px; top: 520px;">
         🏛️ CH6 廠商收益原理與市場光譜
       </div>
 
@@ -546,7 +534,7 @@ body {
       </div>
 
       <!-- 6C. 阿莫羅索公式 -->
-      <div class="node-item branch-card b-ch6" style="left: 2020px; top: 230px; width: 390px;">
+      <div class="node-item branch-card b-ch6" style="left: 1920px; top: 230px; width: 380px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch6">6.3</span>
           <span>羅賓遜－阿莫羅索公式</span>
@@ -562,13 +550,13 @@ body {
       </div>
 
 
-      <!-- ==================== 3. 東北：CH7 完全競爭產量與價格 ==================== -->
-      <div class="node-item stem-node stem-ch7" style="left: 1880px; top: 720px;">
+      <!-- ==================== 3. 東側第 1 排：CH7 完全競爭產量與價格 ==================== -->
+      <div class="node-item stem-node stem-ch7" style="left: 2100px; top: 395px; width: 350px;">
         ⚖️ CH7 完全競爭產量與價格
       </div>
 
       <!-- 7A. 價格接受者與短期均衡 -->
-      <div class="node-item branch-card b-ch7" style="left: 2490px; top: 330px; width: 400px;">
+      <div class="node-item branch-card b-ch7" style="left: 2100px; top: 520px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.1</span>
           <span>價格接受與短期均衡</span>
@@ -580,7 +568,7 @@ body {
       </div>
 
       <!-- 7B. 短期 5 情境 -->
-      <div class="node-item branch-card b-ch7" style="left: 2490px; top: 560px; width: 400px;">
+      <div class="node-item branch-card b-ch7" style="left: 2100px; top: 780px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.2</span>
           <span>短期損益 5 大情境判定</span>
@@ -599,7 +587,7 @@ body {
       </div>
 
       <!-- 7C. 短期供給曲線 -->
-      <div class="node-item branch-card b-ch7" style="left: 2490px; top: 790px; width: 400px;">
+      <div class="node-item branch-card b-ch7" style="left: 2100px; top: 1100px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.3</span>
           <span>短期供給曲線 <i>S</i> ＝ <i>MC</i></span>
@@ -616,7 +604,7 @@ body {
       </div>
 
       <!-- 7D. 長期七位一體 -->
-      <div class="node-item branch-card b-ch7" style="left: 2490px; top: 1020px; width: 400px;">
+      <div class="node-item branch-card b-ch7" style="left: 2100px; top: 1410px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.4</span>
           <span>長期「七位一體」完美均衡</span>
@@ -636,13 +624,13 @@ body {
       </div>
 
 
-      <!-- ==================== 4. 東南：CH8 完全獨占產量與價格 ==================== -->
-      <div class="node-item stem-node stem-ch8" style="left: 1880px; top: 1260px;">
+      <!-- ==================== 4. 東側第 2 排：CH8 完全獨占產量與定價 ==================== -->
+      <div class="node-item stem-node stem-ch8" style="left: 2550px; top: 480px; width: 350px;">
         👑 CH8 完全獨占產量與定價
       </div>
 
       <!-- 8A. 均衡決定與無供給線 -->
-      <div class="node-item branch-card b-ch8" style="left: 2490px; top: 1270px; width: 400px;">
+      <div class="node-item branch-card b-ch8" style="left: 2550px; top: 680px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch8">8.1</span>
           <span>產量決定 ＆ 無供給曲線</span>
@@ -659,7 +647,7 @@ body {
       </div>
 
       <!-- 8B. 差別取價 -->
-      <div class="node-item branch-card b-ch8" style="left: 2490px; top: 1510px; width: 400px;">
+      <div class="node-item branch-card b-ch8" style="left: 2550px; top: 1050px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch8">8.2</span>
           <span>差別訂價（價格歧視）三級制</span>
@@ -679,7 +667,7 @@ body {
       </div>
 
       <!-- 8C. 死重損失與自然獨占 -->
-      <div class="node-item branch-card b-ch8" style="left: 2490px; top: 1750px; width: 400px;">
+      <div class="node-item branch-card b-ch8" style="left: 2550px; top: 1430px; width: 390px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch8">8.3</span>
           <span>死重損失 <i>DWL</i> ＆ 自然獨占</span>
@@ -697,12 +685,12 @@ body {
 
 
       <!-- ==================== 5. 西南：CH9 獨占性競爭市場 ==================== -->
-      <div class="node-item stem-node stem-ch9m" style="left: 920px; top: 1260px;">
+      <div class="node-item stem-node stem-ch9m" style="left: 880px; top: 1260px;">
         ☕ CH9 獨占性競爭市場
       </div>
 
       <!-- 9A. 市場特徵 -->
-      <div class="node-item branch-card b-ch9m" style="left: 310px; top: 1220px; width: 400px;">
+      <div class="node-item branch-card b-ch9m" style="left: 320px; top: 1220px; width: 400px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch9m">9.1</span>
           <span>產品差異 ＆ 非價格競爭</span>
@@ -715,7 +703,7 @@ body {
       </div>
 
       <!-- 9B. 長期相切均衡 -->
-      <div class="node-item branch-card b-ch9m" style="left: 310px; top: 1490px; width: 400px;">
+      <div class="node-item branch-card b-ch9m" style="left: 320px; top: 1490px; width: 400px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch9m">9.2</span>
           <span>長期相切均衡 <i>P</i> ＝ <i>LAC</i></span>
@@ -731,7 +719,7 @@ body {
       </div>
 
       <!-- 9C. 超額產能定理 -->
-      <div class="node-item branch-card b-ch9m" style="left: 310px; top: 1750px; width: 400px;">
+      <div class="node-item branch-card b-ch9m" style="left: 320px; top: 1760px; width: 400px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch9m">9.3</span>
           <span>超額產能定理（Excess Capacity）</span>
@@ -745,12 +733,12 @@ body {
 
 
       <!-- ==================== 6. 西北：CH9 寡占市場與策略互動 ==================== -->
-      <div class="node-item stem-node stem-ch9o" style="left: 920px; top: 720px;">
+      <div class="node-item stem-node stem-ch9o" style="left: 880px; top: 720px;">
         🚗 CH9 寡占市場與策略互動
       </div>
 
       <!-- 9D. 寡占本質 -->
-      <div class="node-item branch-card b-ch9o" style="left: 310px; top: 380px; width: 400px;">
+      <div class="node-item branch-card b-ch9o" style="left: 320px; top: 380px; width: 400px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch9o">9.4</span>
           <span>少數大廠 ＆ 相互依存性</span>
@@ -762,7 +750,7 @@ body {
       </div>
 
       <!-- 9E. 史威吉拗折需求線 -->
-      <div class="node-item branch-card b-ch9o" style="left: 310px; top: 660px; width: 400px;">
+      <div class="node-item branch-card b-ch9o" style="left: 320px; top: 660px; width: 400px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch9o">9.5</span>
           <span>史威吉拗折需求與價格僵固</span>
@@ -778,7 +766,7 @@ body {
       </div>
 
       <!-- 9F. 卡特爾與賽局 -->
-      <div class="node-item branch-card b-ch9o" style="left: 310px; top: 940px; width: 400px;">
+      <div class="node-item branch-card b-ch9o" style="left: 320px; top: 940px; width: 400px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch9o">9.6</span>
           <span>卡特爾勾結 ＆ 囚犯困境</span>
@@ -792,7 +780,7 @@ body {
 
 
       <!-- ==================== 7. 正南方：決策貫串鏈與福利評價 ==================== -->
-      <div class="node-item stem-node stem-core" style="left: 1400px; top: 1420px;">
+      <div class="node-item stem-node stem-core" style="left: 1400px; top: 1440px;">
         🎯 跨章核心決策貫串 ＆ 福利評價鏈
       </div>
 
@@ -804,7 +792,7 @@ body {
         <div>利潤極大通用：<b><i>MR</i> ＝ <i>MC</i></b>（充分條件：<i>MC</i> 斜率 ＞ <i>MR</i> 斜率，由下往上穿過）。</div>
       </div>
 
-      <div class="node-item branch-card b-core" style="left: 1210px; top: 1750px; width: 290px;">
+      <div class="node-item branch-card b-core" style="left: 1200px; top: 1750px; width: 290px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-core">2</span>
           <span>短期去留</span>
@@ -812,7 +800,7 @@ body {
         <div>看 <i>P</i> 與 <i>AVC</i><sub>min</sub>：<b><i>P</i> ≧ <i>AVC</i><sub>min</sub> 續營</b>；<i>P</i> ＜ <i>AVC</i><sub>min</sub> 立即歇業關廠！</div>
       </div>
 
-      <div class="node-item branch-card b-core" style="left: 1570px; top: 1750px; width: 290px;">
+      <div class="node-item branch-card b-core" style="left: 1550px; top: 1750px; width: 290px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-core">3</span>
           <span>長期超額利潤</span>
@@ -820,7 +808,7 @@ body {
         <div>自由進出（完競、獨競）π ＝ 0；障礙阻擋（寡占、獨占）長期保有 π ≧ 0。</div>
       </div>
 
-      <div class="node-item branch-card b-core" style="left: 1930px; top: 1750px; width: 290px;">
+      <div class="node-item branch-card b-core" style="left: 1900px; top: 1750px; width: 290px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-core">4</span>
           <span>配置效率評價</span>
@@ -830,7 +818,7 @@ body {
 
 
       <!-- ==================== 8. 跨章因果連線標籤 (Cross-Links Labels) ==================== -->
-      <div class="cross-label" style="left: 2360px; top: 1145px; border-color: #dc2626; color: #dc2626;">
+      <div class="cross-label" style="left: 2325px; top: 1640px; border-color: #dc2626; color: #dc2626;">
         ⚡ 福利對比：完全競爭 <i>P</i>＝<i>MC</i>（無DWL） ⇋ 獨占 <i>P</i>＞<i>MC</i>（死重損失 DWL）
       </div>
 
@@ -838,7 +826,7 @@ body {
         ⚡ 長期效率對比：完全競爭 <i>LAC</i> 最低點 ⇋ 獨占性競爭 <i>LAC</i> 下降段（超額產能）
       </div>
 
-      <div class="cross-label" style="left: 2150px; top: 430px; border-color: #7c3aed; color: #7c3aed;">
+      <div class="cross-label" style="left: 2500px; top: 330px; border-color: #7c3aed; color: #7c3aed;">
         ⚡ 彈性定價因果：CH6 <i>MR</i>＝<i>P</i>(1－1/|Ed|) ➔ CH8 三級差別訂價（彈性大價低、彈性小價高）
       </div>
 
@@ -856,91 +844,102 @@ body {
 let currentScale = 1.0;
 let panX = 0;
 let panY = 0;
-let isPanning = false;
+let isDragging = false;
 let startX = 0;
 let startY = 0;
 
 const viewport = document.getElementById('viewport');
-const zoomWrapper = document.getElementById('zoom-wrapper');
+const wrapper = document.getElementById('zoom-wrapper');
+const board = document.getElementById('mindmap-board');
 
-function applyTransform() {
-  zoomWrapper.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + currentScale + ')';
+function updateTransform() {
+  wrapper.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + currentScale + ')';
+}
+
+function zoomFit() {
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const bw = 2800;
+  const bh = 1980;
+  const scaleX = (vw - 40) / bw;
+  const scaleY = (vh - 80) / bh;
+  currentScale = Math.min(scaleX, scaleY);
+  if (currentScale < 0.2) currentScale = 0.2;
+  panX = (vw - bw * currentScale) / 2;
+  panY = (vh - bh * currentScale) / 2 + 25;
+  updateTransform();
 }
 
 function zoomIn() {
-  currentScale = Math.min(2.5, currentScale + 0.15);
-  applyTransform();
+  currentScale = Math.min(currentScale * 1.2, 2.5);
+  updateTransform();
 }
 
 function zoomOut() {
-  currentScale = Math.max(0.3, currentScale - 0.15);
-  applyTransform();
+  currentScale = Math.max(currentScale / 1.2, 0.25);
+  updateTransform();
 }
 
 function zoom100() {
   currentScale = 1.0;
-  panX = Math.max(0, (viewport.clientWidth - 2800) / 2);
-  panY = 20;
-  applyTransform();
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  panX = (vw - 2800) / 2;
+  panY = (vh - 1980) / 2 + 30;
+  updateTransform();
 }
 
-function zoomFit() {
-  const vw = viewport.clientWidth - 40;
-  const vh = viewport.clientHeight - 40;
-  const scaleX = vw / 2800;
-  const scaleY = vh / 1980;
-  currentScale = Math.min(scaleX, scaleY);
-  panX = (viewport.clientWidth - 2800 * currentScale) / 2;
-  panY = (viewport.clientHeight - 1980 * currentScale) / 2;
-  applyTransform();
-}
-
-// 滑鼠滾輪縮放
-viewport.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  const zoomFactor = e.deltaY < 0 ? 1.08 : 0.92;
-  currentScale = Math.max(0.3, Math.min(2.5, currentScale * zoomFactor));
-  applyTransform();
-}, { passive: false });
-
-// 滑鼠拖曳平移
-viewport.addEventListener('mousedown', (e) => {
-  if (e.target.tagName.toLowerCase() === 'img' || e.target.closest('.fig-thumb') || e.target.closest('button') || e.target.closest('a')) return;
-  isPanning = true;
+// 支援滑鼠拖曳畫布
+viewport.addEventListener('mousedown', function(e) {
+  if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.tagName === 'IMG') return;
+  isDragging = true;
   startX = e.clientX - panX;
   startY = e.clientY - panY;
+  viewport.style.cursor = 'grabbing';
 });
 
-window.addEventListener('mousemove', (e) => {
-  if (!isPanning) return;
+window.addEventListener('mousemove', function(e) {
+  if (!isDragging) return;
   panX = e.clientX - startX;
   panY = e.clientY - startY;
-  applyTransform();
+  updateTransform();
 });
 
-window.addEventListener('mouseup', () => {
-  isPanning = false;
+window.addEventListener('mouseup', function() {
+  isDragging = false;
+  viewport.style.cursor = 'grab';
 });
 
-// 初始化自適應縮放
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(zoomFit, 80);
-});
+// 滾輪縮放 (以滑鼠為中心)
+viewport.addEventListener('wheel', function(e) {
+  e.preventDefault();
+  const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
+  const newScale = Math.min(Math.max(currentScale * zoomFactor, 0.2), 2.5);
+
+  const rect = viewport.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
+  panX = mouseX - (mouseX - panX) * (newScale / currentScale);
+  panY = mouseY - (mouseY - panY) * (newScale / currentScale);
+  currentScale = newScale;
+  updateTransform();
+}, { passive: false });
+
+// 視窗大小改變自動重調
 window.addEventListener('resize', zoomFit);
 
-// 燈箱控制
+// 燈箱放大
 function openModal(src) {
   const m = document.getElementById('modal');
   const img = document.getElementById('modal-img');
   img.src = src;
   m.style.display = 'flex';
 }
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    document.getElementById('modal').style.display = 'none';
-  }
-});
-</script>
 
+// 初始化適應
+window.addEventListener('DOMContentLoaded', zoomFit);
+setTimeout(zoomFit, 100);
+</script>
 </body>
 </html>
