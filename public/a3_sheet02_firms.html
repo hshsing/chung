@@ -200,7 +200,7 @@ html, body {
   color: #ffffff;
   font-size: 17pt;
   font-weight: 800;
-  padding: 11px 24px;
+  padding: 10px 22px;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   text-align: center;
@@ -318,7 +318,9 @@ html, body {
   font-size: 14pt;
   font-weight: 800;
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
   z-index: 30;
 }
 
@@ -426,16 +428,16 @@ html, body {
         <path d="M 1220 1040 C 1100 1120, 1000 1200, 880 1235" fill="none" stroke="#d97706" stroke-width="8" stroke-linecap="round" />
 
         <!-- Center to North-East (CH7 完全競爭主幹) -->
-        <path d="M 1600 930 C 1760 840, 1960 580, 2120 405" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round" />
+        <path d="M 1600 930 C 1760 840, 1960 580, 2130 418" fill="none" stroke="#059669" stroke-width="8" stroke-linecap="round" />
 
         <!-- CH7 主幹分支至 CH8 完全獨占主幹 (東側二級放射) -->
-        <path d="M 2290 380 C 2380 380, 2460 440, 2560 440" fill="none" stroke="#e11d48" stroke-width="7" stroke-linecap="round" />
+        <path d="M 2285 395 C 2380 395, 2460 440, 2560 440" fill="none" stroke="#e11d48" stroke-width="7" stroke-linecap="round" />
 
 
         <!-- 2. 北方 CH6 主幹分支曲線 -->
         <path d="M 1400 495 C 1400 380, 780 360, 780 340" fill="none" stroke="#3b82f6" stroke-width="4.5" />
         <path d="M 1400 495 C 1400 420, 1400 370, 1400 350" fill="none" stroke="#3b82f6" stroke-width="4.5" />
-        <path d="M 1400 495 C 1400 380, 1860 360, 1860 315" fill="none" stroke="#3b82f6" stroke-width="4.5" />
+        <path d="M 1400 495 C 1400 380, 1820 360, 1820 315" fill="none" stroke="#3b82f6" stroke-width="4.5" />
 
 
         <!-- 3. 西北 CH9 寡占主幹分支曲線 -->
@@ -459,21 +461,21 @@ html, body {
 
         <!-- 6. 東側雙排樹枝主幹 (CH7 & CH8 垂直脊柱) -->
         <!-- CH7 Column 1 綠色主脈貫串 -->
-        <path d="M 2120 405 L 2120 1460" fill="none" stroke="#10b981" stroke-width="4.5" stroke-linecap="round" />
+        <path d="M 2130 418 L 2130 1495" fill="none" stroke="#10b981" stroke-width="4.5" stroke-linecap="round" />
 
         <!-- CH8 Column 2 紅色主脈貫串 -->
-        <path d="M 2560 465 L 2560 1410" fill="none" stroke="#f43f5e" stroke-width="4.5" stroke-linecap="round" />
+        <path d="M 2560 463 L 2560 1410" fill="none" stroke="#f43f5e" stroke-width="4.5" stroke-linecap="round" />
 
 
         <!-- 7. 跨章因果神經突觸連線 (Cross-Chapter Neural Curves) -->
         <!-- ⚡ 福利對比：CH7 P=MC (DWL=0) ➔ CH8 P>MC (DWL>0) -->
-        <path d="M 2120 1590 C 2120 1670, 2560 1670, 2560 1540" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-red)" />
+        <path d="M 2130 1635 C 2130 1710, 2560 1710, 2560 1535" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-red)" />
 
         <!-- ⚡ 長期效率對比：CH7 LACmin ➔ CH9 獨占性競爭超額產能 -->
-        <path d="M 1930 1460 C 1500 1250, 900 1500, 520 1760" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-blue)" />
+        <path d="M 1940 1495 C 1500 1250, 900 1500, 520 1760" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-blue)" />
 
         <!-- ⚡ 彈性定價因果：CH6 阿莫羅索公式 ➔ CH8 三級差別訂價 -->
-        <path d="M 1860 315 C 2050 350, 2380 650, 2370 1030" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-purple)" />
+        <path d="M 1820 315 C 2020 340, 2380 650, 2370 1030" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrow-purple)" />
       </svg>
 
 
@@ -534,7 +536,7 @@ html, body {
       </div>
 
       <!-- 6C. 阿莫羅索公式 -->
-      <div class="node-item branch-card b-ch6" style="left: 1860px; top: 220px; width: 370px;">
+      <div class="node-item branch-card b-ch6" style="left: 1820px; top: 215px; width: 360px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch6">6.3</span>
           <span>羅賓遜－阿莫羅索公式</span>
@@ -551,12 +553,12 @@ html, body {
 
 
       <!-- ==================== 3. 東側第 1 排：CH7 完全競爭產量與價格 ==================== -->
-      <div class="node-item stem-node stem-ch7" style="left: 2120px; top: 380px; width: 340px;">
+      <div class="node-item stem-node stem-ch7" style="left: 2130px; top: 395px; width: 310px;">
         ⚖️ CH7 完全競爭產量與價格
       </div>
 
       <!-- 7A. 價格接受者與短期均衡 -->
-      <div class="node-item branch-card b-ch7" style="left: 2120px; top: 500px; width: 380px;">
+      <div class="node-item branch-card b-ch7" style="left: 2130px; top: 515px; width: 380px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.1</span>
           <span>價格接受與短期均衡</span>
@@ -568,7 +570,7 @@ html, body {
       </div>
 
       <!-- 7B. 短期 5 情境 -->
-      <div class="node-item branch-card b-ch7" style="left: 2120px; top: 780px; width: 380px;">
+      <div class="node-item branch-card b-ch7" style="left: 2130px; top: 795px; width: 380px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.2</span>
           <span>短期損益 5 大情境判定</span>
@@ -587,7 +589,7 @@ html, body {
       </div>
 
       <!-- 7C. 短期供給曲線 -->
-      <div class="node-item branch-card b-ch7" style="left: 2120px; top: 1120px; width: 380px;">
+      <div class="node-item branch-card b-ch7" style="left: 2130px; top: 1145px; width: 380px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.3</span>
           <span>短期供給曲線 <i>S</i> ＝ <i>MC</i></span>
@@ -604,7 +606,7 @@ html, body {
       </div>
 
       <!-- 7D. 長期七位一體 -->
-      <div class="node-item branch-card b-ch7" style="left: 2120px; top: 1460px; width: 380px;">
+      <div class="node-item branch-card b-ch7" style="left: 2130px; top: 1495px; width: 380px;">
         <div class="card-header-badge">
           <span class="badge-pill pill-ch7">7.4</span>
           <span>長期「七位一體」完美均衡</span>
@@ -625,7 +627,7 @@ html, body {
 
 
       <!-- ==================== 4. 東側第 2 排：CH8 完全獨占產量與定價 ==================== -->
-      <div class="node-item stem-node stem-ch8" style="left: 2560px; top: 440px; width: 340px;">
+      <div class="node-item stem-node stem-ch8" style="left: 2560px; top: 440px; width: 320px;">
         👑 CH8 完全獨占產量與定價
       </div>
 
@@ -818,16 +820,16 @@ html, body {
 
 
       <!-- ==================== 8. 跨章因果連線標籤 (Cross-Links Labels) ==================== -->
-      <div class="cross-label" style="left: 2340px; top: 1690px; border-color: #dc2626; color: #dc2626;">
-        ⚡ 福利對比：完全競爭 <i>P</i>＝<i>MC</i>（無DWL） ⇋ 獨占 <i>P</i>＞<i>MC</i>（死重損失 DWL）
+      <div class="cross-label" style="left: 2420px; top: 1680px; width: 320px; border-color: #dc2626; color: #dc2626;">
+        ⚡ 福利對比<br>完全競爭 <i>P</i>＝<i>MC</i>（無DWL） ⇋ 獨占 <i>P</i>＞<i>MC</i>（死重損失）
       </div>
 
-      <div class="cross-label" style="left: 1400px; top: 1200px; border-color: #0284c7; color: #0284c7;">
-        ⚡ 長期效率對比：完全競爭 <i>LAC</i> 最低點 ⇋ 獨占性競爭 <i>LAC</i> 下降段（超額產能）
+      <div class="cross-label" style="left: 1400px; top: 1200px; width: 440px; border-color: #0284c7; color: #0284c7;">
+        ⚡ 長期效率對比<br>完全競爭 <i>LAC</i> 最低點 ⇋ 獨占性競爭 <i>LAC</i> 下降段（超額產能）
       </div>
 
-      <div class="cross-label" style="left: 2330px; top: 230px; border-color: #7c3aed; color: #7c3aed;">
-        ⚡ 彈性定價因果：CH6 <i>MR</i>＝<i>P</i>(1－1/|Ed|) ➔ CH8 三級差別訂價（彈性大價低、彈性小價高）
+      <div class="cross-label" style="left: 2340px; top: 315px; width: 320px; border-color: #7c3aed; color: #7c3aed;">
+        ⚡ 彈性定價因果<br>CH6 <i>MR</i>＝<i>P</i>(1－1/|<i>E<sub>d</sub></i>|) ➔ CH8 三級差別訂價
       </div>
 
     </div>
