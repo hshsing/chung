@@ -442,6 +442,118 @@ body {
   gap: 6px;
 }
 
+
+/* 編輯模式提示列 (no-print) */
+.edit-status-bar {
+  display: none;
+  background: #1e3a8a;
+  color: #ffffff;
+  padding: 10px 24px;
+  font-size: 14pt;
+  font-weight: 700;
+  border-bottom: 2px solid #60a5fa;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  box-shadow: inset 0 -2px 10px rgba(0,0,0,0.2);
+}
+.edit-status-bar.active {
+  display: flex;
+}
+.editing-mode [contenteditable="true"] {
+  outline: 2px dashed #3b82f6 !important;
+  background-color: #f0fdf4 !important;
+  cursor: text;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.editing-mode [contenteditable="true"]:focus {
+  outline: 3px solid #1d4ed8 !important;
+  background-color: #eff6ff !important;
+  box-shadow: 0 0 12px rgba(59,130,246,0.35) !important;
+}
+
+/* 浮動儲存通知 */
+.save-toast {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1.5px solid #10b981;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14pt;
+  font-weight: 700;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  gap: 8px;
+  z-index: 5000;
+  transition: opacity 0.3s ease;
+}
+.save-toast.active {
+  display: flex;
+}
+
+/* 原始程式碼編輯全螢幕視窗 (Code Editor Drawer/Modal) */
+.code-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.94);
+  z-index: 6000;
+  padding: 20px;
+  flex-direction: column;
+}
+.code-modal.active {
+  display: flex;
+}
+.code-modal-header {
+  background: #0f172a;
+  border: 2px solid #334155;
+  border-radius: 10px 10px 0 0;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.code-modal-title {
+  color: #f8fafc;
+  font-size: 16pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.code-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.code-textarea {
+  flex: 1;
+  width: 100%;
+  background: #090d16;
+  color: #38bdf8;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 14pt;
+  line-height: 1.6;
+  padding: 20px;
+  border: 2px solid #334155;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  resize: none;
+  outline: none;
+  tab-size: 2;
+  white-space: pre;
+}
+.code-textarea:focus {
+  border-color: #3b82f6;
+}
+
 /* 圖形放大檢視彈窗 (Modal) */
 .modal-overlay {
   display: none;
@@ -629,13 +741,32 @@ body {
     <button class="filter-btn" onclick="setFocus('mon')">🟥 獨占</button>
   </div>
 
+  <!-- 編輯與自訂工具組 -->
+  <div class="filter-group" style="background:#1e293b;border-color:#3b82f6;">
+    <button class="btn" id="btnToggleEdit" onclick="toggleEditMode()" style="background:#2563eb;" title="點擊後可直接在網頁畫面上打字修改任何文字">✏️ 點擊改字</button>
+    <button class="btn" onclick="openCodeModal()" style="background:#475569;" title="隨時切換至 HTML 原始程式碼進行修改">💻 原始碼</button>
+    <button class="btn" onclick="downloadCustomHTML()" style="background:#0284c7;" title="將修改後的成果下載為獨立 HTML 檔保存">📥 存檔</button>
+    <button class="btn" onclick="resetToDefault()" style="background:#334155;" title="還原至官方 28 項完整預設版本">↺ 還原</button>
+  </div>
+
   <div class="nav-controls">
-    <button class="btn btn-print" onclick="window.print()" title="立即列印為 A3 橫向或 A4 多頁講義">🖨️ 列印講義 (PDF)</button>
+    <button class="btn btn-print" onclick="window.print()" title="立即列印為 A3 橫向或 A4 多頁講義">🖨️ 列印 (PDF)</button>
     <a href="a3_sheet02_firms.html" class="btn btn-sub" title="切換至單頁 A3 放射狀心智圖">📐 心智圖</a>
     <a href="master_map.html" class="btn btn-sub" title="回 19 章全景整合架構圖">🗺️ 19章</a>
     <a href="index.html" class="btn btn-sub" title="回高職經濟學解題網首頁">⬅ 首頁</a>
   </div>
 </header>
+
+<!-- 編輯模式狀態警示條 (no-print) -->
+<div class="edit-status-bar no-print" id="editStatusBar">
+  <div>
+    <span>✏️ <b>【直接改字模式進行中】</b> 您現在可以點擊網頁上任意表格、文字或標題直接打字修改！修改結果將自動存於本機瀏覽器。</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button class="btn" onclick="saveContent()" style="background:#059669;padding:4px 12px;font-size:14pt;">💾 立即儲存</button>
+    <button class="btn" onclick="toggleEditMode()" style="background:#dc2626;padding:4px 12px;font-size:14pt;">✖ 結束編輯</button>
+  </div>
+</div>
 
 <main class="document-container" id="docMain">
 
@@ -1745,6 +1876,25 @@ body {
 
 </main>
 
+
+<!-- 原始程式碼編輯全螢幕視窗 (Code Editor Modal) -->
+<div class="code-modal no-print" id="codeModal">
+  <div class="code-modal-header">
+    <div class="code-modal-title">
+      <span>💻 講義 HTML 原始程式碼編輯區（支援隨時切換與即時套用）</span>
+    </div>
+    <div class="code-modal-actions">
+      <button class="btn" onclick="applyCodeChanges()" style="background:#059669;font-size:14pt;">💾 套用變更並更新頁面</button>
+      <button class="btn" onclick="copyCode()" style="background:#2563eb;font-size:14pt;">📋 複製全部代碼</button>
+      <button class="btn" onclick="closeCodeModal()" style="background:#475569;font-size:14pt;">✖ 關閉回到網頁</button>
+    </div>
+  </div>
+  <textarea class="code-textarea" id="rawCodeArea" spellcheck="false" placeholder="在此直接編輯 HTML 原始程式碼..."></textarea>
+</div>
+
+<!-- 浮動儲存通知 -->
+<div class="save-toast" id="saveToast">✓ 已自動儲存變更至本機！</div>
+
 <!-- 圖片放大檢視彈窗 (Modal) -->
 <div class="modal-overlay" id="figModal" onclick="closeModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
@@ -1755,6 +1905,134 @@ body {
 </div>
 
 <script>
+
+// ==========================================
+// 雙軌編輯系統：所見即所得點擊改字 ⇋ 原始碼隨時切換
+// ==========================================
+let isEditMode = false;
+const STORAGE_KEY = 'firms_matrix_custom_content_v1';
+
+// 頁面載入時檢查是否有儲存過自訂版本
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    document.getElementById('docMain').innerHTML = saved;
+    showToast('✓ 已自動載入您先前儲存的自訂內容！');
+  }
+});
+
+// 切換「所見即所得直接改字」模式
+function toggleEditMode() {
+  isEditMode = !isEditMode;
+  const btn = document.getElementById('btnToggleEdit');
+  const statusBar = document.getElementById('editStatusBar');
+  const container = document.getElementById('docMain');
+  
+  if (isEditMode) {
+    btn.style.background = '#dc2626';
+    btn.innerHTML = '🛑 結束改字';
+    statusBar.classList.add('active');
+    container.classList.add('editing-mode');
+    enableContentEditable(true);
+    showToast('✏️ 已開啟直接改字模式，點擊文字即可編輯！');
+  } else {
+    btn.style.background = '#2563eb';
+    btn.innerHTML = '✏️ 點擊改字';
+    statusBar.classList.remove('active');
+    container.classList.remove('editing-mode');
+    enableContentEditable(false);
+    saveContent();
+  }
+}
+
+function enableContentEditable(enabled) {
+  const targets = document.querySelectorAll(
+    '#docMain td, #docMain .doc-title, #docMain .doc-intro, #docMain .unit-title, #docMain .unit-subtitle, #docMain .exam-trap-box'
+  );
+  targets.forEach(el => {
+    el.contentEditable = enabled ? 'true' : 'false';
+    if (enabled && !el.dataset.listenerAdded) {
+      el.addEventListener('input', debounceSave);
+      el.dataset.listenerAdded = 'true';
+    }
+  });
+}
+
+let saveTimer = null;
+function debounceSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    saveContent();
+  }, 600);
+}
+
+function saveContent() {
+  const content = document.getElementById('docMain').innerHTML;
+  localStorage.setItem(STORAGE_KEY, content);
+  showToast('✓ 變更已自動儲存至本機瀏覽器！');
+}
+
+// 原始碼編輯全螢幕視窗
+function openCodeModal() {
+  const modal = document.getElementById('codeModal');
+  const textarea = document.getElementById('rawCodeArea');
+  textarea.value = document.getElementById('docMain').innerHTML;
+  modal.classList.add('active');
+}
+
+function closeCodeModal() {
+  document.getElementById('codeModal').classList.remove('active');
+}
+
+function applyCodeChanges() {
+  const newHTML = document.getElementById('rawCodeArea').value;
+  document.getElementById('docMain').innerHTML = newHTML;
+  saveContent();
+  closeCodeModal();
+  if (isEditMode) enableContentEditable(true);
+  showToast('✓ 程式碼變更已成功套用至講義！');
+}
+
+function copyCode() {
+  const textarea = document.getElementById('rawCodeArea');
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value);
+  showToast('📋 已複製全部原始碼至剪貼簿！');
+}
+
+// 匯出下載完整 HTML 檔
+function downloadCustomHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector('#docMain').classList.remove('editing-mode');
+  const editables = clone.querySelectorAll('[contenteditable]');
+  editables.forEach(e => e.removeAttribute('contenteditable'));
+  
+  const htmlStr = '<!DOCTYPE html>\n' + clone.outerHTML;
+  const blob = new Blob([htmlStr], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '高職經濟學_四大市場結構大對照講義_自訂修改版.html';
+  a.click();
+  showToast('📥 自訂講義 HTML 檔已下載！');
+}
+
+// 還原至官方預設版本
+function resetToDefault() {
+  if (confirm('確定要清除您的自訂修改，還原成官方 28 項完整預設版本嗎？')) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('saveToast');
+  toast.innerText = msg;
+  toast.classList.add('active');
+  setTimeout(() => {
+    toast.classList.remove('active');
+  }, 2500);
+}
+
 // 焦點透視互動篩選
 function setFocus(firm) {
   const container = document.getElementById('docMain');
