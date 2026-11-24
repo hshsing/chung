@@ -52,11 +52,11 @@ body {
   z-index: 1000;
   background: #0f172a;
   border-bottom: 2px solid #334155;
-  padding: 10px 20px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   overflow-x: auto;
   white-space: nowrap;
@@ -65,9 +65,9 @@ body {
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: #f8fafc;
-  font-size: 15pt;
+  font-size: 14pt;
   font-weight: 800;
   flex-shrink: 0;
 }
@@ -77,14 +77,14 @@ body {
   color: #0f172a;
   font-size: 14pt;
   font-weight: 900;
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 999px;
 }
 
 .nav-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
@@ -92,17 +92,18 @@ body {
   background: #2563eb;
   color: #ffffff;
   border: 1px solid transparent;
-  padding: 6px 14px;
-  border-radius: 8px;
+  padding: 5px 10px;
+  border-radius: 6px;
   font-size: 14pt;
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   transition: all 0.2s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn:hover {
@@ -727,13 +728,11 @@ body {
 <!-- 頂部導航與操作面板 (no-print) -->
 <header class="top-nav no-print">
   <div class="nav-brand">
-    <span>📊 統測講義</span>
-    <span class="nav-badge">四大廠商 28 項大對照</span>
+    <span>📊 統測 28 項大對照</span>
   </div>
 
   <!-- 焦點透視篩選 -->
   <div class="filter-group">
-    <span style="font-size:14pt;font-weight:800;color:#94a3b8">👁️ 透視：</span>
     <button class="filter-btn active" onclick="setFocus('all')">全部</button>
     <button class="filter-btn" onclick="setFocus('pc')">🟩 完競</button>
     <button class="filter-btn" onclick="setFocus('mc')">🟨 獨競</button>
@@ -750,7 +749,7 @@ body {
   </div>
 
   <div class="nav-controls">
-    <button class="btn btn-print" onclick="window.print()" title="立即列印為 A3 橫向或 A4 多頁講義">🖨️ 列印 (PDF)</button>
+    <button class="btn btn-print" onclick="window.print()" title="立即列印為 A3 橫向或 A4 多頁講義">🖨️ 列印</button>
     <a href="a3_sheet02_firms.html" class="btn btn-sub" title="切換至單頁 A3 放射狀心智圖">📐 心智圖</a>
     <a href="master_map.html" class="btn btn-sub" title="回 19 章全景整合架構圖">🗺️ 19章</a>
     <a href="index.html" class="btn btn-sub" title="回高職經濟學解題網首頁">⬅ 首頁</a>
