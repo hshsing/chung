@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高職經濟學 CH6～CH9 四大市場結構全維度跨章對照大講義（可列印旗艦版）</title>
+<style>
+/* ==========================================================================
+   全域樣式與列印最佳化（字體嚴格 ≧ 14pt，0 LaTeX 錢字號符號）
+   ========================================================================== */
+:root {
+  --pc-color: #059669;
+  --pc-bg: #ecfdf5;
+  --pc-border: #a7f3d0;
+  
+  --mc-color: #d97706;
+  --mc-bg: #fffbeb;
+  --mc-border: #fde68a;
+  
+  --oli-color: #7c3aed;
+  --oli-bg: #f5f3ff;
+  --oli-border: #ddd6fe;
+  
+  --mon-color: #dc2626;
+  --mon-bg: #fef2f2;
+  --mon-border: #fecaca;
+  
+  --ink-main: #0f172a;
+  --ink-muted: #475569;
+  --border-line: #cbd5e1;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  background-color: #f1f5f9;
+  color: var(--ink-main);
+  line-height: 1.6;
+  font-size: 14pt;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 頂部控制面板（螢幕顯示，列印時隱藏） */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #0f172a;
+  border-bottom: 2px solid #334155;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f8fafc;
+  font-size: 15pt;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.nav-badge {
+  background: #f59e0b;
+  color: #0f172a;
+  font-size: 14pt;
+  font-weight: 900;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid transparent;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14pt;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn-print {
+  background: #059669;
+}
+.btn-print:hover {
+  background: #047857;
+}
+
+.btn-sub {
+  background: #334155;
+  color: #f1f5f9;
+  border-color: #475569;
+}
+.btn-sub:hover {
+  background: #475569;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e293b;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1.5px solid transparent;
+  color: #cbd5e1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14pt;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: #334155;
+  color: #ffffff;
+}
+
+.filter-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+/* 主要講義文件容器 */
+.document-container {
+  max-width: 1750px;
+  margin: 25px auto 60px auto;
+  padding: 0 25px;
+}
+
+/* 講義大標頭 */
+.doc-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 25px;
+  border: 2px solid #cbd5e1;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.doc-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.doc-title {
+  font-size: 24pt;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.doc-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 14pt;
+  font-weight: 700;
+}
+.pill-gray { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.pill-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.pill-green { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+
+.doc-intro {
+  font-size: 14pt;
+  color: #334155;
+  line-height: 1.8;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 15px;
+}
+
+/* 單元區塊 (Thematic Section) */
+.unit-section {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  margin-bottom: 35px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.unit-header {
+  background: #1e293b;
+  color: #ffffff;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unit-title {
+  font-size: 18pt;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.unit-subtitle {
+  font-size: 14pt;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+/* 核心比較表格 */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.matrix-table thead th {
+  padding: 14px 16px;
+  font-size: 15pt;
+  font-weight: 800;
+  text-align: left;
+  border-bottom: 2px solid #94a3b8;
+  border-right: 1px solid #cbd5e1;
+}
+
+.matrix-table thead th:last-child {
+  border-right: none;
+}
+
+.th-item {
+  width: 20%;
+  background: #f8fafc;
+  color: #0f172a;
+}
+.th-pc {
+  width: 20%;
+  background: var(--pc-bg);
+  color: #065f46;
+  border-top: 4px solid var(--pc-color);
+}
+.th-mc {
+  width: 20%;
+  background: var(--mc-bg);
+  color: #92400e;
+  border-top: 4px solid var(--mc-color);
+}
+.th-oli {
+  width: 20%;
+  background: var(--oli-bg);
+  color: #5b21b6;
+  border-top: 4px solid var(--oli-color);
+}
+.th-mon {
+  width: 20%;
+  background: var(--mon-bg);
+  color: #991b1b;
+  border-top: 4px solid var(--mon-color);
+}
+
+.matrix-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.matrix-table tbody tr:nth-child(even) {
+  background-color: #fafbfc;
+}
+
+.matrix-table tbody td {
+  padding: 14px 16px;
+  font-size: 14pt;
+  vertical-align: top;
+  border-right: 1px solid #e2e8f0;
+  line-height: 1.65;
+}
+
+.matrix-table tbody td:last-child {
+  border-right: none;
+}
+
+/* 項目指標欄位 */
+.td-item-title {
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-badge-wrap {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.badge-tag {
+  display: inline-block;
+  font-size: 14pt;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.tag-hot { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+.tag-trap { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+.tag-fig { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+
+.item-desc {
+  font-size: 14pt;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* 各廠商內容欄位強調 */
+.cell-pc { background-color: rgba(236, 253, 245, 0.25); }
+.cell-mc { background-color: rgba(255, 251, 235, 0.25); }
+.cell-oli { background-color: rgba(245, 243, 255, 0.25); }
+.cell-mon { background-color: rgba(254, 242, 242, 0.25); }
+
+.hl-formula {
+  background: #f1f5f9;
+  border-left: 3px solid #2563eb;
+  padding: 3px 8px;
+  margin: 4px 0;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.hl-key {
+  color: #b91c1c;
+  font-weight: 800;
+}
+
+.hl-green {
+  color: #047857;
+  font-weight: 800;
+}
+
+.hl-purple {
+  color: #6d28d9;
+  font-weight: 800;
+}
+
+.hl-amber {
+  color: #b45309;
+  font-weight: 800;
+}
+
+/* 內嵌圖形提示卡片 */
+.matrix-fig-card {
+  margin-top: 8px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.matrix-fig-card:hover {
+  background: #f8fafc;
+  border-color: #2563eb;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.15);
+}
+.matrix-fig-img {
+  width: 55px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+.matrix-fig-txt {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 統測高頻陷阱總結盒 */
+.exam-trap-box {
+  background: #fffbeb;
+  border-left: 5px solid #f59e0b;
+  border-radius: 0 0 10px 10px;
+  padding: 16px 20px;
+  font-size: 14pt;
+  line-height: 1.7;
+  color: #78350f;
+}
+.trap-title {
+  font-weight: 800;
+  font-size: 15pt;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 圖形放大檢視彈窗 (Modal) */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.85);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 24px;
+  position: relative;
+  border: 2px solid #3b82f6;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 22pt;
+  font-weight: 800;
+  color: #64748b;
+  cursor: pointer;
+}
+.modal-close:hover { color: #0f172a; }
+.modal-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+.modal-caption {
+  margin-top: 12px;
+  font-size: 15pt;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: center;
+}
+
+/* 廠商聚焦互動模式 (Focus Mode) */
+.focus-active tbody tr td:not(.td-item-title) {
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+.focus-pc .col-pc,
+.focus-mc .col-mc,
+.focus-oli .col-oli,
+.focus-mon .col-mon {
+  opacity: 1 !important;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   嚴格列印樣式配置 (@media print)
+   支援多頁列印、分頁標題重複、避免斷行切割
+   ========================================================================== */
+@media print {
+  @page {
+    size: A3 landscape;
+    margin: 12mm 10mm;
+  }
+  
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 14pt !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .document-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .doc-header {
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    padding: 16px !important;
+    margin-bottom: 20px !important;
+    page-break-after: avoid;
+  }
+  
+  .unit-section {
+    border: 2px solid #333333 !important;
+    box-shadow: none !important;
+    margin-bottom: 25px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  .unit-header {
+    background: #e2e8f0 !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+    padding: 10px 16px !important;
+  }
+  
+  .unit-title {
+    color: #000000 !important;
+    font-size: 16pt !important;
+  }
+  .unit-subtitle {
+    color: #333333 !important;
+  }
+  
+  .matrix-table {
+    border: 1px solid #000000 !important;
+  }
+  
+  .matrix-table thead {
+    display: table-header-group !important; /* 每一頁自動重複表頭 */
+  }
+  
+  .matrix-table thead th {
+    background: #f1f5f9 !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    font-size: 14pt !important;
+  }
+  
+  .matrix-table tbody tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  
+  .matrix-table tbody td {
+    border: 1px solid #666666 !important;
+    font-size: 14pt !important;
+    color: #000000 !important;
+  }
+  
+  .cell-pc, .cell-mc, .cell-oli, .cell-mon {
+    background-color: transparent !important;
+  }
+  
+  .matrix-fig-card {
+    border: 1px solid #999999 !important;
+    background: #ffffff !important;
+  }
+  
+  .exam-trap-box {
+    border: 1px solid #666666 !important;
+    border-top: none !important;
+    background: #fafafa !important;
+    color: #000000 !important;
+  }
+
+  /* 強制分頁輔助類 */
+  .page-break-before {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部導航與操作面板 (no-print) -->
+<header class="top-nav no-print">
+  <div class="nav-brand">
+    <span>📊 統測經濟學講義</span>
+    <span class="nav-badge">四大市場結構全維度大對照矩陣</span>
+  </div>
+
+  <!-- 焦點透視篩選 -->
+  <div class="filter-group">
+    <span style="font-size:14pt;font-weight:800;color:#94a3b8">👁️ 焦點透視：</span>
+    <button class="filter-btn active" onclick="setFocus('all')">全部對照</button>
+    <button class="filter-btn" onclick="setFocus('pc')">🟩 完全競爭</button>
+    <button class="filter-btn" onclick="setFocus('mc')">🟨 獨占性競爭</button>
+    <button class="filter-btn" onclick="setFocus('oli')">🟪 寡占市場</button>
+    <button class="filter-btn" onclick="setFocus('mon')">🟥 完全獨占</button>
+  </div>
+
+  <div class="nav-controls">
+    <button class="btn btn-print" onclick="window.print()" title="立即列印為 A3 橫向或 A4 多頁講義">🖨️ 一鍵列印講義 (PDF)</button>
+    <a href="a3_sheet02_firms.html" class="btn btn-sub" title="切換至單頁 A3 放射狀心智圖">📐 放射心智圖</a>
+    <a href="master_map.html" class="btn btn-sub" title="回 19 章全景整合架構圖">🗺️ 19章全景圖</a>
+    <a href="index.html" class="btn btn-sub" title="回高職經濟學解題網首頁">⬅ 回解題網</a>
+  </div>
+</header>
+
+<main class="document-container" id="docMain">
+
+  <!-- 講義總抬頭 -->
+  <header class="doc-header">
+    <div class="doc-title-row">
+      <h1 class="doc-title">🏢 高職經濟學 CH6～CH9 四大市場結構全維度跨章深度對照大講義</h1>
+      <div class="doc-meta">
+        <span class="meta-pill pill-blue">統測專業科目二專用</span>
+        <span class="meta-pill pill-green">28 項深度指標精準 PK</span>
+        <span class="meta-pill pill-gray">標準可列印版型（字體 ≧ 14pt）</span>
+      </div>
+    </div>
+    <div class="doc-intro">
+      <b>📖 教學與複習指引：</b> 本講義針對統測歷屆最常出題的「完全競爭、獨占性競爭、寡占、完全獨占」四大廠商理論，破除課本跨章藩籬，將全書精華濃縮為 <b>6 大核心單元、28 項橫向對比維度</b>。無論是<b>四線合一、阿莫羅索公式、停業點判定、供給曲線有無、超額產能幾何意涵、差別取價至死重損失</b>，皆提供一對一橫向針鋒相對剖析。支援多頁列印，便於作為隨堂講義與考前衝刺寶典！
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+       單元一：市場基本結構與廠商本質（項目 1～5）
+       ========================================================================= -->
+  <section class="unit-section" id="unit1">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>📋 單元一：市場基本結構與廠商本質</span>
+      </div>
+      <div class="unit-subtitle">指標 01 ～ 05 ｜ 市場型態光譜、家數、產品與進出門檻</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-item">比較維度 / 指標</th>
+          <th class="th-pc col-pc">🟩 完全競爭 (PC)</th>
+          <th class="th-mc col-mc">🟨 獨占性競爭 (MC)</th>
+          <th class="th-oli col-oli">🟪 寡占市場 (Oligopoly)</th>
+          <th class="th-mon col-mon">🟥 完全獨占 (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 項目 1 -->
+        <tr>
+          <td class="td-item-title">
+            <span>01. 廠商數目與規模</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 基礎考點</span>
+            </div>
+            <span class="item-desc">市場賣方家數與個別份額</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>極多（無數家小規模）</b><br>
+            個別廠商市占率微不足道，任何單一廠商增產或減產皆無法撼動市場供給。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>眾多（介於完競與寡占間）</b><br>
+            廠商數量多，個別廠商佔有小部分市場，彼此間獨立決策，無串通可能。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>少數幾家（2～10 家大廠）</b><br>
+            每一家大廠均掌控龐大市場佔有率，單一廠商的行為牽動整個市場。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>僅此一家（唯一製造商）</b><br>
+            全國或該特定區域內唯一的供給者，廠商即代表整個產業，市占率 100%。
+          </td>
+        </tr>
+
+        <!-- 項目 2 -->
+        <tr>
+          <td class="td-item-title">
+            <span>02. 產品同質性與差異</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 統測核心</span>
+            </div>
+            <span class="item-desc">實質功能、外觀與品牌心理</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>完全同質（無差異）</b></span><br>
+            品質、外觀、包裝完全一致，買者對各家產品毫無偏好，商品互為<b>完全替代品</b>。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-amber"><b>產品有差異（異質性）！</b></span><br>
+            <b>本質特徵</b>：實質品質、包裝、品牌形象或售後服務有別，互為<b>高度替代品但非完全替代</b>。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>同質或異質皆可</b></span><br>
+            • <b>純粹寡占</b>：產品同質（如水泥、鋼鐵、原油）。<br>
+            • <b>差別寡占</b>：產品異質（如汽車、智慧型手機、筆電）。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>獨一無二且無替代品</b></span><br>
+            沒有任何相近的替代品，跨產業之交叉價格彈性極低甚至趨近於 0。
+          </td>
+        </tr>
+
+        <!-- 項目 3 -->
+        <tr>
+          <td class="td-item-title">
+            <span>03. 進出市場障礙</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 長期利潤關鍵</span>
+            </div>
+            <span class="item-desc">法規、資本與技術進入門檻</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>完全自由進出（零門檻）</b></span><br>
+            無任何法律、資金或技術限制，生產要素具完全流動性，進出毫無阻礙。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-amber"><b>進出容易（門檻甚低）</b></span><br>
+            資金與技術需求不高，廠商見有利可圖便能輕易開設，虧損時亦能迅速撤出。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>進入困難（重大障礙）</b></span><br>
+            需龐大初始建廠資本、規模經濟門檻、關鍵專利技術或銷售通路封鎖。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>完全受阻（絕對障礙）</b></span><br>
+            <b>四大來源</b>：① 法律專利/特許特賣；② 掌控關鍵原物料；③ 自然獨占（巨額固定成本）；④ 政府公營。
+          </td>
+        </tr>
+
+        <!-- 項目 4 -->
+        <tr>
+          <td class="td-item-title">
+            <span>04. 價格決定權力</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ 定價力判定</span>
+            </div>
+            <span class="item-desc">定價能力與價格形成方式</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>價格接受者 (Price Taker)</b></span><br>
+            個別定價能力＝0！只能被動接受整個市場供需均衡決定的單一市價。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-amber"><b>具微弱定價力</b></span><br>
+            因產品具差異性與品牌忠誠度，擁有局部的「小獨占權力」，稍微漲價不致流失全部顧客。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>具顯著定價力，但相互牽制</b></span><br>
+            廠商定價時必須深思熟慮對手的報復反應，常採取價格領導制或跟跌不跟漲。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>價格決定者 (Price Maker)</b></span><br>
+            掌控定價自主權，可自行制定價格或決定產量（但受市場需求線約束，兩者不能同時任意決定）。
+          </td>
+        </tr>
+
+        <!-- 項目 5 -->
+        <tr>
+          <td class="td-item-title">
+            <span>05. 現實產業代表實例</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-fig">📐 實務生活</span>
+            </div>
+            <span class="item-desc">統測課本生活化題型舉隅</span>
+          </td>
+          <td class="col-pc cell-pc">
+            • 大宗農產品（稻米、小麥、玉米）<br>
+            • 未加工漁獲、散裝農作物<br>
+            • 散戶股票集中撮合交易
+          </td>
+          <td class="col-mc cell-mc">
+            • 手搖飲料店（50嵐、清心）<br>
+            • 連鎖便當店、早餐店、咖啡廳<br>
+            • 牙膏、洗髮精、成衣零售
+          </td>
+          <td class="col-oli cell-oli">
+            • 台灣電信三雄（中華、遠傳、台哥大）<br>
+            • 水泥業（台泥、亞泥）、鋼鐵（中鋼）<br>
+            • 石油（中油、台塑）、OPEC
+          </td>
+          <td class="col-mon cell-mon">
+            • 台灣自來水公司、台電（輸配電）<br>
+            • 台灣鐵路公司（非高鐵）<br>
+            • 公營郵政信函業務、酒類公賣時期
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="exam-trap-box">
+      <div class="trap-title">🎯 統測解題金鑰（單元一）：</div>
+      ① 判斷<b>獨占性競爭</b>最本質的特徵是<b>「產品有差異（異質性）」</b>；<br>
+      ② 判斷<b>寡占市場</b>最本質的特徵是廠商之間決策<b>「相互依存（牽一髮而動全身）」</b>；<br>
+      ③ 市場結構光譜由競爭到獨占排列：完全競爭 ➔ 獨占性競爭 ➔ 寡占 ➔ 完全獨占。
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       單元二：個別需求曲線與收益指標（項目 6～10）
+       ========================================================================= -->
+  <section class="unit-section page-break-before" id="unit2">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>📈 單元二：個別需求曲線與收益指標</span>
+      </div>
+      <div class="unit-subtitle">指標 06 ～ 10 ｜ 四線合一、阿莫羅索公式、彈性連動</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-item">比較維度 / 指標</th>
+          <th class="th-pc col-pc">🟩 完全競爭 (PC)</th>
+          <th class="th-mc col-mc">🟨 獨占性競爭 (MC)</th>
+          <th class="th-oli col-oli">🟪 寡占市場 (Oligopoly)</th>
+          <th class="th-mon col-mon">🟥 完全獨占 (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 項目 6 -->
+        <tr>
+          <td class="td-item-title">
+            <span>06. 個別需求曲線形狀</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 統測必考</span>
+            </div>
+            <span class="item-desc">個別廠商面臨之需求線與彈性</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>水平線（斜率＝0）</b></span><br>
+            <b>價格彈性 <i>E<sub>d</sub></i> ＝ ∞（無限大）</b>。<br>
+            個別廠商即使大量增產也不影響價格；稍微漲價則銷量立刻歸零。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-amber"><b>負斜率且相對平坦</b></span><br>
+            替代品多，價格彈性 <b><i>E<sub>d</sub></i> ＞ 1（富有彈性）</b>。<br>
+            個別平坦 <i>d</i> 線（假定同業不跟）vs 市場同步 <i>D</i> 線（同業同步調價）。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>史威吉 (Sweezy) 拗折需求線</b></span><br>
+            <b>「漲價不跟進、跌價必跟進」</b>：<br>
+            • 拗折點上方：相對平坦（彈性大）<br>
+            • 拗折點下方：相對陡峭（彈性小）
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>負斜率且相對陡峭</b></span><br>
+            完全無替代品，<b>廠商需求線 ＝ 整體市場需求線</b>！<br>
+            價格與銷售量呈反向變動關係。
+          </td>
+        </tr>
+
+        <!-- 項目 7 -->
+        <tr>
+          <td class="td-item-title">
+            <span>07. 價格與收益之四線關係</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 核心公式</span>
+            </div>
+            <span class="item-desc">P、AR、MR、D 之幾何位置</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <div class="hl-formula"><b>四線合一：<i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>D</i></b></div><br>
+            四條線完全重疊為同一直線。<br>
+            每多售出一單位，所增加的收益永遠等於市價 <i>P</i>。
+          </td>
+          <td class="col-mc cell-mc">
+            <div class="hl-formula"><b><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i></b></div><br>
+            <i>MR</i> 線位於 <i>AR</i>（需求線）下方。<br>
+            線型需求下，<i>MR</i> 的斜率為 <i>AR</i> 的 <b>2 倍</b>，橫軸截距為 <i>AR</i> 的<b>一半</b>。
+          </td>
+          <td class="col-oli cell-oli">
+            <div class="hl-formula"><b><i>MR</i> 垂直斷裂缺口</b></div><br>
+            在需求曲線的拗折點正下方，<i>MR</i> 線形成<b>垂直斷裂區間</b>！解釋了寡占價格具備<b>僵固性</b>。
+          </td>
+          <td class="col-mon cell-mon">
+            <div class="hl-formula"><b><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i></b></div><br>
+            需求線即為 <i>AR</i> 線；<i>MR</i> 斜率為 <i>AR</i> 的 <b>2 倍</b>，截距為一半。<br>
+            定價 <i>P</i> 永遠大於邊際收益 <i>MR</i>。
+          </td>
+        </tr>
+
+        <!-- 項目 8 -->
+        <tr>
+          <td class="td-item-title">
+            <span>08. 總收益 (TR) 曲線幾何特徵</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-fig">📐 圖形特徵</span>
+            </div>
+            <span class="item-desc">TR 隨產量 Q 之變化軌跡</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>原點出發之正斜率射線</b></span><br>
+            因 <i>P</i> 固定，<i>TR</i> ＝ <i>P</i> × <i>Q</i>，其斜率即為固定的市價 <i>P</i>（亦即 <i>MR</i> 恆常不變）。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-amber"><b>倒 U 型二次拋物線</b></span><br>
+            先升後降。當 <i>MR</i> ＞ 0 時 <i>TR</i> 上升；當 <i>MR</i> ＝ 0 時 <i>TR</i> 達最大值；當 <i>MR</i> ＜ 0 時 <i>TR</i> 下降。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>轉折型倒 U 曲線</b></span><br>
+            在拗折點對應之銷售量處，<i>TR</i> 曲線斜率發生明顯改變，並在該處達到最高峰區間。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>倒 U 型二次拋物線</b></span><br>
+            • <i>E<sub>d</sub></i> ＞ 1：降價使 <i>TR</i> 增加<br>
+            • <i>E<sub>d</sub></i> ＝ 1：<i>TR</i> 達極大值（<i>MR</i>＝0）<br>
+            • <i>E<sub>d</sub></i> ＜ 1：降價使 <i>TR</i> 減少
+          </td>
+        </tr>
+
+        <!-- 項目 9 -->
+        <tr>
+          <td class="td-item-title">
+            <span>09. 阿莫羅索公式應用</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 計算題必考</span>
+            </div>
+            <span class="item-desc">MR ＝ P ( 1 － 1/|Ed| )</span>
+          </td>
+          <td class="col-pc cell-pc">
+            因 |<i>E<sub>d</sub></i>| ＝ ∞，1/|<i>E<sub>d</sub></i>| ＝ 0：<br>
+            <div class="hl-formula"><b><i>MR</i> ＝ <i>P</i> ( 1 － 0 ) ＝ <i>P</i></b></div><br>
+            公式直接化簡，印證邊際收益等於價格。
+          </td>
+          <td class="col-mc cell-mc">
+            因 |<i>E<sub>d</sub></i>| ＞ 1，( 1 － 1/|<i>E<sub>d</sub></i>| ) 介於 0 與 1 之間：<br>
+            <div class="hl-formula"><b>0 ＜ <i>MR</i> ＜ <i>P</i></b></div><br>
+            只要降價促銷，<i>MR</i> 必低於價格 <i>P</i>。
+          </td>
+          <td class="col-oli cell-oli">
+            拗折點兩側彈性不同：<br>
+            • 點左側：|<i>E<sub>d</sub></i>| 大，<i>MR</i> 高<br>
+            • 點右側：|<i>E<sub>d</sub></i>| 小，<i>MR</i> 低<br>
+            兩者在拗折點不連續，造成垂直斷裂。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>廠商絕不在 |<i>E<sub>d</sub></i>| ＜ 1 階段生產！</b></span><br>
+            若 |<i>E<sub>d</sub></i>| ＜ 1，則 <i>MR</i> ＜ 0；而成本 <i>MC</i> 恆正，絕不可能使 <i>MR</i> ＝ <i>MC</i>。故廠商必在 <b>|<i>E<sub>d</sub></i>| ＞ 1</b> 營運！
+          </td>
+        </tr>
+
+        <!-- 項目 10 -->
+        <tr>
+          <td class="td-item-title">
+            <span>10. 降價促銷對總收益影響</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ 觀念盲區</span>
+            </div>
+            <span class="item-desc">「薄利多銷」之經濟學真諦</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>無降價意義！</b><br>
+            市場價格下即可售出無限產量，降價是完全不理性的自損行為。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>薄利多銷效果顯著！</b><br>
+            替代品多，只要降價便能吸引大量消費者轉購，總收益 <i>TR</i> 顯著提升。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>單獨降價將引發跟進！</b><br>
+            降價無法獨享銷量增長，反而迫使對手降價迎戰，全產業陷入 <i>TR</i> 縮水。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>僅在富有彈性段有效！</b><br>
+            只有在 |<i>E<sub>d</sub></i>| ＞ 1 區間降價才能使 <i>TR</i> 擴大；在缺乏彈性段降價反使 <i>TR</i> 萎縮。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="exam-trap-box">
+      <div class="trap-title">🎯 統測解題金鑰（單元二）：</div>
+      ① <b>四線合一（<i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>D</i>）</b>是完全競爭獨有的正字標記，其餘三大市場皆為 <i>P</i> ＝ <i>AR</i> ＞ <i>MR</i>；<br>
+      ② 獨占廠商<b>「絕不在缺乏彈性區間（|<i>E<sub>d</sub></i>| ＜ 1）生產」</b>是統測每年必考的經典大陷阱！<br>
+      ③ 寡占廠商面臨的史威吉拗折需求線，<b>「垂直斷裂的是邊際收益 <i>MR</i> 線」</b>，而非需求線本身！
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       單元三：短期均衡決策、利潤狀態與供給曲線（項目 11～15）
+       ========================================================================= -->
+  <section class="unit-section page-break-before" id="unit3">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>⚖️ 單元三：短期均衡決策、利潤狀態與供給曲線</span>
+      </div>
+      <div class="unit-subtitle">指標 11 ～ 15 ｜ 產量黃金律、停業點判斷、供給曲線有無判定</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-item">比較維度 / 指標</th>
+          <th class="th-pc col-pc">🟩 完全競爭 (PC)</th>
+          <th class="th-mc col-mc">🟨 獨占性競爭 (MC)</th>
+          <th class="th-oli col-oli">🟪 寡占市場 (Oligopoly)</th>
+          <th class="th-mon col-mon">🟥 完全獨占 (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 項目 11 -->
+        <tr>
+          <td class="td-item-title">
+            <span>11. 短期均衡產量決定原則</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 利潤極大律</span>
+            </div>
+            <span class="item-desc">最適產量決定條件</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <div class="hl-formula"><b><i>MR</i> ＝ <i>SMC</i>（即 <i>P</i> ＝ <i>SMC</i>）</b></div><br>
+            且 <i>SMC</i> 必須處於<b>遞增階段</b>（二階充分條件）。
+          </td>
+          <td class="col-mc cell-mc">
+            <div class="hl-formula"><b><i>MR</i> ＝ <i>SMC</i></b></div><br>
+            決定產量 <i>Q</i><sup>*</sup> 後，再垂直向上對應需求線決定價格 <i>P</i><sup>*</sup>。
+          </td>
+          <td class="col-oli cell-oli">
+            <div class="hl-formula"><b><i>SMC</i> 穿過 <i>MR</i> 斷裂缺口</b></div><br>
+            只要 <i>SMC</i> 在斷裂區間內上下移動，均衡產量 <i>Q</i><sup>*</sup> 與定價 <i>P</i><sup>*</sup> 紋風不動。
+          </td>
+          <td class="col-mon cell-mon">
+            <div class="hl-formula"><b><i>MR</i> ＝ <i>SMC</i></b></div><br>
+            決定最適產量 <i>Q</i><sup>*</sup> 後，再垂直對應需求線決定獨占價格 <i>P</i><sup>*</sup>。
+          </td>
+        </tr>
+
+        <!-- 項目 12 -->
+        <tr>
+          <td class="td-item-title">
+            <span>12. 短期利潤的四種可能狀態</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ 獨占不保證賺</span>
+            </div>
+            <span class="item-desc">短期經濟利潤 π 之盈虧狀態</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>四種狀態皆可能：</b><br>
+            • <i>P</i> ＞ <i>SAC</i>：超額利潤（π ＞ 0）<br>
+            • <i>P</i> ＝ <i>SAC</i>：正常利潤（π ＝ 0）<br>
+            • <i>AVC</i> ＜ <i>P</i> ＜ <i>SAC</i>：虧損但繼續營運<br>
+            • <i>P</i> ＜ <i>AVC</i>：停業歇業
+          </td>
+          <td class="col-mc cell-mc">
+            <b>四種狀態皆可能：</b><br>
+            新店剛開幕可能賺取超額利潤；若定位不清或遇不景氣，短期同樣可能發生虧損或倒閉停業。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>四種狀態皆可能：</b><br>
+            雖多數大廠短期維持超額利潤，但若爆發割喉價格戰或設備投資過鉅，短期亦可能虧損。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>獨占廠商不保證穩賺不賠！</b></span><br>
+            若市場需求過於疲弱，或固定設備成本極其龐大，獨占廠商短期同樣可能面臨虧損或停業！
+          </td>
+        </tr>
+
+        <!-- 項目 13 -->
+        <tr>
+          <td class="td-item-title">
+            <span>13. 損益平衡點 vs 歇業點</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 停業鐵律</span>
+            </div>
+            <span class="item-desc">損益兩平與停業關門價格判定</span>
+          </td>
+          <td class="col-pc cell-pc">
+            • <b>損益平衡點</b>：<i>P</i> ＝ <i>SAC</i><sub>min</sub><br>
+            • <b>停業點（歇業點）</b>：<span class="hl-green"><b><i>P</i> ＝ <i>AVC</i><sub>min</sub></b></span><br>
+            若 <i>P</i> ＜ <i>AVC</i><sub>min</sub>，虧損將大於固定成本 <i>TFC</i>，停業才能使損失鎖定為 <i>TFC</i>。
+          </td>
+          <td class="col-mc cell-mc">
+            • <b>兩平點</b>：<i>P</i> ＝ <i>SAC</i><br>
+            • <b>停業點</b>：<span class="hl-amber"><b><i>P</i> ＝ <i>AVC</i></b></span><br>
+            短期決策邏輯完全相同：只要價格無法彌補平均變動成本，即刻歇業。
+          </td>
+          <td class="col-oli cell-oli">
+            • <b>兩平點</b>：<i>P</i> ＝ <i>SAC</i><br>
+            • <b>停業點</b>：<span class="hl-purple"><b><i>P</i> ＝ <i>AVC</i></b></span><br>
+            若營收連直接可變成本（工資、原料）都無法回收，廠商寧可暫停產線。
+          </td>
+          <td class="col-mon cell-mon">
+            • <b>兩平點</b>：<i>P</i> ＝ <i>SAC</i><br>
+            • <b>停業點</b>：<span class="hl-key"><b><i>P</i> ＝ <i>AVC</i></b></span><br>
+            即便為獨占巨頭，若總收益 <i>TR</i> ＜ 總變動成本 <i>TVC</i>，亦須停業以止血。
+          </td>
+        </tr>
+
+        <!-- 項目 14 -->
+        <tr>
+          <td class="td-item-title">
+            <span>14. 短期供給曲線之存在性</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 統測五星考點</span>
+            </div>
+            <span class="item-desc">廠商是否存在短期供給曲線</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>存在短期供給曲線！</b></span><br>
+            <div class="hl-formula"><b><i>S</i> ＝ <i>SMC</i> ≧ <i>AVC</i><sub>min</sub></b></div><br>
+            邊際成本線高於平均變動成本最低點之<b>正斜率遞增階段</b>即為其供給曲線！
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-key"><b>沒有供給曲線！</b></span><br>
+            價格與產量不存在一一對應的函數關係；同一產量可能對應多種價格。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-key"><b>沒有供給曲線！</b></span><br>
+            價格取決於對手策略反應與賽局互動，無法繪出獨立唯一的供給線。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>沒有供給曲線！</b></span><br>
+            給定一個價格可能有多個均衡產量；給定一個產量亦可對應不同價格。
+          </td>
+        </tr>
+
+        <!-- 項目 15 -->
+        <tr>
+          <td class="td-item-title">
+            <span>15. 市場（產業）短期供給曲線</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ 水平加總</span>
+            </div>
+            <span class="item-desc">個別廠商供給線如何匯聚為市場線</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>個別供給曲線水平加總：</b><br>
+            <i>Q<sub>S</sub></i> ＝ Σ <i>q<sub>i</sub></i>。<br>
+            （註：若要素價格隨產業產量變動，則非單純幾何水平加總）。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>無市場供給曲線</b><br>
+            因個別廠商無供給曲線，故整體產業亦無法水平加總出市場供給曲線。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>無市場供給曲線</b><br>
+            產業產量由少數大廠賽局均衡決定，不存在外生的產業供給線。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>無市場供給曲線</b><br>
+            廠商即代表產業，因廠商無供給曲線，整體市場亦無供給曲線。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="exam-trap-box">
+      <div class="trap-title">🎯 統測解題金鑰（單元三）：</div>
+      ① <b>「四大市場中，只有完全競爭廠商有供給曲線，其餘三種不完全競爭廠商皆無供給曲線」</b>，這是歷年統測出題率最高的單選題選項！<br>
+      ② 短期歇業條件：不是看 <i>SAC</i>，而是看 <b><i>P</i> ＜ <i>AVC</i><sub>min</sub>（或 <i>TR</i> ＜ <i>TVC</i>）</b>！只要 <i>P</i> ＞ <i>AVC</i>，就算虧損也要繼續營業！<br>
+      ③ <b>獨占廠商不保證賺錢</b>：獨占只是沒有同業競爭，若消費者根本不買單（需求線低於 <i>SAC</i>），照樣會虧損！
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       單元四：長期均衡、利潤歸零與產能利用（項目 16～20）
+       ========================================================================= -->
+  <section class="unit-section page-break-before" id="unit4">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>🏢 單元四：長期均衡、利潤歸零與產能利用</span>
+      </div>
+      <div class="unit-subtitle">指標 16 ～ 20 ｜ 七位一體、超額產能、長期產業成本</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-item">比較維度 / 指標</th>
+          <th class="th-pc col-pc">🟩 完全競爭 (PC)</th>
+          <th class="th-mc col-mc">🟨 獨占性競爭 (MC)</th>
+          <th class="th-oli col-oli">🟪 寡占市場 (Oligopoly)</th>
+          <th class="th-mon col-mon">🟥 完全獨占 (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 項目 16 -->
+        <tr>
+          <td class="td-item-title">
+            <span>16. 長期進出調整機制</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 動態調整</span>
+            </div>
+            <span class="item-desc">長期利潤引導廠商進退場</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>完全自由進退場：</b><br>
+            • 超額利潤 ➔ 新廠進場 ➔ 供給增加 ➔ 市價下跌至無超額利潤。<br>
+            • 虧損 ➔ 舊廠退場 ➔ 供給減少 ➔ 市價回升至損益兩平。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>進退場容易：</b><br>
+            • 超額利潤 ➔ 新品牌加入 ➔ 既有廠商需求線 <i>d</i> 左移且變平坦。<br>
+            • 虧損 ➔ 退出市場 ➔ 留存廠商 <i>d</i> 右移，直到切於 <i>LAC</i>。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>進退場受阻：</b><br>
+            新廠因障礙無法隨意加入，既有大廠透過擴產或卡位阻止潛在競爭者，市場份額維持長期穩定。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>絕對阻絕進入：</b><br>
+            長期沒有任何新競爭者能夠跨入市場，獨占地位屹立不搖。
+          </td>
+        </tr>
+
+        <!-- 項目 17 -->
+        <tr>
+          <td class="td-item-title">
+            <span>17. 長期經濟利潤 (π)</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 統測秒殺題</span>
+            </div>
+            <span class="item-desc">長期均衡下廠商利潤狀態</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>π ＝ 0（僅享正常利潤）</b></span><br>
+            自由進出使得長期絕對無超額利潤，亦不容許長期虧損。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-amber"><b>π ＝ 0（僅享正常利潤）</b></span><br>
+            自由競爭瓜分使長期超額利潤完全消逝，<i>P</i> ＝ <i>LAC</i>。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>π ≧ 0（長期保有超額利潤）</b></span><br>
+            受重大進入障礙保護，大廠長期通常享有顯著超額利潤（π ＞ 0）。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>π ＞ 0（長期保有巨大超額利潤）</b></span><br>
+            獨占壁壘阻絕分食，長期持續坐享豐厚的超額利潤（獨占租金）。
+          </td>
+        </tr>
+
+        <!-- 項目 18 -->
+        <tr>
+          <td class="td-item-title">
+            <span>18. 長期均衡方程式與位置</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 七位一體</span>
+            </div>
+            <span class="item-desc">長期最適規模與成本線幾何</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <div class="hl-formula"><b>七位一體！</b><br>
+            <i>P</i> ＝ <i>MR</i> ＝ <i>LMC</i> ＝ <i>SMC</i> ＝ <i>LAC</i><sub>min</sub> ＝ <i>SAC</i><sub>min</sub></div><br>
+            生產於長期平均成本線的<b>最低點</b>！
+          </td>
+          <td class="col-mc cell-mc">
+            <div class="hl-formula"><b><i>P</i> ＝ <i>LAC</i> ＞ <i>MR</i> ＝ <i>LMC</i></b></div><br>
+            負斜率需求線 <i>d</i> 相切於 <i>LAC</i> 曲線的<b>下降段（左側）</b>，並非切於最低點！
+          </td>
+          <td class="col-oli cell-oli">
+            <div class="hl-formula"><b><i>MR</i> ＝ <i>LMC</i>，<i>P</i> ＞ <i>LAC</i></b></div><br>
+            均衡產量通常小於 <i>LAC</i> 最低點對應產能，未達規模經濟極致。
+          </td>
+          <td class="col-mon cell-mon">
+            <div class="hl-formula"><b><i>MR</i> ＝ <i>LMC</i>，<i>P</i> ＞ <i>LAC</i></b></div><br>
+            獨占廠商可自由選擇工廠規模，通常切於 <i>LAC</i> 下降段或上升段，不保證在最低點。
+          </td>
+        </tr>
+
+        <!-- 項目 19 -->
+        <tr>
+          <td class="td-item-title">
+            <span>19. 產能利用與超額產能</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 獨競核心</span>
+            </div>
+            <span class="item-desc">Excess Capacity 幾何意涵</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>無超額產能！</b></span><br>
+            在 <i>LAC</i> 最低點生產，產能完全充分發揮，達到「最適工廠規模」。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-key"><b>存在超額產能 (Excess Capacity)！</b></span><br>
+            實際產量 <i>Q</i><sup>*</sup> ＜ 最適產能 <i>Q<sub>opt</sub></i>（<i>LAC</i><sub>min</sub>處）。<br>
+            <b>代價</b>：資源閒置未達最低成本；<b>補償</b>：換得商品多樣化。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>產能利用通常偏低</b></span><br>
+            為防範潛在對手進入，廠商常刻意維持過剩產能作為威懾性進入壁壘。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>產能嚴重未充分發揮</b></span><br>
+            為了拉抬市場價格，人為限制產量，遠低於 <i>LAC</i> 最低點之最適產能。
+          </td>
+        </tr>
+
+        <!-- 項目 20 -->
+        <tr>
+          <td class="td-item-title">
+            <span>20. 長期產業成本類型</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ LS 線斜率</span>
+            </div>
+            <span class="item-desc">長期產業供給曲線 LS 之三種類型</span>
+          </td>
+          <td class="col-pc cell-pc">
+            • <b>成本固定產業</b>：<i>LS</i> 為<b>水平線</b><br>
+            • <b>成本遞增產業</b>：<i>LS</i> 為<b>正斜率</b>（最常見）<br>
+            • <b>成本遞減產業</b>：<i>LS</i> 為<b>負斜率</b>
+          </td>
+          <td class="col-mc cell-mc">
+            多數屬於<b>成本遞增產業</b>，當大量同類店家進駐，店面租金與人事成本隨之被推高。
+          </td>
+          <td class="col-oli cell-oli">
+            具高度資本密集特徵，主要受限於關鍵原材料之稀少性，多屬成本遞增。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>自然獨占</b>常具有顯著之<b>長期成本遞減（規模經濟）</b>，產量越大平均成本越低。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="exam-trap-box">
+      <div class="trap-title">🎯 統測解題金鑰（單元四）：</div>
+      ① <b>長期利潤歸零（π ＝ 0）</b>的只有：<b>完全競爭</b>與<b>獨占性競爭</b>！原因都是「進出市場自由/容易」；<br>
+      ② <b>長期在 <i>LAC</i> 最低點生產</b>的只有：<b>完全競爭</b>！獨占性競爭雖然 π ＝ 0，但切於 <i>LAC</i> 下降段，因此<b>「存在超額產能」</b>；<br>
+      ③ 統測計算題只要看到「獨占性競爭長期均衡」，立即列式 <b><i>P</i> ＝ <i>LAC</i> 且 <i>MR</i> ＝ <i>LMC</i></b> 求解！
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       單元五：競爭策略、定價手法與賽局理論（項目 21～24）
+       ========================================================================= -->
+  <section class="unit-section page-break-before" id="unit5">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>🎯 單元五：競爭策略、定價手法與賽局理論</span>
+      </div>
+      <div class="unit-subtitle">指標 21 ～ 24 ｜ 非價格競爭、差別取價、卡特爾與賽局</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-item">比較維度 / 指標</th>
+          <th class="th-pc col-pc">🟩 完全競爭 (PC)</th>
+          <th class="th-mc col-mc">🟨 獨占性競爭 (MC)</th>
+          <th class="th-oli col-oli">🟪 寡占市場 (Oligopoly)</th>
+          <th class="th-mon col-mon">🟥 完全獨占 (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 項目 21 -->
+        <tr>
+          <td class="td-item-title">
+            <span>21. 非價格競爭之必要與手段</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 獨競招牌</span>
+            </div>
+            <span class="item-desc">廣告、包裝、品牌與差異化</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>完全無非價格競爭！</b></span><br>
+            產品完全同質且市價固定，打廣告或精美包裝只會增加成本，毫無商業誘因。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-key"><b>極度盛行非價格競爭！</b></span><br>
+            <b>本市場最主要競爭手段</b>：明星代言、精美包裝、會員積分、促銷活動、差異化售後服務。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>極為盛行非價格競爭！</b></span><br>
+            為避免價格割喉戰損人不利己，轉而力拼：技術創新、形象廣告、保固年限與售後通路。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>無非價格競爭之必要</b></span><br>
+            獨霸市場無對手；偶爾刊登廣告僅為公關形象、節約用水用電宣導或政策公告。
+          </td>
+        </tr>
+
+        <!-- 項目 22 -->
+        <tr>
+          <td class="td-item-title">
+            <span>22. 價格競爭策略</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ 割喉戰</span>
+            </div>
+            <span class="item-desc">價格戰之爆發與防範</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>無價格競爭！</b><br>
+            隨行就市，降價徒增損失，漲價半件賣不掉，毫無定價策略空間。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>具局部價格競爭：</b><br>
+            常有降價特惠或買一送一促銷，但多半搭配產品特色進行差異化定價。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>極力避免殺價競爭（割喉戰）！</b></span><br>
+            殺價必然引來對手跟進，同歸於盡；故多採取<b>「價格領導制」</b>或默契維持高價。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>無對手價格戰！</b><br>
+            純粹依市場需求彈性極大化自身利潤，採取單一定價或<b>差別取價</b>。
+          </td>
+        </tr>
+
+        <!-- 項目 23 -->
+        <tr>
+          <td class="td-item-title">
+            <span>23. 差別取價（價格歧視）</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 獨占專屬題</span>
+            </div>
+            <span class="item-desc">一級、二級、三級差別取價</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>完全不可能實行！</b><br>
+            資訊完全透明且為價格接受者，轉售極其容易，無法區隔市場。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>難以嚴格實行：</b><br>
+            替代品眾多，若對不同顧客差別取價，顧客將輕易轉向其他店家購買。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>偶見兩段式或綁定定價：</b><br>
+            如電信資費綁約購機，但需提防被公平交易法認定為聯合壟斷。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>差別取價的三大層級：</b></span><br>
+            • <b>第一級（完全差別取價）</b>：榨乾全部 <i>CS</i>（<i>CS</i>＝0），<i>DWL</i>＝0！<br>
+            • <b>第二級（數量階梯定價）</b>：水電費累進階梯。<br>
+            • <b>第三級（市場分割）</b>：<span class="hl-formula">彈性大索低價、彈性小索高價</span>（如學生票 vs 全票）。
+          </td>
+        </tr>
+
+        <!-- 項目 24 -->
+        <tr>
+          <td class="td-item-title">
+            <span>24. 賽局理論與卡特爾組織</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 寡占靈魂</span>
+            </div>
+            <span class="item-desc">囚徒困境、Nash 均衡與 OPEC</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>無賽局互動：</b><br>
+            廠商數量無限多且規模極小，彼此間不存在任何策略性博弈行為。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>無勾結可能：</b><br>
+            店家數量眾多，監督成本過高，不可能達成勾結協議。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-purple"><b>賽局理論之核心舞台！</b></span><br>
+            • <b>卡特爾 (Cartel，如 OPEC)</b>：公開協議勾結，視同多廠獨占，但成員私自偷產降價誘因極強，<b>協議極易瓦解</b>。<br>
+            • <b>囚徒困境</b>：優勢策略導向雙輸之 Nash 均衡。
+          </td>
+          <td class="col-mon cell-mon">
+            <b>無賽局對象：</b><br>
+            市場上僅此一家，無其他競爭對手可進行博弈。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="exam-trap-box">
+      <div class="trap-title">🎯 統測解題金鑰（單元五）：</div>
+      ① <b>非價格競爭最盛行</b>的市場是<b>「獨占性競爭」</b>（也是寡占的重要手段，但完全競爭與完全獨占皆無）；<br>
+      ② <b>第三級差別取價法則</b>：<b>「彈性大者索低價、彈性小者索高價」</b>！例如學生時間多彈性大，電影票賣低價；商務客彈性小，機票賣高價；<br>
+      ③ <b>卡特爾組織（如石油輸出國組織 OPEC）</b>本質是追求「整體利潤極大化」，但因為各國私自暗中超產的誘因巨大，在經濟學上被判定為<b>「天生具有不穩定性」</b>！
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       單元六：經濟效率、社會福利與政府管制（項目 25～28）
+       ========================================================================= -->
+  <section class="unit-section page-break-before" id="unit6">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>🌐 單元六：經濟效率、社會福利與政府管制</span>
+      </div>
+      <div class="unit-subtitle">指標 25 ～ 28 ｜ 生產效率、配置效率、死重損失與公用事業管制</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th class="th-item">比較維度 / 指標</th>
+          <th class="th-pc col-pc">🟩 完全競爭 (PC)</th>
+          <th class="th-mc col-mc">🟨 獨占性競爭 (MC)</th>
+          <th class="th-oli col-oli">🟪 寡占市場 (Oligopoly)</th>
+          <th class="th-mon col-mon">🟥 完全獨占 (Monopoly)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 項目 25 -->
+        <tr>
+          <td class="td-item-title">
+            <span>25. 生產效率評價</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 LAC 最低點</span>
+            </div>
+            <span class="item-desc">是否在長期平均成本最低點生產</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>具備生產效率！</b></span><br>
+            在 <i>P</i> ＝ <i>LAC</i><sub>min</sub> 處生產，社會以最低的資源消耗成本產出商品。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-key"><b>不具備生產效率</b></span><br>
+            切於 <i>LAC</i> 下降段，未能發揮最低成本產能，存在超額產能。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-key"><b>不具備生產效率</b></span><br>
+            產量多未達 <i>LAC</i> 最低點，未達技術效率極大。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>不具備生產效率</b></span><br>
+            通常不落在 <i>LAC</i> 最低點，缺乏外部競爭壓力易引發內部 X-無效率。
+          </td>
+        </tr>
+
+        <!-- 項目 26 -->
+        <tr>
+          <td class="td-item-title">
+            <span>26. 配置效率評價</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 P ＝ MC</span>
+            </div>
+            <span class="item-desc">價格是否等於邊際成本 (P ＝ MC)</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>具備配置效率！</b></span><br>
+            <div class="hl-formula"><b><i>P</i> ＝ <i>MC</i></b></div><br>
+            價格反映消費者的邊際效益剛好等於社會邊際成本，資源配置最完美。
+          </td>
+          <td class="col-mc cell-mc">
+            <span class="hl-key"><b>不具備配置效率</b></span><br>
+            <div class="hl-formula"><b><i>P</i> ＞ <i>MC</i></b></div><br>
+            定價高於邊際成本，產出量略小於社會最適數量。
+          </td>
+          <td class="col-oli cell-oli">
+            <span class="hl-key"><b>不具備配置效率</b></span><br>
+            <div class="hl-formula"><b><i>P</i> ＞ <i>MC</i></b></div><br>
+            產出受限，社會資源未配置至最佳境界。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>嚴重不具備配置效率！</b></span><br>
+            <div class="hl-formula"><b><i>P</i> ≫ <i>MC</i></b></div><br>
+            人為限產拉抬高價，扭曲資源配置最為嚴重。
+          </td>
+        </tr>
+
+        <!-- 項目 27 -->
+        <tr>
+          <td class="td-item-title">
+            <span>27. 社會福利與死重損失 (DWL)</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-hot">🔥 總剩餘極大</span>
+            </div>
+            <span class="item-desc">CS＋PS 與無謂損失 Harberger 三角</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <span class="hl-green"><b>社會總福利達到最大！</b></span><br>
+            消費者剩餘 <i>CS</i> 與生產者剩餘 <i>PS</i> 總和極大化，<b>死重損失 <i>DWL</i> ＝ 0</b>。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>存在輕微死重損失：</b><br>
+            <i>DWL</i> 較小；雖有效率損失，但豐富多元的商品滿足了消費者的差異化品味。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>存在顯著死重損失：</b><br>
+            寡占限產抬價引發中度 <i>DWL</i>，消費者剩餘被部分剝削為寡占利潤。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>死重損失 (DWL) 最大！</b></span><br>
+            產生巨大的哈伯格死重損失三角形；消費者剩餘被大量掠奪轉為獨占暴利。
+          </td>
+        </tr>
+
+        <!-- 項目 28 -->
+        <tr>
+          <td class="td-item-title">
+            <span>28. 自然獨占之政府管制定價</span>
+            <div class="item-badge-wrap">
+              <span class="badge-tag tag-trap">⚠️ 公用事業管制</span>
+            </div>
+            <span class="item-desc">邊際成本定價法 vs 平均成本定價法</span>
+          </td>
+          <td class="col-pc cell-pc">
+            <b>無須政府管制！</b><br>
+            「看不見的手」完全自動達成最高效率，政府介入反致扭曲。
+          </td>
+          <td class="col-mc cell-mc">
+            <b>無須價格管制</b><br>
+            競爭充分，政府主要監督衛生安全、公平交易與廣告真實性。
+          </td>
+          <td class="col-oli cell-oli">
+            <b>公平交易法重點監督：</b><br>
+            反托拉斯法、公平法明令禁止聯合勾結壟斷、哄抬物價與不正當競爭。
+          </td>
+          <td class="col-mon cell-mon">
+            <span class="hl-key"><b>兩大公用事業管制定價法則：</b></span><br>
+            • <b>邊際成本定價法 (<i>P</i> ＝ <i>MC</i>)</b>：達成配置效率（<i>DWL</i>＝0），但因 <i>MC</i> ＜ <i>AC</i>，<b>廠商發生虧損，需政府財政補貼</b>！<br>
+            • <b>平均成本定價法 (<i>P</i> ＝ <i>AC</i>)</b>：損益兩平（正常利潤），政府免補貼；但仍有輕微 <i>DWL</i>。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="exam-trap-box">
+      <div class="trap-title">🎯 統測解題金鑰（單元六）：</div>
+      ① <b>社會福利排序（總剩餘）</b>：<b>完全競爭 ＞ 獨占性競爭 ＞ 寡占 ＞ 完全獨占</b>；<br>
+      ② <b>死重損失（<i>DWL</i>）排序</b>：<b>完全獨占 ＞ 寡占 ＞ 獨占性競爭 ＞ 完全競爭（<i>DWL</i> ＝ 0）</b>；<br>
+      ③ 自然獨占管制定價：<b>「<i>P</i> ＝ <i>MC</i> 會使公用事業廠商虧損」</b>，這是統測計算與觀念題屢見不鮮的必背重點！
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       單元七：統測考前衝刺 10 秒速查大對照神表
+       ========================================================================= -->
+  <section class="unit-section page-break-before" id="unit7">
+    <div class="unit-header">
+      <div class="unit-title">
+        <span>⚡ 單元七：統測考前衝刺 10 秒極速對照神表</span>
+      </div>
+      <div class="unit-subtitle">10 大核心焦點一覽無遺 ｜ 考前 5 分鐘翻閱專用</div>
+    </div>
+
+    <table class="matrix-table">
+      <thead>
+        <tr>
+          <th style="width:20%;background:#f1f5f9;color:#0f172a;">核心指標</th>
+          <th style="width:20%;background:var(--pc-bg);color:#065f46;">完全競爭 (PC)</th>
+          <th style="width:20%;background:var(--mc-bg);color:#92400e;">獨占性競爭 (MC)</th>
+          <th style="width:20%;background:var(--oli-bg);color:#5b21b6;">寡占市場 (Oli)</th>
+          <th style="width:20%;background:var(--mon-bg);color:#991b1b;">完全獨占 (Mon)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1. 家數 / 產品</b></td>
+          <td>極多 / 完全同質</td>
+          <td>眾多 / <b>有差異（異質）</b></td>
+          <td>少數幾家 / 同質或異質</td>
+          <td>唯一一家 / 無替代品</td>
+        </tr>
+        <tr>
+          <td><b>2. 進出障礙 / 定價力</b></td>
+          <td>完全自由 / 價格接受者</td>
+          <td>進出容易 / 具微弱定價力</td>
+          <td>困難障礙 / 相互牽制</td>
+          <td>絕對障礙 / <b>價格決定者</b></td>
+        </tr>
+        <tr>
+          <td><b>3. 個別需求線</b></td>
+          <td>水平線（<i>E<sub>d</sub></i> ＝ ∞）</td>
+          <td>負斜率但平坦（彈性大）</td>
+          <td><b>史威吉拗折需求線</b></td>
+          <td>負斜率且陡峭（即市場線）</td>
+        </tr>
+        <tr>
+          <td><b>4. 價格與收益關係</b></td>
+          <td><b><i>P</i> ＝ <i>AR</i> ＝ <i>MR</i> ＝ <i>D</i></b></td>
+          <td><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i></td>
+          <td><i>MR</i> 在拗折點<b>垂直斷裂</b></td>
+          <td><i>P</i> ＝ <i>AR</i> ＞ <i>MR</i></td>
+        </tr>
+        <tr>
+          <td><b>5. 短期利潤可能</b></td>
+          <td>四種皆可能</td>
+          <td>四種皆可能</td>
+          <td>四種皆可能</td>
+          <td>四種皆可能（不保證賺）</td>
+        </tr>
+        <tr>
+          <td><b>6. 短期供給曲線</b></td>
+          <td><b><i>S</i> ＝ <i>SMC</i> ≧ <i>AVC</i><sub>min</sub></b></td>
+          <td><b>無供給曲線</b></td>
+          <td><b>無供給曲線</b></td>
+          <td><b>無供給曲線</b></td>
+        </tr>
+        <tr>
+          <td><b>7. 長期利潤 (π)</b></td>
+          <td><b>π ＝ 0（正常利潤）</b></td>
+          <td><b>π ＝ 0（正常利潤）</b></td>
+          <td>π ≧ 0（超額利潤）</td>
+          <td><b>π ＞ 0（超額利潤）</b></td>
+        </tr>
+        <tr>
+          <td><b>8. 長期產能利用</b></td>
+          <td><b>在 <i>LAC</i><sub>min</sub> 生產（無超額產能）</b></td>
+          <td><b>切於 <i>LAC</i> 下降段（有超額產能）</b></td>
+          <td>產能偏低未達最適</td>
+          <td>產能嚴重未充分發揮</td>
+        </tr>
+        <tr>
+          <td><b>9. 非價格競爭</b></td>
+          <td>無（不廣告、不包裝）</td>
+          <td><b>最為盛行（核心手段）</b></td>
+          <td>盛行（形象、研發）</td>
+          <td>無必要（偶爾公關）</td>
+        </tr>
+        <tr>
+          <td><b>10. 社會死重損失</b></td>
+          <td><b><i>DWL</i> ＝ 0（社會福利極大）</b></td>
+          <td><i>DWL</i> 較小（有多樣化補償）</td>
+          <td><i>DWL</i> 顯著</td>
+          <td><b><i>DWL</i> 最大（福利損失最劇）</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<!-- 圖片放大檢視彈窗 (Modal) -->
+<div class="modal-overlay" id="figModal" onclick="closeModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img src="" alt="放大圖形" class="modal-img" id="modalImg" />
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+</div>
+
+<script>
+// 焦點透視互動篩選
+function setFocus(firm) {
+  const container = document.getElementById('docMain');
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  
+  if (event && event.target) {
+    event.target.classList.add('active');
+  }
+  
+  container.classList.remove('focus-active', 'focus-pc', 'focus-mc', 'focus-oli', 'focus-mon');
+  
+  if (firm !== 'all') {
+    container.classList.add('focus-active', 'focus-' + firm);
+  }
+}
+
+// 彈窗放大圖形
+function openModal(imgSrc, caption) {
+  const modal = document.getElementById('figModal');
+  const img = document.getElementById('modalImg');
+  const cap = document.getElementById('modalCaption');
+  img.src = imgSrc;
+  cap.innerText = caption || '經濟學圖形解構';
+  modal.classList.add('active');
+}
+
+function closeModal() {
+  const modal = document.getElementById('figModal');
+  modal.classList.remove('active');
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>
