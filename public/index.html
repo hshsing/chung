@@ -886,6 +886,11 @@ body.mode-auto .wrap{max-width:1080px}
   max-width: 1380px;
   margin: 0 auto 24px;
 }
+#block3 {
+  border-top: 6px solid #2563eb;
+  max-width: 1200px;
+  margin: 0 auto 24px;
+}
 .hide {
   display: none !important;
 }
@@ -948,7 +953,7 @@ body.mode-auto .wrap{max-width:1080px}
     <span>🗺️ 高職經濟學全景整合網</span>
     <span style="font-size:.72rem;background:rgba(255,255,255,0.25);color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:999px;padding:2px 8px">v2026 統測全景整合版</span>
   </h1>
-    <p>分頁一：📸 拍照解題（步驟引導關卡＋智慧錯題本） ｜ 分頁二：📖 經濟學架構圖（統測 19 章全景脈絡總覽）</p>
+    <p>分頁一：📸 拍照解題（步驟引導關卡＋智慧錯題本） ｜ 分頁二：📖 經濟學架構圖（1–19章總覽） ｜ 分頁三：💬 留言板（教學回饋與疑難解惑）</p>
   </div>
   <!-- 介面模式切換器 (手機 / 桌機 / 自動) -->
   <div class="ui-switcher-wrap">
@@ -964,6 +969,7 @@ body.mode-auto .wrap{max-width:1080px}
 <div class="wrap tabs" id="main-tabs">
   <button id="t1" class="active" onclick="showTab(1)">① 📸 拍照解題</button>
   <button id="t2" onclick="showTab(2)">② 📖 經濟學架構圖 (1–19章)</button>
+  <button id="t3" onclick="showTab(3)">③ 💬 留言板</button>
 </div>
 </header>
 <main class="wrap main-wrap">
@@ -1558,37 +1564,13 @@ body.mode-auto .wrap{max-width:1080px}
 <!-- 側邊抽屜 (Drawer) -->
   </div>
 
-</main>
 
-<!-- 側邊抽屜 (Drawer) -->
-<div id="overlay" onclick="closeDrawer()"></div>
-<div id="drawer">
-  <div class="drawer-header">
-    <h3 id="drawer-title">章節名稱</h3>
-    <button class="drawer-close" onclick="closeDrawer()">×</button>
-  </div>
-  <div class="drawer-body">
-    <div class="drawer-section">
-      <h4>📖 核心觀念精華</h4>
-      <p id="drawer-concept"></p>
-    </div>
-    <div class="drawer-section">
-      <h4>📊 統測常考必背圖形</h4>
-      <ul id="drawer-figures"></ul>
-    </div>
-    <div class="drawer-section">
-      <h4>⚡ 關鍵公式與解題心法</h4>
-      <p id="drawer-formula"></p>
-    </div>
-    <div id="drawer-action" style="margin-top:20px"></div>
-  </div>
-</div>
-
-
+<!-- Block 3: 師生互動留言板 -->
+<div id="block3" class="card hide">
 <!-- =========================================================================
      💬 師生互動留言板・教學回饋與疑難解惑專區 (Scheme A: Google 試算表串接 + 精選 Q&A 解惑牆)
      ========================================================================= -->
-<section id="feedback-section" style="max-width:1100px;margin:40px auto 20px;padding:0 16px;scroll-margin-top:85px;">
+<section id="feedback-section" style="margin:0;padding:0;">
   <!-- 留言板總標頭 -->
   <div style="background:linear-gradient(135deg, #1e293b 0%, #0f172a 100%);color:#ffffff;border-radius:16px;padding:24px 28px;margin-bottom:20px;box-shadow:0 10px 25px rgba(15,23,42,0.15);border:1px solid #334155;">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
@@ -1750,11 +1732,34 @@ body.mode-auto .wrap{max-width:1080px}
 
   </div>
 </section>
+</div>
 
-<!-- 浮動快捷按鈕：快速前往留言板 (右下角) -->
-<button id="float-feedback-btn" onclick="scrollToFeedback()" title="前往師生留言板・提問或回饋" style="position:fixed;bottom:25px;right:25px;z-index:900;background:#2563eb;color:#ffffff;border:none;border-radius:999px;padding:10px 18px;font-size:.92rem;font-weight:800;box-shadow:0 4px 20px rgba(37,99,235,0.45);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s ease;">
-  <span>💬 留言提問</span>
-</button>
+</main>
+
+<!-- 側邊抽屜 (Drawer) -->
+<div id="overlay" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <div class="drawer-header">
+    <h3 id="drawer-title">章節名稱</h3>
+    <button class="drawer-close" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-section">
+      <h4>📖 核心觀念精華</h4>
+      <p id="drawer-concept"></p>
+    </div>
+    <div class="drawer-section">
+      <h4>📊 統測常考必背圖形</h4>
+      <ul id="drawer-figures"></ul>
+    </div>
+    <div class="drawer-section">
+      <h4>⚡ 關鍵公式與解題心法</h4>
+      <p id="drawer-formula"></p>
+    </div>
+    <div id="drawer-action" style="margin-top:20px"></div>
+  </div>
+</div>
+
 
 <footer style="margin-top:36px;padding:24px 0 48px;border-top:1px solid #e2e8f0">
   <!-- 1. 全站統計膠囊 -->
@@ -2165,13 +2170,17 @@ function guessCh(s){
 function showTab(n){
   const b1=document.getElementById('block1');
   const b2=document.getElementById('block2');
+  const b3=document.getElementById('block3');
   const t1=document.getElementById('t1');
   const t2=document.getElementById('t2');
+  const t3=document.getElementById('t3');
 
   if(b1) b1.classList.toggle('hide', n !== 1);
   if(b2) b2.classList.toggle('hide', n !== 2);
+  if(b3) b3.classList.toggle('hide', n !== 3);
   if(t1) t1.classList.toggle('active', n === 1);
   if(t2) t2.classList.toggle('active', n === 2);
+  if(t3) t3.classList.toggle('active', n === 3);
 
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -4866,6 +4875,8 @@ window.addEventListener('DOMContentLoaded', () => {
     showTab(2);
   } else if (window.location.hash === '#solver') {
     showTab(1);
+  } else if (window.location.hash === '#feedback' || window.location.hash === '#feedback-section') {
+    showTab(3);
   }
 
   const hash = window.location.hash.replace('#', '').toUpperCase();
@@ -5202,12 +5213,9 @@ async function submitFeedback(e) {
 }
 
 function scrollToFeedback() {
-  const sec = document.getElementById('feedback-section');
-  if (sec) {
-    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    const content = document.getElementById('fb-content');
-    if (content) setTimeout(() => content.focus(), 600);
-  }
+  showTab(3);
+  const content = document.getElementById('fb-content');
+  if (content) setTimeout(() => content.focus(), 300);
 }
 
 function saveCustomGasUrl() {
