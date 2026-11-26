@@ -985,6 +985,7 @@ body.mode-auto .wrap{max-width:1080px}
     <a href="a3_sheet01_consumer.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#6b21a8;border-color:#d8b4fe;background:#faf5ff">📐 A3消費篇(CH1-3)</a>
     <a href="a3_sheet02_firms.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#047857;border-color:#a7f3d0;background:#ecfdf5">📐 A3廠商篇(CH6-9)</a>
     <a href="firms_matrix.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#1d4ed8;border-color:#bfdbfe;background:#eff6ff">📊 廠商28項大對照表(講義)</a>
+    <button type="button" class="chip-btn" onclick="scrollToFeedback()" style="font-weight:700;color:#0284c7;border-color:#bae6fd;background:#f0f9ff">💬 留言提問</button>
     <select onchange="if(this.value) window.open(this.value, '_blank')" style="padding:4px 8px;border-radius:8px;border:1px solid #cbd5e1;font-size:.82rem;font-weight:600">
       <option value="">📚 快速前往章節專頁 (CH1~CH19)...</option>
       <option value="ch01_basics.html">CH1 經濟基本概念</option>
@@ -1222,6 +1223,7 @@ body.mode-auto .wrap{max-width:1080px}
       <a href="a3_sheet01_consumer.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#6b21a8;border-color:#d8b4fe;background:#faf5ff">📐 A3消費篇(CH1-3)</a>
       <a href="a3_sheet02_firms.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#047857;border-color:#a7f3d0;background:#ecfdf5">📐 A3廠商篇(CH6-9)</a>
       <a href="firms_matrix.html" target="_blank" class="chip-btn" style="text-decoration:none;font-weight:700;color:#1d4ed8;border-color:#bfdbfe;background:#eff6ff">📊 廠商28項大對照表(講義)</a>
+    <button type="button" class="chip-btn" onclick="scrollToFeedback()" style="font-weight:700;color:#0284c7;border-color:#bae6fd;background:#f0f9ff">💬 留言提問</button>
       <button type="button" class="chip-btn" style="font-weight:700;color:#047857;border-color:#a7f3d0;background:#ecfdf5" onclick="showTab(1)">📸 切換至拍照解題</button>
     </div>
   </div>
@@ -1581,6 +1583,178 @@ body.mode-auto .wrap{max-width:1080px}
     <div id="drawer-action" style="margin-top:20px"></div>
   </div>
 </div>
+
+
+<!-- =========================================================================
+     💬 師生互動留言板・教學回饋與疑難解惑專區 (Scheme A: Google 試算表串接 + 精選 Q&A 解惑牆)
+     ========================================================================= -->
+<section id="feedback-section" style="max-width:1100px;margin:40px auto 20px;padding:0 16px;">
+  <!-- 留言板總標頭 -->
+  <div style="background:linear-gradient(135deg, #1e293b 0%, #0f172a 100%);color:#ffffff;border-radius:16px;padding:24px 28px;margin-bottom:20px;box-shadow:0 10px 25px rgba(15,23,42,0.15);border:1px solid #334155;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <h2 style="margin:0;font-size:1.45rem;font-weight:900;letter-spacing:-0.3px;color:#f8fafc;">💬 師生互動留言板・教學回饋與疑難解惑專區</h2>
+          <span style="background:#f59e0b;color:#0f172a;font-size:.78rem;font-weight:900;padding:2px 10px;border-radius:999px;">Google 試算表串接</span>
+        </div>
+        <p style="margin:0;color:#94a3b8;font-size:.92rem;line-height:1.6;">
+          有任何統測考點卡關、題目詳解疑問、或網站改進建議嗎？歡迎隨時留言！您的回饋會直接寫入鍾老師的教學試算表，精選解答將公開同步於解惑牆。
+        </p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="background:rgba(255,255,255,0.08);color:#cbd5e1;border:1px solid rgba(255,255,255,0.15);padding:4px 12px;border-radius:8px;font-size:.82rem;font-weight:600;">🛡️ 老師親筆點評</span>
+        <span style="background:rgba(255,255,255,0.08);color:#cbd5e1;border:1px solid rgba(255,255,255,0.15);padding:4px 12px;border-radius:8px;font-size:.82rem;font-weight:600;">⚡ 零廣告零干擾</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 留言板左右雙欄 (左欄：我要提問填表 / 右欄：精選 Q&A 解惑牆) -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:20px;align-items:start;">
+    
+    <!-- 左欄：留言填寫表單 -->
+    <div style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:14px;padding:22px;box-shadow:0 4px 15px rgba(0,0,0,0.04);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid #f1f5f9;">
+        <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:6px;">
+          <span>📝 我要提問 / 留下回饋</span>
+        </h3>
+        <span style="font-size:.78rem;color:#64748b;font-weight:600;">免註冊即可送出</span>
+      </div>
+
+      <form id="feedback-form" onsubmit="submitFeedback(event)">
+        <!-- 姓名與身份 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:.85rem;font-weight:700;color:#334155;margin-bottom:4px;">稱呼 / 班級（選填）</label>
+            <input type="text" id="fb-name" placeholder="例：商經三甲 小明" maxlength="25" style="width:100%;padding:8px 10px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:.88rem;outline:none;" />
+          </div>
+          <div>
+            <label style="display:block;font-size:.85rem;font-weight:700;color:#334155;margin-bottom:4px;">身分</label>
+            <select id="fb-role" style="width:100%;padding:8px 10px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:.88rem;outline:none;background:#ffffff;">
+              <option value="學生">🎓 學生</option>
+              <option value="老師">👨‍🏫 老師</option>
+              <option value="校友">🌟 畢業校友</option>
+              <option value="訪客">🌐 訪客</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 關聯章節與類型 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:.85rem;font-weight:700;color:#334155;margin-bottom:4px;">相關章節 / 模組</label>
+            <select id="fb-chapter" style="width:100%;padding:8px 10px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:.88rem;outline:none;background:#ffffff;">
+              <option value="全書綜合">📚 全書綜合 / 網站建議</option>
+              <option value="四大廠商大對照表">📊 四大廠商大對照表</option>
+              <option value="A3心智圖">📐 A3 橫向心智圖</option>
+              <option value="拍照解題">📸 拍照解題功能</option>
+              <option value="CH1 經濟基本概念">CH1 經濟基本概念</option>
+              <option value="CH2 需求與供給">CH2 需求與供給</option>
+              <option value="CH3 消費行為理論">CH3 消費行為理論</option>
+              <option value="CH4 生產理論">CH4 生產理論</option>
+              <option value="CH5 成本理論">CH5 成本理論</option>
+              <option value="CH6 市場結構與廠商收益">CH6 市場結構與廠商收益</option>
+              <option value="CH7 完全競爭產量與價格">CH7 完全競爭產量與價格</option>
+              <option value="CH8 獨占產量與價格">CH8 獨占產量與價格</option>
+              <option value="CH9 不完全競爭產量與價格">CH9 不完全競爭產量與價格</option>
+              <option value="CH10 分配理論">CH10 分配理論</option>
+              <option value="CH11 工資與地租">CH11 工資與地租</option>
+              <option value="CH12 利息與利潤">CH12 利息與利潤</option>
+              <option value="CH13 國民所得">CH13 國民所得</option>
+              <option value="CH14 所得水準的決定">CH14 所得水準的決定</option>
+              <option value="CH15 貨幣與金融">CH15 貨幣與金融</option>
+              <option value="CH16 政府">CH16 政府</option>
+              <option value="CH17 國際貿易">CH17 國際貿易</option>
+              <option value="CH18 經濟波動">CH18 經濟波動</option>
+              <option value="CH19 經濟成長與發展">CH19 經濟成長與發展</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:.85rem;font-weight:700;color:#334155;margin-bottom:4px;">回饋類型</label>
+            <select id="fb-category" style="width:100%;padding:8px 10px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:.88rem;outline:none;background:#ffffff;">
+              <option value="💡 學習提問">💡 學習提問</option>
+              <option value="🎯 考點困惑">🎯 考點困惑</option>
+              <option value="⭐ 學習心得">⭐ 學習心得 / 感謝</option>
+              <option value="🐞 勘誤回報">🐞 勘誤回報</option>
+              <option value="🚀 功能許願">🚀 功能許願</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 留言內容 -->
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-size:.85rem;font-weight:700;color:#334155;margin-bottom:4px;">
+            留言內容 <span style="color:#ef4444;">*</span>
+          </label>
+          <textarea id="fb-content" required placeholder="請寫下您在經濟學讀書時遇到的盲點、想請教老師的問題，或是對網站的心得與建議..." rows="4" maxlength="1000" style="width:100%;padding:10px 12px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:.9rem;outline:none;line-height:1.6;resize:vertical;"></textarea>
+          <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:.78rem;color:#94a3b8;">
+            <span>歡迎具體指出題號或概念</span>
+            <span id="fb-char-count">0 / 1000</span>
+          </div>
+        </div>
+
+        <!-- 送出按鈕與狀態 -->
+        <div>
+          <button type="submit" id="fb-submit-btn" style="width:100%;background:#2563eb;color:#ffffff;border:none;padding:10px 16px;border-radius:8px;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s ease;">
+            <span>🚀 送出留言回饋</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- 送出成功提示卡 -->
+      <div id="fb-success-box" style="display:none;margin-top:14px;background:#ecfdf5;border:1.5px solid #a7f3d0;border-radius:8px;padding:12px;color:#065f46;font-size:.88rem;line-height:1.6;">
+        <b>🎉 留言已送達！</b> 感謝同學/老師的熱心回饋，內容已傳送至鍾老師的教學試算表。審閱回覆後會精選展示於右側問答牆！
+      </div>
+
+      <!-- 老師專用：Google 試算表串接說明折疊 -->
+      <details style="margin-top:16px;border-top:1px dashed #cbd5e1;padding-top:12px;">
+        <summary style="font-size:.82rem;font-weight:700;color:#64748b;cursor:pointer;">
+          ⚙️ 老師管理：如何設定您專屬的 Google 試算表同步？
+        </summary>
+        <div style="margin-top:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px;font-size:.8rem;color:#475569;line-height:1.6;">
+          <b>3 步驟自動同步到您的 Google 雲端試算表：</b><br>
+          1. 建立一個 Google 試算表，點選「擴充功能」➔「Apps Script」。<br>
+          2. 貼入自動記錄腳本（支援時間、姓名、身分、章節、內容自動入表）。<br>
+          3. 點選「部署」➔「新的部署作業」，選「網頁應用程式」，將存取權設為「所有人」，複製產生的網址。<br>
+          4. 貼在下方欄位點「儲存」，以後學生留言便會秒進您的個人試算表！<br>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <input type="text" id="custom-gas-url" placeholder="貼上 Google Apps Script 網頁應用程式網址 (https://script.google.com/...)" style="flex:1;padding:4px 8px;font-size:.78rem;border:1px solid #cbd5e1;border-radius:4px;outline:none;" />
+            <button type="button" onclick="saveCustomGasUrl()" style="background:#059669;color:#ffffff;border:none;padding:4px 10px;border-radius:4px;font-size:.78rem;font-weight:700;cursor:pointer;">儲存</button>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- 右欄：精選師生 Q&A・疑難解惑牆 -->
+    <div style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:14px;padding:22px;box-shadow:0 4px 15px rgba(0,0,0,0.04);">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid #f1f5f9;">
+        <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:6px;">
+          <span>💡 師生精選 Q&A・疑難解惑牆</span>
+        </h3>
+        <span style="font-size:.82rem;font-weight:700;color:#2563eb;" id="qa-total-badge">共 5 則精選解答</span>
+      </div>
+
+      <!-- 分類標籤快速過濾 -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;" id="qa-filter-chips">
+        <button type="button" class="qa-chip active" onclick="filterQA('all')" style="border:1px solid #2563eb;background:#2563eb;color:#ffffff;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;">全部 (5)</button>
+        <button type="button" class="qa-chip" onclick="filterQA('盲區')" style="border:1px solid #cbd5e1;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;">💡 觀念盲區</button>
+        <button type="button" class="qa-chip" onclick="filterQA('考點')" style="border:1px solid #cbd5e1;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;">🎯 考點辨析</button>
+        <button type="button" class="qa-chip" onclick="filterQA('圖形')" style="border:1px solid #cbd5e1;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;">📐 必考圖形</button>
+        <button type="button" class="qa-chip" onclick="filterQA('心得')" style="border:1px solid #cbd5e1;background:#f8fafc;color:#475569;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:700;cursor:pointer;">⭐ 學生心得</button>
+      </div>
+
+      <!-- Q&A 卡片容器 -->
+      <div id="qa-cards-container" style="display:flex;flex-direction:column;gap:14px;max-height:600px;overflow-y:auto;padding-right:4px;">
+        <!-- 動態載入或預設渲染 -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 浮動快捷按鈕：快速前往留言板 (右下角) -->
+<button id="float-feedback-btn" onclick="scrollToFeedback()" title="前往師生留言板・提問或回饋" style="position:fixed;bottom:25px;right:25px;z-index:900;background:#2563eb;color:#ffffff;border:none;border-radius:999px;padding:10px 18px;font-size:.92rem;font-weight:800;box-shadow:0 4px 20px rgba(37,99,235,0.45);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s ease;">
+  <span>💬 留言提問</span>
+</button>
 
 <footer style="margin-top:36px;padding:24px 0 48px;border-top:1px solid #e2e8f0">
   <!-- 1. 全站統計膠囊 -->
@@ -4758,6 +4932,318 @@ async function initSiteStats(){
   }
 }
 initSiteStats();
+
+
+// ==========================================
+// 💬 師生互動留言板邏輯（Scheme A: Google 試算表串接 + 精選 Q&A）
+// ==========================================
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.toString()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+const CURATED_QA_DATA = [
+  {
+    id: "qa_01",
+    name: "商經三乙 阿豪",
+    role: "學生",
+    chapter: "CH7 完全競爭市場",
+    category: "💡 觀念盲區",
+    date: "2026-11-20",
+    likes: 48,
+    question: "老師好，想請問為什麼完全競爭廠商在長期均衡時『經濟利潤＝0（正常利潤）』，廠商卻還願意繼續留在市場生產，不會想關門轉行嗎？",
+    teacherReply: "這是統測每年必考的超級觀念陷阱！經濟學上的『經濟利潤＝0』是指『超額利潤＝0』，但成本中已經計入了『正常利潤（內含成本、包含老闆自己的薪水與投資機會成本）』！也就是說老闆已經拿到了合情合理的報酬，與在其他地方工作的待遇相同，因此當然會滿意並留在市場上繼續生產喔！",
+    badge: "🔥 統測經典"
+  },
+  {
+    id: "qa_02",
+    name: "高三衝刺生",
+    role: "學生",
+    chapter: "CH8 完全獨占市場",
+    category: "🎯 考點辨析",
+    date: "2026-11-21",
+    likes: 56,
+    question: "請問老師，獨占廠商如果降價促銷，總收益 TR 就一定會增加嗎？為什麼有些題目的詳解寫不一定？",
+    teacherReply: "同學問到關鍵核心了！降價是否能增加 TR，完全要看『需求價格彈性 |Ed|』：只有在 |Ed| ＞ 1（富有彈性）階段，降價薄利多銷才會使 TR 增加；若在 |Ed| ＜ 1（缺乏彈性）階段降價，TR 反而會縮水！請務必牢記統測鐵律：『獨占廠商絕不在 |Ed| ＜ 1 階段生產』！",
+    badge: "⚠️ 易錯考點"
+  },
+  {
+    id: "qa_03",
+    name: "會三甲 怡君",
+    role: "學生",
+    chapter: "CH9 寡占與賽局",
+    category: "📐 必考圖形",
+    date: "2026-11-22",
+    likes: 42,
+    question: "史威吉拗折需求模型中，為什麼邊際收益 MR 線會在拗折點正下方出現『垂直斷裂缺口』？這跟價格僵固有什麼關係？",
+    teacherReply: "因為寡占廠商『漲價時同業不跟（需求平坦彈性大，MR 較高）』，而『跌價時同業跟進（需求陡峭彈性小，MR 暴跌）』，導致斜率在拗折點瞬間變陡，MR 就斷裂開來產生垂直缺口！只要邊際成本 MC 線穿過這個缺口上下波動，最適價格與產量都完全不用變動，完美解釋了寡占市場的『價格僵固性』！",
+    badge: "📐 必考圖形"
+  },
+  {
+    id: "qa_04",
+    name: "統測戰士 小晴",
+    role: "學生",
+    chapter: "四大廠商大對照表",
+    category: "⭐ 學習心得",
+    date: "2026-11-23",
+    likes: 67,
+    question: "老師做的 28 項四大廠商大對照表超級神！印成 A3 橫向貼在書桌前，複習完競、獨競、寡占、獨占超清楚，不用四個章節一直翻來翻去，謝謝老師！",
+    teacherReply: "很高興對你有幫助！四大廠商理論佔統測專二相當大的配分比例，記得搭配表格裡的『停業點（P ＝ AVCmin）』與『超額產能』一起背誦，統測經濟學一定能衝破高分，加油！",
+    badge: "🌟 暖心回饋"
+  },
+  {
+    id: "qa_05",
+    name: "高二進度生",
+    role: "學生",
+    chapter: "CH2 需求與供給",
+    category: "💡 觀念盲區",
+    date: "2026-11-24",
+    likes: 39,
+    question: "老師，常常搞不清楚『所得彈性』和『交叉彈性』的符號到底代表什麼財，有沒有口訣可以秒殺？",
+    teacherReply: "記住鍾老師的三字口訣：\n① 所得彈性看『同向或反向』：正數為正常財（大於 1 為奢侈品、小於 1 為必需品）、負數為劣等財！\n② 交叉彈性看『他牌漲價我買多還買少』：正數為替代品（如可樂與雪碧）、負數為互補品（如咖啡與奶精）、0 為獨立品！",
+    badge: "💡 記憶口訣"
+  }
+];
+
+let currentQAFilter = 'all';
+
+function renderQACards() {
+  const container = document.getElementById('qa-cards-container');
+  if (!container) return;
+
+  // 取得本機使用者剛剛送出的待審留言（如有）
+  let pendingList = [];
+  try {
+    pendingList = JSON.parse(localStorage.getItem('eco_user_pending_feedbacks') || '[]');
+  } catch(e) {}
+
+  let html = '';
+
+  // 1. 先渲染使用者的本地送出卡片（如果有）
+  pendingList.forEach(item => {
+    html += `
+      <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <b style="color:#0f172a;font-size:.92rem;">${escapeHtml(item.name)}</b>
+            <span style="font-size:.75rem;background:#e2e8f0;color:#334155;padding:1px 6px;border-radius:4px;">${escapeHtml(item.role)}</span>
+            <span style="font-size:.75rem;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:4px;font-weight:700;">審核轉發中</span>
+          </div>
+          <span style="font-size:.78rem;color:#64748b;">剛剛送出</span>
+        </div>
+        <div style="font-size:.88rem;color:#334155;line-height:1.6;margin-bottom:8px;">
+          ${escapeHtml(item.content)}
+        </div>
+        <div style="font-size:.78rem;color:#059669;background:#ffffff;border:1px dashed #86efac;border-radius:6px;padding:6px 10px;">
+          💬 <b>系統提示：</b> 您的留言已成功記錄並派送至鍾老師的教學試算表！
+        </div>
+      </div>
+    `;
+  });
+
+  // 2. 渲染官方精選 Q&A
+  const filtered = CURATED_QA_DATA.filter(item => {
+    if (currentQAFilter === 'all') return true;
+    return item.category.includes(currentQAFilter);
+  });
+
+  filtered.forEach(item => {
+    const likeKey = 'qa_liked_' + item.id;
+    const isLiked = localStorage.getItem(likeKey) === '1';
+    const likes = item.likes + (isLiked ? 1 : 0);
+
+    html += `
+      <div style="background:#ffffff;border:1.5px solid #e2e8f0;border-radius:10px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,0.02);transition:all 0.2s ease;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px;">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <b style="color:#0f172a;font-size:.92rem;">${item.name}</b>
+            <span style="font-size:.75rem;background:#f1f5f9;color:#475569;padding:1px 6px;border-radius:4px;">${item.role}</span>
+            <span style="font-size:.75rem;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:1px 6px;border-radius:4px;font-weight:700;">${item.chapter}</span>
+            <span style="font-size:.75rem;background:#fef3c7;color:#b45309;padding:1px 6px;border-radius:4px;font-weight:700;">${item.category}</span>
+          </div>
+          <span style="font-size:.78rem;color:#94a3b8;">${item.date}</span>
+        </div>
+
+        <!-- 學生問題 -->
+        <div style="font-size:.9rem;color:#1e293b;font-weight:600;line-height:1.6;margin-bottom:10px;">
+          ${escapeHtml(item.question)}
+        </div>
+
+        <!-- 鍾老師回覆卡片 -->
+        <div style="background:#fffaf0;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:.85rem;font-weight:800;color:#b45309;">👨‍🏫 鍾老師親筆解析：</span>
+            <span style="font-size:.72rem;background:#fef3c7;color:#92400e;padding:1px 5px;border-radius:3px;font-weight:700;">${item.badge}</span>
+          </div>
+          <div style="font-size:.88rem;color:#451a03;line-height:1.65;white-space:pre-line;">
+            ${escapeHtml(item.teacherReply)}
+          </div>
+        </div>
+
+        <!-- 互動點讚 -->
+        <div style="display:flex;justify-content:flex-end;">
+          <button type="button" onclick="toggleQALike('${item.id}')" style="background:${isLiked ? '#ecfdf5' : '#f8fafc'};color:${isLiked ? '#047857' : '#64748b'};border:1px solid ${isLiked ? '#a7f3d0' : '#cbd5e1'};padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+            <span>👍 有幫助</span>
+            <b id="likes-count-${item.id}">${likes}</b>
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function filterQA(category) {
+  currentQAFilter = category;
+  document.querySelectorAll('.qa-chip').forEach(btn => {
+    btn.style.background = '#f8fafc';
+    btn.style.color = '#475569';
+    btn.style.borderColor = '#cbd5e1';
+  });
+  if (event && event.target) {
+    event.target.style.background = '#2563eb';
+    event.target.style.color = '#ffffff';
+    event.target.style.borderColor = '#2563eb';
+  }
+  renderQACards();
+}
+
+function toggleQALike(id) {
+  const likeKey = 'qa_liked_' + id;
+  const isLiked = localStorage.getItem(likeKey) === '1';
+  if (isLiked) {
+    localStorage.removeItem(likeKey);
+  } else {
+    localStorage.setItem(likeKey, '1');
+  }
+  renderQACards();
+}
+
+async function submitFeedback(e) {
+  e.preventDefault();
+  const name = document.getElementById('fb-name').value.trim();
+  const role = document.getElementById('fb-role').value;
+  const chapter = document.getElementById('fb-chapter').value;
+  const category = document.getElementById('fb-category').value;
+  const content = document.getElementById('fb-content').value.trim();
+  const submitBtn = document.getElementById('fb-submit-btn');
+
+  if (!content) {
+    alert('請填寫留言內容喔！');
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span>⏳ 傳送至試算表中...</span>';
+
+  const payload = {
+    name: name || '熱心同學',
+    role: role,
+    chapter: chapter,
+    category: category,
+    content: content,
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    // 1. 先呼叫自建的 Pages Function /api/feedback
+    const res = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => null);
+
+    // 2. 如果老師有填寫自訂 Google Apps Script Web App URL，也直接發送一份
+    const customGasUrl = localStorage.getItem('eco_custom_gas_url');
+    if (customGasUrl && customGasUrl.startsWith('https://script.google.com')) {
+      try {
+        fetch(customGasUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch(e){}
+    }
+
+    // 3. 儲存於使用者本地待審清單
+    try {
+      let pendingList = JSON.parse(localStorage.getItem('eco_user_pending_feedbacks') || '[]');
+      pendingList.unshift(payload);
+      if (pendingList.length > 5) pendingList = pendingList.slice(0, 5);
+      localStorage.setItem('eco_user_pending_feedbacks', JSON.stringify(pendingList));
+    } catch(e) {}
+
+    // 4. 成功反饋
+    document.getElementById('fb-content').value = '';
+    document.getElementById('fb-char-count').innerText = '0 / 1000';
+    document.getElementById('fb-success-box').style.display = 'block';
+    submitBtn.innerHTML = '<span>✅ 送出成功！</span>';
+    submitBtn.style.background = '#059669';
+
+    renderQACards();
+
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<span>🚀 送出留言回饋</span>';
+      submitBtn.style.background = '#2563eb';
+    }, 4000);
+
+  } catch (err) {
+    alert('送出時發生問題，請稍後再試：' + err.message);
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<span>🚀 送出留言回饋</span>';
+  }
+}
+
+function scrollToFeedback() {
+  const sec = document.getElementById('feedback-section');
+  if (sec) {
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const content = document.getElementById('fb-content');
+    if (content) setTimeout(() => content.focus(), 600);
+  }
+}
+
+function saveCustomGasUrl() {
+  const url = document.getElementById('custom-gas-url').value.trim();
+  if (!url) {
+    localStorage.removeItem('eco_custom_gas_url');
+    alert('已清除自訂 Google Apps Script 網址');
+  } else if (!url.startsWith('https://script.google.com')) {
+    alert('網址格式需為 Google Apps Script 網址 (https://script.google.com/...)');
+  } else {
+    localStorage.setItem('eco_custom_gas_url', url);
+    alert('已成功儲存您的 Google 試算表 Webhook 網址！後續學生留言將直接傳送到您的 Google 試算表。');
+  }
+}
+
+// 監聽字數計數
+document.addEventListener('DOMContentLoaded', () => {
+  const contentInput = document.getElementById('fb-content');
+  const countEl = document.getElementById('fb-char-count');
+  if (contentInput && countEl) {
+    contentInput.addEventListener('input', () => {
+      countEl.innerText = contentInput.value.length + ' / 1000';
+    });
+  }
+
+  // 載入自訂 Google Apps Script URL
+  const customUrl = localStorage.getItem('eco_custom_gas_url');
+  const inputEl = document.getElementById('custom-gas-url');
+  if (customUrl && inputEl) {
+    inputEl.value = customUrl;
+  }
+
+  // 初始化渲染 Q&A 卡片
+  renderQACards();
+});
+
 </script>
 </body>
 </html>
