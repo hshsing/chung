@@ -63,7 +63,7 @@
       <div class="flex items-center space-x-4 text-slate-300">
         <span>代碼釋義：<strong class="text-amber-300">w=走動</strong> | <strong class="text-rose-300">t=說話</strong> | <strong class="text-purple-300">p=玩手機</strong> | <strong class="text-sky-300">窗=窗戶</strong></span>
         <span class="text-slate-400">|</span>
-        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/27 下午5:10:26</span>
+        <span id="update-timestamp" class="text-slate-300 font-mono">更新: 2026/11/27 下午5:38:41</span>
       </div>
     </div>
   </div>
@@ -794,18 +794,34 @@
         });
         container.appendChild(listDiv);
 
-        if (selectedBiWeek === 'bw_10_11') {
+        const curBw = (currentData.biWeeklyData && currentData.biWeeklyData[selectedBiWeek]);
+        if (curBw) {
           const noteDiv = document.createElement('div');
-          noteDiv.className = 'mt-2.5 p-3 rounded-xl border border-amber-200 bg-amber-50/90 text-xs text-amber-950 flex items-start space-x-2.5';
+          const isOngoing = curBw.weeks.length < 2;
+          const startStr = curBw.startDate ? curBw.startDate.slice(5).replace('-', '/') : '';
+          const endStr = curBw.endDate ? curBw.endDate.slice(5).replace('-', '/') : '';
+          const maxScore = curBw.daysCount * 2;
+
+          noteDiv.className = 'mt-2.5 p-3 rounded-xl border text-xs leading-relaxed flex items-start space-x-2.5 ' + 
+            (isOngoing ? 'bg-amber-50/90 border-amber-200 text-amber-950' : 'bg-indigo-50/80 border-indigo-200 text-slate-800');
+
+          const statusBadge = isOngoing
+            ? '<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold text-[10px]">進行中</span>'
+            : '<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px]">正式結算完成</span>';
+
+          const descText = isOngoing
+            ? `本雙週結算期目前僅包含第 ${curBw.weeks[0]} 週已發布之 ${curBw.daysCount} 天評分（${startStr}～${endStr}，滿分暫為 ${maxScore} 分）。各年級零違規之滿分班級暫時並列第 1 名。待雙週各日評分全部發布後，系統將自動隨總得分更新名次，產出正式雙週結算 1～6 名。`
+            : `本雙週結算期（第 ${curBw.weeks.join('-')} 週）評分期間為 ${startStr}～${endStr}，共計 ${curBw.daysCount} 個自習評比日（滿分 ${maxScore} 分）。各年級依雙週自習秩序總得分評定 1～6 名優勝榮譽榜；同分班級並列同名次，後續名次依序遞延（例如：若 2 班並列第 1 名，次高分者即為第 3 名），凡評定名次在第 1～6 名之優勝班級皆全數列入頒獎與通報名單。`;
+
           noteDiv.innerHTML = `
             <span class="text-base flex-shrink-0">💡</span>
             <div>
               <div class="font-bold flex items-center space-x-2">
-                <span>第 10-11 週 雙週結算說明（進行中階段）</span>
-                <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px]">進行中</span>
+                <span>第 ${curBw.weeks.join('-')} 週 雙週結算說明（共 ${curBw.daysCount} 天，滿分 ${maxScore} 分）</span>
+                ${statusBadge}
               </div>
-              <p class="mt-0.5 text-amber-900 leading-relaxed">
-                本雙週結算期目前僅包含第 10 週已發布之 3 天評分（11/02~11/04，滿分暫為 6 分）。各年級零違規之滿分班級暫時並列第 1 名。待雙週各日評分全部發布後，系統將自動隨總得分更新名次，產出正式雙週結算 1~6 名。
+              <p class="mt-0.5 text-slate-700 leading-relaxed">
+                ${descText}
               </p>
             </div>
           `;
@@ -1492,30 +1508,10 @@
     }
 
     function getAwardedClasses(classesInGrade) {
-      const sorted = [...classesInGrade].sort((a, b) => a.rank - b.rank || b.totalScore - a.totalScore || a.classCode.localeCompare(b.classCode));
-      const rankGroups = [];
-      for (const c of sorted) {
-        if (c.rank > 6) continue;
-        let grp = rankGroups.find(g => g.rank === c.rank);
-        if (!grp) {
-          grp = { rank: c.rank, classes: [] };
-          rankGroups.push(grp);
-        }
-        grp.classes.push(c);
-      }
-
-      const result = [];
-      for (const grp of rankGroups) {
-        if (result.length + grp.classes.length <= 6) {
-          result.push(...grp.classes);
-        } else {
-          if (result.length === 0) {
-            result.push(...grp.classes);
-          }
-          break;
-        }
-      }
-      return result;
+      // 依名次取前六名（凡名次 1~6 名之優勝班級全數列入，若有並列同名次皆完整獲獎）
+      return [...classesInGrade]
+        .filter(c => c.rank && c.rank <= 6)
+        .sort((a, b) => a.rank - b.rank || b.totalScore - a.totalScore || a.classCode.localeCompare(b.classCode));
     }
 
     function buildPeriodRows(period, isFirst) {
@@ -1546,15 +1542,13 @@
 
     function createStyledSheet(aoaData) {
       const ws = XLSX.utils.aoa_to_sheet(aoaData);
-      ws['!cols'] = [
-        { wch: 10 }, { wch: 10 },
-        { wch: 9 },  { wch: 8 },
-        { wch: 9 },  { wch: 8 },
-        { wch: 9 },  { wch: 8 },
-        { wch: 9 },  { wch: 8 },
-        { wch: 9 },  { wch: 8 },
-        { wch: 9 },  { wch: 8 }
-      ];
+      const maxCols = Math.max(...aoaData.map(r => r.length), 14);
+      const cols = [{ wch: 10 }, { wch: 10 }];
+      for (let i = 2; i < maxCols; i += 2) {
+        cols.push({ wch: 9 });
+        cols.push({ wch: 8 });
+      }
+      ws['!cols'] = cols;
       return ws;
     }
 
