@@ -1,7 +1,7 @@
 # AGENTS.md
 
 - Stack: Cloudflare Pages (static `public/` + Pages Functions `functions/api/` + Workers AI binding `AI`).
-- Entrypoint: `public/index.html` (single-file app, Tesseract.js + OpenCC CDN fallback when /api/* 501).
+- Entrypoint: `public/eco.html` & `public/eco/index.html` served at `/eco` (single-file economics app, Tesseract.js + OpenCC CDN fallback when /api/* 501); `public/index.html` is a minimal neutral placeholder page at `/`.
 - Deploy: Git-connected Pages, project `hshsing`, Build command empty, Output dir `public`. Local preview: `npx wrangler pages dev ./public`.
 - Manual deploy (fallback): `wrangler pages deploy ./public --project-name=hshsing`.
 - Ignored (not deployed): `/pdfs/` (19 PDFs ~92MB local only), `.wrangler/`, `.env`, `/index.html` (deleted duplicate).
